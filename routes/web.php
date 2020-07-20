@@ -9,6 +9,8 @@ Route::post('/login', 'AuthController@postLogin');
 Route::get('/register', 'AuthController@register');
 Route::post('/register', 'AuthController@postRegister');
 
+Route::get('/products', 'ProductsController@index');
+
 Route::group(['middleware' => 'auth'], function() {
 	Route::get('/logout', 'AuthController@logout');
 });
