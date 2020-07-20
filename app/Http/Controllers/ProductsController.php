@@ -10,4 +10,9 @@ class ProductsController extends Controller
     {
     	return view('products/index');
     }
+
+    public function detail($id)
+    {
+    	return view('products/detail');
+    }
 }
