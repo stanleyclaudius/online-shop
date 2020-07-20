@@ -25,7 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('province');
             $table->string('city');
             $table->string('address');
-            $tbale->string('gender');
+            $table->string('gender');
             $table->timestamps();
         });
     }
