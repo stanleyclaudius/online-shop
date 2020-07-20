@@ -8,8 +8,8 @@
 <body>
 
 	<nav>
-		<div class="flex items-center justify-between w-full px-20 py-4" style="box-shadow: 1px 1px 20px rgba(0,0,0,.5);">
-			<p class="text-3xl font-semibold">SC Shop</p>
+		<div class="flex items-center justify-between w-full px-20 py-5" style="box-shadow: 1px 1px 20px rgba(0,0,0,.5);">
+			<p class="text-3xl font-semibold">Dev Store</p>
 			<ul class="flex items-center">
 				<li><a href="" class="text-lg mr-10">Home</a></li>
 				<li><a href="" class="text-lg mr-10">Products</a></li>
@@ -21,9 +21,9 @@
 
 	@yield('content')
 
-	<footer class="mt-12 grid grid-cols-3 container mx-auto mb-3">
+	<footer class="mt-16 grid grid-cols-3 container mx-auto mb-3">
 		<div>
-			<p class="text-3xl font-semibold">SC Shop</p>
+			<p class="text-3xl font-semibold">Dev Store</p>
 		</div>
 		<div class="col-span-2 flex justify-between">
 			<div>
