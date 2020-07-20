@@ -9,12 +9,12 @@
 
 	<nav>
 		<div class="flex items-center justify-between w-full px-20 py-5" style="box-shadow: 1px 1px 20px rgba(0,0,0,.5);">
-			<p class="text-3xl font-semibold">Dev Store</p>
+			<a href="/" class="text-3xl font-semibold">Dev Store</a>
 			<ul class="flex items-center">
-				<li><a href="" class="text-lg mr-10">Home</a></li>
-				<li><a href="" class="text-lg mr-10">Products</a></li>
-				<li><a href="" class="text-lg mr-10">Sign In</a></li>
-				<li><a href="" class="rounded px-3 py-2 bg-gray-800 text-white transition duration-150 ease-in-out hover:bg-gray-700">Sign Up</a></li>
+				<li><a href="/" class="text-lg mr-10">Home</a></li>
+				<li><a href="/products" class="text-lg mr-10">Products</a></li>
+				<li><a href="/login" class="text-lg mr-10">Sign In</a></li>
+				<li><a href="/register" class="rounded px-3 py-2 bg-gray-800 text-white transition duration-150 ease-in-out hover:bg-gray-700">Sign Up</a></li>
 			</ul>
 		</div>
 	</nav>

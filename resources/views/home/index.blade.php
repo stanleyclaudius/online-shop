@@ -1,6 +1,6 @@
 @extends('template/main')
 
-@section('title', 'SC Shop | Home')
+@section('title', 'Dev Store | Home')
 
 @section('content')
 <div class="container mx-auto mt-16 flex items-center px-12">
