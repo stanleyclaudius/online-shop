@@ -11,6 +11,8 @@
 			transition: background-color .3s;
 			border-radius: 3px;
 			text-decoration: none;
+			font-size: 16px;
+			margin-bottom: 20px;
 		}
 		a:hover {
 			background-color: darkblue;
@@ -20,7 +22,7 @@
 <body>
 
 	<p style="font-size: 15px;">Hi, {{ $data['name'] }}.</p>
-	<p style="font-size: 15px;">Click the button to reset your password.</p>
+	<p style="font-size: 15px; margin-bottom: 20px;">Click the button to reset your password for <b>Dev Store</b> account.</p>
 
 	<a href="http://127.0.0.1:8000/reset/{{ $data['token'] }}" target="_blank">Reset Password</a>
 

@@ -4,6 +4,43 @@
 	<meta charset="UTF-8">
 	<title>@yield('title')</title>
 	<link rel="stylesheet" href="{{ asset('css') }}/main.css">
+	<style>
+		.dropdown {
+			float: left;
+			overflow: hidden;
+		}
+
+		.dropdown .dropbtn {
+			cursor: pointer;
+			margin: 0;
+		}
+
+		.dropdown-content {
+		  display: none;
+		  position: absolute;
+		  background-color: #f9f9f9;
+		  min-width: 160px;
+		  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+		  z-index: 999;
+		}
+
+		.dropdown-content a {
+		  float: none;
+		  color: black;
+		  padding: 12px 16px;
+		  text-decoration: none;
+		  display: block;
+		  text-align: left;
+		}
+
+		.dropdown-content a:hover {
+		  background-color: #ddd;
+		}
+
+		.show {
+		  display: block !important;
+		}
+	</style>
 </head>
 <body>
 
@@ -16,7 +53,15 @@
 				@if(Session::get('log') == true)
 					<li class="mr-10"><a href=""><img src="{{ asset('img') }}/icons/cart.png" alt="" width="25"></a></li>
 					<li class="mr-10"><a href=""><img src="{{ asset('img') }}/icons/delivery.png" alt="" width="35"></a></li>
-					<li><a href="/logout" class="rounded px-3 py-2 bg-gray-800 text-white transition duration-150 ease-in-out hover:bg-gray-700">Logout</a></li>
+					<li>
+						<div class="dropdown">
+							<button class="dropbtn"><img src="{{ asset('img') }}/avatar/{{ auth()->user()->avatar }}" width="40" class="border border-gray-400 rounded-full" alt=""></button>
+							<div class="dropdown-content" id="myDropdown">
+								<a href="#">My Profile</a>
+								<a href="/logout">Logout</a>
+							</div>
+						</div> 
+					</li>
 				@else
 					<li><a href="/login" class="text-lg mr-10">Sign In</a></li>
 					<li><a href="/register" class="rounded px-3 py-2 bg-gray-800 text-white transition duration-150 ease-in-out hover:bg-gray-700">Sign Up</a></li>
@@ -66,6 +111,21 @@
 		</div>
 	</footer>
 
+<script>
+	const dropBtn = document.querySelector('.dropbtn');
+	dropBtn.addEventListener('click', function() {
+		document.querySelector('.dropdown-content').classList.toggle('show');
+	});
+
+	// window.onclick = function(e) {
+	// 	if (!e.target.matches('.dropbtn')) {
+	// 		var myDropdown = document.getElementById("myDropdown");
+	// 		if (myDropdown.classList.contains('show')) {
+	// 			myDropdown.classList.remove('show');
+	// 		}
+	// 	}
+	// }
+</script>
 @yield('script')
 </body>
 </html>

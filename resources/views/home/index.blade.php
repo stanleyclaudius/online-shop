@@ -90,6 +90,6 @@
 	<p class="text-3xl">Not a member yet?</p>
 	<p class="text-md mt-2 text-gray-600">Simply Sign In and become member and get exclusive discount and exclusive rewards.</p>
 	<p class="mb-5 text-md mt-2 text-gray-600">We'll hold a giveaway event for all member that purchase more than IDR 50M a year</p>
-	<a href="" class="rounded bg-gray-800 text-white px-2 py-2 transition duration-150 ease-in-out hover:bg-gray-700">Sign In</a>
+	<a href="/login" class="rounded bg-gray-800 text-white px-2 py-2 transition duration-150 ease-in-out hover:bg-gray-700">Sign In</a>
 </div>
 @endsection

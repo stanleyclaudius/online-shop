@@ -69,6 +69,7 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'remember_token' => Str::random(10),
+            'avatar' => 'default.png',
             'is_verified' => 0,
         ]);
 
