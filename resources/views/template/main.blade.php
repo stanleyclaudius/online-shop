@@ -13,9 +13,19 @@
 			<ul class="flex items-center">
 				<li><a href="/" class="text-lg mr-10">Home</a></li>
 				<li><a href="/products" class="text-lg mr-10">Products</a></li>
-				<li><a href="/login" class="text-lg mr-10">Sign In</a></li>
-				<li><a href="/register" class="rounded px-3 py-2 bg-gray-800 text-white transition duration-150 ease-in-out hover:bg-gray-700">Sign Up</a></li>
+				@if(Session::get('log') == true)
+					<li class="mr-10"><a href=""><img src="{{ asset('img') }}/icons/cart.png" alt="" width="25"></a></li>
+					<li class="mr-10"><a href=""><img src="{{ asset('img') }}/icons/delivery.png" alt="" width="35"></a></li>
+					<li><a href="/logout" class="rounded px-3 py-2 bg-gray-800 text-white transition duration-150 ease-in-out hover:bg-gray-700">Logout</a></li>
+				@else
+					<li><a href="/login" class="text-lg mr-10">Sign In</a></li>
+					<li><a href="/register" class="rounded px-3 py-2 bg-gray-800 text-white transition duration-150 ease-in-out hover:bg-gray-700">Sign Up</a></li>
+				@endif
 			</ul>
+			<div class="relative">
+				<img src="{{ asset('img') }}/icons/search.png" alt="" class="absolute top-0 ml-3 mt-2" width="20">
+				<input type="text" class="rounded-full w-64 h-10 px-10 border border-gray-400 focus:shadow-outline focus:outline-none">
+			</div>
 		</div>
 	</nav>
 
