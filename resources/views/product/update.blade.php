@@ -167,7 +167,7 @@
                     <h5 class="modal-title">Edit Profile</h5>
                 </div>
                 <div class="modal-body">
-                    <form action="/user/update/{{ auth()->user()->id }}" method="post" enctype="multipart/form-data">
+                    <form action="/admin/editprofile/{{ auth()->user()->id }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             @if($errors->has('name')) 
@@ -175,15 +175,7 @@
                                 @else
                                 <label for="name">Name</label>
                             @endif
-                            <input type="text" name="name" class="form-control" id="name" placeholder="Your name" value="">
-                        </div>
-                        <div class="form-group">
-                            @if($errors->has('username'))
-                                <small class="text-danger">{{ $errors->first('username') }}</small>
-                            @else
-                                <label for="username">Username</label>
-                            @endif
-                            <input type="text" name="username" class="form-control" id="username" placeholder="Your username" value="">
+                            <input type="text" name="name" class="form-control" id="name" placeholder="Your name" value="{{ $user->name }}">
                         </div>
                         <div class="row mt-4">
                             <div class="col-md-12">
@@ -220,7 +212,7 @@
                     <h5 class="modal-title">Change Password</h5>
                 </div>
                 <div class="modal-body">
-                    <form action="/user/changepassword/{{ auth()->user()->id }}" method="post">
+                    <form action="/admin/changepassword/{{ auth()->user()->id }}" method="post">
                         @csrf
                         <div class="form-group">
                             @if($errors->has('old_password')) 

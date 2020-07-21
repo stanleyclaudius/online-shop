@@ -6,15 +6,17 @@ use Illuminate\Http\Request;
 use App\Category;
 use App\Product;
 use App\Menu;
+use App\User;
 
 class ProductController extends Controller
 {
     public function index()
     {
+        $user = User::find(auth()->user()->id);
         $products = Product::all();
         $categories = Category::all();
     	$menus = Menu::all();
-    	return view('product/index', compact(['menus', 'products', 'categories']));
+    	return view('product/index', compact(['menus', 'products', 'categories', 'user']));
     }
 
     public function addProduct(Request $request)
@@ -53,10 +55,11 @@ class ProductController extends Controller
 
     public function updateProduct($id)
     {
+        $user = User::find(auth()->user()->id);
         $menus = Menu::all();
         $product = Product::find($id);
         $categories = Category::all();
-        return view('product/update', compact(['menus', 'product', 'categories']));
+        return view('product/update', compact(['menus', 'product', 'categories', 'user']));
     }
 
     public function postUpdateProduct(Request $request, $id)
@@ -92,9 +95,10 @@ class ProductController extends Controller
 
     public function category()
     {
+        $user = User::find(auth()->user()->id);
     	$menus = Menu::all();
         $categories = Category::all();
-    	return view('product/category', compact(['menus', 'categories']));
+    	return view('product/category', compact(['menus', 'categories', 'user']));
     }
 
     public function addCategory(Request $request)
@@ -119,9 +123,10 @@ class ProductController extends Controller
 
     public function updateCategory($id)
     {
+        $user = User::find(auth()->user()->id);
         $menus = Menu::all();
         $category = Category::find($id);
-        return view('product/update-category', compact(['category', 'menus']));
+        return view('product/update-category', compact(['category', 'menus', 'user']));
     }
 
     public function postUpdateCategory(Request $request, $id)

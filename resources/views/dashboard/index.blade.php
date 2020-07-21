@@ -15,7 +15,7 @@
 </head>
 
 <body id="page-top">
-    <div class="flashdata" data-flash="{{ Session::get('user') }}"></div>
+    <div class="flashdata" data-flash="{{ Session::get('admin') }}"></div>
 
     <div id="wrapper">
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
@@ -105,7 +105,7 @@
                     <h5 class="modal-title">Edit Profile</h5>
                 </div>
                 <div class="modal-body">
-                    <form action="/user/update/{{ auth()->user()->id }}" method="post" enctype="multipart/form-data">
+                    <form action="/admin/editprofile/{{ auth()->user()->id }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             @if($errors->has('name')) 
@@ -113,15 +113,7 @@
                                 @else
                                 <label for="name">Name</label>
                             @endif
-                            <input type="text" name="name" class="form-control" id="name" placeholder="Your name" value="">
-                        </div>
-                        <div class="form-group">
-                            @if($errors->has('username'))
-                                <small class="text-danger">{{ $errors->first('username') }}</small>
-                            @else
-                                <label for="username">Username</label>
-                            @endif
-                            <input type="text" name="username" class="form-control" id="username" placeholder="Your username" value="">
+                            <input type="text" name="name" class="form-control" id="name" placeholder="Your name" value="{{ $user->name }}">
                         </div>
                         <div class="row mt-4">
                             <div class="col-md-12">
@@ -158,7 +150,7 @@
                     <h5 class="modal-title">Change Password</h5>
                 </div>
                 <div class="modal-body">
-                    <form action="/user/changepassword/{{ auth()->user()->id }}" method="post">
+                    <form action="/admin/changepassword/{{ auth()->user()->id }}" method="post">
                         @csrf
                         <div class="form-group">
                             @if($errors->has('old_password')) 
@@ -193,79 +185,6 @@
         </div>
     </div>
 
-    <!-- Add Portfolio Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add Portfolio</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="/admin/add" method="post" enctype="multipart/form-data">
-                        @csrf
-                        <div class="form-group">
-                            @if($errors->has('title')) 
-                                <small class="text-danger">{{ $errors->first('title') }}</small>
-                            @else
-                                <label for="title">Title</label>
-                            @endif
-                            <input type="text" name="title" class="form-control" id="title" placeholder="Portfolio title" value="{{ old('title') }}">
-                        </div>
-                        <div class="form-group">
-                            @if($errors->has('judul')) 
-                                <small class="text-danger">{{ $errors->first('judul') }}</small>
-                            @else
-                                <label for="judul">Indonesia Title</label>
-                            @endif
-                            <input type="text" name="judul" class="form-control" id="judul" placeholder="Portfolio Indonesia title" value="{{ old('judul') }}">
-                        </div>
-                        <div class="form-group">
-                            @if($errors->has('description')) 
-                                <small class="text-danger">{{ $errors->first('description') }}</small>
-                            @else
-                                <label for="description">Description</label>
-                            @endif
-                            <textarea rows="5" name="description" class="form-control" id="description" placeholder="Portfolio description">{{ old('description') }}</textarea>
-                        </div>
-                        <div class="form-group">
-                            @if($errors->has('deskripsi')) 
-                                <small class="text-danger">{{ $errors->first('deskripsi') }}</small>
-                            @else
-                                <label for="deskripsi">Indonesia Description</label>
-                            @endif
-                            <textarea rows="5" name="deskripsi" class="form-control" id="deskripsi" placeholder="Portfolio indonesia description">{{ old('deskripsi') }}</textarea>
-                        </div>
-                        <div class="form-group">
-                            @if($errors->has('content')) 
-                                <small class="text-danger">{{ $errors->first('content') }}</small>
-                            @else
-                                <label for="editor">Content</label>
-                            @endif
-                            <textarea rows="5" name="content" class="form-control" id="editor" placeholder="Portfolio content">{{ old('content') }}</textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="thumbnail">Thumbnail</label>
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="thumbnail" name="thumbnail">
-                                <label class="custom-file-label" for="thumbnail">Choose file</label>
-                                @if($errors->has('thumbnail'))
-                                    <small class="text-danger">{{ $errors->first('thumbnail') }}</small>
-                                @endif
-                            </div>
-                        </div>
-                </div>
-                <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Add Portfolio</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-<script type='text/javascript' src='https://cdn.jsdelivr.net/npm/froala-editor@3.1.0/js/froala_editor.pkgd.min.js'></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script src="{{ asset('js') }}/admin/jquery.min.js"></script>
 <script src="{{ asset('js') }}/admin/bootstrap.bundle.min.js"></script>
@@ -277,25 +196,6 @@
         let fileName = $(this).val().split('\\').pop();
         $(this).next('.custom-file-label').addClass("selected").html(fileName);
     })
-
-    new FroalaEditor('#editor', {toolbarInline: false});
-
-    $('.deletebtn').click(function() {
-        let dataID = $(this).data('id');
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.value) {
-            document.location.href="/admin/delete/" + dataID;
-            }
-        })
-    });
 </script>
 </body>
 </html>

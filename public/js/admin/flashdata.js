@@ -36,5 +36,23 @@ $(document).ready(function() {
 			text: 'Product has been updated!',
 			icon: 'success'
 		});
+	} else if (flashdata === 'profile changed') {
+		swal.fire({
+			title: 'Success',
+			text: 'Profile has been changed!',
+			icon: 'success'
+		});
+	} else if (flashdata === 'password changed') {
+		swal.fire({
+			title: 'Success',
+			text: 'Your password has been changed!',
+			icon: 'success'
+		});
+	} else if (flashdata === 'wrong cur pass') {
+		swal.fire({
+			title: 'Failed',
+			text: 'Wrong current password!',
+			icon: 'error'
+		});
 	}
 });

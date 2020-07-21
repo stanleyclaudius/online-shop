@@ -36,4 +36,7 @@ Route::group(['middleware' => ['auth', 'checkRole:1']], function() {
 	Route::get('/product/category/delete/{id}', 'ProductController@deleteCategory');
 	Route::get('/product/category/update/{id}', 'ProductController@updateCategory');
 	Route::post('/product/category/update/{id}', 'ProductController@postUpdateCategory');
+
+	Route::post('/admin/editprofile/{id}', 'AdminController@editProfile');
+	Route::post('/admin/changepassword/{id}', 'AdminController@changePassword');
 });
