@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'HomeController@index');
 
-Route::get('/login', 'AuthController@login');
+Route::get('/login', 'AuthController@login')->name('login');
 Route::post('/login', 'AuthController@postLogin');
 Route::get('/register', 'AuthController@register');
 Route::post('/register', 'AuthController@postRegister');
@@ -19,6 +19,10 @@ Route::post('/reset/password/{email}/{token}', 'AuthController@postResetPassword
 Route::get('/products', 'ProductsController@index');
 Route::get('/detail/{id}', 'ProductsController@detail');
 
-Route::group(['middleware' => 'auth'], function() {
+Route::group(['middleware' => 'auth', 'checkRole:1,2'], function() {
 	Route::get('/logout', 'AuthController@logout');
+});
+
+Route::group(['middleware' => 'auth', 'checkRole:1'], function() {
+	
 });
