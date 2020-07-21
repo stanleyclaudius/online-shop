@@ -25,5 +25,15 @@ Route::group(['middleware' => ['auth', 'checkRole:1,2']], function() {
 
 Route::group(['middleware' => ['auth', 'checkRole:1']], function() {
 	Route::get('/dashboard', 'DashboardController@index');
+
 	Route::get('/product', 'ProductController@index');
+	Route::post('/product/add', 'ProductController@addProduct');
+	Route::get('/product/delete/{id}', 'ProductController@deleteProduct');
+	Route::get('/product/update/{id}', 'ProductController@updateProduct');
+	Route::post('/product/update/{id}', 'ProductController@postUpdateProduct');
+	Route::get('/product/category', 'ProductController@category');
+	Route::post('/product/category', 'ProductController@addCategory');
+	Route::get('/product/category/delete/{id}', 'ProductController@deleteCategory');
+	Route::get('/product/category/update/{id}', 'ProductController@updateCategory');
+	Route::post('/product/category/update/{id}', 'ProductController@postUpdateCategory');
 });

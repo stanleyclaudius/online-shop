@@ -1,39 +1,39 @@
 $(document).ready(function() {
 	let flashdata = $('.flashdata').data('flash');
-	if (flashdata === 'profile updated') {
+	if (flashdata === 'category added') {
 		swal.fire({
 			title: 'Success',
-			text: 'Your profile has been updated!',
+			text: 'New product category has been added!',
 			icon: 'success'
 		});
-	} else if (flashdata === 'password changed') {
+	} else if (flashdata === 'category deleted') {
 		swal.fire({
 			title: 'Success',
-			text: 'Your password has been changed!',
+			text: 'Product category has been deleted!',
 			icon: 'success'
 		});
-	} else if (flashdata === 'wrong cur pass') {
-		swal.fire({
-			title: 'Error',
-			text: 'Your current password not match!',
-			icon: 'error'
-		})
-	} else if (flashdata === 'portfolio added') {
+	} else if (flashdata === 'category updated') {
 		swal.fire({
 			title: 'Success',
-			text: 'Portfolio has been added!',
+			text: 'Product category has been updated!',
 			icon: 'success'
 		});
-	} else if (flashdata === 'portfolio deleted') {
+	} else if (flashdata === 'product added') {
 		swal.fire({
-			title: 'success',
-			text: 'Portfolio has been deleted',
+			title: 'Success',
+			text: 'New product has been added!',
 			icon: 'success'
-		})
-	} else if (flashdata === 'portfolio updated') {
+		});
+	} else if (flashdata === 'product deleted') {
 		swal.fire({
-			title: 'success',
-			text: 'Portfolio has been updated',
+			title: 'Success',
+			text: 'Product has been deleted!',
+			icon: 'success'
+		});
+	} else if (flashdata === 'product updated') {
+		swal.fire({
+			title: 'Success',
+			text: 'Product has been updated!',
 			icon: 'success'
 		});
 	}

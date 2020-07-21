@@ -20,8 +20,8 @@ class CreateProductsTable extends Migration
             $table->text('product_description');
             $table->text('product_spec');
             $table->integer('product_price');
-            $table->string('product_image');
-            $table->integer('product_rating');
+            $table->string('product_image')->nullable();
+            $table->integer('product_rating')->nullable();
             $table->timestamps();
         });
     }
