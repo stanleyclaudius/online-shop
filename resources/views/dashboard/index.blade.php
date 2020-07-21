@@ -19,37 +19,24 @@
 
     <div id="wrapper">
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/admin">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/dashboard">
                 <div class="sidebar-brand-icon rotate-n-15"></div>
                 <div class="sidebar-brand-text mx-3">Dev Store</div>
             </a>
-            <hr class="sidebar-divider my-0">
-            <li class="nav-item active">
-                <a class="nav-link" href="/admin">
-                    <img src="{{ asset('img') }}/icon/service/file.png" alt="" width="20">
-                    <span>Dashboard</span>
-                </a>
-            </li>
-            <hr class="sidebar-divider">
-            <div class="sidebar-heading">
-            	website interface
-            </div>
-            <li class="nav-item active">
-                <a class="nav-link" href="/admin">
-                    <img src="{{ asset('img') }}/icon/service/file.png" alt="" width="20">
-                    <span>Signature Products</span>
-                </a>
-            </li>
-            <hr class="sidebar-divider">
-            <div class="sidebar-heading">
-            	product
-            </div>
-            <li class="nav-item active">
-            	<a href="/product" class="nav-link">
-            		<img src="{{ asset('img') }}/icon/service/file.png" alt="" width="20">
-                    <span>Product List</span>
-            	</a>
-            </li>
+            @foreach($menus as $menu)
+                <div class="sidebar-heading">
+                    {{ $menu->menu }}
+                </div>
+                @foreach($menu->submenu as $submenu)
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ $submenu->link }}">
+                        <img src="{{ asset('img') }}/icon/service/file.png" alt="" width="20">
+                        <span>{{ $submenu->submenu }}</span>
+                    </a>
+                </li>
+                @endforeach
+                <hr class="sidebar-divider">
+            @endforeach
         </ul>
 
         <div id="content-wrapper" class="d-flex flex-column">
