@@ -19,10 +19,11 @@ Route::post('/reset/password/{email}/{token}', 'AuthController@postResetPassword
 Route::get('/products', 'ProductsController@index');
 Route::get('/detail/{id}', 'ProductsController@detail');
 
-Route::group(['middleware' => 'auth', 'checkRole:1,2'], function() {
+Route::group(['middleware' => ['auth', 'checkRole:1,2']], function() {
 	Route::get('/logout', 'AuthController@logout');
 });
 
-Route::group(['middleware' => 'auth', 'checkRole:1'], function() {
-	
+Route::group(['middleware' => ['auth', 'checkRole:1']], function() {
+	Route::get('/dashboard', 'DashboardController@index');
+	Route::get('/product', 'ProductController@index');
 });

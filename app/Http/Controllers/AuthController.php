@@ -35,7 +35,7 @@ class AuthController extends Controller
                 return redirect('/verify/' . $token->id);
             } else {
                 if ($user->role_id == 1) {
-
+                    return redirect('/dashboard');
                 } else {
                     Session::put('log', 'true');
                     return redirect('/');
