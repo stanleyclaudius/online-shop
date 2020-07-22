@@ -7,7 +7,7 @@
 	<div>
 		<p class="text-3xl">Find Your Best Laptop Here</p>
 		<p class="text-lg text-gray-600 mt-3 mb-8">Dev Store is a laptop or computer accesories store that provide you the best accesories for your laptop or computer with the best price and high quality. <br> Grab yours now!</p>
-		<a href="" class="rounded bg-gray-800 px-3 py-2 text-white transition duration-150 ease-in-out hover:bg-gray-700">See Products</a>
+		<a href="/products" class="rounded bg-gray-800 px-3 py-2 text-white transition duration-150 ease-in-out hover:bg-gray-700">See Products</a>
 	</div>
 	<div>
 		<img src="{{ asset('img') }}/contents/jumbotron.png" alt="" width="1100">
@@ -17,72 +17,34 @@
 <div class="container mx-auto px-12 mt-12">
 	<p class="text-3xl">Latest Products</p>
 	<div class="grid grid-cols-5 gap-10 mt-6">
+		@foreach($products as $product)
+		@php
+            $price = number_format($product->product_price, 2, ',', '.');
+        @endphp
 		<div>
-			<img src="{{ asset('img') }}/products/ASUS_1.png" alt="">
-			<p class="text-2xl mt-3">Orange Juice</p>
-			<p class="text-lg mt-1 mb-4">IDR 25K</p>
+			<img src="{{ asset('img') }}/products/{{ $product->product_image }}" alt="">
+			<p class="text-2xl mt-3">{{ $product->product_name }}</p>
+			<p class="text-lg mt-1 mb-4">{{ 'Rp.' . $price }}</p>
 			<a href="" class="rounded px-2 py-2 text-white transition duration-150 ease-in-out bg-black hover:bg-gray-800">See Detail</a>
 		</div>
-		<div>
-			<img src="{{ asset('img') }}/products/ASUS_1.png" alt="">
-			<p class="text-2xl mt-3">Orange Juice</p>
-			<p class="text-lg mt-1 mb-4">IDR 25K</p>
-			<a href="" class="rounded px-2 py-2 text-white transition duration-150 ease-in-out bg-black hover:bg-gray-800">See Detail</a>
-		</div>
-		<div>
-			<img src="{{ asset('img') }}/products/ASUS_1.png" alt="">
-			<p class="text-2xl mt-3">Orange Juice</p>
-			<p class="text-lg mt-1 mb-4">IDR 25K</p>
-			<a href="" class="rounded px-2 py-2 text-white transition duration-150 ease-in-out bg-black hover:bg-gray-800">See Detail</a>
-		</div>
-		<div>
-			<img src="{{ asset('img') }}/products/ASUS_1.png" alt="">
-			<p class="text-2xl mt-3">Orange Juice</p>
-			<p class="text-lg mt-1 mb-4">IDR 25K</p>
-			<a href="" class="rounded px-2 py-2 text-white transition duration-150 ease-in-out bg-black hover:bg-gray-800">See Detail</a>
-		</div>
-		<div>
-			<img src="{{ asset('img') }}/products/ASUS_1.png" alt="">
-			<p class="text-2xl mt-3">Orange Juice</p>
-			<p class="text-lg mt-1 mb-4">IDR 25K</p>
-			<a href="" class="rounded px-2 py-2 text-white transition duration-150 ease-in-out bg-black hover:bg-gray-800">See Detail</a>
-		</div>
+		@endforeach
 	</div>
 </div>
 
 <div class="container mx-auto px-12 mt-24">
 	<p class="text-3xl">Signature Products</p>
 	<div class="grid grid-cols-5 gap-10 mt-6">
+		@foreach($signatures as $signature)
+		@php
+            $price = number_format($signature->product->product_price, 2, ',', '.');
+        @endphp
 		<div>
-			<img src="{{ asset('img') }}/products/ASUS_1.png" alt="">
-			<p class="text-2xl mt-3">Orange Juice</p>
-			<p class="text-lg mt-1 mb-4">IDR 25K</p>
-			<a href="" class="rounded px-2 py-2 text-white transition duration-150 ease-in-out bg-black hover:bg-gray-800">See Detail</a>
+			<img src="{{ asset('img') }}/products/{{ $signature->product->product_image }}" alt="">
+			<p class="text-xl mt-4">{{ $signature->product->product_name }}</p>
+			<p class="text-lg mt-3 mb-6">{{ 'Rp.' . $price }}</p>
+			<a href="/detail/{{ $signature->product->id }}" class="rounded px-2 py-2 text-white transition duration-150 ease-in-out bg-black hover:bg-gray-800">See Detail</a>
 		</div>
-		<div>
-			<img src="{{ asset('img') }}/products/ASUS_1.png" alt="">
-			<p class="text-2xl mt-3">Orange Juice</p>
-			<p class="text-lg mt-1 mb-4">IDR 25K</p>
-			<a href="" class="rounded px-2 py-2 text-white transition duration-150 ease-in-out bg-black hover:bg-gray-800">See Detail</a>
-		</div>
-		<div>
-			<img src="{{ asset('img') }}/products/ASUS_1.png" alt="">
-			<p class="text-2xl mt-3">Orange Juice</p>
-			<p class="text-lg mt-1 mb-4">IDR 25K</p>
-			<a href="" class="rounded px-2 py-2 text-white transition duration-150 ease-in-out bg-black hover:bg-gray-800">See Detail</a>
-		</div>
-		<div>
-			<img src="{{ asset('img') }}/products/ASUS_1.png" alt="">
-			<p class="text-2xl mt-3">Orange Juice</p>
-			<p class="text-lg mt-1 mb-4">IDR 25K</p>
-			<a href="" class="rounded px-2 py-2 text-white transition duration-150 ease-in-out bg-black hover:bg-gray-800">See Detail</a>
-		</div>
-		<div>
-			<img src="{{ asset('img') }}/products/ASUS_1.png" alt="">
-			<p class="text-2xl mt-3">Orange Juice</p>
-			<p class="text-lg mt-1 mb-4">IDR 25K</p>
-			<a href="" class="rounded px-2 py-2 text-white transition duration-150 ease-in-out bg-black hover:bg-gray-800">See Detail</a>
-		</div>
+		@endforeach
 	</div>
 </div>
 

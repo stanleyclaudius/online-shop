@@ -4,21 +4,16 @@
 
 @section('content')
 <div class="container mx-auto grid grid-cols-5 mt-12 px-12">
-	<img src="{{ asset('img') }}/products/ASUS_1.png" alt="" style="width: 16rem;">
+	<img src="{{ asset('img') }}/products/{{ $product->product_image }}" alt="" style="width: 16rem;">
 	<div class="ml-16 col-span-4">
-		<p class="text-3xl">ASUS Zenbook Pro 14"</p>
-		<p class="text-gray-500">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est nam eaque delectus odio incidunt eos? Voluptate eaque aliquid recusandae quae.</p>
-		<p class="mt-4 text-xl">Spesification:</p>
-		<ul class="mt-3">
-			<li class="text-lg">Intel Core i5 7500-UX</li>
-			<li class="text-lg">Intel Core i5 7500-UX</li>
-			<li class="text-lg">Intel Core i5 7500-UX</li>
-			<li class="text-lg">Intel Core i5 7500-UX</li>
-			<li class="text-lg">Intel Core i5 7500-UX</li>
-			<li class="text-lg">Intel Core i5 7500-UX</li>
-			<li class="text-lg">Intel Core i5 7500-UX</li>
-		</ul>
-		<p class="text-gray-800 text-2xl mt-5 mb-5">IDR 3,999,000,00</p>
+		<p class="text-3xl">{{ $product->product_name }}</p>
+		<p class="text-gray-500">{{ $product->product_description }}</p>
+		<p class="mt-4 text-xl mb-3">Spesification:</p>
+		{!! $product->product_spec !!}
+		@php
+            $price = number_format($product->product_price, 2, ',', '.');
+        @endphp
+		<p class="text-gray-800 text-2xl mt-5 mb-5">{{ 'Rp.' . $price }}</p>
 		<a href="" class="bg-gray-800 text-white px-2 py-2 transition duration-150 ease-in-out hover:bg-gray-700 rounded">Add To Cart</a>
 	</div>
 </div>
