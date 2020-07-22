@@ -30,7 +30,7 @@
                 @foreach($menu->submenu as $submenu)
                 <li class="nav-item active">
                     <a class="nav-link" href="{{ $submenu->link }}">
-                        <img src="{{ asset('img') }}/icon/service/file.png" alt="" width="20">
+                        <img src="{{ asset('img') }}/icons/admin/{{ $submenu->icon }}" alt="" width="25" class="mr-2">
                         <span>{{ $submenu->submenu }}</span>
                     </a>
                 </li>
@@ -51,16 +51,13 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="javascript:void(0)" data-toggle="modal" data-target="#profileModal">
-                                    <img src="{{ asset('img') }}/icon/admin/user.png" alt="" class="mr-2">
                                     Profile
                                 </a>
                                 <a class="dropdown-item" href="javascript:void(0)" data-toggle="modal" data-target="#changePasswordModal">
-                                    <img src="{{ asset('img') }}/icon/admin/setting.png" alt="" class="mr-2">
                                     Settings
                                 </a>
                                 <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="javascript:void(0)" data-toggle="modal" data-target="#logoutModal">
-                                        <img src="{{ asset('img') }}/icon/admin/logout.png" alt="" class="mr-2">
                                         Logout
                                     </a>
                             </div>
