@@ -54,5 +54,17 @@ $(document).ready(function() {
 			text: 'Wrong current password!',
 			icon: 'error'
 		});
+	} else if (flashdata === 'signature added') {
+		swal.fire({
+			title: 'Success',
+			text: 'New signature product has been added!',
+			icon: 'success'
+		});
+	} else if (flashdata === 'signature deleted') {
+		swal.fire({
+			title: 'Success',
+			text: 'Signature product has been deleted!',
+			icon: 'success'
+		});
 	}
 });

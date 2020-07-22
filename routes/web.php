@@ -24,7 +24,14 @@ Route::group(['middleware' => ['auth', 'checkRole:1,2']], function() {
 });
 
 Route::group(['middleware' => ['auth', 'checkRole:1']], function() {
+	Route::post('/admin/editprofile/{id}', 'AdminController@editProfile');
+	Route::post('/admin/changepassword/{id}', 'AdminController@changePassword');
+	
 	Route::get('/dashboard', 'DashboardController@index');
+
+	Route::get('/signature', 'WebsiteController@signature');
+	Route::post('/signature', 'WebsiteController@addSignature');
+	Route::get('/signature/delete/{id}', 'WebsiteController@deleteSignature');
 
 	Route::get('/product', 'ProductController@index');
 	Route::post('/product/add', 'ProductController@addProduct');
@@ -36,7 +43,4 @@ Route::group(['middleware' => ['auth', 'checkRole:1']], function() {
 	Route::get('/product/category/delete/{id}', 'ProductController@deleteCategory');
 	Route::get('/product/category/update/{id}', 'ProductController@updateCategory');
 	Route::post('/product/category/update/{id}', 'ProductController@postUpdateCategory');
-
-	Route::post('/admin/editprofile/{id}', 'AdminController@editProfile');
-	Route::post('/admin/changepassword/{id}', 'AdminController@changePassword');
 });
