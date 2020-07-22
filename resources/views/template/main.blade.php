@@ -41,8 +41,8 @@
 		  display: block !important;
 		}
 		.loader {
-			border: 3px solid #f3f3f3; /* Light grey */
-			border-top: 3px solid #3498db; /* Blue */
+			border: 3px solid #f3f3f3;
+			border-top: 3px solid #3498db;
 			border-radius: 50%;
 			width: 25px;
 			height: 25px;
@@ -67,7 +67,7 @@
 				<li><a href="/products" class="text-lg mr-10">Products</a></li>
 				@if(Session::get('log') == true)
 					<li class="mr-10"><a href="/cart"><img src="{{ asset('img') }}/icons/cart.png" alt="" width="25"></a></li>
-					<li class="mr-10"><a href=""><img src="{{ asset('img') }}/icons/delivery.png" alt="" width="35"></a></li>
+					<li class="mr-10"><a href="/status"><img src="{{ asset('img') }}/icons/delivery.png" alt="" width="35"></a></li>
 					<li>
 						<div class="dropdown">
 							<button class="dropbtn"><img src="{{ asset('img') }}/avatar/{{ auth()->user()->avatar }}" width="40" class="border border-gray-400 rounded-full" alt=""></button>

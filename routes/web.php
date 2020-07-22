@@ -25,6 +25,7 @@ Route::group(['middleware' => ['auth', 'checkRole:1,2']], function() {
 
 Route::group(['middleware' => ['auth', 'checkRole:2']], function() {
 	Route::get('/cart', 'CartController@index');
+	Route::get('/status', 'StatusController@index');
 });
 
 Route::group(['middleware' => ['auth', 'checkRole:1']], function() {
