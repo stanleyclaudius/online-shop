@@ -1,6 +1,6 @@
 <div class="relative" x-data="{ isOpen: true }" @click.away="isOpen = false">
 	<img src="{{ asset('img') }}/icons/search.png" alt="" class="absolute top-0 ml-3 mt-3" width="15">
-	<div class="loader absolute top-0 right-0 mt-1 mr-3" wire:loading></div>
+	<div class="loader absolute top-0 right-0 mt-2 mr-3" wire:loading></div>
 	<input wire:model.debounce.100ms="search" type="text" class="rounded-full w-64 h-10 px-10 border border-gray-400 focus:shadow-outline focus:outline-none" @focus="isOpen = true" @keydown.shift.tab="isOpen = false" @keydown="isOpen = true">
 	@if (strlen($search) >= 2)
 		<div class="absolute w-64 bg-white border border-gray-400 rounded mt-6" x-show.transition.opacity="isOpen" @keydown.escape.window="isOpen = false">

@@ -44,8 +44,8 @@
 			border: 3px solid #f3f3f3; /* Light grey */
 			border-top: 3px solid #3498db; /* Blue */
 			border-radius: 50%;
-			width: 30px;
-			height: 30px;
+			width: 25px;
+			height: 25px;
 			animation: spin 1s linear infinite;
 		}
 
@@ -66,7 +66,7 @@
 				<li><a href="/" class="text-lg mr-10">Home</a></li>
 				<li><a href="/products" class="text-lg mr-10">Products</a></li>
 				@if(Session::get('log') == true)
-					<li class="mr-10"><a href=""><img src="{{ asset('img') }}/icons/cart.png" alt="" width="25"></a></li>
+					<li class="mr-10"><a href="/cart"><img src="{{ asset('img') }}/icons/cart.png" alt="" width="25"></a></li>
 					<li class="mr-10"><a href=""><img src="{{ asset('img') }}/icons/delivery.png" alt="" width="35"></a></li>
 					<li>
 						<div class="dropdown">
@@ -87,7 +87,6 @@
 	</nav>
 
 	@yield('content')
-
 	<footer class="mt-16 grid grid-cols-3 container mx-auto mb-3">
 		<div>
 			<p class="text-3xl font-semibold">Dev Store</p>
