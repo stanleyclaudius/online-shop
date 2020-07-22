@@ -40,7 +40,22 @@
 		.show {
 		  display: block !important;
 		}
+		.loader {
+			border: 3px solid #f3f3f3; /* Light grey */
+			border-top: 3px solid #3498db; /* Blue */
+			border-radius: 50%;
+			width: 30px;
+			height: 30px;
+			animation: spin 1s linear infinite;
+		}
+
+		@keyframes spin {
+			0% { transform: rotate(0deg); }
+			100% { transform: rotate(360deg); }
+		}
 	</style>
+	<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.3.5/dist/alpine.min.js" defer></script>
+	<livewire:styles>	
 </head>
 <body>
 
@@ -67,10 +82,7 @@
 					<li><a href="/register" class="rounded px-3 py-2 bg-gray-800 text-white transition duration-150 ease-in-out hover:bg-gray-700">Sign Up</a></li>
 				@endif
 			</ul>
-			<div class="relative">
-				<img src="{{ asset('img') }}/icons/search.png" alt="" class="absolute top-0 ml-3 mt-2" width="20">
-				<input type="text" class="rounded-full w-64 h-10 px-10 border border-gray-400 focus:shadow-outline focus:outline-none">
-			</div>
+			<livewire:search-dropdown>
 		</div>
 	</nav>
 
@@ -111,20 +123,12 @@
 		</div>
 	</footer>
 
+<livewire:scripts>
 <script>
 	const dropBtn = document.querySelector('.dropbtn');
 	dropBtn.addEventListener('click', function() {
 		document.querySelector('.dropdown-content').classList.toggle('show');
 	});
-
-	// window.onclick = function(e) {
-	// 	if (!e.target.matches('.dropbtn')) {
-	// 		var myDropdown = document.getElementById("myDropdown");
-	// 		if (myDropdown.classList.contains('show')) {
-	// 			myDropdown.classList.remove('show');
-	// 		}
-	// 	}
-	// }
 </script>
 @yield('script')
 </body>

@@ -23,9 +23,9 @@
         @endphp
 		<div>
 			<img src="{{ asset('img') }}/products/{{ $product->product_image }}" alt="">
-			<p class="text-2xl mt-3">{{ $product->product_name }}</p>
+			<p class="text-xl mt-3">{{ $product->product_name }}</p>
 			<p class="text-lg mt-1 mb-4">{{ 'Rp.' . $price }}</p>
-			<a href="" class="rounded px-2 py-2 text-white transition duration-150 ease-in-out bg-black hover:bg-gray-800">See Detail</a>
+			<a href="/detail/{{ $product->id }}" class="rounded px-2 py-2 text-white transition duration-150 ease-in-out bg-black hover:bg-gray-800">See Detail</a>
 		</div>
 		@endforeach
 	</div>

@@ -23,6 +23,10 @@ Route::group(['middleware' => ['auth', 'checkRole:1,2']], function() {
 	Route::get('/logout', 'AuthController@logout');
 });
 
+Route::group(['middleware' => ['auth', 'checkRole:2']], function() {
+	
+});
+
 Route::group(['middleware' => ['auth', 'checkRole:1']], function() {
 	Route::post('/admin/editprofile/{id}', 'AdminController@editProfile');
 	Route::post('/admin/changepassword/{id}', 'AdminController@changePassword');
