@@ -8,12 +8,12 @@
 	<table cellspacing="0" cellpadding="10" class="w-full border border-gray-500 mt-8 mb-24">
 		<thead>
 			<tr>
-				<th class="border border-gray-500">No</th>
-				<th class="border border-gray-500">Order ID</th>
-				<th class="border border-gray-500">Total Price</th>
-				<th class="border border-gray-500">Courier</th>
-				<th class="border border-gray-500">Status</th>
-				<th class="border border-gray-500">Shipping Tracker ID</th>
+				<th class="bg-gray-900 text-white border border-gray-500">No</th>
+				<th class="bg-gray-900 text-white border border-gray-500">Order ID</th>
+				<th class="bg-gray-900 text-white border border-gray-500">Total Price</th>
+				<th class="bg-gray-900 text-white border border-gray-500">Courier</th>
+				<th class="bg-gray-900 text-white border border-gray-500">Status</th>
+				<th class="bg-gray-900 text-white border border-gray-500">Shipping Tracker ID</th>
 			</tr>
 		</thead>
 		<tbody>

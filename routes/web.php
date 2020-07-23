@@ -25,7 +25,17 @@ Route::group(['middleware' => ['auth', 'checkRole:1,2']], function() {
 
 Route::group(['middleware' => ['auth', 'checkRole:2']], function() {
 	Route::get('/cart', 'CartController@index');
+
 	Route::get('/status', 'StatusController@index');
+
+	Route::get('/user', 'UserController@personal');
+	Route::post('/user', 'UserController@updatePersonal');
+	Route::get('/user/address', 'UserController@address');
+	Route::post('/user/address', 'UserController@updateAddress');
+	Route::get('/user/delete', 'UserController@delete');
+	Route::post('/user/delete', 'UserController@deleteAccount');
+	Route::get('/user/password', 'UserController@password');
+	Route::post('/user/password', 'UserController@changePassword');
 });
 
 Route::group(['middleware' => ['auth', 'checkRole:1']], function() {

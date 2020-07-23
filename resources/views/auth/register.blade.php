@@ -3,6 +3,8 @@
 @section('title', 'Dev Store | Register')
 
 @section('content')
+<div class="flashdata" data-flash="{{ Session::get('user') }}"></div>
+
 <div class="container mx-auto mt-16 mb-24">
 	<p class="text-3xl text-center">Sign Up</p>
 	<p class="text-md text-gray-500 text-center">Sign up now and become member of Dev Store.</p>
@@ -45,4 +47,19 @@
 		</form>
 	</div>
 </div>
+@endsection
+
+@section('script')
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script>
+	let flashdata = $('.flashdata').data('flash');
+	if (flashdata === 'account deleted') {
+		swal.fire({
+			title: 'Success',
+			text: 'Your account has been deleted!',
+			icon: 'success'
+		});
+	}
+</script>
 @endsection
