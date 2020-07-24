@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Category;
 use App\Product;
 
 class ProductsController extends Controller
 {
     public function index()
     {
-    	return view('products/index');
+    	$categories = Category::orderBy('category', 'ASC')->get();
+    	$products = Product::orderBy('id', 'DESC')->get();
+    	return view('products/index', compact(['products', 'categories']));
     }
 
     public function detail($id)
