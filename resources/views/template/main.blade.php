@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+	@yield('meta')
 	<title>@yield('title')</title>
 	<link rel="stylesheet" href="{{ asset('css') }}/main.css">
 	<style>
@@ -66,7 +67,17 @@
 				<li><a href="/" class="text-lg mr-10">Home</a></li>
 				<li><a href="/products" class="text-lg mr-10">Products</a></li>
 				@if(Session::get('log') == true)
-					<li class="mr-10"><a href="/cart"><img src="{{ asset('img') }}/icons/cart.png" alt="" width="25"></a></li>
+					<li class="mr-10">
+						<a href="/cart" class="relative">
+							<img src="{{ asset('img') }}/icons/cart.png" alt="" width="25">
+							@php
+								$cartCount = DB::table('carts')->where('user_id', auth()->user()->id)->count();
+							@endphp
+							@if($cartCount > 0)
+								<div class="cart-counter absolute top-0 w-5 h-5 flex items-center justify-center text-sm rounded-full bg-red-600 text-white ml-4" style="margin-top: -8px;">{{ $cartCount }}</div>
+							@endif
+						</a>
+					</li>
 					<li class="mr-10"><a href="/status"><img src="{{ asset('img') }}/icons/delivery.png" alt="" width="35"></a></li>
 					<li>
 						<div class="dropdown">

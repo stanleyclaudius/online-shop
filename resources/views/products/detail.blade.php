@@ -1,5 +1,9 @@
 @extends('template/main')
 
+@section('meta')
+<meta name="csrf-token" content="{{ csrf_token() }}">
+@endsection
+
 @section('title', 'Dev Store | Products Detail')
 
 @section('content')
@@ -14,7 +18,7 @@
             $price = number_format($product->product_price, 2, ',', '.');
         @endphp
 		<p class="text-gray-800 text-2xl mt-5 mb-5">{{ 'Rp.' . $price }}</p>
-		<a href="" class="bg-gray-800 text-white px-2 py-2 transition duration-150 ease-in-out hover:bg-gray-700 rounded">Add To Cart</a>
+		<a href="javascript:void(0)" class="addtocart-btn bg-gray-800 text-white px-2 py-2 transition duration-150 ease-in-out hover:bg-gray-700 rounded" data-product="{{ $product->id }}" data-id="{{ auth()->user()->id }}">Add To Cart</a>
 	</div>
 </div>
 
@@ -163,5 +167,6 @@
 
 @section('script')
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script src="{{ asset('js') }}/detail.js"></script>
 @endsection
