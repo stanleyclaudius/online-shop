@@ -18,7 +18,11 @@
             $price = number_format($product->product_price, 2, ',', '.');
         @endphp
 		<p class="text-gray-800 text-2xl mt-5 mb-5">{{ 'Rp.' . $price }}</p>
-		<a href="javascript:void(0)" class="addtocart-btn bg-gray-800 text-white px-2 py-2 transition duration-150 ease-in-out hover:bg-gray-700 rounded" data-product="{{ $product->id }}" data-id="{{ auth()->user()->id }}">Add To Cart</a>
+		@if(Session::get('log') == true)
+			<a href="javascript:void(0)" class="addtocart-btn bg-gray-800 text-white px-2 py-2 transition duration-150 ease-in-out hover:bg-gray-700 rounded" data-product="{{ $product->id }}" data-id="{{ auth()->user()->id }}">Add To Cart</a>
+		@else
+			<a href="/login" class="addtocart-btn bg-gray-800 text-white px-2 py-2 transition duration-150 ease-in-out hover:bg-gray-700 rounded">Add To Cart</a>
+		@endif
 	</div>
 </div>
 
@@ -87,10 +91,16 @@
 
 <div class="container mx-auto mb-20 pr-5">
 	<div class="grid grid-cols-6 gap-8">
-		<div>
-			<a href="javascript:void(0)" class="open-review-box flex items-center flex-inline bg-orange p-2 bg-gray-900 rounded text-white justify-center transition ease-in-out duration-150 hover:bg-gray-800">Add Review</a>
-		</div>
-		<div class="col-span-5 w-full">
+		@if(Session::get('log') == true)
+			<div>
+				<a href="javascript:void(0)" class="open-review-box flex items-center flex-inline bg-orange p-2 bg-gray-900 rounded text-white justify-center transition ease-in-out duration-150 hover:bg-gray-800">Add Review</a>
+			</div>
+		@endif
+		@if(Session::get('log') == true)
+			<div class="col-span-5 w-full">
+		@else
+			<div class="col-span-6 w-full">
+		@endif
 			<div class="review-box w-full bg-gray-300 mb-10 px-2 pl-4 py-5 pr-4" style="display: none;">
 				<p class="text-lg font-semibold tracking-wider mb-6 text-black">Post Your Review</p>
 				<form action="" method="post">
