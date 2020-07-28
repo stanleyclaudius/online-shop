@@ -21,7 +21,7 @@
 		@if(Session::get('log') == true)
 			<a href="javascript:void(0)" class="addtocart-btn bg-gray-800 text-white px-2 py-2 transition duration-150 ease-in-out hover:bg-gray-700 rounded" data-product="{{ $product->id }}" data-id="{{ auth()->user()->id }}">Add To Cart</a>
 		@else
-			<a href="/login" class="addtocart-btn bg-gray-800 text-white px-2 py-2 transition duration-150 ease-in-out hover:bg-gray-700 rounded">Add To Cart</a>
+			<a href="/login" class="bg-gray-800 text-white px-2 py-2 transition duration-150 ease-in-out hover:bg-gray-700 rounded">Add To Cart</a>
 		@endif
 	</div>
 </div>
