@@ -178,7 +178,7 @@
 					} else {
 						$('.discountValueHidden').val($('.totalPriceHidden').val());
 						$('.discount-initial').text('0');
-						$('.totalAfterDiscount').text($('.totalPriceHidden').val());
+						$('.totalAfterDiscount').text('Rp.' + $('.totalPriceHidden').val() + ',00');
 						swal.fire({
 							title: 'Failed',
 							text: 'Discount coupon unavailable!',

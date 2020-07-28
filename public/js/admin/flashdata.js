@@ -120,5 +120,11 @@ $(document).ready(function() {
 			text: 'Payment has not been verified!',
 			icon: 'error'
 		});
+	} else if (flashdata === 'done before') {
+		swal.fire({
+			title: 'Warning',
+			text: 'This order has been done before!',
+			icon: 'warning'
+		});
 	}
 });

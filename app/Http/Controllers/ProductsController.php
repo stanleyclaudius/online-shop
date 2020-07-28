@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Category;
 use App\Product;
+use App\Review;
 
 class ProductsController extends Controller
 {
@@ -19,6 +20,7 @@ class ProductsController extends Controller
     public function detail($id)
     {
     	$product = Product::find($id);
-    	return view('products/detail', compact(['product']));
+        $reviews = Review::where('product_id', $id)->where('is_review', 1)->orderBy('id', 'DESC')->get();
+    	return view('products/detail', compact(['product', 'reviews']));
     }
 }

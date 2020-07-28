@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Shipping;
 use App\Checkout;
+use App\Review;
 use App\Cart;
 use App\User;
 use App\Menu;
@@ -58,12 +59,24 @@ class OrderController extends Controller
         if ($checkout->receipt == null) {
             return redirect()->back()->with('admin', 'receipt null');
         } else {
-            $checkout->update([
-                'is_done' => 1,
-                'is_review' => 0,
-            ]);
-            $shipping = Shipping::where('checkout_id', $id)->update(['is_done' => 1]);
-            return redirect()->back()->with('admin', 'order done');
+            if ($checkout->is_done == 1) {
+                return redirect()->back()->with('admin', 'done before');
+            } else {
+                $checkout->update([
+                    'is_done' => 1,
+                ]);
+                $shipping = Shipping::where('checkout_id', $id)->update(['is_done' => 1]);
+                $items = preg_split('/\s+/', $checkout->product_id);
+                $itemsCount = count($items);
+                for($i = 0; $i < $itemsCount; $i++) {
+                    Review::create([
+                        'user_id' => $checkout->user_id,
+                        'product_id' => $items[$i],
+                        'is_review' => 0,
+                    ]);
+                }
+                return redirect()->back()->with('admin', 'order done');
+            }
         }
     }
 

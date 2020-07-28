@@ -1,3 +1,12 @@
+let flashdata = $('.flashdata').data('flash');
+if (flashdata === 'review added') {
+	swal.fire({
+		title: 'Success',
+		text: 'Thanks for your review on our products! Hope you love it.',
+		icon: 'success'
+	});
+}
+
 $('.rating-section div').click(function() {
 	$('.rating-section div').removeClass('active');
 	$(this).addClass('active');
