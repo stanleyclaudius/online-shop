@@ -25,6 +25,7 @@ class CreateCheckoutsTable extends Migration
             $table->string('receipt')->nullable();
             $table->integer('status');
             $table->integer('is_done');
+            $table->integer('is_review')->nullable();
             $table->timestamps();
         });
     }
