@@ -71,14 +71,24 @@
 						<a href="/cart" class="relative">
 							<img src="{{ asset('img') }}/icons/cart.png" alt="" width="25">
 							@php
-								$cartCount = DB::table('carts')->where('user_id', auth()->user()->id)->count();
+								$cartCount = DB::table('carts')->where('user_id', auth()->user()->id)->where('show_cart', 1)->count();
 							@endphp
 							@if($cartCount > 0)
 								<div class="cart-counter absolute top-0 w-5 h-5 flex items-center justify-center text-sm rounded-full bg-red-600 text-white ml-4" style="margin-top: -8px;">{{ $cartCount }}</div>
 							@endif
 						</a>
 					</li>
-					<li class="mr-10"><a href="/status"><img src="{{ asset('img') }}/icons/delivery.png" alt="" width="35"></a></li>
+					<li class="mr-10">
+						<a href="/status">
+							<img src="{{ asset('img') }}/icons/delivery.png" alt="" width="35">
+							@php
+								$statusCount = DB::table('checkouts')->where('user_id', auth()->user()->id)->where('is_done', 0)->count();
+							@endphp
+							@if($statusCount > 0)
+								<div class="absolute top-0 w-5 h-5 flex items-center justify-center text-sm rounded-full bg-red-600 text-white ml-5" style="margin-top: 18px;">{{ $statusCount }}</div>
+							@endif
+						</a>
+					</li>
 					<li>
 						<div class="dropdown">
 							<button class="dropbtn"><img src="{{ asset('img') }}/avatar/{{ auth()->user()->avatar }}" width="40" class="border border-gray-400 rounded-full" alt=""></button>

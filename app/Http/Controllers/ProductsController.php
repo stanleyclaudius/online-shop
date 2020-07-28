@@ -12,10 +12,10 @@ class ProductsController extends Controller
     public function index()
     {
     	$categories = Category::orderBy('category', 'ASC')->get();
-    	$products = Product::orderBy('id', 'DESC')->get();
+    	$products = Product::orderBy('id', 'DESC')->paginate(8);
     	return view('products/index', compact(['products', 'categories']));
     }
-
+    
     public function detail($id)
     {
     	$product = Product::find($id);

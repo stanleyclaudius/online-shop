@@ -29,7 +29,12 @@ Route::group(['middleware' => ['auth', 'checkRole:2']], function() {
 	Route::get('/cart/delete/{id}', 'CartController@deleteItem');
 	Route::post('/cart/update/{id}', 'CartController@updateItem');
 
+	Route::get('/checkout', 'CheckoutController@index');
+	Route::get('/checkout/discount', 'CheckoutController@discount');
+	Route::post('/checkout', 'CheckoutController@proceedCheckout');
+
 	Route::get('/status', 'StatusController@index');
+	Route::get('/status/invoice/{id}', 'StatusController@printInvoice');
 
 	Route::get('/user', 'UserController@personal');
 	Route::post('/user', 'UserController@updatePersonal');
@@ -61,4 +66,16 @@ Route::group(['middleware' => ['auth', 'checkRole:1']], function() {
 	Route::get('/product/category/delete/{id}', 'ProductController@deleteCategory');
 	Route::get('/product/category/update/{id}', 'ProductController@updateCategory');
 	Route::post('/product/category/update/{id}', 'ProductController@postUpdateCategory');
+
+	Route::get('/order', 'OrderController@index');
+	Route::get('/order/verified/{id}', 'OrderController@verified');
+	Route::get('/order/invoice/{id}', 'OrderController@invoice');
+	Route::get('/order/delete/{id}', 'OrderController@deleteOrder');
+	Route::get('/order/done/{id}', 'OrderController@finishOrder');
+	Route::get('/order/receipt/{id}', 'OrderController@postReceipt');
+	Route::post('/order/receipt/{id}', 'OrderController@updateReceipt');
+
+	Route::get('/discount', 'DiscountController@index');
+	Route::post('/discount', 'DiscountController@addDiscount');
+	Route::get('/discount/delete/{id}', 'DiscountController@deleteDiscount');
 });

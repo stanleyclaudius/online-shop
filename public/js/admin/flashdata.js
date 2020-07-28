@@ -66,5 +66,59 @@ $(document).ready(function() {
 			text: 'Signature product has been deleted!',
 			icon: 'success'
 		});
+	} else if (flashdata === 'discount added') {
+		swal.fire({
+			title: 'Success',
+			text: 'New discount voucher has been added!',
+			icon: 'success'
+		});
+	} else if (flashdata === 'discount deleted') {
+		swal.fire({
+			title: 'Success',
+			text: 'Discount voucher has been removed!',
+			icon: 'success'
+		});
+	} else if (flashdata === 'order verified') {
+		swal.fire({
+			title: 'Success',
+			text: 'Order has been verified!',
+			icon: 'success',
+		});
+	} else if (flashdata === 'invoice unavailable') {
+		swal.fire({
+			title: 'Error',
+			text: 'Invoice not found!',
+			icon: 'error',
+		});
+	} else if (flashdata === 'order deleted') {
+		swal.fire({
+			title: 'Success',
+			text: 'Order has been deleted!',
+			icon: 'success'
+		})
+	} else if (flashdata === 'order done') {
+		swal.fire({
+			title: 'Success',
+			text: 'Order done!',
+			icon: 'success'
+		});
+	} else if (flashdata === 'receipt null') {
+		swal.fire({
+			title: 'Error',
+			text: 'Shipping tracker ID haven\'t been post to user status!',
+			icon: 'error'
+		});
+	} else if (flashdata === 'receipt posted') {
+		swal.fire({
+			title: 'Success',
+			text: 'Shipping tracker ID has been posted to user status!',
+			icon: 'success'
+		});
+	} else if (flashdata === 'payment unverified') {
+		swal.fire({
+			title: 'Error',
+			text: 'Payment has not been verified!',
+			icon: 'error'
+		});
 	}
 });

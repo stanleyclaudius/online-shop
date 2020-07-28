@@ -10,7 +10,7 @@ class CartController extends Controller
 {
     public function index()
     {
-    	$items = Cart::where('user_id', auth()->user()->id)->get();
+    	$items = Cart::where('user_id', auth()->user()->id)->where('show_cart', 1)->get();
     	return view('cart/index', compact(['items']));
     }
 
@@ -19,12 +19,17 @@ class CartController extends Controller
     	$userID = $request->userID;
     	$productID = $request->productID;
 
-    	if (DB::table('carts')->where('user_id', $userID)->count() < 1) {
-    		Cart::create([
-	    		'user_id' => $userID,
-	    		'product_id' => $productID,
-	    		'qty' => 1,
-	    	]);
+    	if (DB::table('carts')->where('user_id', $userID)->where('show_cart', 1)->count() < 1) {
+            $cart = new Cart;
+            $cart->user_id = $userID;
+            $cart->product_id = $productID;
+            $cart->qty = 1;
+            $cart->show_cart = 1;
+            $cart->save();
+
+            $cart->total = $cart->product->product_price;
+            $cart->save();
+
 	    	echo json_encode('zero val');
     	} else {
     		if (DB::table('carts')->where('user_id', $userID)->where('product_id', $productID)->count() == 1) {
@@ -37,11 +42,16 @@ class CartController extends Controller
                 ]);
                 echo json_encode('add existing product');
     		} else {
-	    		Cart::create([
-		    		'user_id' => $userID,
-		    		'product_id' => $productID,
-		    		'qty' => 1,
-		    	]);
+	    		$cart = new Cart;
+                $cart->user_id = $userID;
+                $cart->product_id = $productID;
+                $cart->qty = 1;
+                $cart->show_cart = 1;
+                $cart->save();
+
+                $cart->total = $cart->product->product_price;
+                $cart->save();
+                
 		    	echo json_encode('add counter');
     		}
     	}

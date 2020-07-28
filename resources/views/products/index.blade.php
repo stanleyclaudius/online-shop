@@ -4,24 +4,29 @@
 
 @section('content')
 <div class="container mx-auto grid grid-cols-4 gap-12 mt-16">
-	<div class="border rounded border-gray-400">
-		<div class="flex items-center justify-between border-b border-gray-400">
-			<p class="py-2 text-xl font-semibold px-3">Filter</p>
-			<!-- <button class="filter-btn mr-3 px-2 py-1 rounded bg-gray-900 text-white transition duration-150 ease-in-out hover:bg-gray-800">Search</button> -->
-		</div>
-		<div class="px-3 mt-4">
-			@php
-				$counter = 0;
-			@endphp
-			@foreach($categories as $category)
-			<div class="flex items-center mb-3">
-				<input type="checkbox" id="{{ $category->id }}" class="filter-checkbox mr-3">
-				<label for="{{ $category->id }}">{{ $category->category }}</label>
+	<div>
+		<!-- <div class="border rounded border-gray-400 mb-5 px-3 py-2">
+			<p>Showing <select name="paginate-count" id="paginate-count" class="paginate-counter border border-gray-300 text-center mx-3 p-1"><option value="4">4</option><option value="8">8</option><option value="12">12</option></select> results per page</p>
+		</div> -->
+		<div class="border rounded border-gray-400">
+			<div class="flex items-center justify-between border-b border-gray-400">
+				<p class="py-2 text-xl font-semibold px-3">Filter</p>
+				<!-- <button class="filter-btn mr-3 px-2 py-1 rounded bg-gray-900 text-white transition duration-150 ease-in-out hover:bg-gray-800">Search</button> -->
 			</div>
-			@php
-				$counter++;
-			@endphp
-			@endforeach
+			<div class="px-3 mt-4">
+				@php
+					$counter = 0;
+				@endphp
+				@foreach($categories as $category)
+				<div class="flex items-center mb-3">
+					<input type="checkbox" id="{{ $category->id }}" class="filter-checkbox mr-3">
+					<label for="{{ $category->id }}">{{ $category->category }}</label>
+				</div>
+				@php
+					$counter++;
+				@endphp
+				@endforeach
+			</div>
 		</div>
 	</div>
 	<div class="col-span-3 border border-gray-400 rounded p-5" style="overflow-y: auto; height: 70vh;">
@@ -38,6 +43,7 @@
 			</div>
 			@endforeach
 		</div>
+		{{ $products->links() }}
 	</div>
 </div>
 @endsection

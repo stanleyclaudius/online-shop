@@ -66,7 +66,7 @@
 		</tbody>
 	</table>
 	<div class="w-full flex justify-end mb-20">
-		<a href="" class="bg-gray-900 px-3 py-2 rounded text-white transition duration-150 ease-in-out hover:bg-gray-800">Checkout</a>
+		<a href="/checkout" class="bg-gray-900 px-3 py-2 rounded text-white transition duration-150 ease-in-out hover:bg-gray-800">Checkout</a>
 	</div>
 	@endif
 </div>

@@ -35,6 +35,6 @@ $('.addtocart-btn').click(function() {
 				text: 'Item added to cart!',
 				icon: 'success'
 			});
-		},
+		}
 	});
 });
