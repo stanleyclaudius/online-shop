@@ -38,7 +38,11 @@
 					@if($d->status == 0)
 						<td class="border border-gray-500 text-red-500 font-bold uppercase">unverified</td>
 					@else
-						<td class="border border-gray-500 text-green-500 font-bold uppercase">verified</td>
+						@if($d->is_done == 0)
+							<td class="border border-gray-500 text-green-500 font-bold uppercase">verified</td>
+						@else
+							<td class="border border-gray-500 text-green-500 font-bold uppercase">done</td>
+						@endif
 					@endif
 					@if($d->status == 0)
 						<td class="border border-gray-500 text-red-500 font-bold uppercase">unverified</td>

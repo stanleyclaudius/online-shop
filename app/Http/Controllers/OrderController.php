@@ -62,7 +62,7 @@ class OrderController extends Controller
                 'is_done' => 1,
                 'is_review' => 0,
             ]);
-            $shipping = Shipping::where('checkout_id')->update(['is_done' => 1]);
+            $shipping = Shipping::where('checkout_id', $id)->update(['is_done' => 1]);
             return redirect()->back()->with('admin', 'order done');
         }
     }

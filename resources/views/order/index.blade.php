@@ -107,7 +107,11 @@
                           @if($checkout->status == 0)
                             <td class="text-danger font-weight-bold">UNVERIFIED</td>
                           @else
-                            <td class="text-success font-weight-bold">VERIFIED</td>
+                            @if($checkout->is_done == 0)
+                                <td class="text-success font-weight-bold">VERIFIED</td>
+                            @else
+                                <td class="text-success font-weight-bold">DONE</td>
+                            @endif
                           @endif
                           <td>
                             <a href="/order/verified/{{ $checkout->id }}" class="btn btn-success btn-sm mr-3">Verifed</a>

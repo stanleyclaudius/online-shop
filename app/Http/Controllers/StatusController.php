@@ -11,7 +11,7 @@ class StatusController extends Controller
 {
     public function index()
     {
-    	$data = Checkout::where('user_id', auth()->user()->id)->where('is_done', 0)->get();
+    	$data = Checkout::where('user_id', auth()->user()->id)->get();
     	return view('status/index', ['data' => $data]);
     }
 
