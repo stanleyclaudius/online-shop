@@ -46,6 +46,8 @@ Route::group(['middleware' => ['auth', 'checkRole:2']], function() {
 	Route::post('/user/password', 'UserController@changePassword');
 
 	Route::post('/review', 'ReviewController@index');
+	Route::get('/review/get', 'ReviewController@starView');
+	Route::get('/review/get/all', 'ReviewController@getAll');
 });
 
 Route::group(['middleware' => ['auth', 'checkRole:1']], function() {

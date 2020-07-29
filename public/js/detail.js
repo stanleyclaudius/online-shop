@@ -47,3 +47,33 @@ $('.addtocart-btn').click(function() {
 		}
 	});
 });
+
+$('.rating-star-review').click(function() {
+	let productID = $(this).data('product');
+	let starRating = $(this).data('star');
+	$.ajax({
+		url: '/review/get',
+		type: 'get',
+		data: {
+			productID: productID,
+			starRating: starRating
+		},
+		success: function(data) {
+			$('.review-section-container').html(data);
+		}
+	});
+});
+
+$('.get-all-rating').click(function() {
+	let productID = $(this).data('product');
+	$.ajax({
+		url: '/review/get/all',
+		type: 'get',
+		data: {
+			productID: productID,
+		},
+		success: function(data) {
+			$('.review-section-container').html(data);
+		}
+	});
+});

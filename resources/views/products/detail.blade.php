@@ -31,7 +31,7 @@
 
 <div class="container mx-auto mb-10 pr-5">
 	<div class="grid grid-cols-6 gap-8">
-		<a href="javascript:void(0)" class="rating-section">
+		<a href="javascript:void(0)" class="rating-section get-all-rating" data-product="{{ $product->id }}">
 			<div class="bg-gray-300 w-full h-20 flex flex-col items-center justify-center active text-black">
 				<p class="font-semibold text-lg">RATING ({{ $reviews->count() }})</p>
 				@if($reviews->count() == 0)
@@ -46,7 +46,7 @@
 				@endif
 			</div>
 		</a>
-		<a href="javascript:void(0)" class="rating-section">
+		<a href="javascript:void(0)" class="rating-section rating-star-review" data-product="{{ $product->id }}" data-star="1">
 			<div class="bg-gray-300 w-full h-20 flex flex-col items-center justify-center text-black">
 				@php
 					$oneStar = DB::table('reviews')->where('product_id', $product->id)->where('is_review', 1)->where('star', 1)->get()->count();
@@ -57,7 +57,7 @@
 				</div>
 			</div>
 		</a>
-		<a href="javascript:void(0)" class="rating-section">
+		<a href="javascript:void(0)" class="rating-section rating-star-review"  data-product="{{ $product->id }}" data-star="2">
 			<div class="bg-gray-300 w-full h-20 flex flex-col items-center justify-center text-black">
 				@php
 					$twoStar = DB::table('reviews')->where('product_id', $product->id)->where('is_review', 1)->where('star', 2)->get()->count();
@@ -69,7 +69,7 @@
 				</div>
 			</div>
 		</a>
-		<a href="javascript:void(0)" class="rating-section">
+		<a href="javascript:void(0)" class="rating-section rating-star-review" data-product="{{ $product->id }}" data-star="3">
 			<div class="bg-gray-300 w-full h-20 flex flex-col items-center justify-center text-black">
 				@php
 					$threeStar = DB::table('reviews')->where('product_id', $product->id)->where('is_review', 1)->where('star', 3)->get()->count();
@@ -82,7 +82,7 @@
 				</div>
 			</div>
 		</a>
-		<a href="javascript:void(0)" class="rating-section">
+		<a href="javascript:void(0)" class="rating-section rating-star-review" data-product="{{ $product->id }}" data-star="4">
 			<div class="bg-gray-300 w-full h-20 flex flex-col items-center justify-center text-black">
 				@php
 					$fourStar = DB::table('reviews')->where('product_id', $product->id)->where('is_review', 1)->where('star', 4)->get()->count();
@@ -96,7 +96,7 @@
 				</div>
 			</div>
 		</a>
-		<a href="javascript:void(0)" class="rating-section">
+		<a href="javascript:void(0)" class="rating-section rating-star-review" data-product="{{ $product->id }}" data-star="5">
 			<div class="bg-gray-300 w-full h-20 flex flex-col items-center justify-center text-black">
 				@php
 					$fiveStar = DB::table('reviews')->where('product_id', $product->id)->where('is_review', 1)->where('star', 5)->get()->count();
@@ -166,30 +166,32 @@
 					<button type="submit" class="bg-gray-900 px-2 py-1 text-white rounded mt-5 transition duration-150 ease-in-out hover:bg-gray-800">Submit</button>
 				</form>
 			</div>
-			@if($reviews->count() == 0)
-				<div class="w-full bg-gray-300 flex items-center justify-center h-12">This product has not been review by anyone!</div>
-			@else
-				@foreach($reviews as $review)
-				<div class="user-review flex items-center border-b border-gray-500 px-2 pl-4 py-5 relative bg-gray-300">
-					<img src="{{ asset('img') }}/avatar/{{ $review->user->avatar }}" alt="" width="85" class="rounded-full border border-gray-600">
-					<div class="ml-6">
-						<p class="text-xl text-black">{{ $review->name }}</p>
-						<p class="text-sm mt-1 text-black" style="width: 42rem;">{{ $review->review }}</p>
-						<div class="flex mt-2">
-							@for($initStar = 0; $initStar < $review->star; $initStar++)
-							<img src="{{ asset('img') }}/icons/star.png" alt="" width="18" class="mr-1">
-							@endfor
+			<div class="review-section-container">
+				@if($reviews->count() == 0)
+					<div class="w-full bg-gray-300 flex items-center justify-center h-12">This product has not been review by anyone!</div>
+				@else
+					@foreach($reviews as $review)
+					<div class="user-review flex items-center border-b border-gray-500 px-2 pl-4 py-5 relative bg-gray-300">
+						<img src="{{ asset('img') }}/avatar/{{ $review->user->avatar }}" alt="" width="85" class="rounded-full border border-gray-600">
+						<div class="ml-6">
+							<p class="text-xl text-black">{{ $review->name }}</p>
+							<p class="text-sm mt-1 text-black" style="width: 42rem;">{{ $review->review }}</p>
+							<div class="flex mt-2">
+								@for($initStar = 0; $initStar < $review->star; $initStar++)
+								<img src="{{ asset('img') }}/icons/star.png" alt="" width="18" class="mr-1">
+								@endfor
+							</div>
+						</div>
+						@php
+							$date = $review->created_at->format('d M Y');
+						@endphp
+						<div class="absolute right-0 pr-5">
+							<p class="text-sm text-gray-600">{{ $date }}</p>
 						</div>
 					</div>
-					@php
-						$date = $review->created_at->format('d M Y');
-					@endphp
-					<div class="absolute right-0 pr-5">
-						<p class="text-sm text-gray-600">{{ $date }}</p>
-					</div>
-				</div>
-				@endforeach
-			@endif
+					@endforeach
+				@endif
+			</div>
 		</div>
 	</div>
 </div>

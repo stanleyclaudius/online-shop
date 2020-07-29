@@ -18,4 +18,16 @@ class ReviewController extends Controller
  		]);
  		return redirect('/detail/' . $request->productID)->with('detail', 'review added');
     }
+
+    public function starView(Request $request)
+    {
+    	$reviews = Review::where('product_id', $request->productID)->where('star', $request->starRating)->where('is_review', 1)->orderBy('id', 'DESC')->get();
+    	return view('review/review', compact(['reviews']));
+    }
+
+    public function getAll(Request $request)
+    {
+    	$reviews = Review::where('product_id', $request->productID)->where('is_review', 1)->orderBy('id', 'DESC')->get();
+    	return view('review/all', compact(['reviews']));
+    }
 }
