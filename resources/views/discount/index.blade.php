@@ -87,7 +87,7 @@
                         @endphp
                         @foreach($discounts as $discount)
                         <tr class="text-center mx-auto">
-                          <th scope="row">1</th>
+                          <th scope="row">{{ $i }}</th>
                           <td>{{ $discount->code }}</td>
                           <td>{{ $discount->value }}%</td>
                           <td>

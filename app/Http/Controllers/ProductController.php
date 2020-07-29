@@ -13,7 +13,7 @@ class ProductController extends Controller
     public function index()
     {
         $user = User::find(auth()->user()->id);
-        $products = Product::all();
+        $products = Product::orderBy('id', 'DESC')->get();
         $categories = Category::all();
     	$menus = Menu::all();
     	return view('product/index', compact(['menus', 'products', 'categories', 'user']));

@@ -16,7 +16,7 @@ class DiscountController extends Controller
     {
     	$menus = Menu::all();
     	$user = User::find(auth()->user()->id);
-    	$discounts = Discount::all();
+    	$discounts = Discount::orderBy('id', 'DESC')->get();
     	return view('discount/index', compact(['menus', 'user', 'discounts']));
     }
 

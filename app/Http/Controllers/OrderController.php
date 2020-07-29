@@ -19,7 +19,7 @@ class OrderController extends Controller
     {
     	$menus = Menu::all();
     	$user = User::find(auth()->user()->id);
-    	$checkouts = Checkout::where('is_done', 0)->get();
+    	$checkouts = Checkout::where('is_done', 0)->orderBy('id', 'DESC')->get();
     	return view('order/index', compact(['menus', 'user', 'checkouts']));
     }
 
@@ -121,7 +121,7 @@ class OrderController extends Controller
     {
         $menus = Menu::all();
         $user = User::find(auth()->user()->id);
-        $checkouts = Checkout::where('is_done', 1)->get();
+        $checkouts = Checkout::where('is_done', 1)->orderBy('id', 'DESC')->get();
         return view('order/done', compact(['checkouts','menus', 'user']));
     }
 }
