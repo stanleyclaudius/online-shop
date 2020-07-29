@@ -100,7 +100,11 @@
                           <td>{{ $category }}</td>
                           <td>{{ $product->product_name }}</td>
                           <td>{{ 'Rp.' . $price }}</td>
-                          <td>@if($product->product_rating == 0) 0 @else $product->product_rating @endif</td>
+                          @if($product->product_rating == 0)
+                            <td>0</td>
+                          @else
+                            <td>{{ $product->product_rating }}</td>
+                          @endif
                           <td>
                               <a href="/product/update/{{ $product->id }}" class="btn btn-warning btn-sm mr-3">Update</a>
                               <a href="javascript:void(0)" class="delete-btn btn btn-danger btn-sm" data-id="{{ $product->id }}">Delete</a>

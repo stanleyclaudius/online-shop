@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Product;
 use App\Review;
 
 class ReviewController extends Controller
@@ -22,6 +23,22 @@ class ReviewController extends Controller
  			'review' => $request->review,
  			'star' => $request->starrating,
  		]);
+
+        $getAllReview = Review::where('product_id', $request->productID)->where('is_review', 1)->get();
+        $countAllReview = Review::where('product_id', $request->productID)->where('is_review', 1)->count();
+        $totalRating = 0;
+
+        foreach($getAllReview as $getAll) {
+            $totalRating = $totalRating += $getAll->star;
+        }
+
+        $finalRating = $totalRating/$countAllReview;
+
+        $product = Product::find($request->productID);
+        $product->update([
+            'product_rating' => $finalRating,
+        ]);
+
  		return redirect('/detail/' . $request->productID)->with('detail', 'review added');
     }
 
