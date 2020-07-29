@@ -10,8 +10,8 @@ class MessageController extends Controller
 {
     public function index()
     {   
-        $publicMessages = PublicMessage::where('user_id', auth()->user()->id)->get();
-    	$messages = Message::where('user_id', auth()->user()->id)->get();
+        $publicMessages = PublicMessage::where('user_id', auth()->user()->id)->orderBy('id', 'DESC')->get();
+    	$messages = Message::where('user_id', auth()->user()->id)->orderBy('id', 'DESC')->get();
     	return view('message/index', compact(['messages', 'publicMessages']));
     }
 
