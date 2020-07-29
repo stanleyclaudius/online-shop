@@ -51,7 +51,7 @@
 						@if($d->receipt == null)
 							<td class="border border-gray-500 text-orange-500 font-bold uppercase">on process</td>
 						@else
-							<td class="border border-gray-500 text-orange-500 font-bold uppercase">{{ $d->receipt }}</td>
+							<td class="border border-gray-500 text-green-500 font-bold uppercase">{{ $d->receipt }}</td>
 						@endif
 					@endif
 					<td class="border border-gray-500">
