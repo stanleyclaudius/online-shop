@@ -19,6 +19,10 @@ Route::post('/reset/password/{email}/{token}', 'AuthController@postResetPassword
 Route::get('/products', 'ProductsController@index');
 Route::get('/detail/{id}', 'ProductsController@detail');
 
+Route::post('/review', 'ReviewController@index');
+Route::get('/review/get', 'ReviewController@starView');
+Route::get('/review/get/all', 'ReviewController@getAll');
+
 Route::group(['middleware' => ['auth', 'checkRole:1,2']], function() {
 	Route::get('/logout', 'AuthController@logout');
 });
@@ -45,10 +49,6 @@ Route::group(['middleware' => ['auth', 'checkRole:2']], function() {
 	Route::post('/user/delete', 'UserController@deleteAccount');
 	Route::get('/user/password', 'UserController@password');
 	Route::post('/user/password', 'UserController@changePassword');
-
-	Route::post('/review', 'ReviewController@index');
-	Route::get('/review/get', 'ReviewController@starView');
-	Route::get('/review/get/all', 'ReviewController@getAll');
 
 	Route::get('/message', 'MessageController@index');
 	Route::get('/message/delete/{id}', 'MessageController@deleteMessage');
