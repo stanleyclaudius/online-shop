@@ -89,7 +89,7 @@
                         <tr class="text-center mx-auto">
                           <th scope="row">1</th>
                           <td>{{ $discount->code }}</td>
-                          <td>{{ $discount->value }} %</td>
+                          <td>{{ $discount->value }}%</td>
                           <td>
                             <a href="javascript:void(0)" class="delete-btn btn btn-danger btn-sm mr-3" data-id="{{ $discount->id }}">Delete</a>
                           </td>

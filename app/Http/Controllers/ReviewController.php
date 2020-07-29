@@ -9,6 +9,12 @@ class ReviewController extends Controller
 {
     public function index(Request $request)
     {
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required',
+            'review' => 'required'
+        ]);
+
  		$review = Review::where('user_id', auth()->user()->id)->where('product_id', $request->productID)->update([
  			'is_review' => 1,
  			'name' => $request->name,

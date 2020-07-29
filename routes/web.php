@@ -49,6 +49,12 @@ Route::group(['middleware' => ['auth', 'checkRole:2']], function() {
 	Route::post('/review', 'ReviewController@index');
 	Route::get('/review/get', 'ReviewController@starView');
 	Route::get('/review/get/all', 'ReviewController@getAll');
+
+	Route::get('/message', 'MessageController@index');
+	Route::get('/message/delete/{id}', 'MessageController@deleteMessage');
+	Route::get('/message/public/delete/{id}', 'MessageController@deletePublicMessage');
+	Route::post('/message/update/', 'MessageController@updateMessage');
+	Route::post('/message/public/update', 'MessageController@updatePublicMessage');
 });
 
 Route::group(['middleware' => ['auth', 'checkRole:1']], function() {

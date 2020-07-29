@@ -144,15 +144,24 @@
 						<div class="flex flex-col inline-flex mr-5">
 							<label for="name" class="text-black">Your name</label>
 							<input type="text" name="name" id="name" placeholder="Your name" class="bg-white border border-gray-400 pl-2 rounded px-2 py-1 mt-3 focus:outline-none focus:shadow-outline">
+							@if($errors->has('name'))
+								<small class="text-red-600">{{ $errors->first('name') }}</small>
+							@endif
 						</div>
 						<div class="flex flex-col inline-flex">
 							<label for="email" class="text-black">Your email</label>
 							<input type="text" name="email" id="email" placeholder="Your email" class="bg-white border border-gray-400 pl-2 rounded px-2 py-1 mt-3 focus:outline-none focus:shadow-outline">
+							@if($errors->has('email'))
+								<small class="text-red-600">{{ $errors->first('email') }}</small>
+							@endif
 						</div>
 					</div>
 					<div class="flex flex-col inline-flex mt-6 w-full">
 						<label for="review" class="text-black">Your review</label>
 						<textarea name="review" id="review" class="bg-white border border-gray-400 pl-2 rounded px-2 py-1 mt-3 focus:outline-none focus:shadow-outline"></textarea>
+						@if($errors->has('review'))
+							<small class="text-red-600">{{ $errors->first('review') }}</small>
+						@endif
 					</div>
 					<div class="mt-4">
 						<select name="starrating">

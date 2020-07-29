@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Shipping;
 use App\Checkout;
+use App\Product;
+use App\Message;
 use App\Review;
 use App\Cart;
 use App\User;
@@ -69,10 +71,20 @@ class OrderController extends Controller
                 $items = preg_split('/\s+/', $checkout->product_id);
                 $itemsCount = count($items);
                 for($i = 0; $i < $itemsCount; $i++) {
+                    $product = Product::where('id', $items[$i])->get()->first();
                     Review::create([
                         'user_id' => $checkout->user_id,
                         'product_id' => $items[$i],
                         'is_review' => 0,
+                    ]);
+
+                    Message::create([
+                        'user_id' => $checkout->user_id,
+                        'icon' => 'rate.png',
+                        'main_tagline' => 'Review Products',
+                        'sub_tagline' => 'You have 1 chance to review ' . $product->product_name . '.',
+                        'link_page' => '/detail/' . $product->id,
+                        'is_read' => 0,
                     ]);
                 }
                 return redirect()->back()->with('admin', 'order done');

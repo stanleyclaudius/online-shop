@@ -6,6 +6,100 @@
 	<title>@yield('title')</title>
 	<link rel="stylesheet" href="{{ asset('css') }}/main.css">
 	<style>
+		.icon-trash {
+			width: 30px;
+			height: 30px;
+			position: relative;
+			overflow: hidden;
+		}
+		
+		.icon-trash .trash-lid {
+			width: 62%;
+			height: 10%;
+			position: absolute;
+			left: 50%;
+			margin-left: -31%;
+			top: 10.5%;
+			background-color: #000;
+			border-top-left-radius: 80%;
+			border-top-right-radius: 80%;
+			-webkit-transform: rotate(-5deg);
+			-moz-transform: rotate(-5deg);
+			-ms-transform: rotate(-5deg);
+			transform: rotate(-5deg); 
+		}
+
+		.icon-trash .trash-lid:after {
+			content: "";
+			width: 26%;
+			height: 100%;
+			position: absolute;
+			left: 50%;
+			margin-left: -13%;
+			margin-top: -10%;
+			background-color: inherit;
+			border-top-left-radius: 30%;
+			border-top-right-radius: 30%;
+			-webkit-transform: rotate(-1deg);
+			-moz-transform: rotate(-1deg);
+			-ms-transform: rotate(-1deg);
+			transform: rotate(-1deg); 
+		}
+
+		.icon-trash .trash-container {
+			width: 56%;
+			height: 65%;
+			position: absolute;
+			left: 50%;
+			margin-left: -28%;
+			bottom: 10%;
+			background-color: #C5BFB6;
+			border-bottom-left-radius: 15%;
+			border-bottom-right-radius: 15%;
+		}
+
+		.icon-trash .trash-container:after {
+			content: "";
+			width: 110%;
+			height: 12%;
+			position: absolute;
+			left: 50%;
+			margin-left: -55%;
+			top: 0;
+			background-color: inherit;
+			border-bottom-left-radius: 45%;
+			border-bottom-right-radius: 45%;
+		}
+
+		.icon-trash .trash-line-1 {
+			width: 4%;
+			height: 50%;
+			position: absolute;
+			left: 38%;
+			margin-left: -2%;
+			bottom: 17%;
+			background-color: #FFF;
+		}
+
+		.icon-trash .trash-line-2 {
+		width: 4%;
+		height: 50%;
+		position: absolute;
+		left: 50%;
+		margin-left: -2%;
+		bottom: 17%;
+		background-color: #FFF;
+		}
+
+		.icon-trash .trash-line-3 {
+		width: 4%;
+		height: 50%;
+		position: absolute;
+		left: 62%;
+		margin-left: -2%;
+		bottom: 17%;
+		background-color: #FFF;
+		}
 		.dropdown {
 			float: left;
 			overflow: hidden;
@@ -86,6 +180,19 @@
 							@endphp
 							@if($statusCount > 0)
 								<div class="absolute top-0 w-5 h-5 flex items-center justify-center text-sm rounded-full bg-red-600 text-white ml-5" style="margin-top: 18px;">{{ $statusCount }}</div>
+							@endif
+						</a>
+					</li>
+					<li class="mr-10">
+						<a href="/message">
+							<img src="{{ asset('img') }}/icons/message.png" alt="" width="30">
+							@php
+								$personalMessageCount = DB::table('messages')->where('user_id', auth()->user()->id)->where('is_read', 0)->count();
+								$publicMessageCount = DB::table('public_messages')->where('user_id', auth()->user()->id)->where('is_read', 0)->count();
+								$totalCount = $personalMessageCount + $publicMessageCount;
+							@endphp
+							@if($totalCount > 0)
+								<div class="absolute top-0 w-5 h-5 flex items-center justify-center text-sm rounded-full bg-red-600 text-white ml-5" style="margin-top: 18px;">{{ $totalCount }}</div>
 							@endif
 						</a>
 					</li>

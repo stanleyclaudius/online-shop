@@ -67,7 +67,7 @@
 
                 <div class="container-fluid">
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Order List</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Done Order List</h1>
                     </div> 
                     <table class="table table-hover">
                       <thead>

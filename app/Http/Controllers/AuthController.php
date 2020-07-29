@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use App\PublicMessage;
+use App\Discount;
 use App\User;
 use App\Token;
 use Auth;
@@ -63,7 +65,9 @@ class AuthController extends Controller
             'password_confirmation' => 'required|min:6',
         ]);
 
-        User::create([
+        $discount = Discount::all();
+
+        $user = User::create([
             'role_id' => 2,
             'name' => $request->name,
             'email' => $request->email,
@@ -72,6 +76,20 @@ class AuthController extends Controller
             'avatar' => 'default.png',
             'is_verified' => 0,
         ]);
+
+        if ($discount != null) {
+            foreach ($discount as $d) {
+                PublicMessage::create([
+                    'user_id' => $user->id,
+                    'discount_id' => $d->id,
+                    'icon' => 'discount.png',
+                    'main_tagline' => 'Grab your discount now!',
+                    'sub_tagline' => 'Get ' . $d->value .'% discount using ' . $d->code . ' code.',
+                    'link_page' => '/products',
+                    'is_read' => 0,
+                ]);
+            }
+        }
 
         $token = new Token;
         $token->email = $request->email;
