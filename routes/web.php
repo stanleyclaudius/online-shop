@@ -79,6 +79,7 @@ Route::group(['middleware' => ['auth', 'checkRole:1']], function() {
 	Route::get('/order/done/{id}', 'OrderController@finishOrder');
 	Route::get('/order/receipt/{id}', 'OrderController@postReceipt');
 	Route::post('/order/receipt/{id}', 'OrderController@updateReceipt');
+	Route::get('/order/done', 'OrderController@doneOrder');
 
 	Route::get('/discount', 'DiscountController@index');
 	Route::post('/discount', 'DiscountController@addDiscount');

@@ -17,7 +17,7 @@ class OrderController extends Controller
     {
     	$menus = Menu::all();
     	$user = User::find(auth()->user()->id);
-    	$checkouts = Checkout::all();
+    	$checkouts = Checkout::where('is_done', 0)->get();
     	return view('order/index', compact(['menus', 'user', 'checkouts']));
     }
 
@@ -103,5 +103,13 @@ class OrderController extends Controller
             ]);
             return redirect('/order')->with('admin', 'receipt posted');
         }
+    }
+
+    public function doneOrder()
+    {
+        $menus = Menu::all();
+        $user = User::find(auth()->user()->id);
+        $checkouts = Checkout::where('is_done', 1)->get();
+        return view('order/done', compact(['checkouts','menus', 'user']));
     }
 }
