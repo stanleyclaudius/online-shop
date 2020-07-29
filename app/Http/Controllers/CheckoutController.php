@@ -85,6 +85,7 @@ class CheckoutController extends Controller
         $updateCheckout = DB::table('carts')->where('user_id', auth()->user()->id)->where('show_cart', 1)->update(['checkout_id' => $checkout->id]);
 
        $shipping = Shipping::create([
+            'user_id' => auth()->user()->id,
             'checkout_id' => $checkout->id,
             'name' => $request->name,
             'phone' => $request->phone,

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\User;
 use Auth;
@@ -72,6 +73,12 @@ class UserController extends Controller
     	$user = User::find(auth()->user()->id);
 
     	if ($request->deletemessage === "REMOVE MY ACCOUNT") {
+            DB::table('shippings')->where('user_id', auth()->user()->id)->delete();
+            DB::table('reviews')->where('user_id', auth()->user()->id)->delete();
+            DB::table('public_messages')->where('user_id', auth()->user()->id)->delete();
+            DB::table('messages')->where('user_id', auth()->user()->id)->delete();
+            DB::table('checkouts')->where('user_id', auth()->user()->id)->delete();
+            DB::table('carts')->where('user_id', auth()->user()->id)->delete();
     		Session::pull('log', 'true');
     		Auth::logout();
     		$user->delete();

@@ -11,7 +11,7 @@ class ReviewController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'email' => 'required',
+            'email' => 'required|email',
             'review' => 'required'
         ]);
 

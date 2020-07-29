@@ -252,10 +252,12 @@
 
 <livewire:scripts>
 <script>
+	@if(Session::get('log') == true)
 	const dropBtn = document.querySelector('.dropbtn');
 	dropBtn.addEventListener('click', function() {
 		document.querySelector('.dropdown-content').classList.toggle('show');
 	});
+	@endif
 </script>
 @yield('script')
 </body>
