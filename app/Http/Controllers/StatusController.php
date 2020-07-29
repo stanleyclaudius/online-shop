@@ -11,7 +11,7 @@ class StatusController extends Controller
 {
     public function index()
     {
-    	$data = Checkout::where('user_id', auth()->user()->id)->get();
+    	$data = Checkout::where('user_id', auth()->user()->id)->where('is_done', 0)->get();
     	return view('status/index', ['data' => $data]);
     }
 
@@ -25,5 +25,11 @@ class StatusController extends Controller
             $pdf = PDF::loadView('pdf/invoice', ['data' => $data, 'cart' => $cart]);
             return $pdf->download($data->shipping->name . ' Invoice.pdf');
         }
+    }
+
+    public function doneStatus()
+    {
+        $data = Checkout::where('user_id', auth()->user()->id)->where('is_done', 1)->get();
+        return view('status/done', ['data' => $data]);
     }
 }

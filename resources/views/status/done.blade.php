@@ -1,15 +1,14 @@
 @extends('template/main')
 
-@section('title', 'Dev Store | Ongoing Payment Status')
+@section('title', 'Dev Store | Purchase History')
 
 @section('content')
 <div class="flashdata" data-flash="{{ Session::get('status') }}"></div>
 <div class="container mx-auto mt-16">
-	<p class="text-3xl text-center">Ongoing Payment Status</p>
-	<p class="text-orange-500 text-center font-bold text-lg mt-2 mb-6">(Every items that has been checkout, use the payment method that has been sent to your register email)</p>
-	<a href="/status/done" class="bg-gray-800 transition duration-150 ease-in-out px-3 py-2 rounded hover:bg-gray-700 text-white">Purchase History</a>
+	<p class="text-3xl text-center">Purchase History</p>
+	<a href="/status" class="bg-gray-800 transition duration-150 ease-in-out px-3 py-2 rounded hover:bg-gray-700 text-white">Ongoing Payment</a>
 	@if($data->count() == 0)
-	<div class="bg-red-600 flex items-center text-lg py-3 w-full rounded text-white justify-center mt-6 px-3">Checkout some items first to check your payment status.</div>
+	<div class="bg-red-600 flex items-center text-lg py-3 w-full rounded text-white justify-center mt-6 px-3">We can't track your pruchase history, maybe you haven't buy our products. Try buying some products at our store.</div>
 	@else
 	<table cellspacing="0" cellpadding="10" class="w-full border border-gray-500 mt-8 mb-24">
 		<thead>
@@ -51,7 +50,7 @@
 						@if($d->receipt == null)
 							<td class="border border-gray-500 text-orange-500 font-bold uppercase">on process</td>
 						@else
-							<td class="border border-gray-500 text-orange-500 font-bold uppercase">{{ $d->receipt }}</td>
+							<td class="border border-gray-500 text-green-500 font-bold uppercase">{{ $d->receipt }}</td>
 						@endif
 					@endif
 					<td class="border border-gray-500">

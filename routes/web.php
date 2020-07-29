@@ -35,6 +35,7 @@ Route::group(['middleware' => ['auth', 'checkRole:2']], function() {
 
 	Route::get('/status', 'StatusController@index');
 	Route::get('/status/invoice/{id}', 'StatusController@printInvoice');
+	Route::get('/status/done', 'StatusController@doneStatus');
 
 	Route::get('/user', 'UserController@personal');
 	Route::post('/user', 'UserController@updatePersonal');
