@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Category;
 use App\Product;
@@ -71,6 +72,10 @@ class ProductController extends Controller
             'product_spec' => 'required',
             'product_price' => 'required',
             'product_image' => 'mimes:jpg,jpeg,png',
+        ]);
+
+        DB::table('category_product')->where('product_id', $id)->update([
+            'category_id' => $request->product_category,
         ]);
 
         $product = Product::find($id);
