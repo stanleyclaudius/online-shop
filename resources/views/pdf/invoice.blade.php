@@ -19,6 +19,7 @@
 				<td style="border: 1px solid #bbb; font-weight: bold;">PRODUCT NAME</td>
 				<td style="border: 1px solid #bbb; font-weight: bold;">PRODUCT PRICE</td>
 				<td style="border: 1px solid #bbb; font-weight: bold;">QTY</td>
+				<td style="border: 1px solid #bbb; font-weight: bold;">SUBTOTAL</td>
 			</tr>
 		</thead>
 		<tbody>
@@ -34,6 +35,12 @@
 					<td style="border: 1px solid #bbb;">{{ $c->product->product_name }}</td>
 					<td style="border: 1px solid #bbb;">{{ 'Rp.' . $singlePrice }}</td>
 					<td style="border: 1px solid #bbb;">{{ $c->qty }}</td>
+					@php
+						$tempPrice = $c->product->product_price;
+						$tempPrice = $tempPrice * $c->qty;
+						$tempPrice = number_format($tempPrice, 2, ',', '.');
+					@endphp
+					<td style="border: 1px solid #bbb;">{{ 'Rp.' . $tempPrice }}</td>
 				</tr>
 			@php
 				$i++;
