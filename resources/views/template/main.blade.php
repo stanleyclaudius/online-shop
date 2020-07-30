@@ -230,12 +230,12 @@
 			</div>
 			<div>
 				<ul>
-					<li class="mb-3"><a href="">ASUS</a></li>
-					<li class="mb-3"><a href="">ACER</a></li>
-					<li class="mb-3"><a href="">HP</a></li>
-					<li class="mb-3"><a href="">Apple</a></li>
-					<li class="mb-3"><a href="">Razer</a></li>
-					<li class="mb-3"><a href="">Rexus</a></li>
+					@php
+						$category = DB::table('categories')->get();
+					@endphp
+					@foreach($category as $c)
+						<li class="mb-3"><a href="{{ route('products.category', ['category' => $c->slug]) }}">{{ $c->category }}</a></li>
+					@endforeach
 				</ul>
 			</div>
 			<div>
