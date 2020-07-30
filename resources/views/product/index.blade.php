@@ -93,11 +93,11 @@
                         @endphp
                         <tr>
                           <th scope="row">{{ $i }}</th>
-                          @php
-                            $category = DB::table('categories')->where('id', $product->category_id)->get()->first();
-                            $category = $category->category;
-                          @endphp
-                          <td>{{ $category }}</td>
+                          <td>
+                              @foreach($product->category as $cat)
+                                {{ $cat->category }}
+                              @endforeach
+                          </td>
                           <td>{{ $product->product_name }}</td>
                           <td>{{ 'Rp.' . $price }}</td>
                           @if($product->product_rating == 0)

@@ -29,13 +29,14 @@ class ProductController extends Controller
             'product_image' => 'required|mimes:jpg,jpeg,png',
         ]);
 
-        $product = new Product;
-        $product->category_id = $request->product_category;
-        $product->product_name = $request->product_name;
-        $product->product_description = $request->product_description;
-        $product->product_spec = $request->product_spec;
-        $product->product_price = $request->product_price;
-        $product->save();
+        $product = Product::create([
+            'product_name' => $request->product_name,
+            'product_description' => $request->product_description,
+            'product_spec' => $request->product_spec,
+            'product_price' => $request->product_price,
+        ]);
+
+        $product->category()->attach($request->product_category);
 
         if ($request->hasFile('product_image')) {
             $request->file('product_image')->move('img/products/', $request->file('product_image')->getClientOriginalName());
@@ -74,7 +75,6 @@ class ProductController extends Controller
 
         $product = Product::find($id);
         $product->update([
-            'category_id' => $request->product_category,
             'product_name' => $request->product_name,
             'product_description' => $request-> product_description,
             'product_spec' => $request->product_spec,
@@ -105,11 +105,20 @@ class ProductController extends Controller
     {
         $this->validate($request, [
             'category' => 'required|unique:categories',
+            'section' => 'required',
+            'icon' => 'required|mimes:jpg,png,jpeg',
         ]);
  
-        Category::create([
+        $category = Category::create([
             'category' => $request->category,
+            'section' => $request->section,
         ]);
+
+        if ($request->hasFile('icon')) {
+            $request->file('icon')->move('img/icons/category/', $request->file('icon')->getClientOriginalName());
+            $category->icon = $request->file('icon')->getClientOriginalName();
+            $category->save();
+        }
 
         return redirect()->back()->with('admin', 'category added');
     }
@@ -133,10 +142,21 @@ class ProductController extends Controller
     {
         $this->validate($request, [
             'category' => 'required',
+            'section' => 'required',
+            'icon' => 'mimes:jpg,jpeg,png',
         ]);
 
         $category = Category::find($id);
-        $category->update(['category' => $request->category]);
+        $category->update(['category' => $request->category, 'section' => $request->section]);
+
+        if ($request->hasFile('icon')) {
+            $request->file('icon')->move('img/icons/category/', $request->file('icon')->getClientOriginalName());
+            $category->icon = $request->file('icon')->getClientOriginalName();
+            $category->save();
+        } else {
+            $category->icon = $category->icon;
+            $category->save();
+        }
 
         return redirect('/product/category')->with('admin', 'category updated');
     }

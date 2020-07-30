@@ -12,8 +12,23 @@ class ProductsController extends Controller
 {
     public function index()
     {
-    	$categories = Category::orderBy('category', 'ASC')->get();
-    	$products = Product::orderBy('id', 'DESC')->paginate(8);
+        if (request()->category) {
+            $products = Product::with('category')->whereHas('category', function ($query) {
+                $query->where('slug', request()->category);
+            });
+            $categories = optional(Category::orderBy('category', 'ASC'))->get();
+        } else {
+            $categories = Category::orderBy('category', 'ASC')->get();
+            $products = Product::take(12);
+        }
+
+        if(request()->sort == 'low_high') {
+            $products = $products->orderBy('product_price')->paginate(8);
+        } else if (request()->sort == 'high_low') {
+            $products = $products->orderBy('product_price', 'desc')->paginate(8);
+        } else {
+            $products = $products->paginate(8);
+        }
     	return view('products/index', compact(['products', 'categories']));
     }
     

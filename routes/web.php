@@ -19,6 +19,11 @@ Route::post('/reset/password/{email}/{token}', 'AuthController@postResetPassword
 Route::get('/products', 'ProductsController@index');
 Route::get('/detail/{id}', 'ProductsController@detail');
 
+Route::get('/products', [
+	'as' => 'products.category',
+	'uses' => 'ProductsController@index'
+]);
+
 Route::post('/review', 'ReviewController@index');
 Route::get('/review/get', 'ReviewController@starView');
 Route::get('/review/get/all', 'ReviewController@getAll');

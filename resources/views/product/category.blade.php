@@ -77,6 +77,7 @@
                         <tr>
                           <th scope="col">No</th>
                           <th scope="col">Category</th>
+                          <th scope="col">Section</th>
                           <th scope="col">Action</th>
                         </tr>
                       </thead>
@@ -88,6 +89,7 @@
                         <tr>
                           <th scope="row">{{ $i }}</th>
                           <td>{{ $category->category }}</td>
+                          <td>{{ $category->section }}</td>
                           <td>
                               <a href="/product/category/update/{{ $category->id }}" class="btn btn-warning btn-sm mr-3">Update</a>
                               <a href="javascript:void(0)" class="delete-btn btn btn-danger btn-sm" data-id="{{ $category->id }}">Delete</a>
@@ -222,13 +224,28 @@
             </button>
           </div>
           <div class="modal-body">
-            <form action="/product/category" method="post">
+            <form action="/product/category" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <label for="category">Category</label>
                     <input type="text" class="form-control" id="category" placeholder="Product category" name="category" value="{{ old('category') }}">
                     @if($errors->has('category'))
                         <small class="text-danger">{{ $errors->first('category') }}</small>
+                    @endif
+                </div>
+                <div class="form-group">
+                    <label for="section">Section</label>
+                    <input type="text" class="form-control" id="section" placeholder="Product section" name="section" value="{{ old('section') }}">
+                    @if($errors->has('section'))
+                        <small class="text-danger">{{ $errors->first('section') }}</small>
+                    @endif
+                </div>
+                <label for="customFile">Category Icon</label>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="customFile" name="icon">
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                    @if($errors->has('icon'))
+                        <small class="text-danger">{{ $errors->first('icon') }}</small>
                     @endif
                 </div>
           </div>
@@ -247,6 +264,11 @@
 <script src="{{ asset('js') }}/admin/sb-admin-2.min.js"></script>
 <script src="{{ asset('js') }}/admin/flashdata.js"></script>
 <script>
+    $('.custom-file-input').on('change', function() {
+        let fileName = $(this).val().split('\\').pop();
+        $(this).next('.custom-file-label').addClass("selected").html(fileName);
+    });
+
     $('.delete-btn').click(function() {
         let dataID = $(this).data('id');
         Swal.fire({

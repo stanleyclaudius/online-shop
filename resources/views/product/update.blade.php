@@ -76,8 +76,11 @@
                                 <div class="form-group">
                                     <label for="product_category">Product Category</label>
                                     <select class="form-control" id="product_category" name="product_category">
+                                        @php
+                                            $prodCat = DB::table('category_product')->where('product_id', $product->id)->get()->first();
+                                        @endphp
                                         @foreach($categories as $category)
-                                            <option value="{{ $category->id }}" @if($product->category_id == $category->id) selected @endif>{{ $category->category }}</option>
+                                            <option value="{{ $category->id }}" @if($category->id == $prodCat->category_id) selected @endif>{{ $category->category }}</option>
                                         @endforeach
                                     </select>
                                 </div>
