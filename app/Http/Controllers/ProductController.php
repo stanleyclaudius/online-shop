@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Signature;
 use App\Category;
 use App\Product;
 use App\Menu;
@@ -50,6 +51,8 @@ class ProductController extends Controller
 
     public function deleteProduct($id)
     {
+        $signature = Signature::where('product_id', $id);
+        $signature->delete();
         $product = Product::find($id);
         $product->delete();
         return redirect()->back()->with('admin', 'product deleted');
