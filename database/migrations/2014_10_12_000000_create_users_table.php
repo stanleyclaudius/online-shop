@@ -28,6 +28,7 @@ class CreateUsersTable extends Migration
             $table->text('address')->nullable();
             $table->string('gender')->nullable();
             $table->integer('is_verified');
+            $table->integer('is_subscribe');
             $table->timestamps();
         });
     }

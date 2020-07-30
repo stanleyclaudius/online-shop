@@ -75,6 +75,7 @@ class AuthController extends Controller
             'remember_token' => Str::random(10),
             'avatar' => 'default.png',
             'is_verified' => 0,
+            'is_subscribe' => 0,
         ]);
 
         if ($discount != null) {
