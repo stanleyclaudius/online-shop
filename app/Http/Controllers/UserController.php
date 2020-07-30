@@ -60,8 +60,7 @@ class UserController extends Controller
 
     public function delete()
     {
-    	$user = User::find(auth()->user()->id);
-    	return view('user/delete', compact(['user']));
+    	return view('user/delete');
     }
 
     public function deleteAccount(Request $request)
@@ -108,6 +107,32 @@ class UserController extends Controller
             return redirect('/user/password')->with('user', 'password changed');
         } else {
             return redirect('/user/password')->with('user', 'wrong cur pass');
+        }
+    }
+
+    public function subscription()
+    {   
+        $user = User::where('id', auth()->user()->id)->get()->first()->is_subscribe;
+        if ($user == 1) {
+            return view('user/subscription');
+        } else {
+            return redirect('/');
+        }
+    }
+
+    public function unsubscribe(Request $request)
+    {
+        $this->validate($request, [
+            'stopsubscribe' => 'required',
+        ]);
+
+        $user = User::find(auth()->user()->id);
+
+        if ($request->stopsubscribe === 'STOP SUBSCRIBING') {
+            $user->update(['is_subscribe' => 0]);
+            return redirect('/')->with('subscribe', 'unsubscribe');
+        } else {
+            return redirect('/user/subscription')->with('user', 'wrong code');
         }
     }
 }

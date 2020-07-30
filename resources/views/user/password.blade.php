@@ -24,6 +24,16 @@
 						Change Password
 					</li>
 				</a>
+				@php
+					$is_sub = DB::table('users')->where('id', auth()->user()->id)->get()->first()->is_subscribe;
+				@endphp
+				@if($is_sub == 1)
+				<a href="/user/subscription">
+					<li class="border-b border-gray-500 p-4">
+						Subscription
+					</li>
+				</a>
+				@endif
 				<a href="/user/delete">
 					<li class="border-b border-gray-500 p-4">
 						Delete Account

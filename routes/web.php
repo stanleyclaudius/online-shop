@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'HomeController@index');
 
+Route::post('/subscribe', 'HomeController@addSubscription');
+
 Route::get('/login', 'AuthController@login')->name('login');
 Route::post('/login', 'AuthController@postLogin');
 Route::get('/register', 'AuthController@register');
@@ -54,6 +56,8 @@ Route::group(['middleware' => ['auth', 'checkRole:2']], function() {
 	Route::post('/user/delete', 'UserController@deleteAccount');
 	Route::get('/user/password', 'UserController@password');
 	Route::post('/user/password', 'UserController@changePassword');
+	Route::get('/user/subscription', 'UserController@subscription');
+	Route::post('/user/subscription', 'UserController@unsubscribe');
 
 	Route::get('/message', 'MessageController@index');
 	Route::get('/message/delete/{id}', 'MessageController@deleteMessage');

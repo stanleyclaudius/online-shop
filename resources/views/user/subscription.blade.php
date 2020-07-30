@@ -1,6 +1,6 @@
 @extends('template/main')
 
-@section('title', 'Dev Store | Delete Account')
+@section('title', 'Dev Store | Subscription')
 
 @section('content')
 <div class="flashdata" data-flash="{{ Session::get('user') }}"></div>
@@ -10,7 +10,7 @@
 		<div class="border border-gray-500 rounded">
 			<ul>
 				<a href="/user">
-					<li class="p-4 border-b border-gray-500">
+					<li class="border-b border-gray-500 p-4">
 						Personal Information
 					</li>
 				</a>
@@ -29,13 +29,13 @@
 				@endphp
 				@if($is_sub == 1)
 				<a href="/user/subscription">
-					<li class="border-b border-gray-500 p-4">
+					<li class="border-b bg-gray-900 text-white border-gray-500 p-4">
 						Subscription
 					</li>
 				</a>
 				@endif
 				<a href="/user/delete">
-					<li class="bg-gray-900 text-white border-b border-gray-500 p-4">
+					<li class="border-b border-gray-500 p-4">
 						Delete Account
 					</li>
 				</a>
@@ -43,18 +43,18 @@
 		</div>
 		<div class="col-span-3 border border-gray-500 rounded" style="max-height: 75vh; overflow-y: auto;">
 			<div class="border-b border-gray-500 p-4 bg-gray-900 text-white">
-				Delete Account
+				Subscription
 			</div>
-			<form action="/user/delete" method="post" class="p-4">
+			<form action="/user/subscription" method="post" class="p-4">
 				@csrf
-				<p class="mb-4">Delete your account, mean you have no any record on our system already. Do you really want to delete your account?</p>
-				<p class="text-red-600 font-bold">Type in "REMOVE MY ACCOUNT" in the provided field below if you really want to delete your account.</p>
-				<input type="text" name="deletemessage" class="border border-gray-500 rounded w-64 h-10 px-2 mt-4">
-				@if($errors->has('deletemessage'))
-					<small class="text-red-600">{{ $errors->first('deletemessage') }}</small>
+				<p class="mb-4">Unsubscribe, mean you won't receive any news from Dev Store already. Do you really want to unsubscribe?</p>
+				<p class="text-red-600 font-bold">Type in "STOP SUBSCRIBING" in the provided field below if you really want to unsubscribe from Dev Store.</p>
+				<input type="text" name="stopsubscribe" class="border border-gray-500 rounded w-64 h-10 px-2 mt-4">
+				@if($errors->has('stopsubscribe'))
+					<small class="text-red-600">{{ $errors->first('stopsubscribe') }}</small>
 				@endif
 				<div>
-					<button type="submit" class="bg-red-600 px-3 py-2 text-white transition duration-150 ease-in-out hover:bg-red-700 rounded mt-6">Delete Account</button>
+					<button type="submit" class="bg-red-600 px-3 py-2 text-white transition duration-150 ease-in-out hover:bg-red-700 rounded mt-6">Stop Subscribe</button>
 				</div>
 			</form>
 		</div>
@@ -67,10 +67,10 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script>
 	let flashdata = $('.flashdata').data('flash');
-	if (flashdata === 'wrong verification') {
+	if (flashdata === 'wrong code') {
 		swal.fire({
-			title: 'Failed',
-			text: 'Please type "REMOVE MY ACCOUNT" (without quotes) in provided field!',
+			title: 'Error',
+			text: 'Type the red bold text in provided field (case sensitive)!',
 			icon: 'error'
 		});
 	}
