@@ -126,5 +126,11 @@ $(document).ready(function() {
 			text: 'This order has been done before!',
 			icon: 'warning'
 		});
+	} else if (flashdata === 'sendnewsletter') {
+		swal.fire({
+			title: 'Success',
+			text: 'Newsletter has been sent!',
+			icon: 'success'
+		});
 	}
 });
