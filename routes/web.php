@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'HomeController@index');
 
 Route::post('/subscribe', 'HomeController@addSubscription');
-Route::post('/send/newsletter', 'DashboardController@sendNewsletter');
 
 Route::get('/login', 'AuthController@login')->name('login');
 Route::post('/login', 'AuthController@postLogin');
@@ -100,4 +99,7 @@ Route::group(['middleware' => ['auth', 'checkRole:1']], function() {
 	Route::get('/discount', 'DiscountController@index');
 	Route::post('/discount', 'DiscountController@addDiscount');
 	Route::get('/discount/delete/{id}', 'DiscountController@deleteDiscount');
+
+	Route::post('/send/newsletter', 'DashboardController@sendNewsletter');
+	Route::get('/newsletter/delete/{id}', 'DashboardController@deleteNewsletter');
 });

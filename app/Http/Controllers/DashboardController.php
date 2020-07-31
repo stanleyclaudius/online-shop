@@ -36,6 +36,7 @@ class DashboardController extends Controller
 		$earningTotal = Checkout::where('status', 1)->sum('total');
 		$earningDiscount = Checkout::where('status', 1)->sum('discount');
 		$postEarning = $earningTotal - $earningDiscount;
+        $newsletters = Newsletter::all();
 
     	return view('dashboard/index', [
     		'discount' => $discount,
@@ -48,16 +49,19 @@ class DashboardController extends Controller
     		'unverified' => $unverified,
     		'arriving' => $arriving,
     		'postEarning' => $postEarning,
+            'newsletters' => $newsletters,
     	]);
     }
 
     public function sendNewsletter(Request $request)
     {
     	$this->validate($request, [
+            'topic' => 'required',
     		'newsletter' => 'required'
     	]);
 
     	$newsletter = Newsletter::create([
+            'topic' => $request->topic,
     		'content' => $request->newsletter
     	]);
 
@@ -80,5 +84,12 @@ class DashboardController extends Controller
     	}
 
     	return redirect('/dashboard')->with('admin', 'sendnewsletter');
+    }
+
+    public function deleteNewsletter($id)
+    {
+        $newsletter = Newsletter::find($id);
+        $newsletter->delete();
+        return redirect()->back()->with('admin', 'newsletter deleted');
     }
 }

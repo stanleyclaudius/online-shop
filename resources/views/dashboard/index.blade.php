@@ -212,6 +212,44 @@
                           </div>
                         </div>
                       </div>
+
+                      <div class="row mt-4 px-2">
+                        <div class="col-md-6" style="border: 1px solid #ccc; border-radius: 5px; padding: 10px;">
+                          <h5 class="mb-3">Newsletter</h5>
+                          @if($newsletters->count() != 0)
+                          <table class="table">
+                            <thead class="thead-dark">
+                              <tr>
+                                <th scope="col">NO</th>
+                                <th scope="col">TOPIC</th>
+                                <th scope="col">ACTION</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              @php
+                                $i = 1;
+                              @endphp
+                              @foreach($newsletters as $newsletter)
+                              <tr>
+                                <th scope="row">{{ $i }}</th>
+                                <td>{{ strtoupper($newsletter->topic) }}</td>
+                                <td>
+                                  <a href="javascript:void(0)" class="delete-btn btn btn-danger btn-sm" data-id="{{ $newsletter->id }}">Delete</a>
+                                </td>
+                              </tr>
+                              @php
+                                $i++;
+                              @endphp
+                              @endforeach
+                            </tbody>
+                          </table>
+                          @else
+                            <div class="alert alert-danger" role="alert">
+                              No newsletter currently!
+                            </div>
+                          @endif
+                        </div>
+                      </div>
                 </div>
             </div>
         </div>
@@ -337,6 +375,13 @@
                 <div class="modal-body">
                     <form action="/send/newsletter" method="post">
                         @csrf
+                        <div class="form-group">
+                            <label for="topic">Newsletter Topic</label>
+                            <input type="text" name="topic" class="form-control" id="topic" placeholder="Newsletter topic">
+                            @if($errors->has('topic'))
+                              <small class="text-danger">{{ $errors->first('topic') }}</small>
+                            @endif
+                        </div>
                         <textarea name="newsletter" id="editor"></textarea>
                         @if($errors->has('newsletter')) 
                             <small class="text-danger">{{ $errors->first('newsletter') }}</small>
@@ -364,6 +409,23 @@
         let fileName = $(this).val().split('\\').pop();
         $(this).next('.custom-file-label').addClass("selected").html(fileName);
     })
+
+    $('.delete-btn').click(function() {
+        let dataID = $(this).data('id');
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.value) {
+                document.location.href="/newsletter/delete/" + dataID;
+            }
+        })
+    });
 </script>
 </body>
 </html>

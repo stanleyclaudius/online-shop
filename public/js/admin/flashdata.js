@@ -132,5 +132,11 @@ $(document).ready(function() {
 			text: 'Newsletter has been sent!',
 			icon: 'success'
 		});
+	} else if (flashdata === 'newsletter deleted') {
+		swal.fire({
+			title: 'Success',
+			text: 'Newsletter has been deleted!',
+			icon: 'success'
+		});
 	}
 });

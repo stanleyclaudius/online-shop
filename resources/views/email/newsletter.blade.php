@@ -8,9 +8,10 @@
 
 	{!! $data['getNews'] !!}
 	
+	<br><br>
 	<p>Article created at : {{ $data['postDate']->format('d M Y') }}</p>
 
-	<p style="line-height: 28px;">Thank You, <br> Dev Store Admin <br>Have a nice day.</p>
+	<p style="line-height: 24px;">Thank You, <br> Dev Store Admin <br>Have a nice day.</p>
 	
 </body>
 </html>
