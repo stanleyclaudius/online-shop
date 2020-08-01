@@ -13,10 +13,10 @@
 	@if ($items->count() == 0)
 	<div class="bg-red-600 flex items-center text-lg py-3 w-full rounded text-white justify-center mt-6 px-3">Your shopping cart is still empty, purchase some item to fill it up.</div>
 	@else
-	<table cellspacing="0" cellpadding="10" class="w-full border border-gray-500 mt-8 mb-8">
+	<table cellspacing="0" cellpadding="10" class="w-full border border-gray-700 mt-8 mb-8">
 		<thead>
 			<tr>
-				<th class="bg-gray-800 text-white border border-gray-700">No</th>
+				<th class="bg-gray-800 text-white border border-gray-700 uppercase">No</th>
 				<th class="bg-gray-800 text-white border border-gray-700 uppercase">Product Image</th>
 				<th class="bg-gray-800 text-white border border-gray-700 uppercase">Product Name</th>
 				<th class="bg-gray-800 text-white border border-gray-700 uppercase">QTY</th>
