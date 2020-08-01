@@ -116,6 +116,10 @@ class AuthController extends Controller
 
     public function verify($id)
     {
+        if (Auth::check()) {
+            return redirect('/');
+        }
+        
         $token = Token::find($id);
         if (is_null($token)) {
             return redirect('/register');
