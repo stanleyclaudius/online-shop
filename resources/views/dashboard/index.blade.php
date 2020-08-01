@@ -134,7 +134,7 @@
                               <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
                                   <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">store review</div>
-                                  <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $review == 0 ? 0.0 : $review }}</div>
+                                  <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $review == 0 ? 0.0 : number_format($review, 1) }}</div>
                                 </div>
                                 <div class="col-auto">
                                   <img src="{{ asset('img') }}/icons/dashboard/star.png" alt="" width="50">

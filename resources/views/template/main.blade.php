@@ -6,6 +6,10 @@
 	<title>@yield('title')</title>
 	<link rel="stylesheet" href="{{ asset('css') }}/main.css">
 	<style>
+		.spec-list ul {
+			margin-left: 20px;
+			list-style: circle;
+		}
 		.icon-trash {
 			width: 30px;
 			height: 30px;

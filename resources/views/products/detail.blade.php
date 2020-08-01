@@ -11,14 +11,14 @@
 <div class="container mx-auto grid grid-cols-5 mt-12 px-12">
 	<img src="{{ asset('img') }}/products/{{ $product->product_image }}" alt="" style="width: 16rem;">
 	<div class="ml-16 col-span-4">
-		<p class="text-3xl">{{ $product->product_name }}</p>
-		<p class="text-gray-500">{{ $product->product_description }}</p>
-		<p class="mt-4 text-xl mb-3">Spesification:</p>
-		{!! $product->product_spec !!}
+		<p class="text-3xl text-white">{{ $product->product_name }}</p>
+		<p class="text-gray-500 mt-2">{{ $product->product_description }}</p>
+		<p class="mt-5 text-white font-semibold text-xl mb-3">Spesification:</p>
+		<div class="text-white spec-list">{!! $product->product_spec !!}</div>
 		@php
             $price = number_format($product->product_price, 2, ',', '.');
         @endphp
-		<p class="text-gray-800 text-2xl mt-5 mb-5">{{ 'Rp.' . $price }}</p>
+		<p class="text-white text-2xl mt-4 mb-6">{{ 'Rp.' . $price }}</p>
 		@if(Session::get('log') == true)
 			<a href="javascript:void(0)" class="addtocart-btn bg-gray-800 text-white px-2 py-2 transition duration-150 ease-in-out hover:bg-gray-700 rounded" data-product="{{ $product->id }}" data-id="{{ auth()->user()->id }}">Add To Cart</a>
 		@else
@@ -27,12 +27,12 @@
 	</div>
 </div>
 
-<hr style="width: 95%; margin: 45px auto 45px auto;">
+<hr style="width: 95%; margin: 45px auto 45px auto; border-top: 1px solid #4a5568;">
 
 <div class="container mx-auto mb-10 pr-5">
 	<div class="grid grid-cols-6 gap-8">
 		<a href="javascript:void(0)" class="rating-section get-all-rating" data-product="{{ $product->id }}">
-			<div class="bg-gray-300 w-full h-20 flex flex-col items-center justify-center active text-black">
+			<div class="bg-white w-full h-20 flex flex-col items-center justify-center active text-black">
 				<p class="font-semibold text-lg">RATING ({{ $reviews->count() }})</p>
 				@if($reviews->count() == 0)
 					<p class="text-3xl text-orange-600 font-bold">0.0</p>
@@ -47,7 +47,7 @@
 			</div>
 		</a>
 		<a href="javascript:void(0)" class="rating-section rating-star-review" data-product="{{ $product->id }}" data-star="1">
-			<div class="bg-gray-300 w-full h-20 flex flex-col items-center justify-center text-black">
+			<div class="bg-white w-full h-20 flex flex-col items-center justify-center text-black">
 				@php
 					$oneStar = DB::table('reviews')->where('product_id', $product->id)->where('is_review', 1)->where('star', 1)->get()->count();
 				@endphp
@@ -58,7 +58,7 @@
 			</div>
 		</a>
 		<a href="javascript:void(0)" class="rating-section rating-star-review"  data-product="{{ $product->id }}" data-star="2">
-			<div class="bg-gray-300 w-full h-20 flex flex-col items-center justify-center text-black">
+			<div class="bg-white w-full h-20 flex flex-col items-center justify-center text-black">
 				@php
 					$twoStar = DB::table('reviews')->where('product_id', $product->id)->where('is_review', 1)->where('star', 2)->get()->count();
 				@endphp
@@ -70,7 +70,7 @@
 			</div>
 		</a>
 		<a href="javascript:void(0)" class="rating-section rating-star-review" data-product="{{ $product->id }}" data-star="3">
-			<div class="bg-gray-300 w-full h-20 flex flex-col items-center justify-center text-black">
+			<div class="bg-white w-full h-20 flex flex-col items-center justify-center text-black">
 				@php
 					$threeStar = DB::table('reviews')->where('product_id', $product->id)->where('is_review', 1)->where('star', 3)->get()->count();
 				@endphp
@@ -83,7 +83,7 @@
 			</div>
 		</a>
 		<a href="javascript:void(0)" class="rating-section rating-star-review" data-product="{{ $product->id }}" data-star="4">
-			<div class="bg-gray-300 w-full h-20 flex flex-col items-center justify-center text-black">
+			<div class="bg-white w-full h-20 flex flex-col items-center justify-center text-black">
 				@php
 					$fourStar = DB::table('reviews')->where('product_id', $product->id)->where('is_review', 1)->where('star', 4)->get()->count();
 				@endphp
@@ -97,7 +97,7 @@
 			</div>
 		</a>
 		<a href="javascript:void(0)" class="rating-section rating-star-review" data-product="{{ $product->id }}" data-star="5">
-			<div class="bg-gray-300 w-full h-20 flex flex-col items-center justify-center text-black">
+			<div class="bg-white w-full h-20 flex flex-col items-center justify-center text-black">
 				@php
 					$fiveStar = DB::table('reviews')->where('product_id', $product->id)->where('is_review', 1)->where('star', 5)->get()->count();
 				@endphp
@@ -122,7 +122,7 @@
 			@endphp
 			@if($result != null)
 				<div>
-					<a href="javascript:void(0)" class="open-review-box flex items-center flex-inline bg-orange p-2 bg-gray-900 rounded text-white justify-center transition ease-in-out duration-150 hover:bg-gray-800">Add Review</a>
+					<a href="javascript:void(0)" class="open-review-box flex items-center flex-inline bg-orange p-2 bg-gray-800 rounded text-white justify-center transition ease-in-out duration-150 hover:bg-gray-700">Add Review</a>
 				</div>
 			@endif
 		@endif
@@ -135,30 +135,30 @@
 		@else
 			<div class="col-span-6 w-full">
 		@endif
-			<div class="review-box w-full bg-gray-300 mb-10 px-2 pl-4 py-5 pr-4" style="display: none;">
-				<p class="text-lg font-semibold tracking-wider mb-6 text-black">Post Your Review</p>
+			<div class="review-box w-full bg-gray-800 mb-10 px-2 pl-4 py-5 pr-4" style="display: none;">
+				<p class="text-lg font-semibold tracking-wider mb-6 text-white">Post Your Review</p>
 				<form action="/review" method="post">
 					@csrf
 					<input type="hidden" name="productID" value="{{ $product->id }}">
 					<div class="grid grid-cols-2 gap-10">
 						<div class="flex flex-col inline-flex mr-5">
-							<label for="name" class="text-black">Your name</label>
-							<input type="text" name="name" id="name" placeholder="Your name" class="bg-white border border-gray-400 pl-2 rounded px-2 py-1 mt-3 focus:outline-none focus:shadow-outline">
+							<label for="name" class="text-white">Your name</label>
+							<input type="text" name="name" id="name" placeholder="Your name" class="text-white bg-gray-700 border border-gray-600 pl-2 rounded px-2 py-1 mt-3 focus:outline-none focus:shadow-outline">
 							@if($errors->has('name'))
 								<small class="text-red-600">{{ $errors->first('name') }}</small>
 							@endif
 						</div>
 						<div class="flex flex-col inline-flex">
-							<label for="email" class="text-black">Your email</label>
-							<input type="text" name="email" id="email" placeholder="Your email" class="bg-white border border-gray-400 pl-2 rounded px-2 py-1 mt-3 focus:outline-none focus:shadow-outline">
+							<label for="email" class="text-white">Your email</label>
+							<input type="text" name="email" id="email" placeholder="Your email" class="text-white bg-gray-700 border border-gray-600 pl-2 rounded px-2 py-1 mt-3 focus:outline-none focus:shadow-outline">
 							@if($errors->has('email'))
 								<small class="text-red-600">{{ $errors->first('email') }}</small>
 							@endif
 						</div>
 					</div>
 					<div class="flex flex-col inline-flex mt-6 w-full">
-						<label for="review" class="text-black">Your review</label>
-						<textarea name="review" id="review" class="bg-white border border-gray-400 pl-2 rounded px-2 py-1 mt-3 focus:outline-none focus:shadow-outline"></textarea>
+						<label for="review" class="text-white">Your review</label>
+						<textarea name="review" id="review" class="text-white bg-gray-700 border border-gray-600 pl-2 rounded px-2 py-1 mt-3 focus:outline-none focus:shadow-outline"></textarea>
 						@if($errors->has('review'))
 							<small class="text-red-600">{{ $errors->first('review') }}</small>
 						@endif
@@ -172,19 +172,19 @@
 							<option value="5">5</option>
 						</select>
 					</div>
-					<button type="submit" class="bg-gray-900 px-2 py-1 text-white rounded mt-5 transition duration-150 ease-in-out hover:bg-gray-800">Submit</button>
+					<button type="submit" class="bg-gray-700 px-2 py-1 text-white rounded mt-5 transition duration-150 ease-in-out hover:bg-gray-600">Submit</button>
 				</form>
 			</div>
 			<div class="review-section-container">
 				@if($reviews->count() == 0)
-					<div class="w-full bg-gray-300 flex items-center justify-center h-12">This product has not been review by anyone!</div>
+					<div class="w-full bg-gray-800 text-white flex items-center justify-center h-12">This product has not been review by anyone!</div>
 				@else
 					@foreach($reviews as $review)
-					<div class="user-review flex items-center border-b border-gray-500 px-2 pl-4 py-5 relative bg-gray-300">
+					<div class="user-review flex items-center border-b border-gray-700 px-2 pl-4 py-5 relative bg-gray-800">
 						<img src="{{ asset('img') }}/avatar/{{ $review->user->avatar }}" alt="" width="85" class="rounded-full border border-gray-600">
 						<div class="ml-6">
-							<p class="text-xl text-black">{{ $review->name }}</p>
-							<p class="text-sm mt-1 text-black" style="width: 42rem;">{{ $review->review }}</p>
+							<p class="text-xl text-white">{{ $review->name }}</p>
+							<p class="text-sm mt-1 text-white" style="width: 42rem;">{{ $review->review }}</p>
 							<div class="flex mt-2">
 								@for($initStar = 0; $initStar < $review->star; $initStar++)
 								<img src="{{ asset('img') }}/icons/star.png" alt="" width="18" class="mr-1">
