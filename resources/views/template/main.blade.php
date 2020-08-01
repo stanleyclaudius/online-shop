@@ -148,6 +148,15 @@
 			0% { transform: rotate(0deg); }
 			100% { transform: rotate(360deg); }
 		}
+
+		.product-container::-webkit-scrollbar {
+		  display: none;
+		}
+
+		.product-container {
+		  -ms-overflow-style: none;
+		  scrollbar-width: none;
+		}
 	</style>
 	<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.3.5/dist/alpine.min.js" defer></script>
 	<livewire:styles>	
@@ -224,10 +233,10 @@
 		<div class="col-span-2 flex justify-between">
 			<div>
 				<ul>
-					<li class="mb-3 text-white"><a href="">Home</a></li>
-					<li class="mb-3 text-white"><a href="">Products</a></li>
-					<li class="mb-5 text-white"><a href="">Sign In</a></li>
-					<li class="mb-3 text-white"><a href="" class="rounded bg-gray-800 px-4 py-2 transition duration-150 ease-in-out hover:bg-gray-700 text-white">Sign Up</a></li>
+					<li class="mb-3 text-white"><a href="/">Home</a></li>
+					<li class="mb-3 text-white"><a href="/products">Products</a></li>
+					<li class="mb-5 text-white"><a href="/login">Sign In</a></li>
+					<li class="mb-3 text-white"><a href="/register" class="rounded bg-gray-800 px-4 py-2 transition duration-150 ease-in-out hover:bg-gray-700 text-white">Sign Up</a></li>
 				</ul>
 			</div>
 			<div>
