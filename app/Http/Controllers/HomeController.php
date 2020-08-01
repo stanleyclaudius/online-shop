@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 use App\User;
 use App\Product;
 use App\Signature;
@@ -24,7 +25,7 @@ class HomeController extends Controller
     		'email' => 'required|email',
     	]);
 
-    	if (Auth::check()) {
+    	if (Session::get('log') == 'true') {
     		$user = User::find(auth()->user()->id);
     		$user->update(['is_subscribe' => 1]);
     		return redirect('/')->with('subscribe', 'issubscribe');
