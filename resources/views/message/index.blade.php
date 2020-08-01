@@ -8,10 +8,10 @@
 
 @section('content')
 <div class="container mx-auto mt-8 px-12">
-	<p class="text-center text-4xl">Message</p>
+	<p class="text-center text-4xl text-white">Message</p>
 	<div class="grid grid-cols-2 gap-16 mt-8">
-		<div class="w-full h-64 border border-gray-500 rounded" style="overflow-y: auto;">
-			<div class="w-full bg-gray-900 text-white px-3 py-3">
+		<div class="w-full h-64 border border-gray-700 rounded" style="overflow-y: auto;">
+			<div class="w-full bg-gray-800 border-b border-gray-700 text-white px-3 py-3">
 				<p>General Message</p>
 			</div>
 			<ul>
@@ -24,14 +24,14 @@
 								</div>
 								<div>
 									@if($publicMessage->is_read == 0)
-										<b class="flex items-center">
+										<b class="flex items-center text-white">
 											{{ $publicMessage->main_tagline }}
 											<div class="ml-3 bg-red-600 font-semibold text-white" style="font-size: 11px; padding: 2px 9px; border-radius: 50px;">NEW</div>
 										</b>
 									@else
-										<b>{{ $publicMessage->main_tagline }}</b>
+										<b class="text-white">{{ $publicMessage->main_tagline }}</b>
 									@endif
-									<p>{{ $publicMessage->sub_tagline }}</p>
+									<p class="text-white">{{ $publicMessage->sub_tagline }}</p>
 								</div>
 							</div>
 							<div class="icon-trash">
@@ -49,7 +49,7 @@
 			</ul>
 		</div>
 		<div class="w-full h-64 border border-gray-500 rounded" style="overflow-y: auto;">
-			<div class="w-full bg-gray-900 text-white px-3 py-3">
+			<div class="w-full bg-gray-800 border-b border-gray-700 text-white px-3 py-3">
 				<p>Review Message</p>
 			</div>
 			<ul>
@@ -62,14 +62,14 @@
 								</div>
 								<div>
 									@if($message->is_read == 0)
-										<b class="flex items-center">
+										<b class="flex text-white items-center">
 											{{ $message->main_tagline }}
 											<div class="ml-3 bg-red-600 font-semibold text-white" style="font-size: 11px; padding: 2px 9px; border-radius: 50px;">NEW</div>
 										</b>
 									@else
-										<b>{{ $message->main_tagline }}</b>
+										<b class="text-white">{{ $message->main_tagline }}</b>
 									@endif
-									<p>{{ $message->sub_tagline }}</p>
+									<p class="text-white">{{ $message->sub_tagline }}</p>
 								</div>
 							</div>
 							<div class="icon-trash">
