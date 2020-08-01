@@ -266,7 +266,7 @@
 						<form action="/subscribe" method="post" class="mt-5">
 							@csrf
 							<input type="text" name="email" class="w-64 px-2 py-2 border border-gray-400 rounded focus:outline-none focus:shadow-outline" placeholder="Email address ...">
-							<button class="rounded bg-black text-white px-3 py-2 transition duration-150 ease-in-out hover:bg-gray-900">Send</button>
+							<button class="rounded bg-gray-800 text-white px-3 py-2 transition duration-150 ease-in-out hover:bg-gray-700">Send</button>
 							@if($errors->has('email'))
 								<p class="text-red-500">{{ $errors->first('email') }}</p>
 							@endif

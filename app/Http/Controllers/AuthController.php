@@ -32,13 +32,9 @@ class AuthController extends Controller
 
         if (Auth::attempt($request->only('email', 'password'))) {
             $user = User::where('email', $request->email)->get()->first();
-            $token = Token::where('email', $request->email)->get();
-            foreach ($token as $t) {
-                $getToken = $t->token;
-            }
-            $tokenID = Token::where('email', $request->email)->where('token', $getToken)->get()->first()->id;
+            $token = Token::where('email', $request->email)->get()->first();
             if ($user->is_verified == 0) {
-                return redirect('/verify/' . $tokenID);
+                return redirect('/verify/' . $token->id);
             } else {
                 if ($user->role_id == 1) {
                     return redirect('/dashboard');
@@ -120,10 +116,6 @@ class AuthController extends Controller
 
     public function verify($id)
     {
-        if (Session::get('log') == 'true') {
-            return redirect('/');
-        }
-        
         $token = Token::find($id);
         if (is_null($token)) {
             return redirect('/register');
