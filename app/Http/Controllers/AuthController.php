@@ -17,7 +17,7 @@ class AuthController extends Controller
 {
     public function login()
     {
-        if (Auth::check()) {
+        if (Session::get('log') == 'true') {
             return redirect('/');
         }
     	return view('auth/login');
@@ -50,7 +50,7 @@ class AuthController extends Controller
 
     public function register()
     {
-        if (Auth::check()) {
+        if (Session::get('log') == 'true') {
             return redirect('/');
         }
     	return view('auth/register');
