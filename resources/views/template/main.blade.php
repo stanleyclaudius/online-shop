@@ -215,7 +215,7 @@
 						<div class="dropdown">
 							<button class="dropbtn"><img src="{{ asset('img') }}/avatar/{{ auth()->user()->avatar }}" width="40" class="border border-gray-400 rounded-full" alt=""></button>
 							<div class="dropdown-content" id="myDropdown">
-								<a href="/user">My Profile</a>
+								<a href="/user">Control Panel</a>
 								<a href="/logout">Logout</a>
 							</div>
 						</div> 
