@@ -227,7 +227,7 @@
 					<li class="mb-3 text-white"><a href="">Home</a></li>
 					<li class="mb-3 text-white"><a href="">Products</a></li>
 					<li class="mb-5 text-white"><a href="">Sign In</a></li>
-					<li class="mb-3 text-white"><a href="" class="rounded-full bg-gray-800 px-4 py-2 transition duration-150 ease-in-out hover:bg-gray-700 text-white">Sign Up</a></li>
+					<li class="mb-3 text-white"><a href="" class="rounded bg-gray-800 px-4 py-2 transition duration-150 ease-in-out hover:bg-gray-700 text-white">Sign Up</a></li>
 				</ul>
 			</div>
 			<div>
