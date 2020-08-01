@@ -177,6 +177,10 @@ class AuthController extends Controller
 
     public function forgetPassword()
     {
+        if (Auth::check()) {
+            return redirect('/');
+        }
+
         return view('auth/forget');
     }
 
