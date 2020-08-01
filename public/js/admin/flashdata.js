@@ -138,5 +138,11 @@ $(document).ready(function() {
 			text: 'Newsletter has been deleted!',
 			icon: 'success'
 		});
+	} else if (flashdata === 'no user subscribe') {
+		swal.fire({
+			title: 'Warning',
+			text: 'No user subscribe to our newsletter!',
+			icon: 'warning'
+		});
 	}
 });

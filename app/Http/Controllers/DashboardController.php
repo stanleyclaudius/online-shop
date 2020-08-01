@@ -60,30 +60,35 @@ class DashboardController extends Controller
     		'newsletter' => 'required'
     	]);
 
-    	$newsletter = Newsletter::create([
-            'topic' => $request->topic,
-    		'content' => $request->newsletter
-    	]);
+        $users = User::where('is_subscribe', 1)->count();
+        if ($users > 0) {
+        	$newsletter = Newsletter::create([
+                'topic' => $request->topic,
+        		'content' => $request->newsletter
+        	]);
 
-    	$subscribeUser = User::where('is_subscribe', 1)->get();
-		$getNews = Newsletter::where('id', $newsletter->id)->get()->first();
-		$data = [
-			'getNews' => $getNews->content,
-			'postDate' => $getNews->created_at,
-		];
+        	$subscribeUser = User::where('is_subscribe', 1)->get();
+    		$getNews = Newsletter::where('id', $newsletter->id)->get()->first();
+    		$data = [
+    			'getNews' => $getNews->content,
+    			'postDate' => $getNews->created_at,
+    		];
 
-    	foreach ($subscribeUser as $sub) {
-    		$to_email = $sub->email;
-    		$to_name = $sub->name;
+        	foreach ($subscribeUser as $sub) {
+        		$to_email = $sub->email;
+        		$to_name = $sub->name;
 
-	    	Mail::send('email/newsletter', ['data' => $data], function($m) use ($to_email, $to_name) {
-	            $m->subject('DS Newsletter');
-	            $m->from('duniakodingacademy@gmail.com', 'Dunia Koding');
-	            $m->to($to_email, $to_name);
-	        });
-    	}
+    	    	Mail::send('email/newsletter', ['data' => $data], function($m) use ($to_email, $to_name) {
+    	            $m->subject('DS Newsletter');
+    	            $m->from('duniakodingacademy@gmail.com', 'Dunia Koding');
+    	            $m->to($to_email, $to_name);
+    	        });
+        	}
 
-    	return redirect('/dashboard')->with('admin', 'sendnewsletter');
+        	return redirect('/dashboard')->with('admin', 'sendnewsletter');
+        } else {
+            return redirect('/dashboard')->with('admin', 'no user subscribe');
+        }
     }
 
     public function deleteNewsletter($id)
