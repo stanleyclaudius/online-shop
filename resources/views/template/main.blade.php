@@ -136,7 +136,7 @@
 		  display: block !important;
 		}
 		.loader {
-			border: 3px solid #f3f3f3;
+			border: 3px solid #4a5568;
 			border-top: 3px solid #3498db;
 			border-radius: 50%;
 			width: 25px;
@@ -152,16 +152,16 @@
 	<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.3.5/dist/alpine.min.js" defer></script>
 	<livewire:styles>	
 </head>
-<body>
+<body class="bg-gray-900">
 
 	<div class="flashdata-subscribe" data-flash="{{ Session::get('subscribe') }}"></div>
 
 	<nav>
-		<div class="flex items-center justify-between w-full px-20 py-5" style="box-shadow: 1px 1px 20px rgba(0,0,0,.5);">
-			<a href="/" class="text-3xl font-semibold">Dev Store</a>
+		<div class="flex items-center justify-between w-full px-20 py-5 border-b border-gray-800">
+			<a href="/" class="text-3xl text-white font-semibold">Dev Store</a>
 			<ul class="flex items-center">
-				<li><a href="/" class="text-lg mr-10">Home</a></li>
-				<li><a href="/products" class="text-lg mr-10">Products</a></li>
+				<li><a href="/" class="text-lg mr-10 text-white">Home</a></li>
+				<li><a href="/products" class="text-lg mr-10 text-white">Products</a></li>
 				@if(Session::get('log') == true)
 					<li class="mr-10">
 						<a href="/cart" class="relative">
@@ -208,8 +208,8 @@
 						</div> 
 					</li>
 				@else
-					<li><a href="/login" class="text-lg mr-10">Sign In</a></li>
-					<li><a href="/register" class="rounded px-3 py-2 bg-gray-800 text-white transition duration-150 ease-in-out hover:bg-gray-700">Sign Up</a></li>
+					<li><a href="/login" class="text-lg mr-10 text-white">Sign In</a></li>
+					<li><a href="/register" class="rounded-full px-4 py-2 bg-gray-800 text-white transition duration-150 ease-in-out hover:bg-gray-700">Sign Up</a></li>
 				@endif
 			</ul>
 			<livewire:search-dropdown>
@@ -219,15 +219,15 @@
 	@yield('content')
 	<footer class="mt-16 grid grid-cols-3 container mx-auto mb-3">
 		<div>
-			<p class="text-3xl font-semibold">Dev Store</p>
+			<p class="text-3xl font-semibold text-white">Dev Store</p>
 		</div>
 		<div class="col-span-2 flex justify-between">
 			<div>
 				<ul>
-					<li class="mb-3"><a href="">Home</a></li>
-					<li class="mb-3"><a href="">Products</a></li>
-					<li class="mb-5"><a href="">Sign In</a></li>
-					<li class="mb-3"><a href="" class="rounded bg-gray-800 px-3 py-2 transition duration-150 ease-in-out hover:bg-gray-700 text-white">Sign Up</a></li>
+					<li class="mb-3 text-white"><a href="">Home</a></li>
+					<li class="mb-3 text-white"><a href="">Products</a></li>
+					<li class="mb-5 text-white"><a href="">Sign In</a></li>
+					<li class="mb-3 text-white"><a href="" class="rounded-full bg-gray-800 px-4 py-2 transition duration-150 ease-in-out hover:bg-gray-700 text-white">Sign Up</a></li>
 				</ul>
 			</div>
 			<div>
@@ -236,12 +236,12 @@
 						$category = DB::table('categories')->get();
 					@endphp
 					@foreach($category as $c)
-						<li class="mb-3"><a href="{{ route('products.category', ['category' => $c->slug]) }}">{{ $c->category }}</a></li>
+						<li class="mb-3 text-white"><a href="{{ route('products.category', ['category' => $c->slug]) }}">{{ $c->category }}</a></li>
 					@endforeach
 				</ul>
 			</div>
 			<div>
-				<p class="text-lg">Subscribe</p>
+				<p class="text-lg text-white">Subscribe</p>
 				<p class="text-sm text-gray-600 mt-2">Get our latest news by subscribe to our newsletter</p>
 				@if(Session::get('log') == true)
 					@php
@@ -263,7 +263,7 @@
 					<form action="/subscribe" method="post" class="mt-5">
 						@csrf
 						<input type="text" name="email" class="w-64 px-2 py-2 border border-gray-400 rounded focus:outline-none focus:shadow-outline" placeholder="Email address ...">
-						<button class="rounded bg-black text-white px-3 py-2 transition duration-150 ease-in-out hover:bg-gray-900">Send</button>
+						<button class="rounded bg-gray-800 border border-gray-700 text-white px-3 py-2 transition duration-150 ease-in-out hover:bg-gray-700">Send</button>
 						@if($errors->has('email'))
 							<p class="text-red-500">{{ $errors->first('email') }}</p>
 						@endif
