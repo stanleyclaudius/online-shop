@@ -7,20 +7,20 @@
 
 <div class="container mx-auto mt-12">
 	<div class="grid grid-cols-4 gap-8">
-		<div class="border border-gray-500 rounded">
+		<div class="border border-gray-700 rounded">
 			<ul>
 				<a href="/user">
-					<li class="p-4">
+					<li class="border-b border-gray-700 p-4 text-white">
 						Personal Information
 					</li>
 				</a>
 				<a href="/user/address">
-					<li class="bg-gray-900 text-white border-b border-gray-500 p-4">
+					<li class="bg-gray-800 text-white border-b border-gray-700 p-4">
 						Address
 					</li>
 				</a>
 				<a href="/user/password">
-					<li class="border-b border-gray-500 p-4">
+					<li class="border-b border-gray-700 p-4 text-white">
 						Change Password
 					</li>
 				</a>
@@ -29,41 +29,41 @@
 				@endphp
 				@if($is_sub == 1)
 				<a href="/user/subscription">
-					<li class="border-b border-gray-500 p-4">
+					<li class="border-b border-gray-700 p-4 text-white">
 						Subscription
 					</li>
 				</a>
 				@endif
 				<a href="/user/delete">
-					<li class="border-b border-gray-500 p-4">
+					<li class="border-b border-gray-700 p-4 text-white">
 						Delete Account
 					</li>
 				</a>
 			</ul>
 		</div>
-		<div class="col-span-3 border border-gray-500 rounded" style="max-height: 75vh; overflow-y: auto;">
-			<div class="border-b border-gray-500 p-4 bg-gray-900 text-white">
+		<div class="col-span-3 border border-gray-700 rounded" style="max-height: 75vh; overflow-y: auto;">
+			<div class="border-b border-gray-700 p-4 bg-gray-800 text-white">
 				Address
 			</div>
 			<form action="/user/address" method="post" class="p-4">
 				@csrf
 				<div class="flex flex-col">
-					<label for="country" class="mb-2">Country</label>
+					<label for="country" class="text-white mb-2">Country</label>
 					<input type="text" name="country" id="country" placeholder="Country" value="{{ $user->country }}" class="border border-gray-500 rounded px-2 h-10 text-lg" style="width: 55%;">
 				</div>
 				<div class="flex flex-col mt-6">
-					<label for="province" class="mb-2">Province</label>
+					<label for="province" class="text-white mb-2">Province</label>
 					<input type="text" name="province" id="province" placeholder="Province" value="{{ $user->province }}" class="border border-gray-500 rounded px-2 h-10 text-lg" style="width: 55%;">
 				</div>
 				<div class="flex flex-col mt-6">
-					<label for="city" class="mb-2">Province</label>
+					<label for="city" class="text-white mb-2">Province</label>
 					<input type="text" name="city" id="city" placeholder="City" value="{{ $user->city }}" class="border border-gray-500 rounded px-2 h-10 text-lg" style="width: 55%;">
 				</div>
 				<div class="flex flex-col mt-6">
-					<label for="address" class="mb-2">Address</label>
+					<label for="address" class="text-white mb-2">Address</label>
 					<textarea name="address" cols="5" id="address" class="border border-gray-500 rounded px-2 h-10 text-lg" style="width: 55%;" placeholder="Address">{{ $user->address }}</textarea>
 				</div>
-				<button type="submit" class="bg-gray-900 px-3 py-2 text-white transition duration-150 ease-in-out hover:bg-gray-800 rounded mt-6">Save Changes</button>
+				<button type="submit" class="bg-gray-800 px-3 py-2 text-white transition duration-150 ease-in-out hover:bg-gray-700 rounded mt-6">Save Changes</button>
 			</form>
 		</div>
 	</div>

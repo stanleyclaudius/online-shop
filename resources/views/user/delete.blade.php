@@ -7,20 +7,20 @@
 
 <div class="container mx-auto mt-12">
 	<div class="grid grid-cols-4 gap-8">
-		<div class="border border-gray-500 rounded">
+		<div class="border border-gray-700 rounded">
 			<ul>
 				<a href="/user">
-					<li class="p-4 border-b border-gray-500">
+					<li class="text-white p-4 border-b border-gray-700">
 						Personal Information
 					</li>
 				</a>
 				<a href="/user/address">
-					<li class="border-b border-gray-500 p-4">
+					<li class="text-white border-b border-gray-700 p-4">
 						Address
 					</li>
 				</a>
 				<a href="/user/password">
-					<li class="border-b border-gray-500 p-4">
+					<li class="text-white border-b border-gray-700 p-4">
 						Change Password
 					</li>
 				</a>
@@ -29,25 +29,25 @@
 				@endphp
 				@if($is_sub == 1)
 				<a href="/user/subscription">
-					<li class="border-b border-gray-500 p-4">
+					<li class="text-white border-b border-gray-700 p-4">
 						Subscription
 					</li>
 				</a>
 				@endif
 				<a href="/user/delete">
-					<li class="bg-gray-900 text-white border-b border-gray-500 p-4">
+					<li class="bg-gray-800 text-white border-b border-gray-700 p-4">
 						Delete Account
 					</li>
 				</a>
 			</ul>
 		</div>
-		<div class="col-span-3 border border-gray-500 rounded" style="max-height: 75vh; overflow-y: auto;">
-			<div class="border-b border-gray-500 p-4 bg-gray-900 text-white">
+		<div class="col-span-3 border border-gray-700 rounded" style="max-height: 75vh; overflow-y: auto;">
+			<div class="border-b border-gray-700 p-4 bg-gray-800 text-white">
 				Delete Account
 			</div>
 			<form action="/user/delete" method="post" class="p-4">
 				@csrf
-				<p class="mb-4">Delete your account, mean you have no any record on our system already. Do you really want to delete your account?</p>
+				<p class="mb-4 text-white">Delete your account, mean you have no any record on our system already. Do you really want to delete your account?</p>
 				<p class="text-red-600 font-bold">Type in "REMOVE MY ACCOUNT" in the provided field below if you really want to delete your account.</p>
 				<input type="text" name="deletemessage" class="border border-gray-500 rounded w-64 h-10 px-2 mt-4">
 				@if($errors->has('deletemessage'))

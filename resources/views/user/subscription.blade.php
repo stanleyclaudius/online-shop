@@ -7,20 +7,20 @@
 
 <div class="container mx-auto mt-12">
 	<div class="grid grid-cols-4 gap-8">
-		<div class="border border-gray-500 rounded">
+		<div class="border border-gray-700 rounded">
 			<ul>
 				<a href="/user">
-					<li class="border-b border-gray-500 p-4">
+					<li class="text-white border-b border-gray-700 p-4">
 						Personal Information
 					</li>
 				</a>
 				<a href="/user/address">
-					<li class="border-b border-gray-500 p-4">
+					<li class="text-white border-b border-gray-700 p-4">
 						Address
 					</li>
 				</a>
 				<a href="/user/password">
-					<li class="border-b border-gray-500 p-4">
+					<li class="text-white border-b border-gray-700 p-4">
 						Change Password
 					</li>
 				</a>
@@ -29,25 +29,25 @@
 				@endphp
 				@if($is_sub == 1)
 				<a href="/user/subscription">
-					<li class="border-b bg-gray-900 text-white border-gray-500 p-4">
+					<li class="border-b bg-gray-800 text-white border-gray-700 p-4">
 						Subscription
 					</li>
 				</a>
 				@endif
 				<a href="/user/delete">
-					<li class="border-b border-gray-500 p-4">
+					<li class="text-white border-b border-gray-700 p-4">
 						Delete Account
 					</li>
 				</a>
 			</ul>
 		</div>
-		<div class="col-span-3 border border-gray-500 rounded" style="max-height: 75vh; overflow-y: auto;">
-			<div class="border-b border-gray-500 p-4 bg-gray-900 text-white">
+		<div class="col-span-3 border border-gray-700 rounded" style="max-height: 75vh; overflow-y: auto;">
+			<div class="border-b border-gray-700 p-4 bg-gray-800 text-white">
 				Subscription
 			</div>
 			<form action="/user/subscription" method="post" class="p-4">
 				@csrf
-				<p class="mb-4">Unsubscribe, mean you won't receive any news from Dev Store already. Do you really want to unsubscribe?</p>
+				<p class="mb-4 text-white">Unsubscribe, mean you won't receive any news from Dev Store already. Do you really want to unsubscribe?</p>
 				<p class="text-red-600 font-bold">Type in "STOP SUBSCRIBING" in the provided field below if you really want to unsubscribe from Dev Store.</p>
 				<input type="text" name="stopsubscribe" class="border border-gray-500 rounded w-64 h-10 px-2 mt-4">
 				@if($errors->has('stopsubscribe'))

@@ -7,20 +7,20 @@
 
 <div class="container mx-auto mt-12">
 	<div class="grid grid-cols-4 gap-8">
-		<div class="border border-gray-500 rounded">
+		<div class="border border-gray-700 rounded">
 			<ul>
 				<a href="/user">
-					<li class="border-b border-gray-500 p-4">
+					<li class="text-white border-b border-gray-700 p-4">
 						Personal Information
 					</li>
 				</a>
 				<a href="/user/address">
-					<li class="border-b border-gray-500 p-4">
+					<li class="text-white border-b border-gray-700 p-4">
 						Address
 					</li>
 				</a>
 				<a href="/user/password">
-					<li class="border-b border-gray-500 p-4 bg-gray-900 text-white">
+					<li class="border-b border-gray-700 p-4 bg-gray-800 text-white">
 						Change Password
 					</li>
 				</a>
@@ -29,46 +29,46 @@
 				@endphp
 				@if($is_sub == 1)
 				<a href="/user/subscription">
-					<li class="border-b border-gray-500 p-4">
+					<li class="text-white border-b border-gray-700 p-4">
 						Subscription
 					</li>
 				</a>
 				@endif
 				<a href="/user/delete">
-					<li class="border-b border-gray-500 p-4">
+					<li class="text-white border-b border-gray-700 p-4">
 						Delete Account
 					</li>
 				</a>
 			</ul>
 		</div>
-		<div class="col-span-3 border border-gray-500 rounded" style="max-height: 75vh; overflow-y: auto;">
-			<div class="border-b border-gray-500 p-4 bg-gray-900 text-white">
+		<div class="col-span-3 border border-gray-700 rounded" style="max-height: 75vh; overflow-y: auto;">
+			<div class="border-b border-gray-700 p-4 bg-gray-800 text-white">
 				Change Password
 			</div>
 			<form action="/user/password" method="post" class="p-4">
 				@csrf
 				<div class="flex flex-col">
-					<label for="old_password" class="mb-3">Current Password</label>
+					<label for="old_password" class="text-white mb-3">Current Password</label>
 					<input type="password" id="old_password" name="old_password" class="border border-gray-500 rounded h-10 px-2" style="width: 55%;">
 					@if($errors->has('old_password'))
 						<small class="text-red-600">{{ $errors->first('old_password') }}</small>
 					@endif
 				</div>
 				<div class="flex flex-col mt-4">
-					<label for="password" class="mb-3">New Password</label>
+					<label for="password" class="text-white mb-3">New Password</label>
 					<input type="password" id="password" name="password" class="border border-gray-500 rounded h-10 px-2" style="width: 55%;">
 					@if($errors->has('password'))
 						<small class="text-red-600">{{ $errors->first('password') }}</small>
 					@endif
 				</div>
 				<div class="flex flex-col mt-4">
-					<label for="password_confirmation" class="mb-3">Password Confirmation</label>
+					<label for="password_confirmation" class="text-white mb-3">Password Confirmation</label>
 					<input type="password" id="password_confirmation" name="password_confirmation" class="border border-gray-500 rounded h-10 px-2" style="width: 55%;">
 					@if($errors->has('password_confirmation'))
 						<small class="text-red-600">{{ $errors->first('password_confirmation') }}</small>
 					@endif
 				</div>
-				<button type="submit" class="bg-gray-900 px-3 py-2 text-white transition duration-150 ease-in-out hover:bg-gray-800 rounded mt-6">Change Password</button>
+				<button type="submit" class="bg-gray-800 px-3 py-2 text-white transition duration-150 ease-in-out hover:bg-gray-700 rounded mt-6">Change Password</button>
 			</form>
 		</div>
 	</div>
