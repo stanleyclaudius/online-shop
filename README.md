@@ -50,3 +50,7 @@ Let's make an example of 2 people consists of **A** & **B**, where **A** is **Ad
 8. Now the configuration is done, so next thing is you need to create a database for this project using your prefer database service, the database name should be the same as the DB_DATABASE value at your **.env** file that you create at step 3.
 
 9. After create database for this project, now you should create the table, in **Laravel**, there is a function call artisan, so all you need to do to create the table is open up your **Command Prompt** at your laptop by searching it **Windows Logo** or if you use mac than open **Terminal**, after you open it, change the current directory to your project location until the root file, in this case, the root file is **online-shop**, so you just need to change your directory until **online-shop**, after that you need to write `php artisan migrate` at your **Command Prompt** or your **Terminal**.
+
+10. Now you have the database and the table ready for you, all you need to do now is you should have an **Admin** account, because every time user register, it only register a **User** account, not admin, so in order to have an admin account you should write `php artisan db:seed` at your command prompt or terminal at the root directory.
+
+11. Now your application is ready to use, type `php artisan serve` at your command prompt or terminal then open in your browser, and the url will be `127.0.0.1:8000`.
