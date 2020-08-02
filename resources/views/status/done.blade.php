@@ -16,7 +16,6 @@
 				<th class="bg-gray-800 text-white border border-gray-700 uppercase">No</th>
 				<th class="bg-gray-800 text-white border border-gray-700 uppercase">Order ID</th>
 				<th class="bg-gray-800 text-white border border-gray-700 uppercase">Total Price</th>
-				<th class="bg-gray-800 text-white border border-gray-700 uppercase">Courier</th>
 				<th class="bg-gray-800 text-white border border-gray-700 uppercase">Status</th>
 				<th class="bg-gray-800 text-white border border-gray-700 uppercase">Shipping Tracker ID</th>
 				<th class="bg-gray-800 text-white border border-gray-700 uppercase">Invoice</th>
@@ -34,7 +33,6 @@
 					<td class="border border-gray-700 text-white">{{ $i }}</td>
 					<td class="border border-gray-700 text-white">{{ $d->order_code }}</td>
 					<td class="border border-gray-700 text-white">{{ 'Rp.' . $price }}</td>
-					<td class="border border-gray-700 text-white">{{ $d->courier }}</td>
 					@if($d->status == 0)
 						<td class="border border-gray-700 text-red-500 font-bold uppercase">unverified</td>
 					@else

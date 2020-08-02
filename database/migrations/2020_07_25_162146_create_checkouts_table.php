@@ -21,7 +21,6 @@ class CreateCheckoutsTable extends Migration
             $table->string('product_id');
             $table->integer('total');
             $table->integer('discount');
-            $table->string('courier');
             $table->string('receipt')->nullable();
             $table->integer('status');
             $table->integer('is_done');

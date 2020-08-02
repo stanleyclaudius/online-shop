@@ -77,7 +77,6 @@ class CheckoutController extends Controller
         $checkout->product_id = $productID;
         $checkout->total = $initialPrice;
         $checkout->discount = $initialPrice - $finalPrice;
-        $checkout->courier = 'JNE';
         $checkout->status = 0;
         $checkout->is_done = 0;
         $checkout->save();
