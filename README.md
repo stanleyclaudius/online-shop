@@ -75,3 +75,9 @@ MAIL_PASSWORD | YOUR_EMAIL_PASSWORD
 MAIL_ENCRYPTION | ssl
 MAIL_FROM_ADDRESS | EMAIL_ADDRESS_YOU_WANT_TO_USE_FOR_SENDING_EMAIL
 MAIL_FROM_NAME | NAME_YOU_WANT_TO_USE_FOR_SENDING_EMAIL
+After changing your email configuration at your **.env** file, now you need to change your setting at your GMAIL account:
+1. Open your gmail account, [mail.google.com](https://mail.google.com).
+2. On the right side, you will see your profile picture, click it, then choose **Manage your Google Account** button.
+3. Then your will got a bunch of menu at left side, now you choose the **Security** menu.
+4. After choosing **Security** menu, scroll down and look for **Less secure app access**, then click **Turn on access (not recommended)**, by default it's off, but if you want to use GMAIL service for this projrct, then you should turn it on.
+5. After above step is done, then you can use GMAIL service already for this project.
