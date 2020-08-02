@@ -33,6 +33,12 @@ Let's make an example of 2 people consists of **A** & **B**, where **A** is **Ad
 
 ## Setup Guide After Clone
 
-1. Open your clone result project at your favorite code editor, than create a new file name **.env** at your root folder or in this project, the root folder is **online-shop**, if you don't change the folder name, than you can make a new file at that folder name **.env**.
+1. Open your clone result project at your code editor, than create a new file name **.env** at your root folder or in this project, the root folder is **online-shop**, if you don't change the folder name, than you can make a new file at that folder name **.env**.
 
 2. After creating **.env** file, you can open **.env.example** file at your clone result project, then copy everything to the **.env** file that you created before.
+
+3. After copying everything to your **.env** file, you should change value of your database setting, by changing **DB_CONNECTION**, **DB_HOST**, **DB_PORT**, **DB_DATABASE**, **DB_USERNAME**, and **DB_PASSWORD** value to your database configuration. At default state, the database configuration from your copy result from **.env.example** file, will assumed that you used **MySQL** database, if you use **MySQL** database, then you only need to change (at your **.env** file):
+- **DB_DATABASE** = YOUR_DATABASE_NAME
+- **DB_USERNAME** = YOUR_DATABASE_USERNAME (Default is root)
+- **DB_PASSWORD** = YOUR_DATABASE_PASSWORD (Default is empty)
+If you use other database beside **MySQL** then you need to change every database configuration to your **.env** file.
