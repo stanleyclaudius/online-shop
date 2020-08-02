@@ -15,6 +15,7 @@
 - A normal cart and checkout functionality for user.
 - A chance to review a product, when it's bought by a user and arrived.
 - A subcribe to newsletter functionality, where user can get news that sent by admin.
+- A user control panel, where user can manage account easily.
 - An admin page to check user cart, verify payment, and make a payment done.
 - A dashboard page for admin which store main information of the store.
 - A discount feature that admin can give for user.
@@ -24,9 +25,11 @@
 
 ## Understand Project Better
 
-Let's make an example of 2 people consistts of **A** & **B**, where **A** is **Admin**, and **B** is **User**. One day **B** want to buy a product at **Dev Store**, so **B** open up the website and choose item that **B** want to buy. After seeing product detail, **B** interseted and  click **Add To Cart** that item. After that, **B** click the **Checkout** button, that take **B** to checkout page where **B** must fill up shipping information, and **Discount Voucher** if **B** has it. After filling everything up, than **B** click **Proceed** button, where **B** will got an email that contain several information about **B** order, and contains a **FAKE BANK ACCOUNT NUMBER** where tell **B** to transfer money to that **FAKE BANK ACCOUNT NUMBER** within 2 days. Since **B** has click the **Proceed** button, than **B** will got a status of **B** payment at **Home Page**, that **B** can see his/her invoice that contains **B** checkout list, total ammount, and many more.
+Let's make an example of 2 people consistts of **A** & **B**, where **A** is **Admin**, and **B** is **User**. One day **B** want to buy a product at **Dev Store**, so **B** open up the website and choose item that **B** want to buy. After seeing product detail, **B** interseted and  click **Add To Cart** that item. After that, **B** click the **Checkout** button, that take **B** to checkout page where **B** must fill up shipping information, and **Discount Voucher** if **B** has it. After filling everything up, than **B** click **Proceed** button, where **B** will got an email that contain several information about **B** order, and contains a **FAKE BANK ACCOUNT NUMBER** where tell **B** to transfer total ammount of **B** checkout list to that **FAKE BANK ACCOUNT NUMBER** within 2 days. Since **B** has click the **Proceed** button, than **B** will got a status of **B** payment at **Home Page**, that **B** can see his/her invoice that contains **B** checkout list, total ammount, and many more.
 
-**A** as admin will check the **Admin Page** to verify **B** payment, only if **B** made a payment within 2 days, otherwise **A** will delete **B** checkout list.
+**A** as admin will check the **Admin Page** to verify **B** payment, only if **B** made a payment within 2 days, otherwise **A** will delete **B** checkout list. Let's say **B** has made a payment, then **A** as **Admin** will verify it by clicking **Verify** at **Order List** menu at **Admin Page**, and start deliver the item to **B** shipping information that **B** fill when checkout. After sending it to delivery courier, **A** will got a **Tracking ID** for the item, so **A** will update the **Tracking ID** to **B** **Status Page** by clicking **Post Receipt** at **Order List** menu at **Admin Page**, so **B** can track it. Let's say after several days, **B** item has arrived, and **A** as admin know it, so **A** will open up **Admin Page** and choose **Order List** menu, and click the **Done** button, to finish up **B** checkout, when **A** click **Done** button, then **B** will got a message at **Dev Store Website** that tell **B** to review his/her product that he/she bought, **B** will only got 1 chance to review that product.
+
+**That's the simple story to understand better this project, if you interested, you can clone this project to get deeper knowing this project.**
 
 ## Learning Laravel
 
