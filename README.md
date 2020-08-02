@@ -62,3 +62,16 @@ Let's make an example of 2 people consists of **A** & **B**, where **A** is **Ad
 11. Now your application is ready to use, type `php artisan serve` at your command prompt or terminal then open in your browser, and the url will be `127.0.0.1:8000`.
 
 12. FYI : This project is created using TailwindCSS framework for the user page and Bootstrap 4.5 for the admin page.
+
+## GMAIL Configuration
+I don't recommend using GMAIL SMTP for deploying for website, because you should change some configuration in your google email, that can harm your email secure, but if for **Educational Purpose** it'll be fine, but for deploying website, I recommend using google API for sending mail instead of SMTP. I will show the configuration for GMAIL SMTP below:
+KEY | VALUE
+--- | -----
+MAIL_MAILER | smtp
+MAIL_HOST | smtp.googlemail.com
+MAIL_PORT | 465
+MAIL_USERNAME | YOUR_EMAIL_ADDRESS
+MAIL_PASSWORD | YOUR_EMAIL_PASSWORD
+MAIL_ENCRYPTION | ssl
+MAIL_FROM_ADDRESS | EMAIL_ADDRESS_YOU_WANT_TO_USE_FOR_SENDING_EMAIL
+MAIL_FROM_NAME | NAME_YOU_WANT_TO_USE_FOR_SENDING_EMAIL
