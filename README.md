@@ -25,65 +25,14 @@
 
 ## Understand Project Better
 
-Let's make an example of 2 people consistts of **A** & **B**, where **A** is **Admin**, and **B** is **User**. One day **B** want to buy a product at **Dev Store**, so **B** open up the website and choose item that **B** want to buy. After seeing product detail, **B** interseted and  click **Add To Cart** that item. After that, **B** click the **Checkout** button, that take **B** to checkout page where **B** must fill up shipping information, and **Discount Voucher** if **B** has it. After filling everything up, than **B** click **Proceed** button, where **B** will got an email that contain several information about **B** order, and contains a **FAKE BANK ACCOUNT NUMBER** where tell **B** to transfer total ammount of **B** checkout list to that **FAKE BANK ACCOUNT NUMBER** within 2 days. Since **B** has click the **Proceed** button, than **B** will got a status of **B** payment at **Home Page**, that **B** can see his/her invoice that contains **B** checkout list, total ammount, and many more.
+Let's make an example of 2 people consists of **A** & **B**, where **A** is **Admin**, and **B** is **User**. One day **B** want to buy a product at **Dev Store**, so **B** open up the website and choose item that **B** want to buy. After seeing product detail, **B** interested and  click **Add To Cart** that item. After that, **B** click the **Checkout** button, that take **B** to checkout page where **B** must fill up shipping information, and **Discount Voucher** if **B** has it. After filling everything up, than **B** click **Proceed** button, where **B** will got an email that contain several information about **B** order, and contains a **FAKE BANK ACCOUNT NUMBER** where tell **B** to transfer total ammount of **B** checkout list to that **FAKE BANK ACCOUNT NUMBER** within 2 days. Since **B** has click the **Proceed** button, than **B** will got a status of **B** payment at **Home Page**, that **B** can see his/her invoice that contains **B** checkout list, total ammount, and many more.
 
 **A** as admin will check the **Admin Page** to verify **B** payment, only if **B** made a payment within 2 days, otherwise **A** will delete **B** checkout list. Let's say **B** has made a payment, then **A** as **Admin** will verify it by clicking **Verify** at **Order List** menu at **Admin Page**, and start deliver the item to **B** shipping information that **B** fill when checkout. After sending it to delivery courier, **A** will got a **Tracking ID** for the item, so **A** will update the **Tracking ID** to **B** **Status Page** by clicking **Post Receipt** at **Order List** menu at **Admin Page**, so **B** can track it. Let's say after several days, **B** item has arrived, and **A** as admin know it, so **A** will open up **Admin Page** and choose **Order List** menu, and click the **Done** button, to finish up **B** checkout, when **A** click **Done** button, then **B** will got a message at **Dev Store Website** that tell **B** to review his/her product that he/she bought, **B** will only got 1 chance to review that product.
 
-**That's the simple story to understand better this project, if you interested, you can clone this project to get deeper knowing this project.**
+**That's the simple story to understand better this project, if you interested, you can clone this project to dig deeper to better know this project.**
 
-## Learning Laravel
+## Setup Guide After Clone
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+1. Open your clone result project at your favorite code editor, than create a new file name **.env** at your root folder or in this project, the root folder is **online-shop**, if you don't change the folder name, than you can make a new file at that folder name **.env**.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- [UserInsights](https://userinsights.com)
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
-- [iMi digital](https://www.imi-digital.de/)
-- [Earthlink](https://www.earthlink.ro/)
-- [Steadfast Collective](https://steadfastcollective.com/)
-- [We Are The Robots Inc.](https://watr.mx/)
-- [Understand.io](https://www.understand.io/)
-- [Abdel Elrafa](https://abdelelrafa.com)
-- [Hyper Host](https://hyper.host)
-- [Appoly](https://www.appoly.co.uk)
-- [OP.GG](https://op.gg)
-- [云软科技](http://www.yunruan.ltd/)
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+2. After creating **.env** file, you can open **.env.example** file at your clone result project, then copy everything to the **.env** file that you created before.
