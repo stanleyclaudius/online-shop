@@ -214,7 +214,7 @@
                       </div>
 
                       <div class="row mt-4 px-2">
-                        <div class="col-md-6" style="border: 1px solid #ccc; border-radius: 5px; padding: 10px;">
+                        <div class="col-md-5" style="border: 1px solid #ccc; border-radius: 5px; padding: 10px;">
                           <h5 class="mb-3">Newsletter</h5>
                           @if($newsletters->count() != 0)
                           <table class="table">
@@ -249,7 +249,46 @@
                             </div>
                           @endif
                         </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-5" style="border: 1px solid #ccc; border-radius: 5px; padding: 10px;">
+                          <h5 class="mb-3">Home Jumbotron</h5>
+                          @if($jumbotron->count() != 0)
+                          <table class="table">
+                            <thead class="thead-dark">
+                              <tr>
+                                <th scope="col">NO</th>
+                                <th scope="col">JUMBOTRON</th>
+                                <th scope="col">ACTION</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              @php
+                                $i = 1;
+                              @endphp
+                              @foreach($jumbotron as $j)
+                              <tr>
+                                <th scope="row">{{ $i }}</th>
+                                <td>
+                                  <img src="{{ asset('img') }}/contents/{{ $j->jumbotron }}" alt="" width="130">
+                                </td>
+                                <td>
+                                  <a href="/jumbotron/update/{{ $j->id }}" class="btn btn-warning btn-sm">Update</a>
+                                </td>
+                              </tr>
+                              @php
+                                $i++;
+                              @endphp
+                              @endforeach
+                            </tbody>
+                          </table>
+                          @else
+                            <div class="alert alert-danger" role="alert">
+                              No jumbotron found!
+                            </div>
+                          @endif
+                        </div>
                       </div>
+                      <br>
                 </div>
             </div>
         </div>

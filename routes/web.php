@@ -102,4 +102,6 @@ Route::group(['middleware' => ['auth', 'checkRole:1']], function() {
 
 	Route::post('/send/newsletter', 'DashboardController@sendNewsletter');
 	Route::get('/newsletter/delete/{id}', 'DashboardController@deleteNewsletter');
+	Route::get('/jumbotron/update/{id}', 'DashboardController@updateJumbotron');
+	Route::post('/jumbotron/update/{id}', 'DashboardController@postUpdateJumbotron');
 });

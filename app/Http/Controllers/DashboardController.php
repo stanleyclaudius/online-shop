@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use App\Newsletter;
+use App\Jumbotron;
 use App\Checkout;
 use App\Discount;
 use App\Product;
@@ -13,7 +14,7 @@ use App\Menu;
 use App\User;
 
 class DashboardController extends Controller
-{		
+{
     public function index()
     {
 		$menus = Menu::all();
@@ -37,6 +38,7 @@ class DashboardController extends Controller
 		$earningDiscount = Checkout::where('status', 1)->sum('discount');
 		$postEarning = $earningTotal - $earningDiscount;
         $newsletters = Newsletter::all();
+        $jumbotron = Jumbotron::all();
 
     	return view('dashboard/index', [
     		'discount' => $discount,
@@ -50,6 +52,7 @@ class DashboardController extends Controller
     		'arriving' => $arriving,
     		'postEarning' => $postEarning,
             'newsletters' => $newsletters,
+            'jumbotron' => $jumbotron
     	]);
     }
 
@@ -96,5 +99,30 @@ class DashboardController extends Controller
         $newsletter = Newsletter::find($id);
         $newsletter->delete();
         return redirect()->back()->with('admin', 'newsletter deleted');
+    }
+
+    public function updateJumbotron($id)
+    {
+        $menus = Menu::all();
+        $user = User::find(auth()->user()->id);
+        $jumbotron = Jumbotron::find($id);
+        return view('dashboard/jumbotron', compact(['jumbotron', 'menus', 'user']));
+    }
+
+    public function postUpdateJumbotron(Request $request, $id) 
+    {
+        $this->validate($request, [
+            'jumbotron' => 'mimes:jpg,png,jpeg',
+        ]);
+
+        $jumbotron = Jumbotron::find($id);
+        if ($request->hasFile('jumbotron')) {
+            $request->file('jumbotron')->move('img/contents/', $request->file('jumbotron')->getClientOriginalName());
+            $jumbotron->jumbotron = $request->file('jumbotron')->getClientOriginalName();
+            $jumbotron->save();
+        } else {
+            $jumbotron->jumbotron = $jumbotron->jumbotron;
+        }
+        return redirect('/dashboard')->with('admin', 'jumbotron updated');
     }
 }

@@ -144,5 +144,11 @@ $(document).ready(function() {
 			text: 'No user subscribe to our newsletter!',
 			icon: 'warning'
 		});
+	} else if (flashdata === 'jumbotron updated') {
+		swal.fire({
+			title: 'Success',
+			text: 'Home jumbotron has been updated!',
+			icon: 'success'
+		});
 	}
 });

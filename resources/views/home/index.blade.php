@@ -5,7 +5,9 @@
 @section('content')
 <div class="container mx-auto mt-10">
 	<div class="min-w-full mx-auto">
-		<img src="{{ asset('img') }}/contents/jumbotron.png" alt="" width="1200">
+		@foreach($jumbotron as $j)
+			<img src="{{ asset('img') }}/contents/{{ $j->jumbotron }}" alt="">
+		@endforeach
 	</div>
 </div>
 
