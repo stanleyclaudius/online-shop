@@ -177,7 +177,7 @@ class AuthController extends Controller
 
     public function forgetPassword()
     {
-        if (Auth::check()) {
+        if (Session::get('log') == 'true') {
             return redirect('/');
         }
 
