@@ -20,8 +20,13 @@
 - A discount feature that admin can give for user.
 - A normal CRUD for product at admin page.
 - A message functionality for user to get message about reviewing products and discount code.
+- Many more.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Understand Project Better
+
+Let's make an example of 2 people consistts of **A** & **B**, where **A** is **Admin**, and **B** is **User**. One day **B** want to buy a product at **Dev Store**, so **B** open up the website and choose item that **B** want to buy. After seeing product detail, **B** interseted and  click **Add To Cart** that item. After that, **B** click the **Checkout** button, that take **B** to checkout page where **B** must fill up shipping information, and **Discount Voucher** if **B** has it. After filling everything up, than **B** click **Proceed** button, where **B** will got an email that contain several information about **B** order, and contains a **FAKE BANK ACCOUNT NUMBER** where tell **B** to transfer money to that **FAKE BANK ACCOUNT NUMBER** within 2 days. Since **B** has click the **Proceed** button, than **B** will got a status of **B** payment at **Home Page**, that **B** can see his/her invoice that contains **B** checkout list, total ammount, and many more.
+
+**A** as admin will check the **Admin Page** to verify **B** payment, only if **B** made a payment within 2 days, otherwise **A** will delete **B** checkout list.
 
 ## Learning Laravel
 
