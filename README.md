@@ -31,6 +31,12 @@ Let's make an example of 2 people consists of **A** & **B**, where **A** is **Ad
 
 **That's the simple story to understand better this project, if you interested, you can clone this project to dig deeper to better know this project.**
 
+## Pre-requisite that you must know
+
+- Command Prompt basic including how to stop a running command (use CTRL + C)
+- Laravel basic
+- HTML, CSS, JS
+
 ## Setup Guide After Clone
 
 1. Open your clone result project at your code editor, then create a new file name **.env** at your root folder or in this project, the root folder is **online-shop**, if you don't change the folder name, then you can make a new file at that folder name **.env**.
@@ -54,3 +60,5 @@ Let's make an example of 2 people consists of **A** & **B**, where **A** is **Ad
 10. Now you have the database and the table ready for you, all you need to do now is you should have an **Admin** account, because every time user register, it only register a **User** account, not admin, so in order to have an admin account you should write `php artisan db:seed` at your command prompt or terminal at the root directory.
 
 11. Now your application is ready to use, type `php artisan serve` at your command prompt or terminal then open in your browser, and the url will be `127.0.0.1:8000`.
+
+12. FYI : This project is created using TailwindCSS framework for the user page and Bootstrap 4.5 for the admin page.
