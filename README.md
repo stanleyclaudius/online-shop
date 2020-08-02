@@ -75,6 +75,7 @@ MAIL_PASSWORD | YOUR_EMAIL_PASSWORD
 MAIL_ENCRYPTION | ssl
 MAIL_FROM_ADDRESS | EMAIL_ADDRESS_YOU_WANT_TO_USE_FOR_SENDING_EMAIL
 MAIL_FROM_NAME | NAME_YOU_WANT_TO_USE_FOR_SENDING_EMAIL
+
 After changing your email configuration at your **.env** file, now you need to change your setting at your GMAIL account:
 1. Open your gmail account, [mail.google.com](https://mail.google.com).
 2. On the right side, you will see your profile picture, click it, then choose **Manage your Google Account** button.
