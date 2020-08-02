@@ -31,11 +31,13 @@ Let's make an example of 2 people consists of **A** & **B**, where **A** is **Ad
 
 **That's the simple story to understand better this project, if you interested, you can clone this project to dig deeper to better know this project.**
 
+
 ## Pre-requisite that you must know
 
 - Command Prompt basic including how to stop a running command (use CTRL + C)
 - Laravel basic
 - HTML, CSS, JS
+
 
 ## Setup Guide After Clone
 
@@ -63,6 +65,7 @@ Let's make an example of 2 people consists of **A** & **B**, where **A** is **Ad
 
 12. FYI : This project is created using TailwindCSS framework for the user page and Bootstrap 4.5 for the admin page.
 
+
 ## GMAIL Configuration
 I don't recommend using GMAIL SMTP for deploying for website, because you should change some configuration in your google email, that can harm your email secure, but if for **Educational Purpose** it'll be fine, but for deploying website, I recommend using google API for sending mail instead of SMTP. I will show the configuration for GMAIL SMTP below:
 KEY | VALUE
@@ -80,5 +83,5 @@ After changing your email configuration at your **.env** file, now you need to c
 1. Open your gmail account, [mail.google.com](https://mail.google.com).
 2. On the right side, you will see your profile picture, click it, then choose **Manage your Google Account** button.
 3. Then your will got a bunch of menu at left side, now you choose the **Security** menu.
-4. After choosing **Security** menu, scroll down and look for **Less secure app access**, then click **Turn on access (not recommended)**, by default it's off, but if you want to use GMAIL service for this projrct, then you should turn it on.
+4. After choosing **Security** menu, scroll down and look for **Less secure app access**, then click **Turn on access (not recommended)**, by default it's off, but if you want to use GMAIL service for this project, then you should turn it on.
 5. After above step is done, then you can use GMAIL service already for this project.
