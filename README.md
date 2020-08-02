@@ -7,17 +7,19 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
-## About Laravel
+## Store Scenario
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+**Dev Store** is an online shop that inspire by real life store, where user can buy products at that shop, where this store is not fully manage by a website, but it's admin will be in charged to check user payment, then verified it, so its not fully website app without human in charged. This online shop website offers some functionality below:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- A complete authentication feature, include verification code, forget password, and many more.
+- A normal cart and checkout functionality for user.
+- A chance to review a product, when it's bought by a user and arrived.
+- A subcribe to newsletter functionality, where user can get news that sent by admin.
+- An admin page to check user cart, verify payment, and make a payment done.
+- A dashboard page for admin which store main information of the store.
+- A discount feature that admin can give for user.
+- A normal CRUD for product at admin page.
+- A message functionality for user to get message about reviewing products and discount code.
 
 Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
