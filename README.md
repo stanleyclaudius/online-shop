@@ -82,3 +82,9 @@ After changing your email configuration at your **.env** file, now you need to c
 3. Then your will got a bunch of menu at left side, now you choose the **Security** menu.
 4. After choosing **Security** menu, scroll down and look for **Less secure app access**, then click **Turn on access (not recommended)**, by default it's off, but if you want to use GMAIL service for this project, then you should turn it on.
 5. After above step is done, then you can use GMAIL service already for this project.
+
+## Project purpose
+This project is created for **Educational Purpose**, but if you want to deploy this project as your online shop, it can, but i recommend using google API for sending mail rather than google SMTP, because google API is more safer than using SMTP for deploying website. You can use **Mailtrap** for your mail service too, but it's fake email service, so it's not send to real email. But it's personal choice what you wan to use, I personally recomment using **Mailtrap** for mor safer.
+
+## Thank You
+Thanks for cloning this project, if you wish to add new feature or fixed some bug that you found, you can create a pull request for me in this project. Thanks for your time looking at this project. Stay Code Stay Awesome!
