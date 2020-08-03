@@ -84,7 +84,7 @@ After changing your email configuration at your **.env** file, now you need to c
 5. After above step is done, then you can use GMAIL service already for this project.
 
 ## Project purpose
-This project is created for **Educational Purpose**, but if you want to deploy this project as your online shop, it can, but i recommend using google API for sending mail rather than google SMTP, because google API is more safer than using SMTP for deploying website. You can use **Mailtrap** for your mail service too, but it's fake email service, so it's not send to real email. But it's personal choice what you wan to use, I personally recomment using **Mailtrap** for mor safer.
+This project is created for **Educational Purpose**, but if you want to deploy this project as your online shop, it can, but i recommend using google API for sending mail rather than google SMTP, because google API is more safer than using SMTP for deploying website. You can use **Mailtrap** for your mail service too, but it's fake email service, so it's not send to real email. But it's personal choice what you wan to use, I personally recommend using **Mailtrap** for safer purpose if you only want to use this project as educational purpose, if you want to use this project as your real shop website, then I recommend using **GMAIL API** for your project.
 
 ## Thank You
 Thanks for cloning this project, if you wish to add new feature or fixed some bug that you found, you can create a pull request for me in this project. Thanks for your time looking at this project. Stay Code Stay Awesome!
