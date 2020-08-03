@@ -83,7 +83,7 @@ class DashboardController extends Controller
 
     	    	Mail::send('email/newsletter', ['data' => $data], function($m) use ($to_email, $to_name) {
     	            $m->subject('DS Newsletter');
-    	            $m->from('duniakodingacademy@gmail.com', 'Dunia Koding');
+    	            $m->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
     	            $m->to($to_email, $to_name);
     	        });
         	}

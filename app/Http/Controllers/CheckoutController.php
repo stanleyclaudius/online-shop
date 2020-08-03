@@ -117,7 +117,7 @@ class CheckoutController extends Controller
 
         Mail::send('email/checkout', ['data' => $data], function($m) use ($to_email, $to_name) {
             $m->subject('Payment Confirmation');
-            $m->from('duniakodingacademy@gmail.com', 'Dunia Koding');
+            $m->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
             $m->to($to_email, $to_name);
         });
 
