@@ -52,8 +52,8 @@
 	</table>
 
 	<h2 style="text-align: center;">Please transfer the "Total After Discount" ammount to below bank number</h2>
-	<h1 style="text-align: center;">1234 5687 7788</h1>
-	<h1 style="text-align: center;">Dev Store, BCA</h1>
+	<h1 style="text-align: center;">1111 1111 1111</h1>
+	<h1 style="text-align: center;">Dev Store, XYZ</h1>
 
 	<p style="color: red">Payment only available for less than 48 hours or 2 day, more than 2 day, we'll assumed that you cancel your order even you made payment after 2 days!</p>
 
