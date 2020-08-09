@@ -24,7 +24,7 @@ Let's make an example of 2 people consists of **A** & **B**, where **A** is **Ad
 
 ## Pre-requisite that you must know
 
-- Command Prompt basic including how to stop a running command (use CTRL + C)
+- Command Prompt basic including how to stop a running command (CTRL + C), changing directory (cd **file_location**)
 - Database knowledge
 - Laravel basic
 - HTML, CSS, JS
@@ -41,9 +41,9 @@ Let's make an example of 2 people consists of **A** & **B**, where **A** is **Ad
 
 5. Because this project include verification code when user register, so this project require your email username and password. I will assume your **.env** file has email configuration already, in this case you can choose whether you want to use **GMAIL** send mail feature or **Mailtrap** feature or other mail service. **Mailtrap** is a fake email service, that can send your message to other people email from **Mailtrap Email** without sending to real email.
 
-6. As default, your **.env** file mail configuration will use **Mailtrap** service, let's say you want to use **Mailtrap** service, so the first step if you choose **Mailtrap** service is you should go to [mailtrap.io](https://mailtrap.io) then Sign Up account, after that you should login and then click **New Project** button at right side, then setting your project according to mailtrap instruction. After everything done, You will see an inboxes that contains your project name that you created before then click it. After that you will see **SMTP Settings** menu, then choose the Integrations to **Laravel**, then replace your email configuration at **.env** file become your configuration that you got from [mailtrap.io](https://mailtrap.io) (If you need more detail for configuring **Mailtrap**, scroll down and copy the configuration to your **.env** file) then continue to step 7.
+6. As default, your **.env** file mail configuration will use **Mailtrap** service, let's say you want to use **Mailtrap** service, so the first step if you choose **Mailtrap** service is you should go to [mailtrap.io](https://mailtrap.io) then Sign Up account, after that you should login and then click **New Project** button, then setting your project according to mailtrap instruction. After everything done, You will see an inboxes that contains your project name that you created before then click it. After that you will see **SMTP Settings** menu, then choose the Integrations to **Laravel**, then replace your email configuration at **.env** file become your configuration that you got from [mailtrap.io](https://mailtrap.io) (If you need more detail for configuring **Mailtrap**, scroll down and copy the configuration to your **.env** file) then continue to step 7.
 
-7. Because this project is made for **Educational Purpose** than i recommend using **Mailtrap** as your mail service to get a safer mail service for your email. It's only my personal opinion, if you wish to use **GMAIL** as your mail service, then you can check the configuration at below.
+7. Because this project is made for **Educational Purpose** then i recommend using **Mailtrap** as your mail service to get a safer mail service for your email. It's only my personal opinion, if you wish to use **GMAIL** as your mail service, then you can check the configuration at below.
 
 8. Now the configuration is done, so next thing is you need to create a database for this project using your prefer database service, the database name should be the same as the **DB_DATABASE value** at your **.env** file that you create at step 3.
 
