@@ -47,7 +47,7 @@ Let's make an example of 2 people consists of **A** & **B**, where **A** is **Ad
 
 8. Now the configuration is done, so next thing is you need to create a database for this project using your prefer database service, the database name should be the same as the **DB_DATABASE value** at your **.env** file that you create at step 3.
 
-9. Now we need to install all package using composer, write `composer install` at your **Command Prompt** or **Terminal** at root folder of this project, in this project the root folder is **online-shop** if you don't change it
+9. Now we need to install all package using composer, write `composer install` at your **Command Prompt** or **Terminal** at root folder of this project, in this project the root folder is **online-shop** if you don't change it. If you don't have composer install in your computer, [click here](https://getcomposer.org/download/) to download composer.
 
 10. After create database for this project, now you should create the table, in **Laravel**, there is a function call artisan, so all you need to do to create the table is open up your **Command Prompt** at your laptop  or if you use mac than open **Terminal**, after you open it, change the current directory to your project location until the root file, in this case, the root file is **online-shop**, so you just need to change your directory until **online-shop**, after that you need to write `php artisan migrate` at your **Command Prompt** or your **Terminal**.
 
