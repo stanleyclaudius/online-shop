@@ -60,7 +60,7 @@ Let's make an example of 2 people consists of **A** & **B**, where **A** is **Ad
 ## Admin Login Credentials
 After done the seeding process, then this is the admin account for your online shop.
 
-**NB: EMAIL ARE FAKE EMAIL**
+**NB: ADMIN EMAIL FOR THIS APPLICATION ARE FAKE EMAIL**
 EMAIL | PASSWORD
 ----- | --------
 admin@store.com | admin
