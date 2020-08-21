@@ -57,6 +57,12 @@ Let's make an example of 2 people consists of **A** & **B**, where **A** is **Ad
 
 13. FYI : This project is created using TailwindCSS framework for the user page and Bootstrap 4.5 for the admin page.
 
+## Admin Login Credentials
+After done the seeding process, then this is the admin account for your online shop.
+EMAIL | PASSWORD
+----- | --------
+admin@store.com | admin
+
 ## Mailtrap Configuration
 Before using Mailtrap, please sign up and then register and add click **New Project** button and follow the Mailtrap instruction. Read step 6 for more detail setting up **Mailtrap** account, below just contains Mailtrap configration at your **.env** file:
 KEY | VALUE
