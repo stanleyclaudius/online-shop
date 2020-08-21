@@ -62,6 +62,7 @@ After done the seeding process, then this is the admin account for your online s
 EMAIL | PASSWORD
 ----- | --------
 admin@store.com | admin
+**NB: EMAIL ARE FAKE EMAIL**
 
 ## Mailtrap Configuration
 Before using Mailtrap, please sign up and then register and add click **New Project** button and follow the Mailtrap instruction. Read step 6 for more detail setting up **Mailtrap** account, below just contains Mailtrap configration at your **.env** file:
