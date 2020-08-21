@@ -59,10 +59,10 @@ Let's make an example of 2 people consists of **A** & **B**, where **A** is **Ad
 
 ## Admin Login Credentials
 After done the seeding process, then this is the admin account for your online shop.
+**NB: EMAIL ARE FAKE EMAIL**
 EMAIL | PASSWORD
 ----- | --------
 admin@store.com | admin
-**NB: EMAIL ARE FAKE EMAIL**
 
 ## Mailtrap Configuration
 Before using Mailtrap, please sign up and then register and add click **New Project** button and follow the Mailtrap instruction. Read step 6 for more detail setting up **Mailtrap** account, below just contains Mailtrap configration at your **.env** file:
