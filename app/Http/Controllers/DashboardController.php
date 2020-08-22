@@ -21,7 +21,12 @@ class DashboardController extends Controller
     	$user = User::find(auth()->user()->id);
     	$discount = Discount::count();
     	$product = Product::count();
-    	$sold = Checkout::where('status', 1)->count();
+    	$checkoutSold = Checkout::where('status', 1)->get();
+        $checkoutProd = 0;
+        foreach ($checkoutSold as $check) {
+            $product_id = explode(' ', $check->product_id);
+            $checkoutProd = $checkoutProd + count($product_id);
+        }
     	$reviewCount = Review::where('is_review', 1)->count();
     	$review = Review::where('is_review', 1)->sum('star');
 
@@ -45,7 +50,7 @@ class DashboardController extends Controller
     		'user' => $user,
     		'menus' => $menus,
     		'product' => $product,
-    		'sold' => $sold,
+    		'sold' => $checkoutProd,
     		'review' => $review,
     		'complete' => $complete,
     		'unverified' => $unverified,
