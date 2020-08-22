@@ -105,7 +105,7 @@
 								<label for="avatar" class="text-white mb-2">Profile Picture</label>
 							@endif
 							<div class="grid grid-cols-3">
-								<img src="{{ asset('img') }}/avatar/{{ auth()->user()->avatar }}" alt="" class="border border-gray-500 rounded" width="120">
+								<img src="{{ asset('img') }}/avatar/{{ auth()->user()->avatar }}" alt="Dev Store" class="border border-gray-500 rounded" width="120">
 								<div class="col-span-2">
 									<input type="file" name="avatar" id="avatar" class="text-white w-full border border-gray-500 rounded px-2 py-1 h-10 text-lg">
 								</div>

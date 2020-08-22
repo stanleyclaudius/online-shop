@@ -30,7 +30,7 @@
                 @foreach($menu->submenu as $submenu)
                 <li class="nav-item active">
                     <a class="nav-link" href="{{ $submenu->link }}">
-                        <img src="{{ asset('img') }}/icons/admin/{{ $submenu->icon }}" alt="" width="25" class="mr-2">
+                        <img src="{{ asset('img') }}/icons/admin/{{ $submenu->icon }}" alt="Dev Store" width="25" class="mr-2">
                         <span>{{ $submenu->submenu }}</span>
                     </a>
                 </li>
@@ -113,7 +113,7 @@
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <img src="{{ asset('img') }}/avatar/{{ auth()->user()->avatar }}" alt="" class="img-thumbnail">
+                                        <img src="{{ asset('img') }}/avatar/{{ auth()->user()->avatar }}" alt="Dev Store" class="img-thumbnail">
                                     </div>
                                     <div class="col-md-9">
                                         <div class="custom-file">

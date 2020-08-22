@@ -55,7 +55,7 @@
                     <div class="col-md">
                         <div class="row">
                             <div class="col-md-3">
-                                <img src="{{ asset('img') }}/products/{{ $product->product_image }}" alt="" class="img-thumbnail">
+                                <img src="{{ asset('img') }}/products/{{ $product->product_image }}" alt="Dev Store" class="img-thumbnail">
                             </div>
                             <div class="col-md-9">
                                 <input type="file" class="custom-file-input" id="product_image" name="product_image">

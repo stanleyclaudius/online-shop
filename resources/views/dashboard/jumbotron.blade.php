@@ -12,7 +12,7 @@
       @csrf
       <div class="row">
         <div class="col-md-3">
-          <img src="{{ asset('img') }}/contents/{{ $jumbotron->jumbotron }}" alt="" class="img-thumbnail" width="200">
+          <img src="{{ asset('img') }}/contents/{{ $jumbotron->jumbotron }}" alt="Dev Store" class="img-thumbnail" width="200">
         </div>
         <div class="col-md-9">
           <label for="">Jumbotron Image</label>

@@ -23,7 +23,7 @@
             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $discount > 1 ? $discount . ' Items' : $discount . ' Item' }}</div>
           </div>
           <div class="col-auto">
-            <img src="{{ asset('img') }}/icons/dashboard/discount.png" alt="" width="50">
+            <img src="{{ asset('img') }}/icons/dashboard/discount.png" alt="Dev Store" width="50">
           </div>
         </div>
       </div>
@@ -40,7 +40,7 @@
             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $product > 1 ? $product . ' Items' : $product . ' Item' }}</div>
           </div>
           <div class="col-auto">
-            <img src="{{ asset('img') }}/icons/dashboard/laptop.png" alt="" width="50">
+            <img src="{{ asset('img') }}/icons/dashboard/laptop.png" alt="Dev Store" width="50">
           </div>
         </div>
       </div>
@@ -57,7 +57,7 @@
              <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $sold > 1 ? $sold . ' Items' : $sold . ' Item' }}</div>
           </div>
           <div class="col-auto">
-            <img src="{{ asset('img') }}/icons/dashboard/dollar.png" alt="" width="50">
+            <img src="{{ asset('img') }}/icons/dashboard/dollar.png" alt="Dev Store" width="50">
           </div>
         </div>
       </div>
@@ -74,7 +74,7 @@
             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $review == 0 ? 0.0 : number_format($review, 1) }}</div>
           </div>
           <div class="col-auto">
-            <img src="{{ asset('img') }}/icons/dashboard/star.png" alt="" width="50">
+            <img src="{{ asset('img') }}/icons/dashboard/star.png" alt="Dev Store" width="50">
           </div>
         </div>
       </div>
@@ -94,7 +94,7 @@
             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $complete > 1 ? $complete . ' Users' : $complete . ' User' }}</div>
           </div>
           <div class="col-auto">
-            <img src="{{ asset('img') }}/icons/dashboard/arrived.png" alt="" width="50">
+            <img src="{{ asset('img') }}/icons/dashboard/arrived.png" alt="Dev Store" width="50">
           </div>
         </div>
       </div>
@@ -111,7 +111,7 @@
             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $unverified > 1 ? $unverified . ' Users' : $unverified . ' User' }}</div>
           </div>
           <div class="col-auto">
-            <img src="{{ asset('img') }}/icons/dashboard/unverified.png" alt="" width="50">
+            <img src="{{ asset('img') }}/icons/dashboard/unverified.png" alt="Dev Store" width="50">
           </div>
         </div>
       </div>
@@ -128,7 +128,7 @@
             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $arriving > 1 ? $arriving . ' Users' : $arriving . ' User' }}</div>
           </div>
           <div class="col-auto">
-            <img src="{{ asset('img') }}/icons/dashboard/arriving.png" alt="" width="50">
+            <img src="{{ asset('img') }}/icons/dashboard/arriving.png" alt="Dev Store" width="50">
           </div>
         </div>
       </div>
@@ -206,7 +206,7 @@
         <tr>
           <th scope="row">{{ $i }}</th>
           <td>
-            <img src="{{ asset('img') }}/contents/{{ $j->jumbotron }}" alt="" width="130">
+            <img src="{{ asset('img') }}/contents/{{ $j->jumbotron }}" alt="Dev Store" width="130">
           </td>
           <td>
             <a href="/jumbotron/update/{{ $j->id }}" class="btn btn-warning btn-sm">Update</a>

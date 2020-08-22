@@ -242,7 +242,7 @@
 					</li>
 					<li class="flex-shrink-0 hidden sm:hidden md:block lg:block">
 						<div class="dropdown2">
-							<button class="dropbtn2"><img src="{{ asset('img') }}/avatar/{{ auth()->user()->avatar }}" width="40" class="border border-gray-400 rounded-full" alt=""></button>
+							<button class="dropbtn2"><img src="{{ asset('img') }}/avatar/{{ auth()->user()->avatar }}" width="40" class="border border-gray-400 rounded-full" alt="Dev Store"></button>
 							<div class="dropdown-content2" id="myDropdown">
 								<a href="/user">Control Panel</a>
 								<a href="/logout">Logout</a>

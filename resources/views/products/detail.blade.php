@@ -53,7 +53,7 @@
 				@endphp
 				<p class="font-bold hidden sm:hidden md:hidden lg:block">RATING ({{ $oneStar }})</p>
 				<div class="flex mt-2">
-					<img src="{{ asset('img') }}/icons/star.png" alt="" width="25" class="mr-1">
+					<img src="{{ asset('img') }}/icons/star.png" alt="Dev Store" width="25" class="mr-1">
 					<p class="font-bold block sm:block md:block lg:hidden">({{ $oneStar }})</p>
 				</div>
 			</div>
@@ -65,8 +65,8 @@
 				@endphp
 				<p class="font-bold hidden sm:hidden md:hidden lg:block">RATING ({{ $twoStar }})</p>
 				<div class="flex mt-2">
-					<img src="{{ asset('img') }}/icons/star.png" alt="" width="25" class="mr-1">
-					<img src="{{ asset('img') }}/icons/star.png" alt="" width="25" class="mr-1">
+					<img src="{{ asset('img') }}/icons/star.png" alt="Dev Store" width="25" class="mr-1">
+					<img src="{{ asset('img') }}/icons/star.png" alt="Dev Store" width="25" class="mr-1">
 					<p class="font-bold block sm:block md:block lg:hidden">({{ $twoStar }})</p>
 				</div>
 			</div>
@@ -78,9 +78,9 @@
 				@endphp
 				<p class="font-bold hidden sm:hidden md:hidden lg:block">RATING ({{ $threeStar }})</p>
 				<div class="flex mt-2">
-					<img src="{{ asset('img') }}/icons/star.png" alt="" width="25" class="mr-1">
-					<img src="{{ asset('img') }}/icons/star.png" alt="" width="25" class="mr-1">
-					<img src="{{ asset('img') }}/icons/star.png" alt="" width="25" class="mr-1">
+					<img src="{{ asset('img') }}/icons/star.png" alt="Dev Store" width="25" class="mr-1">
+					<img src="{{ asset('img') }}/icons/star.png" alt="Dev Store" width="25" class="mr-1">
+					<img src="{{ asset('img') }}/icons/star.png" alt="Dev Store" width="25" class="mr-1">
 					<p class="font-bold block sm:block md:block lg:hidden">({{ $threeStar }})</p>
 				</div>
 			</div>
@@ -92,10 +92,10 @@
 				@endphp
 				<p class="font-bold hidden sm:hidden md:hidden lg:block">RATING ({{ $fourStar }})</p>
 				<div class="flex mt-2">
-					<img src="{{ asset('img') }}/icons/star.png" alt="" width="25" class="mr-1">
-					<img src="{{ asset('img') }}/icons/star.png" alt="" width="25" class="mr-1">
-					<img src="{{ asset('img') }}/icons/star.png" alt="" width="25" class="mr-1">
-					<img src="{{ asset('img') }}/icons/star.png" alt="" width="25" class="mr-1">
+					<img src="{{ asset('img') }}/icons/star.png" alt="Dev Store" width="25" class="mr-1">
+					<img src="{{ asset('img') }}/icons/star.png" alt="Dev Store" width="25" class="mr-1">
+					<img src="{{ asset('img') }}/icons/star.png" alt="Dev Store" width="25" class="mr-1">
+					<img src="{{ asset('img') }}/icons/star.png" alt="Dev Store" width="25" class="mr-1">
 					<p class="font-bold block sm:block md:block lg:hidden">({{ $fourStar }})</p>
 				</div>
 			</div>
@@ -107,11 +107,11 @@
 				@endphp
 				<p class="font-bold hidden sm:hidden md:hidden lg:block">RATING ({{ $fiveStar }})</p>
 				<div class="flex mt-2">
-					<img src="{{ asset('img') }}/icons/star.png" alt="" width="25" class="mr-1">
-					<img src="{{ asset('img') }}/icons/star.png" alt="" width="25" class="mr-1">
-					<img src="{{ asset('img') }}/icons/star.png" alt="" width="25" class="mr-1">
-					<img src="{{ asset('img') }}/icons/star.png" alt="" width="25" class="mr-1">
-					<img src="{{ asset('img') }}/icons/star.png" alt="" width="25" class="mr-1">
+					<img src="{{ asset('img') }}/icons/star.png" alt="Dev Store" width="25" class="mr-1">
+					<img src="{{ asset('img') }}/icons/star.png" alt="Dev Store" width="25" class="mr-1">
+					<img src="{{ asset('img') }}/icons/star.png" alt="Dev Store" width="25" class="mr-1">
+					<img src="{{ asset('img') }}/icons/star.png" alt="Dev Store" width="25" class="mr-1">
+					<img src="{{ asset('img') }}/icons/star.png" alt="Dev Store" width="25" class="mr-1">
 					<p class="font-bold block sm:block md:block lg:hidden">({{ $fiveStar }})</p>
 				</div>
 			</div>
@@ -186,13 +186,13 @@
 				@else
 					@foreach($reviews as $review)
 					<div class="user-review flex items-center border-b border-gray-700 px-2 pl-4 py-5 relative bg-gray-800">
-						<img src="{{ asset('img') }}/avatar/{{ $review->user->avatar }}" alt="" width="85" class="rounded-full border border-gray-600">
+						<img src="{{ asset('img') }}/avatar/{{ $review->user->avatar }}" alt="Dev Store" width="85" class="rounded-full border border-gray-600">
 						<div class="ml-6">
 							<p class="text-xl text-white">{{ $review->name }}</p>
 							<p class="text-sm mt-1 text-white" style="width: 42rem;">{{ $review->review }}</p>
 							<div class="flex mt-2 mb-3">
 								@for($initStar = 0; $initStar < $review->star; $initStar++)
-								<img src="{{ asset('img') }}/icons/star.png" alt="" width="18" class="mr-1">
+								<img src="{{ asset('img') }}/icons/star.png" alt="Dev Store" width="18" class="mr-1">
 								@endfor
 							</div>
 							<p class="text-sm text-gray-600 block sm:block md:block lg:hidden">{{ $review->created_at->format('d M Y') }}</p>

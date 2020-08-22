@@ -20,7 +20,7 @@
 						<li class="border-b border-gray-500 flex justify-between px-3 py-3 items-center">
 							<div class="flex items-center">
 								<div class="flex items-center justify-center mr-3">
-									<img src="{{ asset('img') }}/icons/message/{{ $publicMessage->icon }}" alt="" class="border border-gray-400 rounded-full w-10 h-10">
+									<img src="{{ asset('img') }}/icons/message/{{ $publicMessage->icon }}" alt="Dev Store" class="border border-gray-400 rounded-full w-10 h-10">
 								</div>
 								<div>
 									@if($publicMessage->is_read == 0)
@@ -58,7 +58,7 @@
 						<li class="border-b border-gray-500 flex justify-between px-3 py-3 items-center">
 							<div class="flex items-center">
 								<div class="flex items-center justify-center mr-3">
-									<img src="{{ asset('img') }}/icons/message/{{ $message->icon }}" alt="" class="border border-gray-400 rounded-full w-10 h-10">
+									<img src="{{ asset('img') }}/icons/message/{{ $message->icon }}" alt="Dev Store" class="border border-gray-400 rounded-full w-10 h-10">
 								</div>
 								<div>
 									@if($message->is_read == 0)

@@ -26,7 +26,7 @@
             </div>
             <div class="row mt-4">
                 <div class="col-md-3">
-                    <img src="{{ asset('img') }}/icons/category/{{ $category->icon }}" alt="" class="img-thumbnail">
+                    <img src="{{ asset('img') }}/icons/category/{{ $category->icon }}" alt="Dev Store" class="img-thumbnail">
                 </div>
                 <div class="col-md-9">
                     <label for="customFile">Category Icon</label>

@@ -37,7 +37,7 @@
 				<tr class="text-center">
 					<td class="border border-gray-700 text-white">{{ $i }}</td>
 					<td class="border border-gray-700">
-						<img src="{{ asset('img') }}/products/{{ $item->product->product_image }}" alt="" width="80" class="mx-auto">
+						<img src="{{ asset('img') }}/products/{{ $item->product->product_image }}" alt="Dev Store" width="80" class="mx-auto">
 					</td>
 					<td class="border border-gray-700 text-white">{{ $item->product->product_name }}</td>
 					<td class="border border-gray-700">

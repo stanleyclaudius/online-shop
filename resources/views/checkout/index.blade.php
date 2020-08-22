@@ -29,7 +29,7 @@
 						@endphp
 						@if(!$loop->last)
 							<li class="border-b border-gray-500 p-4 flex items-center">
-								<img src="{{ asset('img') }}/products/{{ $item->product->product_image }}" alt="" width="80">
+								<img src="{{ asset('img') }}/products/{{ $item->product->product_image }}" alt="Dev Store" width="80">
 								<div class="ml-4">
 									<p class="text-lg text-white">{{ $item->product->product_name }}</p>
 									<p class="text-white">QTY : {{ $item->qty }}</p>
@@ -43,7 +43,7 @@
 						@endif
 						@if($loop->last)
 							<li class="p-4 flex items-center">
-								<img src="{{ asset('img') }}/products/{{ $item->product->product_image }}" alt="" width="80">
+								<img src="{{ asset('img') }}/products/{{ $item->product->product_image }}" alt="Dev Store" width="80">
 								<div class="ml-4">
 									<p class="text-lg text-white">{{ $item->product->product_name }}</p>
 									<p class="text-white">QTY : {{ $item->qty }}</p>
@@ -164,7 +164,7 @@
 						@endphp
 						@if(!$loop->last)
 							<li class="border-b border-gray-500 p-4 flex items-center">
-								<img src="{{ asset('img') }}/products/{{ $item->product->product_image }}" alt="" width="80">
+								<img src="{{ asset('img') }}/products/{{ $item->product->product_image }}" alt="Dev Store" width="80">
 								<div class="ml-4">
 									<p class="text-lg text-white">{{ $item->product->product_name }}</p>
 									<p class="text-white">QTY : {{ $item->qty }}</p>
@@ -178,7 +178,7 @@
 						@endif
 						@if($loop->last)
 							<li class="p-4 flex items-center">
-								<img src="{{ asset('img') }}/products/{{ $item->product->product_image }}" alt="" width="80">
+								<img src="{{ asset('img') }}/products/{{ $item->product->product_image }}" alt="Dev Store" width="80">
 								<div class="ml-4">
 									<p class="text-lg text-white">{{ $item->product->product_name }}</p>
 									<p class="text-white">QTY : {{ $item->qty }}</p>

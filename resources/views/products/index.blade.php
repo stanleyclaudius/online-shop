@@ -16,7 +16,7 @@
 				@foreach($categories as $category)
 					@if($category->section == 'brand')
 						<div class="flex items-center mb-5">
-							<img src="{{ asset('img') }}/icons/category/{{ $category->icon }}" alt="" class="mr-5" width="20">
+							<img src="{{ asset('img') }}/icons/category/{{ $category->icon }}" alt="Dev Store" class="mr-5" width="20">
 							@if($category->slug == request()->category)
 								<a href="{{ route('products.category', ['category' => $category->slug]) }}" class="text-white"><u>{{ $category->category }}</u></a>
 							@else
@@ -33,11 +33,11 @@
 			</div>
 			<div class="px-3 mt-4">
 				<div class="mb-5 flex items-center">
-					<img src="{{ asset('img') }}/icons/category/high.png" alt="" class="mr-5" width="20" style="transform: rotateZ(180deg);">
+					<img src="{{ asset('img') }}/icons/category/high.png" alt="Dev Store" class="mr-5" width="20" style="transform: rotateZ(180deg);">
 					<a href="{{ route('products.category', ['category' => request()->category, 'sort' => 'low_high']) }}" class="text-white">Low to High</a>
 				</div>
 				<div class="mb-5 flex items-center">
-					<img src="{{ asset('img') }}/icons/category/high.png" alt="" class="mr-5" width="20">
+					<img src="{{ asset('img') }}/icons/category/high.png" alt="Dev Store" class="mr-5" width="20">
 					<a href="{{ route('products.category', ['category' => request()->category, 'sort' => 'high_low']) }}" class="text-white">High to Low</a>
 				</div>
 			</div>
@@ -50,7 +50,7 @@
 		            $price = number_format($product->product_price, 2, ',', '.');
 		        @endphp
 				<div class="mb-10 mx-auto">
-					<img src="{{ asset('img') }}/products/{{ $product->product_image }}" alt="">
+					<img src="{{ asset('img') }}/products/{{ $product->product_image }}" alt="Dev Store">
 					<p class="text-lg font-semibold mt-4 text-white">{{ $product->product_name }}</p>
 					<p class="text-lg mt-2 mb-5 text-white">{{ 'Rp.' . $price }}</p>
 					<a href="/detail/{{ $product->id }}" class="rounded px-2 py-2 text-white transition duration-150 ease-in-out bg-gray-800 hover:bg-gray-700">See Detail</a>
@@ -74,7 +74,7 @@
 		@foreach($categories as $category)
 			@if($category->section == 'brand')
 				<div class="flex items-center mb-5">
-					<img src="{{ asset('img') }}/icons/category/{{ $category->icon }}" alt="" class="mr-5" width="20">
+					<img src="{{ asset('img') }}/icons/category/{{ $category->icon }}" alt="Dev Store" class="mr-5" width="20">
 					@if($category->slug == request()->category)
 						<a href="{{ route('products.category', ['category' => $category->slug]) }}" class="text-white"><u>{{ $category->category }}</u></a>
 					@else
@@ -85,11 +85,11 @@
 		@endforeach
 		<p class="text-white text-xl font-semibold mb-5 mt-10">Filter By Price</p>
 		<div class="mb-5 flex items-center">
-			<img src="{{ asset('img') }}/icons/category/high.png" alt="" class="mr-5" width="20" style="transform: rotateZ(180deg);">
+			<img src="{{ asset('img') }}/icons/category/high.png" alt="Dev Store" class="mr-5" width="20" style="transform: rotateZ(180deg);">
 			<a href="{{ route('products.category', ['category' => request()->category, 'sort' => 'low_high']) }}" class="text-white">Low to High</a>
 		</div>
 		<div class="mb-5 flex items-center">
-			<img src="{{ asset('img') }}/icons/category/high.png" alt="" class="mr-5" width="20">
+			<img src="{{ asset('img') }}/icons/category/high.png" alt="Dev Store" class="mr-5" width="20">
 			<a href="{{ route('products.category', ['category' => request()->category, 'sort' => 'high_low']) }}" class="text-white">High to Low</a>
 		</div>
 	</div>

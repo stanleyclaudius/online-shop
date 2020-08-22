@@ -6,7 +6,7 @@
 <div class="container mx-auto mt-10">
 	<div class="min-w-full mx-auto px-12">
 		@foreach($jumbotron as $j)
-			<img src="{{ asset('img') }}/contents/{{ $j->jumbotron }}" alt="">
+			<img src="{{ asset('img') }}/contents/{{ $j->jumbotron }}" alt="Dev Store">
 		@endforeach
 	</div>
 </div>
@@ -19,7 +19,7 @@
             $price = number_format($product->product_price, 2, ',', '.');
         @endphp
 		<div>
-			<img src="{{ asset('img') }}/products/{{ $product->product_image }}" alt="">
+			<img src="{{ asset('img') }}/products/{{ $product->product_image }}" alt="Dev Store">
 			<p class="text-lg font-semibold mt-4 text-white">{{ $product->product_name }}</p>
 			<p class="text-lg mt-2 mb-5 text-white">{{ 'Rp.' . $price }}</p>
 			<a href="/detail/{{ $product->id }}" class="rounded px-2 py-2 text-white transition duration-150 ease-in-out bg-gray-800 hover:bg-gray-700">See Detail</a>
@@ -36,7 +36,7 @@
             $price = number_format($signature->product->product_price, 2, ',', '.');
         @endphp
 		<div>
-			<img src="{{ asset('img') }}/products/{{ $signature->product->product_image }}" alt="">
+			<img src="{{ asset('img') }}/products/{{ $signature->product->product_image }}" alt="Dev Store">
 			<p class="text-lg text-white font-semibold mt-4">{{ $signature->product->product_name }}</p>
 			<p class="text-lg text-white mt-2 mb-5">{{ 'Rp.' . $price }}</p>
 			<a href="/detail/{{ $signature->product->id }}" class="rounded px-2 py-2 text-white transition duration-150 ease-in-out bg-gray-800 hover:bg-gray-700">See Detail</a>
