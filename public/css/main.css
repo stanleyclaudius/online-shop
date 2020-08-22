@@ -13079,6 +13079,10 @@ video {
   top: 0;
 }
 
+.top-9 {
+  top: 9.5%;
+}
+
 .right-0 {
   right: 0;
 }
@@ -30337,6 +30341,10 @@ video {
 
   .sm\:top-0 {
     top: 0;
+  }
+
+  .sm\:top-9 {
+    top: 9.5%;
   }
 
   .sm\:right-0 {
@@ -47600,6 +47608,10 @@ video {
     top: 0;
   }
 
+  .md\:top-9 {
+    top: 9.5%;
+  }
+
   .md\:right-0 {
     right: 0;
   }
@@ -64861,6 +64873,10 @@ video {
     top: 0;
   }
 
+  .lg\:top-9 {
+    top: 9.5%;
+  }
+
   .lg\:right-0 {
     right: 0;
   }
@@ -82118,8 +82134,8 @@ video {
     left: auto;
   }
 
-  .xl\:top-0 {
-    top: 0;
+  .xl\:top-9 {
+    top: 9.5%;
   }
 
   .xl\:right-0 {

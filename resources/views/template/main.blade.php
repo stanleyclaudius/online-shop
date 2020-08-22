@@ -170,48 +170,59 @@
 	<div class="flashdata-subscribe" data-flash="{{ Session::get('subscribe') }}"></div>
 
 	<nav>
-		<div class="flex items-center justify-between w-full px-20 py-5 border-b border-gray-800">
-			<a href="/" class="text-3xl text-white font-semibold">Dev Store</a>
-			<ul class="flex items-center">
+		<div class="flex flex-col sm:flex-col md:flex-col lg:flex-row items-center justify-between w-full px-2 sm:px-2 md:px-2 lg:px-20 py-5 border-b border-gray-800">
+			<div class="flex items-center mb-8 sm:mb-8 md:mb-8 lg:mb-0">
+				<a href="/" class="text-3xl text-white font-semibold">Dev Store</a>
+				@if(Auth::check())
+				<div class="dropdown ml-6 block sm:block md:hidden lg:hidden">
+					<button class="dropbtn"><img src="{{ asset('img') }}/avatar/{{ auth()->user()->avatar }}" width="40" class="border border-gray-400 rounded-full" alt="Dev Store"></button>
+					<div class="dropdown-content" id="myDropdown">
+						<a href="/user">Control Panel</a>
+						<a href="/logout">Logout</a>
+					</div>
+				</div>
+				@endif
+			</div>
+			<ul class="flex items-center mb-8 sm:mb-8 md:mb-8 lg:mb-0">
 				<li><a href="/" class="text-lg mr-10 text-white">Home</a></li>
 				<li><a href="/products" class="text-lg mr-10 text-white">Products</a></li>
 				@if(Session::get('log') == true)
-					<li class="mr-10">
+					<li class="mr-10 flex-shrink-0">
 						<a href="/cart" class="relative">
-							<img src="{{ asset('img') }}/icons/cart.png" alt="" width="25">
+							<img src="{{ asset('img') }}/icons/cart.png" alt="Dev Store">
 							@php
 								$cartCount = DB::table('carts')->where('user_id', auth()->user()->id)->where('show_cart', 1)->count();
 							@endphp
 							@if($cartCount > 0)
-								<div class="cart-counter absolute top-0 w-5 h-5 flex items-center justify-center text-sm rounded-full bg-red-600 text-white ml-4" style="margin-top: -8px;">{{ $cartCount }}</div>
+								<div class="cart-counter absolute w-5 h-5 flex items-center justify-center text-sm rounded-full bg-red-600 text-white ml-4" style="margin-top: -8px; top: 8%;">{{ $cartCount }}</div>
 							@endif
 						</a>
 					</li>
-					<li class="mr-10">
+					<li class="mr-10 flex-shrink-0">
 						<a href="/status">
-							<img src="{{ asset('img') }}/icons/delivery.png" alt="" width="35">
+							<img src="{{ asset('img') }}/icons/delivery.png" alt="Dev Store">
 							@php
 								$statusCount = DB::table('checkouts')->where('user_id', auth()->user()->id)->where('is_done', 0)->count();
 							@endphp
 							@if($statusCount > 0)
-								<div class="absolute top-0 w-5 h-5 flex items-center justify-center text-sm rounded-full bg-red-600 text-white ml-5" style="margin-top: 18px;">{{ $statusCount }}</div>
+								<div class="absolute w-5 h-5 top-9 sm:top-9 md:top-9 lg:top-0 flex items-center justify-center text-sm rounded-full bg-red-600 text-white ml-5 mt-8 sm:mt-8 md:mt-8 lg:mt-6">{{ $statusCount }}</div>
 							@endif
 						</a>
 					</li>
-					<li class="mr-10">
+					<li class="mr-10 flex-shrink-0">
 						<a href="/message">
-							<img src="{{ asset('img') }}/icons/message.png" alt="" width="30">
+							<img src="{{ asset('img') }}/icons/message.png" alt="Dev Store">
 							@php
 								$personalMessageCount = DB::table('messages')->where('user_id', auth()->user()->id)->where('is_read', 0)->count();
 								$publicMessageCount = DB::table('public_messages')->where('user_id', auth()->user()->id)->where('is_read', 0)->count();
 								$totalCount = $personalMessageCount + $publicMessageCount;
 							@endphp
 							@if($totalCount > 0)
-								<div class="absolute top-0 w-5 h-5 flex items-center justify-center text-sm rounded-full bg-red-600 text-white ml-5" style="margin-top: 18px;">{{ $totalCount }}</div>
+								<div class="absolute w-5 h-5 top-9 sm:top-9 md:top-9 lg:top-0 flex items-center justify-center text-sm rounded-full bg-red-600 text-white ml-5 mt-8 sm:mt-8 md:mt-8 lg:mt-6">{{ $totalCount }}</div>
 							@endif
 						</a>
 					</li>
-					<li>
+					<li class="flex-shrink-0 hidden sm:hidden md:block lg:block">
 						<div class="dropdown">
 							<button class="dropbtn"><img src="{{ asset('img') }}/avatar/{{ auth()->user()->avatar }}" width="40" class="border border-gray-400 rounded-full" alt=""></button>
 							<div class="dropdown-content" id="myDropdown">
@@ -230,12 +241,12 @@
 	</nav>
 
 	@yield('content')
-	<footer class="mt-16 grid grid-cols-3 container mx-auto mb-3">
+	<footer class="mt-16 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-5 sm:gap-5 md:gap-5 lg:gap-0 container mx-auto mb-3 px-5 sm:px-5 md:px-5 lg:px-0 text-center sm:text-center md:text-center lg:text-left">
 		<div>
 			<p class="text-3xl font-semibold text-white">Dev Store</p>
 		</div>
-		<div class="col-span-2 flex justify-between">
-			<div>
+		<div class="col-span-2 flex flex-col sm:flex-col md:flex-col lg:flex-row justify-between">
+			<div class="mb-10 sm:mb-10 md:mb-10 lg:mb-0">
 				<ul>
 					<li class="mb-3 text-white"><a href="/">Home</a></li>
 					<li class="mb-3 text-white"><a href="/products">Products</a></li>
@@ -243,7 +254,7 @@
 					<li class="mb-3 text-white"><a href="/register" class="rounded bg-gray-800 px-4 py-2 transition duration-150 ease-in-out hover:bg-gray-700 text-white">Sign Up</a></li>
 				</ul>
 			</div>
-			<div>
+			<div class="mb-10 sm:mb-10 md:mb-10 lg:mb-0">
 				<ul>
 					@php
 						$category = DB::table('categories')->get();

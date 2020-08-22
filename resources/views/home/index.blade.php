@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container mx-auto mt-10">
-	<div class="min-w-full mx-auto">
+	<div class="min-w-full mx-auto px-12">
 		@foreach($jumbotron as $j)
 			<img src="{{ asset('img') }}/contents/{{ $j->jumbotron }}" alt="">
 		@endforeach
@@ -13,7 +13,7 @@
 
 <div class="container mx-auto px-12 mt-12">
 	<p class="text-3xl text-white">Latest Products</p>
-	<div class="grid grid-cols-5 gap-10 mt-6">
+	<div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-20 sm:gap-20 md:gap-20 lg:gap-10 mt-6">
 		@foreach($products as $product)
 		@php
             $price = number_format($product->product_price, 2, ',', '.');
@@ -30,7 +30,7 @@
 
 <div class="container mx-auto px-12 mt-24">
 	<p class="text-3xl text-white">Signature Products</p>
-	<div class="grid grid-cols-5 gap-10 mt-6">
+	<div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-20 sm:gap-20 md:gap-20 lg:gap-10 mt-6">
 		@foreach($signatures as $signature)
 		@php
             $price = number_format($signature->product->product_price, 2, ',', '.');
