@@ -158,11 +158,13 @@
 			100% { transform: rotate(360deg); }
 		}
 
-		.product-container::-webkit-scrollbar {
+		.product-container::-webkit-scrollbar,
+		.info-scrollbar::-webkit-scrollbar {
 		  display: none;
 		}
 
-		.product-container {
+		.product-container,
+		.info-scrollbar {
 		  -ms-overflow-style: none;
 		  scrollbar-width: none;
 		}
