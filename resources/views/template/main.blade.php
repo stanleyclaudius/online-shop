@@ -86,23 +86,23 @@
 		}
 
 		.icon-trash .trash-line-2 {
-		width: 4%;
-		height: 50%;
-		position: absolute;
-		left: 50%;
-		margin-left: -2%;
-		bottom: 17%;
-		background-color: #FFF;
+			width: 4%;
+			height: 50%;
+			position: absolute;
+			left: 50%;
+			margin-left: -2%;
+			bottom: 17%;
+			background-color: #FFF;
 		}
 
 		.icon-trash .trash-line-3 {
-		width: 4%;
-		height: 50%;
-		position: absolute;
-		left: 62%;
-		margin-left: -2%;
-		bottom: 17%;
-		background-color: #FFF;
+			width: 4%;
+			height: 50%;
+			position: absolute;
+			left: 62%;
+			margin-left: -2%;
+			bottom: 17%;
+			background-color: #FFF;
 		}
 		.dropdown,
 		.dropdown2 {
@@ -158,15 +158,26 @@
 			100% { transform: rotate(360deg); }
 		}
 
-		.product-container::-webkit-scrollbar,
 		.info-scrollbar::-webkit-scrollbar {
 		  display: none;
 		}
 
-		.product-container,
 		.info-scrollbar {
 		  -ms-overflow-style: none;
 		  scrollbar-width: none;
+		}
+
+		.product-container::-webkit-scrollbar {
+			width: .75em;
+		}
+
+		.product-container::-webkit-scrollbar-track {
+			border: 1px solid #a0a0a0;
+		}
+
+		.product-container::-webkit-scrollbar-thumb {
+			background-color: #a0a0a0;
+			outline: 1px solid slategrey;
 		}
 	</style>
 	<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.3.5/dist/alpine.min.js" defer></script>
