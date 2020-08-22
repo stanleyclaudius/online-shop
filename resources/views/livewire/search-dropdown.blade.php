@@ -1,5 +1,5 @@
 <div class="relative" x-data="{ isOpen: true }" @click.away="isOpen = false">
-	<img src="{{ asset('img') }}/icons/search.png" alt="Dev Store" class="absolute top-0 ml-3 mt-3" width="15">
+	<img src="{{ asset('img') }}/icons/search.png" alt="Dev Store" class="absolute top-0 ml-3 mt-3">
 	<div class="loader absolute top-0 right-0 mt-2 mr-3" wire:loading></div>
 	<input wire:model.debounce.100ms="search" type="text" class="rounded-full w-64 h-10 px-10 bg-gray-800 border border-gray-700 text-white focus:shadow-outline focus:outline-none" @focus="isOpen = true" @keydown.shift.tab="isOpen = false" @keydown="isOpen = true" placeholder="Search products ...">
 	@if (strlen($search) >= 2)

@@ -10,7 +10,7 @@
 <div class="flashdata" data-flash="{{ Session::get('detail') }}"></div>
 <div class="container mx-auto grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-5 mt-12 px-12">
 	<img src="{{ asset('img') }}/products/{{ $product->product_image }}" alt="Dev Store" style="width: 16rem;">
-	<div class="ml-0 sm:ml-0 md:ml-0 lg:ml-16 col-span-4 mt-6 sm:mt-6 md:mt-6 lg:mt-0">
+	<div class="ml-0 sm:ml-0 md:ml-0 lg:ml-16 col-span-0 sm:col-span-0 md:col-span-0 lg:col-span-4 mt-6 sm:mt-6 md:mt-6 lg:mt-0">
 		<p class="text-3xl text-white">{{ $product->product_name }}</p>
 		<p class="text-gray-500 mt-2">{{ $product->product_description }}</p>
 		<p class="mt-5 text-white font-semibold text-xl mb-3">Spesification:</p>
@@ -53,7 +53,7 @@
 				@endphp
 				<p class="font-bold hidden sm:hidden md:hidden lg:block">RATING ({{ $oneStar }})</p>
 				<div class="flex mt-2">
-					<img src="{{ asset('img') }}/icons/star.png" alt="Dev Store" width="25" class="mr-1">
+					<img src="{{ asset('img') }}/icons/star.png" alt="Dev Store" class="mr-1">
 					<p class="font-bold block sm:block md:block lg:hidden">({{ $oneStar }})</p>
 				</div>
 			</div>
@@ -65,8 +65,8 @@
 				@endphp
 				<p class="font-bold hidden sm:hidden md:hidden lg:block">RATING ({{ $twoStar }})</p>
 				<div class="flex mt-2">
-					<img src="{{ asset('img') }}/icons/star.png" alt="Dev Store" width="25" class="mr-1">
-					<img src="{{ asset('img') }}/icons/star.png" alt="Dev Store" width="25" class="mr-1">
+					<img src="{{ asset('img') }}/icons/star.png" alt="Dev Store" class="mr-1">
+					<img src="{{ asset('img') }}/icons/star.png" alt="Dev Store" class="mr-1">
 					<p class="font-bold block sm:block md:block lg:hidden">({{ $twoStar }})</p>
 				</div>
 			</div>
@@ -78,9 +78,9 @@
 				@endphp
 				<p class="font-bold hidden sm:hidden md:hidden lg:block">RATING ({{ $threeStar }})</p>
 				<div class="flex mt-2">
-					<img src="{{ asset('img') }}/icons/star.png" alt="Dev Store" width="25" class="mr-1">
-					<img src="{{ asset('img') }}/icons/star.png" alt="Dev Store" width="25" class="mr-1">
-					<img src="{{ asset('img') }}/icons/star.png" alt="Dev Store" width="25" class="mr-1">
+					<img src="{{ asset('img') }}/icons/star.png" alt="Dev Store" class="mr-1">
+					<img src="{{ asset('img') }}/icons/star.png" alt="Dev Store" class="mr-1">
+					<img src="{{ asset('img') }}/icons/star.png" alt="Dev Store" class="mr-1">
 					<p class="font-bold block sm:block md:block lg:hidden">({{ $threeStar }})</p>
 				</div>
 			</div>
@@ -92,10 +92,10 @@
 				@endphp
 				<p class="font-bold hidden sm:hidden md:hidden lg:block">RATING ({{ $fourStar }})</p>
 				<div class="flex mt-2">
-					<img src="{{ asset('img') }}/icons/star.png" alt="Dev Store" width="25" class="mr-1">
-					<img src="{{ asset('img') }}/icons/star.png" alt="Dev Store" width="25" class="mr-1">
-					<img src="{{ asset('img') }}/icons/star.png" alt="Dev Store" width="25" class="mr-1">
-					<img src="{{ asset('img') }}/icons/star.png" alt="Dev Store" width="25" class="mr-1">
+					<img src="{{ asset('img') }}/icons/star.png" alt="Dev Store" class="mr-1">
+					<img src="{{ asset('img') }}/icons/star.png" alt="Dev Store" class="mr-1">
+					<img src="{{ asset('img') }}/icons/star.png" alt="Dev Store" class="mr-1">
+					<img src="{{ asset('img') }}/icons/star.png" alt="Dev Store" class="mr-1">
 					<p class="font-bold block sm:block md:block lg:hidden">({{ $fourStar }})</p>
 				</div>
 			</div>
@@ -107,11 +107,11 @@
 				@endphp
 				<p class="font-bold hidden sm:hidden md:hidden lg:block">RATING ({{ $fiveStar }})</p>
 				<div class="flex mt-2">
-					<img src="{{ asset('img') }}/icons/star.png" alt="Dev Store" width="25" class="mr-1">
-					<img src="{{ asset('img') }}/icons/star.png" alt="Dev Store" width="25" class="mr-1">
-					<img src="{{ asset('img') }}/icons/star.png" alt="Dev Store" width="25" class="mr-1">
-					<img src="{{ asset('img') }}/icons/star.png" alt="Dev Store" width="25" class="mr-1">
-					<img src="{{ asset('img') }}/icons/star.png" alt="Dev Store" width="25" class="mr-1">
+					<img src="{{ asset('img') }}/icons/star.png" alt="Dev Store" class="mr-1">
+					<img src="{{ asset('img') }}/icons/star.png" alt="Dev Store" class="mr-1">
+					<img src="{{ asset('img') }}/icons/star.png" alt="Dev Store" class="mr-1">
+					<img src="{{ asset('img') }}/icons/star.png" alt="Dev Store" class="mr-1">
+					<img src="{{ asset('img') }}/icons/star.png" alt="Dev Store" class="mr-1">
 					<p class="font-bold block sm:block md:block lg:hidden">({{ $fiveStar }})</p>
 				</div>
 			</div>

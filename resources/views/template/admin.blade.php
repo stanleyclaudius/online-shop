@@ -30,7 +30,7 @@
                 @foreach($menu->submenu as $submenu)
                 <li class="nav-item active">
                     <a class="nav-link" href="{{ $submenu->link }}">
-                        <img src="{{ asset('img') }}/icons/admin/{{ $submenu->icon }}" alt="Dev Store" width="25" class="mr-2">
+                        <img src="{{ asset('img') }}/icons/admin/{{ $submenu->icon }}" alt="Dev Store" class="mr-2">
                         <span>{{ $submenu->submenu }}</span>
                     </a>
                 </li>
