@@ -8,9 +8,9 @@
 
 @section('content')
 <div class="flashdata" data-flash="{{ Session::get('detail') }}"></div>
-<div class="container mx-auto grid grid-cols-5 mt-12 px-12">
-	<img src="{{ asset('img') }}/products/{{ $product->product_image }}" alt="" style="width: 16rem;">
-	<div class="ml-16 col-span-4">
+<div class="container mx-auto grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-5 mt-12 px-12">
+	<img src="{{ asset('img') }}/products/{{ $product->product_image }}" alt="Dev Store" style="width: 16rem;">
+	<div class="ml-0 sm:ml-0 md:ml-0 lg:ml-16 col-span-4 mt-6 sm:mt-6 md:mt-6 lg:mt-0">
 		<p class="text-3xl text-white">{{ $product->product_name }}</p>
 		<p class="text-gray-500 mt-2">{{ $product->product_description }}</p>
 		<p class="mt-5 text-white font-semibold text-xl mb-3">Spesification:</p>
@@ -29,8 +29,8 @@
 
 <hr style="width: 95%; margin: 45px auto 45px auto; border-top: 1px solid #4a5568;">
 
-<div class="container mx-auto mb-10 pr-5">
-	<div class="grid grid-cols-6 gap-8">
+<div class="container mx-auto mb-10 px-5 sm:px-5 md:px-5 lg:px-0">
+	<div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-6 gap-8">
 		<a href="javascript:void(0)" class="rating-section get-all-rating" data-product="{{ $product->id }}">
 			<div class="bg-white w-full h-20 flex flex-col items-center justify-center active text-black">
 				<p class="font-semibold text-lg">RATING ({{ $reviews->count() }})</p>
@@ -51,9 +51,10 @@
 				@php
 					$oneStar = DB::table('reviews')->where('product_id', $product->id)->where('is_review', 1)->where('star', 1)->get()->count();
 				@endphp
-				<p class="font-bold">RATING ({{ $oneStar }})</p>
+				<p class="font-bold hidden sm:hidden md:hidden lg:block">RATING ({{ $oneStar }})</p>
 				<div class="flex mt-2">
 					<img src="{{ asset('img') }}/icons/star.png" alt="" width="25" class="mr-1">
+					<p class="font-bold block sm:block md:block lg:hidden">({{ $oneStar }})</p>
 				</div>
 			</div>
 		</a>
@@ -62,10 +63,11 @@
 				@php
 					$twoStar = DB::table('reviews')->where('product_id', $product->id)->where('is_review', 1)->where('star', 2)->get()->count();
 				@endphp
-				<p class="font-bold">RATING ({{ $twoStar }})</p>
+				<p class="font-bold hidden sm:hidden md:hidden lg:block">RATING ({{ $twoStar }})</p>
 				<div class="flex mt-2">
 					<img src="{{ asset('img') }}/icons/star.png" alt="" width="25" class="mr-1">
 					<img src="{{ asset('img') }}/icons/star.png" alt="" width="25" class="mr-1">
+					<p class="font-bold block sm:block md:block lg:hidden">({{ $twoStar }})</p>
 				</div>
 			</div>
 		</a>
@@ -74,11 +76,12 @@
 				@php
 					$threeStar = DB::table('reviews')->where('product_id', $product->id)->where('is_review', 1)->where('star', 3)->get()->count();
 				@endphp
-				<p class="font-bold">RATING ({{ $threeStar }})</p>
+				<p class="font-bold hidden sm:hidden md:hidden lg:block">RATING ({{ $threeStar }})</p>
 				<div class="flex mt-2">
 					<img src="{{ asset('img') }}/icons/star.png" alt="" width="25" class="mr-1">
 					<img src="{{ asset('img') }}/icons/star.png" alt="" width="25" class="mr-1">
 					<img src="{{ asset('img') }}/icons/star.png" alt="" width="25" class="mr-1">
+					<p class="font-bold block sm:block md:block lg:hidden">({{ $threeStar }})</p>
 				</div>
 			</div>
 		</a>
@@ -87,12 +90,13 @@
 				@php
 					$fourStar = DB::table('reviews')->where('product_id', $product->id)->where('is_review', 1)->where('star', 4)->get()->count();
 				@endphp
-				<p class="font-bold">RATING ({{ $fourStar }})</p>
+				<p class="font-bold hidden sm:hidden md:hidden lg:block">RATING ({{ $fourStar }})</p>
 				<div class="flex mt-2">
 					<img src="{{ asset('img') }}/icons/star.png" alt="" width="25" class="mr-1">
 					<img src="{{ asset('img') }}/icons/star.png" alt="" width="25" class="mr-1">
 					<img src="{{ asset('img') }}/icons/star.png" alt="" width="25" class="mr-1">
 					<img src="{{ asset('img') }}/icons/star.png" alt="" width="25" class="mr-1">
+					<p class="font-bold block sm:block md:block lg:hidden">({{ $fourStar }})</p>
 				</div>
 			</div>
 		</a>
@@ -101,21 +105,22 @@
 				@php
 					$fiveStar = DB::table('reviews')->where('product_id', $product->id)->where('is_review', 1)->where('star', 5)->get()->count();
 				@endphp
-				<p class="font-bold">RATING ({{ $fiveStar }})</p>
+				<p class="font-bold hidden sm:hidden md:hidden lg:block">RATING ({{ $fiveStar }})</p>
 				<div class="flex mt-2">
 					<img src="{{ asset('img') }}/icons/star.png" alt="" width="25" class="mr-1">
 					<img src="{{ asset('img') }}/icons/star.png" alt="" width="25" class="mr-1">
 					<img src="{{ asset('img') }}/icons/star.png" alt="" width="25" class="mr-1">
 					<img src="{{ asset('img') }}/icons/star.png" alt="" width="25" class="mr-1">
 					<img src="{{ asset('img') }}/icons/star.png" alt="" width="25" class="mr-1">
+					<p class="font-bold block sm:block md:block lg:hidden">({{ $fiveStar }})</p>
 				</div>
 			</div>
 		</a>
 	</div>
 </div>
 
-<div class="container mx-auto mb-20 pr-5">
-	<div class="grid grid-cols-6 gap-8">
+<div class="container mx-auto mb-20 px-5 sm:px-5 md:px-5 lg:px-0">
+	<div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-6 gap-8">
 		@if(Session::get('log') == true)
 			@php
 				$result = DB::table('reviews')->where('user_id', auth()->user()->id)->where('product_id', $product->id)->where('is_review', 0)->get()->first();
@@ -185,16 +190,17 @@
 						<div class="ml-6">
 							<p class="text-xl text-white">{{ $review->name }}</p>
 							<p class="text-sm mt-1 text-white" style="width: 42rem;">{{ $review->review }}</p>
-							<div class="flex mt-2">
+							<div class="flex mt-2 mb-3">
 								@for($initStar = 0; $initStar < $review->star; $initStar++)
 								<img src="{{ asset('img') }}/icons/star.png" alt="" width="18" class="mr-1">
 								@endfor
 							</div>
+							<p class="text-sm text-gray-600 block sm:block md:block lg:hidden">{{ $review->created_at->format('d M Y') }}</p>
 						</div>
 						@php
 							$date = $review->created_at->format('d M Y');
 						@endphp
-						<div class="absolute right-0 pr-5">
+						<div class="absolute right-0 pr-5 hidden sm:hidden md:hidden lg:block">
 							<p class="text-sm text-gray-600">{{ $date }}</p>
 						</div>
 					</div>

@@ -104,17 +104,20 @@
 		bottom: 17%;
 		background-color: #FFF;
 		}
-		.dropdown {
+		.dropdown,
+		.dropdown2 {
 			float: left;
 			overflow: hidden;
 		}
 
-		.dropdown .dropbtn {
+		.dropdown .dropbtn,
+		.dropdown2 .dropbtn2 {
 			cursor: pointer;
 			margin: 0;
 		}
 
-		.dropdown-content {
+		.dropdown-content,
+		.dropdown-content2 {
 		  display: none;
 		  position: absolute;
 		  background-color: #f9f9f9;
@@ -123,7 +126,8 @@
 		  z-index: 999;
 		}
 
-		.dropdown-content a {
+		.dropdown-content a,
+		.dropdown-content2 a {
 		  float: none;
 		  color: black;
 		  padding: 12px 16px;
@@ -132,7 +136,8 @@
 		  text-align: left;
 		}
 
-		.dropdown-content a:hover {
+		.dropdown-content a:hover,
+		.dropdown-content2 a:hover {
 		  background-color: #ddd;
 		}
 
@@ -223,9 +228,9 @@
 						</a>
 					</li>
 					<li class="flex-shrink-0 hidden sm:hidden md:block lg:block">
-						<div class="dropdown">
-							<button class="dropbtn"><img src="{{ asset('img') }}/avatar/{{ auth()->user()->avatar }}" width="40" class="border border-gray-400 rounded-full" alt=""></button>
-							<div class="dropdown-content" id="myDropdown">
+						<div class="dropdown2">
+							<button class="dropbtn2"><img src="{{ asset('img') }}/avatar/{{ auth()->user()->avatar }}" width="40" class="border border-gray-400 rounded-full" alt=""></button>
+							<div class="dropdown-content2" id="myDropdown">
 								<a href="/user">Control Panel</a>
 								<a href="/logout">Logout</a>
 							</div>
@@ -305,6 +310,11 @@
 	const dropBtn = document.querySelector('.dropbtn');
 	dropBtn.addEventListener('click', function() {
 		document.querySelector('.dropdown-content').classList.toggle('show');
+	});
+
+	const dropBtn2 = document.querySelector('.dropbtn2');
+	dropBtn2.addEventListener('click', function() {
+		document.querySelector('.dropdown-content2').classList.toggle('show');
 	});
 	@endif
 
