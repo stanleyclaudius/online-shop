@@ -29,8 +29,12 @@ class HomeController extends Controller
 
     	if (Session::get('log') == 'true') {
     		$user = User::find(auth()->user()->id);
-    		$user->update(['is_subscribe' => 1]);
-    		return redirect('/')->with('subscribe', 'issubscribe');
+            if ($user->email == $request->email) {
+        		$user->update(['is_subscribe' => 1]);
+        		return redirect('/')->with('subscribe', 'issubscribe');
+            } else {
+                return redirect('/')->with('subscribe', 'no email');
+            }
     	}
     	return redirect('/login');
     }

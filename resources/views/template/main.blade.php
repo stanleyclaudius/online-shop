@@ -344,6 +344,12 @@
 			text: 'You wont get any news from Dev Store through your email already!',
 			icon: 'warning'
 		});
+	} else if (flashdata_subscribe === 'no email') {
+		swal.fire({
+			title: 'Susbcribe Failed',
+			text: 'Make sure you use the same email as the email you registered at our site!',
+			icon: 'warning'
+		});
 	}
 </script>
 @yield('script')
