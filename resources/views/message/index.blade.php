@@ -9,7 +9,7 @@
 @section('content')
 <div class="container mx-auto mt-8 px-12">
 	<p class="text-center text-4xl text-white">Message</p>
-	<div class="grid grid-cols-2 gap-16 mt-8">
+	<div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-10 md:gap-10 lg:gap-16 mt-8">
 		<div class="w-full h-64 border border-gray-700 rounded" style="overflow-y: auto;">
 			<div class="w-full bg-gray-800 border-b border-gray-700 text-white px-3 py-3">
 				<p>General Message</p>
