@@ -5,9 +5,9 @@
 @section('content')
 <div class="flashdata" data-flash="{{ Session::get('user') }}"></div>
 
-<div class="container mx-auto mt-12">
+<div class="px-5 sm:px-5 md:px-4 lg:px-12 mt-12">
 	<div class="grid grid-cols-4 gap-8">
-		<div class="border border-gray-700 rounded">
+		<div class="border border-gray-700 rounded hidden sm:hidden md:block lg:block">
 			<ul>
 				<a href="/user">
 					<li class="text-white p-4 border-b border-gray-700">
@@ -41,9 +41,40 @@
 				</a>
 			</ul>
 		</div>
-		<div class="col-span-3 border border-gray-700 rounded" style="max-height: 75vh; overflow-y: auto;">
-			<div class="border-b border-gray-700 p-4 bg-gray-800 text-white">
+		<div class="col-span-4 sm:col-span-4 md:col-span-3 lg:col-span-3 border border-gray-700 rounded" style="max-height: 75vh; overflow-y: auto;">
+			<div class="border-b border-gray-700 p-4 bg-gray-800 text-white hidden sm:hidden md:block lg:block">
 				Delete Account
+			</div>
+			<div class="border-b border-gray-700 p-4 bg-gray-800 text-white block sm:block md:hidden lg:hidden relative">
+				<div class="menu-select flex items-center">
+					Delete Account <img src="{{ asset('img') }}/icons/down.png" alt="Dev Store" class="ml-3">
+				</div>
+				<div id="menu-selector" class="hidden rounded absolute w-64 bg-gray-700" style="top: 100%;">
+					<ul>
+						<a href="/user">
+							<li class="border-b border-gray-600 py-3 pl-3 bg-gray-700 hover:bg-gray-600">
+								Personal Information
+							</li>
+						</a>
+						<a href="/user/address">
+							<li class="border-b border-gray-600 py-3 pl-3 bg-gray-700 hover:bg-gray-600">
+								Address
+							</li>
+						</a>
+						@if($is_sub == 1)
+						<a href="/user/subscription">
+							<li class="border-b border-gray-600 py-3 pl-3 bg-gray-700 hover:bg-gray-600">
+								Subscription
+							</li>
+						</a>
+						@endif
+						<a href="/user/password">
+							<li class="pl-3 py-3 bg-gray-700 hover:bg-gray-600">
+								Change Password
+							</li>
+						</a>
+					</ul>
+				</div>
 			</div>
 			<form action="/user/delete" method="post" class="p-4">
 				@csrf
@@ -74,5 +105,9 @@
 			icon: 'error'
 		});
 	}
+
+	$('.menu-select').click(function() {
+		$('#menu-selector').toggle();
+	});
 </script>
 @endsection

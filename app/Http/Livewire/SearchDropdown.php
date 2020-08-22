@@ -13,7 +13,7 @@ class SearchDropdown extends Component
     {
     	$searchResults = [];
 
-    	if (strlen($this->search) >= 2	) {
+    	if (strlen($this->search) >= 2) {
     		$searchResults = Product::where('product_name', 'like', '%'.$this->search.'%')->get();
     	}
 
