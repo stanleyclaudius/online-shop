@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Dev Store | Checkout</title>
+	<link rel="icon" type="image/png" href="{{ asset('logo') }}/icon.png" sizes="50x80" />
 	<link rel="stylesheet" href="{{ asset('css') }}/main.css">
 </head>
 <body class="bg-gray-900">

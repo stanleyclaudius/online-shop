@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	@yield('meta')
 	<title>@yield('title')</title>
+	<link rel="icon" type="image/png" href="{{ asset('logo') }}/icon.png" sizes="50x80" />
 	<link rel="stylesheet" href="{{ asset('css') }}/main.css">
 	<style>
 		.spec-list ul {
