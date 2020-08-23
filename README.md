@@ -1,3 +1,5 @@
+![Dev Store Logo](public/logo/logo.png)
+
 ## Website Features
 
 **Dev Store** is an online shop that inspire by real life store, where user can buy products at that shop, where this store is not fully manage by a website, but it's admin will be in charged to check user payment, then verified it, so its not fully website app without human in charged. This online shop website offers some functionality below:
