@@ -1,4 +1,6 @@
-![Dev Store Logo](public/logo/logo.png)
+<p align="center">
+  <img src="public/logo/logo.png">
+</p>
 
 ## Website Features
 
