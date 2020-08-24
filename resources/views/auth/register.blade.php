@@ -43,7 +43,7 @@
 				@endif
 				<input type="password" id="password_confirmation" name="password_confirmation" class="border border-gray-400 rounded w-64 px-2 h-10 mt-3 focus:shadow-outline focus:outline-none">
 			</div>
-			<button type="submit" class="mt-6 rounded bg-gray-700 text-white px-2 py-2 transition duration-150 ease-in-out hover:bg-gray-600">Sign In</button>
+			<button type="submit" class="mt-6 rounded bg-gray-700 text-white px-2 py-2 transition duration-150 ease-in-out hover:bg-gray-600">Sign Up</button>
 		</form>
 	</div>
 </div>
