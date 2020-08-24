@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
     		'role_id' => 1,
     		'name' => 'Admin',
     		'email' => 'admin@store.com',
-    		'password' => bcrypt('admin'),
+    		'password' => bcrypt('admin1234'),
     		'remember_token' => Str::random(10),
     		'avatar' => 'default.png',
     		'is_verified' => 1,

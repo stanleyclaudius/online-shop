@@ -57,9 +57,11 @@ Let's make an example of 2 people consists of **A** & **B**, where **A** is **Ad
 
 11. Now you have the database and the table ready for you, all you need to do now is you should have an **Admin** account, because every time user register, it only register a **User** account, not admin, so in order to have an admin account you should write `php artisan db:seed` at your command prompt or terminal at the root directory.
 
-12. Now your application is ready to use, type `php artisan serve` at your command prompt or terminal then open in your browser, and the url will be `127.0.0.1:8000`.
+12. Last step, is to generate APP_KEY, type `php artisan key:generate` at your command prompt or terminal pointing at your root file directory.
 
-13. FYI : This project is created using TailwindCSS framework for the user page and Bootstrap 4.5 for the admin page.
+13. Now your application is ready to use, type `php artisan serve` at your command prompt or terminal then open in your browser, and the url will be `127.0.0.1:8000`.
+
+14. FYI : This project is created using TailwindCSS framework for the user page and Bootstrap 4.5 for the admin page.
 
 ## Admin Login Credentials
 After done the seeding process, then this is the admin account for your online shop.
