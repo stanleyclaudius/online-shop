@@ -13,35 +13,69 @@ class ProductSeeder extends Seeder
     public function run()
     {
     	// ASUS
-    	$asusProduct = [
-    		'Asus Zenbook',
-    		'ASUS Zenbook Duo',
-    		'ASUS Zenbook Pro',
-    		'ASUS ROG STRIX II',
-    		'ASUS ROG',
-    		'ASUS Vivobook Pro',
-    		'Asus Vivobook',
-    		'ASUS Tuf'
-    	];
-    	$asusPrice = [
-    		8998000,
-    		25899000,
-    		20499000,
-    		24999900,
-    		18999900,
-    		15988000,
-    		9899000,
-    		15899000
-    	];
-    	for ($i = 0; $i < 8; $i++) {
-    		Product::create([
-    			'product_name' => $asusProduct[$i],
-    			'product_description' => 'A lightweight laptop for gamer and daily use with high performance and 100% sRGB to boost up your gaming experience.',
-    			'product_spec' => '<ul><li>Intel Core i7-9500U</li><li>16GB RAM</li><li>512GB SSD PCle</li><li>NVIDIA Gefoce 1080 Ti</li><li>100% sRGB</li><li>90% Screen Ratio</li><li>8000 MAh Battery</li></ul>',
-    			'product_price' => $asusPrice[$i],
-    			'product_image' => 'ASUS_' . $i+1 . '.png',
-    		])->category()->attach(1);
-    	}
+        Product::create([
+            'product_name' => 'ASUS Zenbook',
+            'product_description' => 'A lightweight laptop for gamer and daily use with high performance and 100% sRGB to boost up your gaming experience.',
+            'product_spec' => '<ul><li>Intel Core i7-9500U</li><li>16GB RAM</li><li>512GB SSD PCle</li><li>NVIDIA Gefoce 1080 Ti</li><li>100% sRGB</li><li>90% Screen Ratio</li><li>8000 MAh Battery</li></ul>',
+            'product_price' => 8998000,
+            'product_image' => 'ASUS_1.png',
+        ])->category()->attach(1);
+
+        Product::create([
+            'product_name' => 'ASUS Zenbook Duo',
+            'product_description' => 'A lightweight laptop for gamer and daily use with high performance and 100% sRGB to boost up your gaming experience.',
+            'product_spec' => '<ul><li>Intel Core i7-9500U</li><li>16GB RAM</li><li>512GB SSD PCle</li><li>NVIDIA Gefoce 1080 Ti</li><li>100% sRGB</li><li>90% Screen Ratio</li><li>8000 MAh Battery</li></ul>',
+            'product_price' => 25899000,
+            'product_image' => 'ASUS_2.png',
+        ])->category()->attach(1);
+
+        Product::create([
+            'product_name' => 'ASUS Zenbook Pro',
+            'product_description' => 'A lightweight laptop for gamer and daily use with high performance and 100% sRGB to boost up your gaming experience.',
+            'product_spec' => '<ul><li>Intel Core i7-9500U</li><li>16GB RAM</li><li>512GB SSD PCle</li><li>NVIDIA Gefoce 1080 Ti</li><li>100% sRGB</li><li>90% Screen Ratio</li><li>8000 MAh Battery</li></ul>',
+            'product_price' => 20499000,
+            'product_image' => 'ASUS_3.png',
+        ])->category()->attach(1);
+
+        Product::create([
+            'product_name' => 'ASUS ROG STRIX II',
+            'product_description' => 'A lightweight laptop for gamer and daily use with high performance and 100% sRGB to boost up your gaming experience.',
+            'product_spec' => '<ul><li>Intel Core i7-9500U</li><li>16GB RAM</li><li>512GB SSD PCle</li><li>NVIDIA Gefoce 1080 Ti</li><li>100% sRGB</li><li>90% Screen Ratio</li><li>8000 MAh Battery</li></ul>',
+            'product_price' => 24999900,
+            'product_image' => 'ASUS_4.png',
+        ])->category()->attach(1);
+
+        Product::create([
+            'product_name' => 'ASUS ROG',
+            'product_description' => 'A lightweight laptop for gamer and daily use with high performance and 100% sRGB to boost up your gaming experience.',
+            'product_spec' => '<ul><li>Intel Core i7-9500U</li><li>16GB RAM</li><li>512GB SSD PCle</li><li>NVIDIA Gefoce 1080 Ti</li><li>100% sRGB</li><li>90% Screen Ratio</li><li>8000 MAh Battery</li></ul>',
+            'product_price' => 18999900,
+            'product_image' => 'ASUS_5.png',
+        ])->category()->attach(1);
+
+        Product::create([
+            'product_name' => 'ASUS Vivobook Pro',
+            'product_description' => 'A lightweight laptop for gamer and daily use with high performance and 100% sRGB to boost up your gaming experience.',
+            'product_spec' => '<ul><li>Intel Core i7-9500U</li><li>16GB RAM</li><li>512GB SSD PCle</li><li>NVIDIA Gefoce 1080 Ti</li><li>100% sRGB</li><li>90% Screen Ratio</li><li>8000 MAh Battery</li></ul>',
+            'product_price' => 15988000,
+            'product_image' => 'ASUS_6.png',
+        ])->category()->attach(1);
+
+        Product::create([
+            'product_name' => 'Asus Vivobook',
+            'product_description' => 'A lightweight laptop for gamer and daily use with high performance and 100% sRGB to boost up your gaming experience.',
+            'product_spec' => '<ul><li>Intel Core i7-9500U</li><li>16GB RAM</li><li>512GB SSD PCle</li><li>NVIDIA Gefoce 1080 Ti</li><li>100% sRGB</li><li>90% Screen Ratio</li><li>8000 MAh Battery</li></ul>',
+            'product_price' => 9899000,
+            'product_image' => 'ASUS_7.png',
+        ])->category()->attach(1);
+
+        Product::create([
+            'product_name' => 'ASUS Tuf',
+            'product_description' => 'A lightweight laptop for gamer and daily use with high performance and 100% sRGB to boost up your gaming experience.',
+            'product_spec' => '<ul><li>Intel Core i7-9500U</li><li>16GB RAM</li><li>512GB SSD PCle</li><li>NVIDIA Gefoce 1080 Ti</li><li>100% sRGB</li><li>90% Screen Ratio</li><li>8000 MAh Battery</li></ul>',
+            'product_price' => 15899000,
+            'product_image' => 'ASUS_8.png',
+        ])->category()->attach(1);
 
     	// ACER
     	Product::create([
@@ -53,25 +87,29 @@ class ProductSeeder extends Seeder
     	])->category()->attach(2);
 
     	// HP
-    	$hpProduct = [
-    		'HP Spectre x360',
-    		'HP Omen',
-    		'HP Pavillion'
-    	];
-    	$hpPrice = [
-    		14599000,
-    		18999000,
-    		14899000
-    	];
-    	for ($i = 0; $i < 3; $i++) {
-    		Product::create([
-    			'product_name' => $hpProduct[$i],
-    			'product_description' => 'A lightweight laptop for gamer and daily use with high performance and 100% sRGB to boost up your gaming experience.',
-    			'product_spec' => '<ul><li>Intel Core i7-9500U</li><li>16GB RAM</li><li>512GB SSD PCle</li><li>NVIDIA Gefoce 1080 Ti</li><li>100% sRGB</li><li>90% Screen Ratio</li><li>8000 MAh Battery</li></ul>',
-    			'product_price' => $hpPrice[$i],
-    			'product_image' => 'HP_' . $i+1 . '.png'
-    		])->category()->attach(3);
-    	}
+        Product::create([
+            'product_name' => 'HP Spectre X360',
+            'product_description' => 'A lightweight laptop for gamer and daily use with high performance and 100% sRGB to boost up your gaming experience.',
+            'product_spec' => '<ul><li>Intel Core i7-9500U</li><li>16GB RAM</li><li>512GB SSD PCle</li><li>NVIDIA Gefoce 1080 Ti</li><li>100% sRGB</li><li>90% Screen Ratio</li><li>8000 MAh Battery</li></ul>',
+            'product_price' => 14599000,
+            'product_image' => 'HP_1.png'
+        ])->category()->attach(3);
+
+        Product::create([
+            'product_name' => 'HP Omen',
+            'product_description' => 'A lightweight laptop for gamer and daily use with high performance and 100% sRGB to boost up your gaming experience.',
+            'product_spec' => '<ul><li>Intel Core i7-9500U</li><li>16GB RAM</li><li>512GB SSD PCle</li><li>NVIDIA Gefoce 1080 Ti</li><li>100% sRGB</li><li>90% Screen Ratio</li><li>8000 MAh Battery</li></ul>',
+            'product_price' => '18999000',
+            'product_image' => 'HP_2.png'
+        ])->category()->attach(3);
+
+        Product::create([
+            'product_name' => 'HP Pavillion',
+            'product_description' => 'A lightweight laptop for gamer and daily use with high performance and 100% sRGB to boost up your gaming experience.',
+            'product_spec' => '<ul><li>Intel Core i7-9500U</li><li>16GB RAM</li><li>512GB SSD PCle</li><li>NVIDIA Gefoce 1080 Ti</li><li>100% sRGB</li><li>90% Screen Ratio</li><li>8000 MAh Battery</li></ul>',
+            'product_price' => '14899000',
+            'product_image' => 'HP_3.png'
+        ])->category()->attach(3);
 
     	// APPLE
     	Product::create([
@@ -80,17 +118,17 @@ class ProductSeeder extends Seeder
 			'product_spec' => '<ul><li>Intel Core i7-9500U</li><li>16GB RAM</li><li>512GB SSD PCle</li><li>NVIDIA Gefoce 1080 Ti</li><li>100% sRGB</li><li>90% Screen Ratio</li><li>8000 MAh Battery</li></ul>',
 			'product_price' => 18998000,
 			'product_image' => 'MAC_1.png'
-    	])->category()->attach(5);
+    	])->category()->attach(4);
 
-    	// RAZER
     	Product::create([
 			'product_name' => 'Mac Mini 2020',
 			'product_description' => 'A lightweight processor for gamer and daily use with high performance and 100% sRGB to boost up your gaming experience.',
 			'product_spec' => '<ul><li>Intel Core i7-9500U</li><li>16GB RAM</li><li>512GB SSD PCle</li><li>NVIDIA Gefoce 1080 Ti</li><li>100% sRGB</li><li>90% Screen Ratio</li><li>8000 MAh Battery</li></ul>',
 			'product_price' => 25499000,
 			'product_image' => 'MACMINI_1.png'
-    	])->category()->attach(5);
+    	])->category()->attach(4);
 
+        // RAZER
     	Product::create([
     		'product_name' => 'Razer Dragon',
 			'product_description' => 'A lightweight mouse for gamer with anti slippery technology and full gaming button for gaming experience.',
