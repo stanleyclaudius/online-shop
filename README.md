@@ -72,7 +72,7 @@ EMAIL | PASSWORD
 admin@store.com | admin1234
 
 ## Mailtrap Configuration
-Before using Mailtrap, please sign up and then register and add click **New Project** button and follow the Mailtrap instruction. Read step 6 for more detail setting up **Mailtrap** account, below just contains Mailtrap configration at your **.env** file:
+Before using Mailtrap, please sign up and then register and add click **Add Inbox** button and follow the Mailtrap instruction. Read step 6 for more detail setting up **Mailtrap** account, below just contains Mailtrap configration at your **.env** file:
 KEY | VALUE
 --- | -----
 MAIL_MAILER | smtp
