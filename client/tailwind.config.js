@@ -4,7 +4,8 @@ module.exports = {
   ],
   theme: {
     fontFamily: {
-      'opensans': ['Open Sans']
+      'opensans': ['Open Sans'],
+      'oswald': ['Oswald']
     },
     extend: {},
   },
