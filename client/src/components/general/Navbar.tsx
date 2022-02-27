@@ -1,17 +1,18 @@
-import { AiOutlineSearch, AiOutlineHeart, AiOutlineShoppingCart } from 'react-icons/ai'
-import { Link } from 'react-router-dom'
+import { AiOutlineSearch, AiOutlineHeart, AiOutlineShoppingCart, AiOutlineUser } from 'react-icons/ai'
 
 const Navbar = () => {
   return (
-    <div className='flex items-center justify-between pl-10 py-4'>
-      <div className='font-opensans text-xl font-medium'>
+    <div className='flex items-center justify-between bg-[#3853D8] text-white px-7 py-4 shadow-xl'>
+      <div>
+        <AiOutlineSearch className='text-lg cursor-pointer' />
+      </div>
+      <div className='font-bold font-opensans'>
         sneakershub
       </div>
-      <div className='flex items-center gap-7'>
-        <AiOutlineSearch className='cursor-pointer' />
-        <AiOutlineHeart className='cursor-pointer' />
-        <AiOutlineShoppingCart className='cursor-pointer' />
-        <Link to='/login' className='bg-[#2D1E1C] text-white py-2 px-5 text-xs'>Login</Link>
+      <div className='flex items-center gap-3 md:gap-6'>
+        <AiOutlineUser className='text-lg cursor-pointer' />
+        <AiOutlineHeart className='text-lg cursor-pointer' />
+        <AiOutlineShoppingCart className='text-lg cursor-pointer' />
       </div>
     </div>
   )
