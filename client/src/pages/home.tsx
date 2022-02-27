@@ -1,5 +1,5 @@
 import Header from './../components/home/Header'
-import Navbar from './../components/general/Navbar'
+import Navbar from './../components/navbar/Navbar'
 import ProductList from './../components/home/ProductList'
 
 const Home = () => {
