@@ -1,21 +1,20 @@
-import React from 'react'
 import { useState } from 'react'
 import { HiOutlineRefresh } from 'react-icons/hi'
 import { BiChevronDown } from 'react-icons/bi'
-import { InputChange } from './../../utils/Interface'
+import Slider from 'rc-slider'
+import 'rc-slider/assets/index.css'
 
 interface IProps {
   filterRef: React.MutableRefObject<HTMLDivElement>
   openFilter: boolean
 }
 
-const Filter: React.FC<IProps> = ({ filterRef, openFilter }) => {
-  const [price, setPrice] = useState({ min: 2500, max: 7500 })
+const { createSliderWithTooltip }: any = Slider
+// @ts-ignore
+const Range = createSliderWithTooltip(Slider.Range)
 
-  const handleChangeSlider = (e: InputChange) => {
-    const { value, name } = e.target
-    setPrice({ ...price, [name]: value })
-  }
+const Filter: React.FC<IProps> = ({ filterRef, openFilter }) => {
+  const [price, setPrice] = useState([1, 1000])
 
   return (
     <div ref={filterRef} className={`absolute top-0 ${openFilter ? 'left-0' : '-left-[500px]'} w-[250px] drop-shadow-2xl bg-white lg:static lg:drop-shadow-none bottom-0 z-[999] flex-1 font-opensans border-l border-r border-b border-gray-300`}>
@@ -57,15 +56,21 @@ const Filter: React.FC<IProps> = ({ filterRef, openFilter }) => {
           <p className='text-xs font-bold tracking-widest ml-3'>PRICE (IDR)</p>
         </div>
         <div className='flex gap-4 pl-11 pr-3 w-full mt-2'>
-          <input type='number' value={price.min} disabled className='text-center w-[50%] h-9 border border-gray-300 bg-gray-100 rounded-md'/>
-          <input type='number' value={price.max} disabled className='text-center w-[50%] border border-gray-300 bg-gray-100 rounded-md' />
+          <input type='number' value={price[0]} disabled className='text-center w-[50%] h-9 border border-gray-300 bg-gray-100 rounded-md'/>
+          <input type='number' value={price[1]} disabled className='text-center w-[50%] border border-gray-300 bg-gray-100 rounded-md' />
         </div>
-        <div className='my-4 ml-11 mr-3 h-[5px] relative bg-[#DDD] rounded-[5px]'>
-          <div className='h-full left-[25%] right-[25%] absolute rounded-[5px] bg-[#17A2B8] progress' />
-        </div>
-        <div className='relative ml-11 mr-3'>
-          <input type='range' min={0} max={10000} name='min' value={price.min} step={1} onChange={handleChangeSlider} className='range-input range-min' />
-          <input type='range' min={0} max={10000} name='max' value={price.max} step={1} onChange={handleChangeSlider} className='range-input range-max' />
+        <div className='ml-11 mr-3 my-4'>
+          <Range
+            min={1}
+            max={1000}
+            defaultValue={[1, 1000]}
+            tipFormatter={(value: number) => `$${value}`}
+            tipProps={{
+              placement: 'top'
+            }}
+            value={price}
+            onChange={(price: number[]) => setPrice(price)}
+          />
         </div>
       </div>
       <div className='border-b border-gray-300'>
