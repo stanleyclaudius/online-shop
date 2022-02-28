@@ -1,9 +1,15 @@
+import React from 'react'
 import { useState } from 'react'
 import { HiOutlineRefresh } from 'react-icons/hi'
 import { BiChevronDown } from 'react-icons/bi'
 import { InputChange } from './../../utils/Interface'
 
-const Filter = () => {
+interface IProps {
+  filterRef: React.MutableRefObject<HTMLDivElement>
+  openFilter: boolean
+}
+
+const Filter: React.FC<IProps> = ({ filterRef, openFilter }) => {
   const [price, setPrice] = useState({ min: 2500, max: 7500 })
 
   const handleChangeSlider = (e: InputChange) => {
@@ -12,7 +18,7 @@ const Filter = () => {
   }
 
   return (
-    <div className='flex-1 font-opensans border-l border-r border-b border-gray-300'>
+    <div ref={filterRef} className={`absolute top-0 ${openFilter ? 'left-0' : '-left-[500px]'} w-[250px] drop-shadow-2xl bg-white lg:static lg:drop-shadow-none bottom-0 z-[999] flex-1 font-opensans border-l border-r border-b border-gray-300`}>
       <div className='flex items-center justify-between border-b border-gray-300'>
         <p className='font-bold border-r border-gray-300 flex-1 px-4 py-3 text-sm'>Filter</p>
         <div className='py-2 px-3'>

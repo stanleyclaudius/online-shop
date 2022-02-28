@@ -1,10 +1,21 @@
+import React from 'react'
 import { BiChevronDown } from 'react-icons/bi'
+import { BsFilter } from 'react-icons/bs'
 import { IoGrid } from 'react-icons/io5'
 import { HiOutlineArrowsExpand } from 'react-icons/hi'
 
-const ProductViewOption = () => {
+interface IProps {
+  openFilter: boolean
+  setOpenFilter: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+const ProductViewOption: React.FC<IProps> = ({ openFilter, setOpenFilter }) => {
   return (
-    <div className='grid grid-cols-3 font-opensans'>
+    <div className='grid grid-cols-1 md:grid-cols-4 lg:grid-cols-3 font-opensans'>
+      <div className='lg:hidden flex items-center justify-between px-5 py-3 border-r border-b border-gray-300'>
+        <p className='font-medium text-sm'>Filter</p>
+        <BsFilter className='text-blue-600 text-lg cursor-pointer' onClick={() => setOpenFilter(!openFilter)} />
+      </div>
       <div className='flex items-center justify-between px-5 py-3 border-r border-b border-gray-300'>
         <div className='flex gap-3 text-sm font-medium'>
           <p>Sort By :</p>

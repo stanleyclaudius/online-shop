@@ -20,7 +20,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className='flex items-center justify-between bg-[#3853D8] text-white px-7 py-4 drop-shadow-xl'>
+      <div className='flex items-center justify-between bg-[#3853D8] text-white px-7 py-4 drop-shadow-xl sticky top-0 z-[999]'>
         <div onClick={() => setOpenNavbarSearch(true)}>
           <AiOutlineSearch className='text-lg cursor-pointer' />
         </div>

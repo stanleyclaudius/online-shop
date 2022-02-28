@@ -11,7 +11,7 @@ const Search: React.FC<IProps> = ({ navbarSearchRef, openNavbarSearch, setOpenNa
   const [search, setSearch] = useState('')
 
   return (
-    <div className={`${openNavbarSearch ? 'opacity-100' : 'opacity-0'} ${openNavbarSearch ? 'pointer-events-auto' : 'pointer-events-none'} transition-opacity fixed top-0 left-0 bottom-0 right-0 bg-[rgba(0,0,0,.7)] z-[50] flex justify-center items-start py-20 px-5`}>
+    <div className={`${openNavbarSearch ? 'opacity-100' : 'opacity-0'} ${openNavbarSearch ? 'pointer-events-auto' : 'pointer-events-none'} transition-opacity fixed top-0 left-0 bottom-0 right-0 bg-[rgba(0,0,0,.7)] z-[9999] flex justify-center items-start py-20 px-5`}>
       <div ref={navbarSearchRef} className={`${openNavbarSearch ? 'translate-y-0' : '-translate-y-12'} transition-transform w-full max-w-[600px] bg-white p-5 rounded-md`}>
         <div className='flex items-center justify-between'>
           <h2 className='font-opensans'>Search Product</h2>
