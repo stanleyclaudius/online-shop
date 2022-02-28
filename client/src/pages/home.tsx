@@ -1,16 +1,20 @@
 import Header from './../components/home/Header'
 import Navbar from './../components/navbar/Navbar'
 import ProductList from './../components/home/ProductList'
+import Subscribe from './../components/general/Subscribe'
+import Footer from './../components/general/Footer'
 
 const Home = () => {
   return (
-    <div>
+    <>
       <Navbar />
-      <div>
+      <>
         <Header />
         <ProductList />
-      </div>
-    </div>
+        <Subscribe />
+        <Footer />
+      </>
+    </>
   )
 }
 
