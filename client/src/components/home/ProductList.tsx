@@ -3,6 +3,7 @@ import HighlightedItem from './HighlightedItem'
 import ProductCard from '../general/ProductCard'
 import Filter from './Filter'
 import ProductViewOption from './ProductViewOption'
+import Pagination from '../general/Pagination'
 
 const ProductList = () => {
   const [openFilter, setOpenFilter] = useState(false)
@@ -38,6 +39,7 @@ const ProductList = () => {
             <ProductCard />
             <ProductCard />
           </div>
+          <Pagination />
         </div>
       </div>
     </div>
