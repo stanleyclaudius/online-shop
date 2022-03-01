@@ -2,7 +2,7 @@ import { AiFillHeart, AiFillStar } from "react-icons/ai"
 
 const Review = () => {
   return (
-    <div className='flex gap-8 border-b border-gray-300 py-7'>
+    <div className='flex md:flex-row flex-col gap-8 border-b border-gray-300 py-7'>
       <div className='flex gap-5'>
         <div className='w-10 h-10 bg-gray-300 rounded-full'></div>
         <div>

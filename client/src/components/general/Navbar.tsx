@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { AiOutlineSearch, AiOutlineHeart, AiOutlineShoppingCart, AiOutlineUser } from 'react-icons/ai'
 import { IoMdTrash } from 'react-icons/io'
 import SearchModal from './../modal/SearchModal'
@@ -65,9 +66,9 @@ const Navbar = () => {
         <div onClick={() => setOpenNavbarSearch(true)}>
           <AiOutlineSearch className='text-lg cursor-pointer' />
         </div>
-        <div className='font-bold font-opensans tracking-widest'>
+        <Link to='/' className='font-bold font-opensans tracking-widest'>
           SNEAKERSHUB
-        </div>
+        </Link>
         <div className='flex items-center gap-3 md:gap-6'>
           <AiOutlineUser className='text-lg cursor-pointer' onClick={() => setOpenAuthenticationModal(true)} />
           <div className='relative'>

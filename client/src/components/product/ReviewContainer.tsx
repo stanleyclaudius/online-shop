@@ -3,7 +3,7 @@ import Review from './Review'
 
 const ReviewContainer = () => {
   return (
-    <div className='bg-gray-100 px-16 flex py-10 gap-10'>
+    <div className='bg-gray-100 md:px-16 px-8 md:flex-row flex-col-reverse flex flex-col py-10 gap-10'>
       <div className='flex-[3]'>
         <div className='flex gap-5 font-oswald border-b border-gray-300 pb-5'>
           <p className='tracking-wide'>All Reviews</p>

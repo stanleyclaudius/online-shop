@@ -20,7 +20,7 @@ const ProductDetail = () => {
         </div>
         <ReviewContainer />
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-t border-l border-gray-300'>
-          <div className='border-b border-r border-gray-300 bg-[#161616] flex items-center justify-center flex-col gap-4'>
+          <div className='border-b border-r border-gray-300 bg-[#161616] flex items-center justify-center flex-col gap-4 py-10 md:py-0'>
             <BsLink45Deg className='text-blue-700 text-8xl' />
             <p className='font-oswald text-white font-bold text-2xl'>SIMILAR PRODUCTS</p>
             <p className='text-gray-400 text-sm'>Similar products that you might like</p>
