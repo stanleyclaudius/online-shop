@@ -33,7 +33,7 @@ const Register: React.FC<IProps> = ({ setCurrentPage, setOpenAuthenticationModal
         <AiOutlineClose className='text-lg cursor-pointer' onClick={() => setOpenAuthenticationModal(false)} />
       </div>
       <div className='flex items-center justify-between gap-6 p-7'>
-      <div className='flex-1'>
+        <div className='flex-1'>
           <form onSubmit={handleSubmit}>
             <div className='mb-4'>
               <label htmlFor='name'>Name</label>

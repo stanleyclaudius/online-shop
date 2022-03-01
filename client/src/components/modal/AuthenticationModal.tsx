@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Register from './../authentication/Register'
 import Login from './../authentication/Login'
+import ForgotPassword from '../authentication/ForgotPassword'
 
 interface IProps {
   authenticationRef: React.MutableRefObject<HTMLDivElement>
@@ -19,7 +20,9 @@ const AuthenticationModal: React.FC<IProps> = ({ authenticationRef, openAuthenti
           ? <Login setCurrentPage={setCurrentPage} setOpenAuthenticationModal={setOpenAuthenticationModal} />
           : currentPage === 'register'
             ? <Register setCurrentPage={setCurrentPage} setOpenAuthenticationModal={setOpenAuthenticationModal} />
-            : ''
+            : currentPage === 'forgot'
+              ? <ForgotPassword setCurrentPage={setCurrentPage} setOpenAuthenticationModal={setOpenAuthenticationModal} />
+              : ''
         }
       </div>
     </div>

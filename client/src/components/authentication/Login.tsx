@@ -52,7 +52,7 @@ const Login: React.FC<IProps> = ({ setCurrentPage, setOpenAuthenticationModal })
                 <BiLock className='text-gray-400 text-lg' />
                 <input type='password' id='password' name='password' value={userData.password} onChange={handleChange} className='pl-3 w-full outline-none text-sm' />
               </div>
-              <p className='text-sm text-gray-500 mt-2 cursor-pointer'>Forget password?</p>
+              <p className='text-sm text-gray-500 mt-2 cursor-pointer' onClick={() => setCurrentPage('forgot')}>Forget password?</p>
             </div>
             <div className='flex items-center justify-between'>
               <button type='submit' className='bg-[#3552DC] text-white rounded-full px-5 py-2 text-sm hover:bg-[#122DB0] transition-[background]'>Sign In</button>
