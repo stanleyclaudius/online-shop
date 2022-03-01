@@ -1,5 +1,5 @@
 import Header from './../components/home/Header'
-import Navbar from './../components/navbar/Navbar'
+import Navbar from '../components/general/Navbar'
 import ProductList from './../components/home/ProductList'
 import Subscribe from './../components/general/Subscribe'
 import Footer from './../components/general/Footer'

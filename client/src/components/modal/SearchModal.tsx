@@ -7,7 +7,7 @@ interface IProps {
   setOpenNavbarSearch: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const Search: React.FC<IProps> = ({ navbarSearchRef, openNavbarSearch, setOpenNavbarSearch }) => {
+const SearchModal: React.FC<IProps> = ({ navbarSearchRef, openNavbarSearch, setOpenNavbarSearch }) => {
   const [search, setSearch] = useState('')
 
   return (
@@ -26,4 +26,4 @@ const Search: React.FC<IProps> = ({ navbarSearchRef, openNavbarSearch, setOpenNa
   )
 }
 
-export default Search
+export default SearchModal
