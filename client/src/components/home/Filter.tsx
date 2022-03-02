@@ -79,16 +79,16 @@ const Filter: React.FC<IProps> = ({ filterRef, openFilter }) => {
           <p className='text-xs font-bold tracking-widest ml-3'>BRANDS</p>
         </div>
         <div className='flex items-center justify-between pl-11 pr-3 my-2'>
-          <p>Nike</p>
-          <input type='checkbox' />
+          <label htmlFor='nike'>Nike</label>
+          <input type='checkbox' id='nike' />
         </div>
         <div className='flex items-center justify-between pl-11 pr-3 my-2'>
-          <p>Adidas</p>
-          <input type='checkbox' />
+          <label htmlFor='adidas'>Adidas</label>
+          <input type='checkbox' id='adidas' />
         </div>
         <div className='flex items-center justify-between pl-11 pr-3 my-2'>
-          <p>Skechers</p>
-          <input type='checkbox' />
+          <label htmlFor='skechers'>Skechers</label>
+          <input type='checkbox' id='skechers' />
         </div>
       </div>
       <div className='border-b border-gray-300'>
@@ -97,21 +97,19 @@ const Filter: React.FC<IProps> = ({ filterRef, openFilter }) => {
           <p className='text-xs font-bold tracking-widest ml-3'>COLORS</p>
         </div>
         <div className='grid grid-cols-7 pl-11 pr-3 gap-2 mt-2 mb-4'>
-          <div className='w-6 h-6 bg-gray-300 rounded-full cursor-pointer' />
-          <div className='w-6 h-6 bg-gray-300 rounded-full' />
-          <div className='w-6 h-6 bg-gray-300 rounded-full' />
-          <div className='w-6 h-6 bg-gray-300 rounded-full' />
-          <div className='w-6 h-6 bg-gray-300 rounded-full' />
-          <div className='w-6 h-6 bg-gray-300 rounded-full' />
-          <div className='w-6 h-6 bg-gray-300 rounded-full' />
-          <div className='w-6 h-6 bg-gray-300 rounded-full' />
-          <div className='w-6 h-6 bg-gray-300 rounded-full' />
-          <div className='w-6 h-6 bg-gray-300 rounded-full' />
-          <div className='w-6 h-6 bg-gray-300 rounded-full' />
-          <div className='w-6 h-6 bg-gray-300 rounded-full' />
-          <div className='w-6 h-6 bg-gray-300 rounded-full' />
-          <div className='w-6 h-6 bg-gray-300 rounded-full' />
-          <div className='w-6 h-6 bg-gray-300 rounded-full' />
+          <div className='w-6 h-6 bg-gray-300 rounded-full cursor-pointer hover:outline hover:outline-2 hover:outline-gray-300 hover:outline-offset-2' />
+          <div className='w-6 h-6 bg-gray-300 rounded-full cursor-pointer hover:outline hover:outline-2 hover:outline-gray-300 hover:outline-offset-2' />
+          <div className='w-6 h-6 bg-gray-300 rounded-full cursor-pointer hover:outline hover:outline-2 hover:outline-gray-300 hover:outline-offset-2' />
+          <div className='w-6 h-6 bg-gray-300 rounded-full cursor-pointer hover:outline hover:outline-2 hover:outline-gray-300 hover:outline-offset-2' />
+          <div className='w-6 h-6 bg-gray-300 rounded-full cursor-pointer hover:outline hover:outline-2 hover:outline-gray-300 hover:outline-offset-2' />
+          <div className='w-6 h-6 bg-gray-300 rounded-full cursor-pointer hover:outline hover:outline-2 hover:outline-gray-300 hover:outline-offset-2' />
+          <div className='w-6 h-6 bg-gray-300 rounded-full cursor-pointer hover:outline hover:outline-2 hover:outline-gray-300 hover:outline-offset-2' />
+          <div className='w-6 h-6 bg-gray-300 rounded-full cursor-pointer hover:outline hover:outline-2 hover:outline-gray-300 hover:outline-offset-2' />
+          <div className='w-6 h-6 bg-gray-300 rounded-full cursor-pointer hover:outline hover:outline-2 hover:outline-gray-300 hover:outline-offset-2' />
+          <div className='w-6 h-6 bg-gray-300 rounded-full cursor-pointer hover:outline hover:outline-2 hover:outline-gray-300 hover:outline-offset-2' />
+          <div className='w-6 h-6 bg-gray-300 rounded-full cursor-pointer hover:outline hover:outline-2 hover:outline-gray-300 hover:outline-offset-2' />
+          <div className='w-6 h-6 bg-gray-300 rounded-full cursor-pointer hover:outline hover:outline-2 hover:outline-gray-300 hover:outline-offset-2' />
+          <div className='w-6 h-6 bg-gray-300 rounded-full cursor-pointer hover:outline hover:outline-2 hover:outline-gray-300 hover:outline-offset-2' />
         </div>
       </div>
       <div>
@@ -120,19 +118,20 @@ const Filter: React.FC<IProps> = ({ filterRef, openFilter }) => {
           <p className='text-xs font-bold tracking-widest ml-3'>SIZE</p>
         </div>
         <div className='grid grid-cols-5 pl-11 pr-3 mt-2 mb-4'>
-          <div className='border border-gray-300 flex items-center justify-center py-2 cursor-pointer'>1</div>
-          <div className='border border-gray-300 flex items-center justify-center py-2 cursor-pointer'>1</div>
-          <div className='border border-gray-300 flex items-center justify-center py-2 cursor-pointer'>1</div>
-          <div className='border border-gray-300 flex items-center justify-center py-2 cursor-pointer'>1</div>
-          <div className='border border-gray-300 flex items-center justify-center py-2 cursor-pointer'>1</div>
-          <div className='border border-gray-300 flex items-center justify-center py-2 cursor-pointer'>1</div>
-          <div className='border border-gray-300 flex items-center justify-center py-2 cursor-pointer'>1</div>
-          <div className='border border-gray-300 flex items-center justify-center py-2 cursor-pointer'>1</div>
-          <div className='border border-gray-300 flex items-center justify-center py-2 cursor-pointer'>1</div>
-          <div className='border border-gray-300 flex items-center justify-center py-2 cursor-pointer'>1</div>
-          <div className='border border-gray-300 flex items-center justify-center py-2 cursor-pointer'>1</div>
-          <div className='border border-gray-300 flex items-center justify-center py-2 cursor-pointer'>1</div>
-          <div className='border border-gray-300 flex items-center justify-center py-2 cursor-pointer'>1</div>
+          <div className='border border-gray-300 flex items-center justify-center py-2 cursor-pointer hover:bg-[#415DDA] hover:text-white transition-all'>1</div>
+          <div className='border border-gray-300 flex items-center justify-center py-2 cursor-pointer hover:bg-[#415DDA] hover:text-white transition-all'>1</div>
+          <div className='border border-gray-300 flex items-center justify-center py-2 cursor-pointer hover:bg-[#415DDA] hover:text-white transition-all'>1</div>
+          <div className='border border-gray-300 flex items-center justify-center py-2 cursor-pointer hover:bg-[#415DDA] hover:text-white transition-all'>1</div>
+          <div className='border border-gray-300 flex items-center justify-center py-2 cursor-pointer hover:bg-[#415DDA] hover:text-white transition-all'>1</div>
+          <div className='border border-gray-300 flex items-center justify-center py-2 cursor-pointer hover:bg-[#415DDA] hover:text-white transition-all'>1</div>
+          <div className='border border-gray-300 flex items-center justify-center py-2 cursor-pointer hover:bg-[#415DDA] hover:text-white transition-all'>1</div>
+          <div className='border border-gray-300 flex items-center justify-center py-2 cursor-pointer hover:bg-[#415DDA] hover:text-white transition-all'>1</div>
+          <div className='border border-gray-300 flex items-center justify-center py-2 cursor-pointer hover:bg-[#415DDA] hover:text-white transition-all'>1</div>
+          <div className='border border-gray-300 flex items-center justify-center py-2 cursor-pointer hover:bg-[#415DDA] hover:text-white transition-all'>1</div>
+          <div className='border border-gray-300 flex items-center justify-center py-2 cursor-pointer hover:bg-[#415DDA] hover:text-white transition-all'>1</div>
+          <div className='border border-gray-300 flex items-center justify-center py-2 cursor-pointer hover:bg-[#415DDA] hover:text-white transition-all'>1</div>
+          <div className='border border-gray-300 flex items-center justify-center py-2 cursor-pointer hover:bg-[#415DDA] hover:text-white transition-all'>1</div>
+          <div className='border border-gray-300 flex items-center justify-center py-2 cursor-pointer hover:bg-[#415DDA] hover:text-white transition-all'>1</div>
         </div>
       </div>
     </div>

@@ -48,3 +48,8 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+.product-card:hover .product-detail {
+  opacity: 1;
+  transition: opacity 300ms;
+}
