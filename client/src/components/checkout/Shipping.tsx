@@ -25,7 +25,7 @@ const Shipping = () => {
             </select>
           </div>
           <div className='mb-6 flex-1'>
-            <label htmlFor='city' className='text-gray-500'>City</label>
+            <label htmlFor='city' className='text-gray-500'>Postal Code</label>
             <input type='text' id='postalCode' name='postalCode' className='w-full border border-gray-300 rounded-md outline-0 p-2 text-sm mt-3' />
           </div>
         </div>

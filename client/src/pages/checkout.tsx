@@ -5,15 +5,16 @@ import Account from './../components/checkout/Account'
 import Navbar from './../components/general/Navbar'
 import Payment from './../components/checkout/Payment'
 import CheckoutReview from './../components/checkout/CheckoutReview'
+import Footer from '../components/general/Footer'
 
 const Checkout = () => {
   const [currPage, setCurrPage] = useState('account')
   
   return (
-    <div className='overflow-hidden'>
+    <>
       <Navbar />
-      <div className='flex'>
-        <div className='flex-[2] mx-40 my-12'>
+      <div className='flex flex-col md:flex-row flex-col-reverse'>
+        <div className='flex-[2] lg:mx-40 lg:my-12 md:mx-12 md:my-12 m-12'>
           <div>
             <div className='relative w-full h-[2px] bg-[#BAC0BD]'>
               <div className='absolute top-50% -translate-y-[50%] left-0 w-2 h-2 rounded-full bg-[#3552DC] outline outline-[#3552DC] outline-offset-2 cursor-pointer' onClick={() => setCurrPage('account')} />
@@ -41,7 +42,7 @@ const Checkout = () => {
                   : ''
           }
         </div>
-        <div className='flex-1 border-l border-gray-300 font-opensans'>
+        <div className='flex-1 md:border-l border-gray-300 font-opensans sm:border-b'>
           <h1 className='text-xl p-7'>Order Summary</h1>
           <div className='border-b border-gray-300 px-7 max-h-[240px] overflow-auto hide-scrollbar'>
             <div className='font-opensans text-black flex items-center mb-6'>
@@ -123,7 +124,8 @@ const Checkout = () => {
           </div>
         </div>
       </div>
-    </div>
+      <Footer />
+    </>
   )
 }
 
