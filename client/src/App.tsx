@@ -1,16 +1,21 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import PageRender from './utils/PageRender'
 import Home from './pages/home'
+// import ReviewModal from './components/modal/ReviewModal'
 
 const App = () => {
   return (
-    <Router>
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/:page' element={<PageRender />} />
-        <Route path='/:page/:id' element={<PageRender />} />
-      </Routes>
-    </Router>
+    <>
+      <Router>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/:page' element={<PageRender />} />
+          <Route path='/:page/:id' element={<PageRender />} />
+        </Routes>
+      </Router>
+
+      {/* <ReviewModal /> */}
+    </>
   )
 }
 
