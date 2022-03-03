@@ -41,7 +41,7 @@ const Product = () => {
           <Navbar />
           <div className='font-opensans mt-9'>
             <div className='flex items-center justify-between gap-10'>
-              <h1 className='text-2xl tracking-wide font-oswald'>Product List</h1>
+              <h1 className='text-2xl tracking-wide font-oswald'>Product Management</h1>
               <button className='bg-blue-500 rounded-full px-5 py-2 hover:bg-blue-600 transition-[background] text-sm text-white' onClick={() => setOpenCreateProductModal(true)}>Create Product</button>
             </div>
             <div className='overflow-x-auto mt-8'>
