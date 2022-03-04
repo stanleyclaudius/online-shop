@@ -88,10 +88,10 @@ const Navbar = () => {
           <div className='relative'>
             <div className='w-6 h-6 rounded-full bg-gray-100 cursor-pointer' onClick={() => setOpenProfileDropdown(!openProfileDropdown)}></div>
             <div ref={profileRef} className={`${openProfileDropdown ? 'scale-y-1' : 'scale-y-0'} transition-[transform] origin-top absolute w-[200px] bg-white right-0 translate-y-3 rounded-md shadow-xl text-black font-opensans`}>
-              <div className='flex items-center gap-2 border-b border-gray-300 px-3 py-2 hover:bg-gray-100 cursor-pointer rounded-tl-md rounded-tr-md'>
+              <Link to='/profile' className='flex items-center gap-2 border-b border-gray-300 px-3 py-2 hover:bg-gray-100 cursor-pointer rounded-tl-md rounded-tr-md'>
                 <FaUserEdit />
                 <p>Edit Profile</p>
-              </div>
+              </Link>
               <Link to='/history' className='flex items-center gap-2 border-b border-gray-300 px-3 py-2 hover:bg-gray-100 cursor-pointer'>
                 <FaClipboardList />
                 <p>Transaction History</p>
