@@ -13,10 +13,16 @@ interface IProps {
 const HistoryModal: React.FC<IProps> = ({ modalRef, openHistoryModal, setOpenHistoryModal }) => {
   return (
     <div className={`${openHistoryModal ? 'opacity-100' : 'opacity-0'} ${openHistoryModal ? 'pointer-events-auto' : 'pointer-events-none'} transition-opacity fixed top-0 left-0 bottom-0 right-0 bg-[rgba(0,0,0,.7)] z-[9999] flex justify-center items-center px-10 font-opensans`}>
-      <div ref={modalRef} className={`${openHistoryModal ? 'translate-y-0' : '-translate-y-12'} transition-transform w-full max-w-[500px] bg-white rounded-md`}>
+      <div
+        ref={modalRef}
+        className={`${openHistoryModal ? 'translate-y-0' : '-translate-y-12'} transition-transform w-full max-w-[500px] bg-white rounded-md`}
+      >
         <div className='flex items-center justify-between px-7 py-3 border-b border-gray-300'>
           <h1 className='text-lg'>Transaction Detail</h1>
-          <AiOutlineClose className='cursor-pointer' onClick={() => setOpenHistoryModal(false)} />
+          <AiOutlineClose
+            onClick={() => setOpenHistoryModal(false)}
+            className='cursor-pointer'
+          />
         </div>
         <div className='px-7 pb-5 max-h-[60vh] overflow-auto hide-scrollbar'>
           <div className='flex items-center gap-7 py-5 border-b border-gray-300'>

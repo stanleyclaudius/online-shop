@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { AiOutlineSearch, AiOutlineHeart, AiOutlineShoppingCart, AiOutlineUser } from 'react-icons/ai'
 import { FaClipboardList, FaUserEdit } from 'react-icons/fa'
@@ -81,18 +81,33 @@ const Navbar = () => {
         <div onClick={() => setOpenNavbarSearch(true)}>
           <AiOutlineSearch className='text-lg cursor-pointer' />
         </div>
-        <Link to='/' className='font-bold font-opensans tracking-widest md:translate-x-16'>
+        <Link
+          to='/'
+          className='font-bold font-opensans tracking-widest md:translate-x-16'
+        >
           SNEAKERSHUB
         </Link>
         <div className='flex items-center gap-3 md:gap-6'>
           <div className='relative'>
-            <div className='w-6 h-6 rounded-full bg-gray-100 cursor-pointer' onClick={() => setOpenProfileDropdown(!openProfileDropdown)}></div>
-            <div ref={profileRef} className={`${openProfileDropdown ? 'scale-y-1' : 'scale-y-0'} transition-[transform] origin-top absolute w-[200px] bg-white right-0 translate-y-3 rounded-md shadow-xl text-black font-opensans`}>
-              <Link to='/profile' className='flex items-center gap-2 border-b border-gray-300 px-3 py-2 hover:bg-gray-100 cursor-pointer rounded-tl-md rounded-tr-md'>
+            <div
+              onClick={() => setOpenProfileDropdown(!openProfileDropdown)}
+              className='w-6 h-6 rounded-full bg-gray-100 cursor-pointer'
+            ></div>
+            <div
+              ref={profileRef}
+              className={`${openProfileDropdown ? 'scale-y-1' : 'scale-y-0'} transition-[transform] origin-top absolute w-[200px] bg-white right-0 translate-y-3 rounded-md shadow-xl text-black font-opensans`}
+            >
+              <Link
+                to='/profile'
+                className='flex items-center gap-2 border-b border-gray-300 px-3 py-2 hover:bg-gray-100 cursor-pointer rounded-tl-md rounded-tr-md'
+              >
                 <FaUserEdit />
                 <p>Edit Profile</p>
               </Link>
-              <Link to='/history' className='flex items-center gap-2 border-b border-gray-300 px-3 py-2 hover:bg-gray-100 cursor-pointer'>
+              <Link
+                to='/history'
+                className='flex items-center gap-2 border-b border-gray-300 px-3 py-2 hover:bg-gray-100 cursor-pointer'
+              >
                 <FaClipboardList />
                 <p>Transaction History</p>
               </Link>
@@ -102,10 +117,19 @@ const Navbar = () => {
               </div>
             </div>
           </div>
-          <AiOutlineUser className='text-lg cursor-pointer' onClick={() => setOpenAuthenticationModal(true)} />
+          <AiOutlineUser
+            onClick={() => setOpenAuthenticationModal(true)}
+            className='text-lg cursor-pointer'
+          />
           <div className='relative'>
-            <AiOutlineHeart onClick={() => setOpenLike(!openLike)} className='text-lg cursor-pointer' />
-            <div ref={likeRef} className={`${openLike ? 'scale-y-1' : 'scale-y-0'} transition-[transform] origin-top absolute w-[300px] bg-white right-0 translate-y-3 rounded-md shadow-xl`}>
+            <AiOutlineHeart
+              onClick={() => setOpenLike(!openLike)}
+              className='text-lg cursor-pointer'
+            />
+            <div
+              ref={likeRef}
+              className={`${openLike ? 'scale-y-1' : 'scale-y-0'} transition-[transform] origin-top absolute w-[300px] bg-white right-0 translate-y-3 rounded-md shadow-xl`}
+            >
               <div className='font-opensans text-black flex items-center p-3'>
                 <div className='w-20 h-20 bg-gray-300 flex items-center justify-center p-2'>
                   <img src={`${process.env.PUBLIC_URL}/images/shoes-single.png`} alt="" />
@@ -119,8 +143,14 @@ const Navbar = () => {
             </div>
           </div>
           <div className='relative'>
-            <AiOutlineShoppingCart className='text-lg cursor-pointer' onClick={() => setOpenCart(!openCart)} />
-            <div ref={cartRef} className={`${openCart ? 'scale-y-1' : 'scale-y-0'} transition-[transform] origin-top absolute w-[300px] bg-white right-0 translate-y-3 rounded-md shadow-xl`}>
+            <AiOutlineShoppingCart
+              onClick={() => setOpenCart(!openCart)}
+              className='text-lg cursor-pointer'
+            />
+            <div
+              ref={cartRef}
+              className={`${openCart ? 'scale-y-1' : 'scale-y-0'} transition-[transform] origin-top absolute w-[300px] bg-white right-0 translate-y-3 rounded-md shadow-xl`}
+            >
               <div className='max-h-[250px] overflow-auto hide-scrollbar'>
                 <div className='font-opensans text-black flex items-center p-3'>
                   <div className='w-20 h-24 bg-gray-300 flex items-center justify-center p-2'>
@@ -131,9 +161,9 @@ const Navbar = () => {
                     <p className='mt-1 mb-2 text-sm'>IDR 500K</p>
                     <div className='flex items-center justify-between'>
                       <div className='flex gap-2'>
-                        <div className='w-6 h-6 rounded-full text-white font-bold flex items-center justify-center bg-[#3552DC] cursor-pointer hover:bg-[#122DB0]'>-</div>
+                        <div className='w-6 h-6 rounded-full text-white font-bold flex items-center justify-center bg-[#3552DC] cursor-pointer hover:bg-[#122DB0] transition-[background]'>-</div>
                         <input type='text' value={2} disabled className='w-[40px] rounded-md bg-gray-100 border border-gray-300 text-center text-sm' />
-                        <div className='w-6 h-6 rounded-full text-white font-bold flex items-center justify-center bg-[#3552DC] cursor-pointer hover:bg-[#122DB0]'>+</div>
+                        <div className='w-6 h-6 rounded-full text-white font-bold flex items-center justify-center bg-[#3552DC] cursor-pointer hover:bg-[#122DB0] transition-[background]'>+</div>
                       </div>
                       <IoMdTrash className='text-red-500 text-xl cursor-pointer' />
                     </div>
@@ -154,8 +184,17 @@ const Navbar = () => {
         </div>
       </div>
 
-      <SearchModal navbarSearchRef={navbarSearchRef} openNavbarSearch={openNavbarSearch} setOpenNavbarSearch={setOpenNavbarSearch} />
-      <AuthenticationModal authenticationRef={authenticationRef} openAuthenticationModal={openAuthenticationModal} setOpenAuthenticationModal={setOpenAuthenticationModal} />
+      <SearchModal
+        navbarSearchRef={navbarSearchRef}
+        openNavbarSearch={openNavbarSearch}
+        setOpenNavbarSearch={setOpenNavbarSearch}
+      />
+
+      <AuthenticationModal
+        authenticationRef={authenticationRef}
+        openAuthenticationModal={openAuthenticationModal}
+        setOpenAuthenticationModal={setOpenAuthenticationModal}
+      />
     </>
   )
 }

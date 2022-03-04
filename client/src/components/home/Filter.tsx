@@ -17,7 +17,10 @@ const Filter: React.FC<IProps> = ({ filterRef, openFilter }) => {
   const [price, setPrice] = useState([1, 1000])
 
   return (
-    <div ref={filterRef} className={`absolute top-0 ${openFilter ? 'left-0' : '-left-[500px]'} w-[250px] drop-shadow-2xl bg-white lg:static lg:drop-shadow-none bottom-0 z-[999] flex-1 font-opensans border-l border-r border-b border-gray-300`}>
+    <div
+      ref={filterRef}
+      className={`absolute top-0 ${openFilter ? 'left-0' : '-left-[500px]'} w-[250px] drop-shadow-2xl bg-white lg:static lg:drop-shadow-none bottom-0 z-[999] flex-1 font-opensans border-l border-r border-b border-gray-300`}
+    >
       <div className='flex items-center justify-between border-b border-gray-300'>
         <p className='font-bold border-r border-gray-300 flex-1 px-4 py-3 text-sm'>Filter</p>
         <div className='py-2 px-3'>
@@ -56,8 +59,18 @@ const Filter: React.FC<IProps> = ({ filterRef, openFilter }) => {
           <p className='text-xs font-bold tracking-widest ml-3'>PRICE (IDR)</p>
         </div>
         <div className='flex gap-4 pl-11 pr-3 w-full mt-2'>
-          <input type='number' value={price[0]} disabled className='text-center w-[50%] h-9 border border-gray-300 bg-gray-100 rounded-md'/>
-          <input type='number' value={price[1]} disabled className='text-center w-[50%] border border-gray-300 bg-gray-100 rounded-md' />
+          <input
+            type='number'
+            disabled
+            value={price[0]}
+            className='text-center w-[50%] h-9 border border-gray-300 bg-gray-100 rounded-md'
+          />
+          <input
+            type='number'
+            disabled
+            value={price[1]}
+            className='text-center w-[50%] border border-gray-300 bg-gray-100 rounded-md'
+          />
         </div>
         <div className='ml-11 mr-3 my-4'>
           <Range

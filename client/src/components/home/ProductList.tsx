@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import HighlightedItem from './HighlightedItem'
 import ProductCard from '../general/ProductCard'
 import Filter from './Filter'
@@ -25,9 +25,15 @@ const ProductList = () => {
     <div className='m-auto bg-white w-10/12 drop-shadow-2xl -translate-y-10'>
       <HighlightedItem />
       <div className='flex relative'>
-        <Filter filterRef={filterRef} openFilter={openFilter} />
+        <Filter
+          filterRef={filterRef}
+          openFilter={openFilter}
+        />
         <div className='flex-[3]'>
-          <ProductViewOption openFilter={openFilter} setOpenFilter={setOpenFilter} />
+          <ProductViewOption
+            openFilter={openFilter}
+            setOpenFilter={setOpenFilter}
+          />
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
             <ProductCard />
             <ProductCard />

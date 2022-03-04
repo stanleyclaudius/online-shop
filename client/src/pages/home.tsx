@@ -1,5 +1,5 @@
+import Navbar from './../components/general/Navbar'
 import Header from './../components/home/Header'
-import Navbar from '../components/general/Navbar'
 import ProductList from './../components/home/ProductList'
 import Subscribe from './../components/general/Subscribe'
 import Footer from './../components/general/Footer'
@@ -8,12 +8,10 @@ const Home = () => {
   return (
     <>
       <Navbar />
-      <>
-        <Header />
-        <ProductList />
-        <Subscribe />
-        <Footer />
-      </>
+      <Header />
+      <ProductList />
+      <Subscribe />
+      <Footer />
     </>
   )
 }

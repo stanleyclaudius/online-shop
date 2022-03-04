@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { AiOutlineClose } from 'react-icons/ai'
 import { FaRegUser } from 'react-icons/fa'
 import { BiLock } from 'react-icons/bi'
@@ -30,7 +30,10 @@ const Register: React.FC<IProps> = ({ setCurrentPage, setOpenAuthenticationModal
     <div className='font-opensans'>
       <div className='flex items-center justify-between border-b border-gray-300 px-7 py-4'>
         <h1 className='font-medium text-xl'>Sign Up</h1>
-        <AiOutlineClose className='text-lg cursor-pointer' onClick={() => setOpenAuthenticationModal(false)} />
+        <AiOutlineClose
+          onClick={() => setOpenAuthenticationModal(false)}
+          className='text-lg cursor-pointer'
+        />
       </div>
       <div className='flex items-center justify-between gap-6 p-7'>
         <div className='flex-1'>
@@ -39,33 +42,73 @@ const Register: React.FC<IProps> = ({ setCurrentPage, setOpenAuthenticationModal
               <label htmlFor='name'>Name</label>
               <div className='flex items-center border border-gray-300 rounded-md px-3 py-2 mt-3'>
                 <FaRegUser className='text-gray-400 text-sm' />
-                <input className='pl-3 w-full outline-none text-sm' type='text' id='name' name='name' value={userData.name} onChange={handleChange} autoComplete='off' />
+                <input
+                  type='text'
+                  autoComplete='off'
+                  id='name'
+                  name='name'
+                  value={userData.name}
+                  onChange={handleChange}
+                  className='pl-3 w-full outline-none text-sm'
+                />
               </div>
             </div>
             <div className='mb-4'>
               <label htmlFor='email'>Email</label>
               <div className='flex items-center border border-gray-300 rounded-md px-3 py-2 mt-3'>
                 <FaRegUser className='text-gray-400 text-sm' />
-                <input className='pl-3 w-full outline-none text-sm' type='text' id='email' name='email' value={userData.email} onChange={handleChange} autoComplete='off' />
+                <input
+                  type='text'
+                  autoComplete='off'
+                  id='email'
+                  name='email'
+                  value={userData.email}
+                  onChange={handleChange}
+                  className='pl-3 w-full outline-none text-sm'
+                />
               </div>
             </div>
             <div className='mb-5'>
               <label htmlFor='password'>Password</label>
               <div className='flex items-center border border-gray-300 rounded-md px-3 py-2 mt-3'>
                 <BiLock className='text-gray-400 text-lg' />
-                <input type='password' id='password' name='password' value={userData.password} onChange={handleChange} className='pl-3 w-full outline-none text-sm' />
+                <input
+                  type='password'
+                  id='password'
+                  name='password'
+                  value={userData.password}
+                  onChange={handleChange}
+                  className='pl-3 w-full outline-none text-sm'
+                />
               </div>
             </div>
             <div className='mb-5'>
               <label htmlFor='passwordConfirmation'>Password Confirmation</label>
               <div className='flex items-center border border-gray-300 rounded-md px-3 py-2 mt-3'>
                 <BiLock className='text-gray-400 text-lg' />
-                <input type='password' id='passwordConfirmation' name='passwordConfirmation' value={userData.passwordConfirmation} onChange={handleChange} className='pl-3 w-full outline-none text-sm' />
+                <input
+                  type='password'
+                  id='passwordConfirmation'
+                  name='passwordConfirmation'
+                  value={userData.passwordConfirmation}
+                  onChange={handleChange}
+                  className='pl-3 w-full outline-none text-sm'
+                />
               </div>
             </div>
             <div className='flex items-center justify-between'>
-              <button type='submit' className='bg-[#3552DC] text-white rounded-full px-5 py-2 text-sm hover:bg-[#122DB0] transition-[background]'>Sign Up</button>
-              <button className='text-sm' onClick={() => setCurrentPage('login')}>Sign In</button>
+              <button
+                type='submit'
+                className='bg-[#3552DC] text-white rounded-full px-5 py-2 text-sm hover:bg-[#122DB0] transition-[background]'
+              >
+                Sign Up
+              </button>
+              <button
+                onClick={() => setCurrentPage('login')}
+                className='text-sm'
+              >
+                Sign In
+              </button>
             </div>
           </form>
         </div>

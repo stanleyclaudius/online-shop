@@ -25,7 +25,7 @@ const ReviewContainer = () => {
         </div>
       </div>
       <div className='flex-1'>
-        <div className="border-b border-gray-300 pb-5">
+        <div className='border-b border-gray-300 pb-5'>
           <p className='font-oswald tracking-wide'>Reviews Overall</p>
         </div>
         <div className='mb-6'>

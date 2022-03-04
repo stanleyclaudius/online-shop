@@ -1,14 +1,10 @@
-import Navbar from '../components/admin/Navbar'
-import Sidebar from '../components/admin/Sidebar'
+import Layout from './../components/admin/Layout'
 
 const Dashboard = () => {
   return (
-    <div className='flex h-screen'>
-      <Sidebar />
-      <div className='px-10 py-5 w-full'>
-        <Navbar />
-      </div>
-    </div>
+    <Layout>
+      <h1 className='text-2xl tracking-wide font-oswald'>Dashboard</h1>
+    </Layout>
   )
 }
 

@@ -9,16 +9,46 @@ const CheckoutReview = () => {
         <p className='mb-3 text-gray-500 font-bold'>Recipient</p>
         <div className='flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4'>
           <div>
-            <label htmlFor='name' className='text-sm'>Name</label>
-            <input type='text' disabled id='name' value='Lorem Ipsum' className='w-full border border-gray-300 bg-gray-100 rounded-md p-2 text-sm mt-2' />
+            <label
+              htmlFor='name'
+              className='text-sm'
+            >
+              Name
+            </label>
+            <input
+              type='text'
+              disabled
+              value='Lorem Ipsum'
+              className='w-full border border-gray-300 bg-gray-100 rounded-md p-2 text-sm mt-2'
+            />
           </div>
           <div>
-            <label htmlFor='phone' className='text-sm'>Phone</label>
-            <input type='text' disabled id='phone' value='081282822928' className='w-full border border-gray-300 bg-gray-100 rounded-md p-2 text-sm mt-2' />
+            <label
+              htmlFor='phone'
+              className='text-sm'
+            >
+              Phone
+            </label>
+            <input
+              type='text'
+              disabled id='phone'
+              value='081282822928'
+              className='w-full border border-gray-300 bg-gray-100 rounded-md p-2 text-sm mt-2'
+            />
           </div>
           <div>
-            <label htmlFor='email' className='text-sm'>Email</label>
-            <input type='text' disabled id='email' value='lorem@ipsum.com' className='w-full border border-gray-300 bg-gray-100 rounded-md p-2 text-sm mt-2' />
+            <label
+              htmlFor='email'
+              className='text-sm'
+            >
+              Email
+            </label>
+            <input
+              type='text'
+              disabled
+              value='lorem@ipsum.com'
+              className='w-full border border-gray-300 bg-gray-100 rounded-md p-2 text-sm mt-2'
+            />
           </div>
         </div>
       </div>
@@ -39,22 +69,62 @@ const CheckoutReview = () => {
         <p className='mb-4 text-gray-500 font-bold'>Payment Detail</p>
         <div className='flex items-center justify-between gap-4'>
           <div className='flex-1'>
-            <label htmlFor='nameOnCard' className='text-sm'>Name on Card</label>
-            <input type='text' disabled id='nameOnCard' value='Lorem Ipsum' className='w-full border border-gray-300 bg-gray-100 rounded-md p-2 text-sm mt-2' />
+            <label
+              htmlFor='nameOnCard'
+              className='text-sm'
+            >
+              Name on Card
+            </label>
+            <input
+              type='text'
+              disabled
+              value='Lorem Ipsum'
+              className='w-full border border-gray-300 bg-gray-100 rounded-md p-2 text-sm mt-2'
+            />
           </div>
           <div className='flex-1'>
-            <label htmlFor='cardNumber' className='text-sm'>Card Number</label>
-            <input type='text' disabled id='cardNumber' value='Lorem Ipsum' className='w-full border border-gray-300 bg-gray-100 rounded-md p-2 text-sm mt-2' />
+            <label
+              htmlFor='cardNumber'
+              className='text-sm'
+            >
+              Card Number
+            </label>
+            <input
+              type='text'
+              disabled 
+              value='Lorem Ipsum'
+              className='w-full border border-gray-300 bg-gray-100 rounded-md p-2 text-sm mt-2'
+            />
           </div>
         </div>
         <div className='flex items-center justify-between gap-4 mt-5'>
           <div className='flex-1'>
-            <label htmlFor='expirationDate' className='text-sm'>Expiration Date</label>
-            <input type='text' disabled id='expirationDate' value='03/22' className='w-full border border-gray-300 bg-gray-100 rounded-md p-2 text-sm mt-2' />
+            <label
+              htmlFor='expirationDate'
+              className='text-sm'
+            >
+              Expiration Date
+            </label>
+            <input
+              type='text'
+              disabled 
+              value='03/22'
+              className='w-full border border-gray-300 bg-gray-100 rounded-md p-2 text-sm mt-2'
+            />
           </div>
           <div className='flex-1'>
-            <label htmlFor='cvv' className='text-sm'>CVV</label>
-            <input type='text' disabled id='cvv' value='123' className='w-full border border-gray-300 bg-gray-100 rounded-md p-2 text-sm mt-2' />
+            <label
+              htmlFor='cvv'
+              className='text-sm'
+            >
+              CVV
+            </label>
+            <input
+              type='text'
+              disabled
+              value='123'
+              className='w-full border border-gray-300 bg-gray-100 rounded-md p-2 text-sm mt-2'
+            />
           </div>
         </div>
       </div>

@@ -1,9 +1,9 @@
 import { BsLink45Deg } from 'react-icons/bs'
-import ProductCard from './../../components/general/ProductCard'
 import Navbar from './../../components/general/Navbar'
 import Header from './../../components/home/Header'
 import Detail from './../../components/product/Detail'
 import ReviewContainer from './../../components/product/ReviewContainer'
+import ProductCard from './../../components/general/ProductCard'
 import Subscribe from './../../components/general/Subscribe'
 import Footer from './../../components/general/Footer'
 

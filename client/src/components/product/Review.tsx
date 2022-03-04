@@ -1,4 +1,4 @@
-import { AiFillHeart, AiFillStar } from "react-icons/ai"
+import { AiFillHeart, AiFillStar } from 'react-icons/ai'
 
 const Review = () => {
   return (

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { FaRegUser } from 'react-icons/fa'
 import { BiLock } from 'react-icons/bi'
 import { AiOutlineClose } from 'react-icons/ai'
@@ -14,7 +14,8 @@ interface IProps {
 
 const Login: React.FC<IProps> = ({ setCurrentPage, setOpenAuthenticationModal }) => {
   const [userData, setUserData] = useState({
-    email: '', password: ''
+    email: '',
+    password: ''
   })
 
   const handleChange = (e: InputChange) => {
@@ -34,7 +35,10 @@ const Login: React.FC<IProps> = ({ setCurrentPage, setOpenAuthenticationModal })
     <div className='font-opensans'>
       <div className='flex items-center justify-between border-b border-gray-300 px-7 py-4'>
         <h1 className='font-medium text-xl'>Sign In</h1>
-        <AiOutlineClose className='text-lg cursor-pointer' onClick={() => setOpenAuthenticationModal(false)} />
+        <AiOutlineClose
+          onClick={() => setOpenAuthenticationModal(false)}
+          className='text-lg cursor-pointer'
+        />
       </div>
       <div className='flex items-center justify-between gap-6 p-7'>
         <div className='flex-1'>
@@ -43,20 +47,50 @@ const Login: React.FC<IProps> = ({ setCurrentPage, setOpenAuthenticationModal })
               <label htmlFor='email'>Email</label>
               <div className='flex items-center border border-gray-300 rounded-md px-3 py-2 mt-3'>
                 <FaRegUser className='text-gray-400 text-sm' />
-                <input className='pl-3 w-full outline-none text-sm' type='text' id='email' name='email' value={userData.email} onChange={handleChange} autoComplete='off' />
+                <input
+                  type='text'
+                  autoComplete='off'
+                  id='email'
+                  name='email'
+                  value={userData.email}
+                  onChange={handleChange}
+                  className='pl-3 w-full outline-none text-sm'
+                />
               </div>
             </div>
             <div className='mb-5'>
               <label htmlFor='password'>Password</label>
               <div className='flex items-center border border-gray-300 rounded-md px-3 py-2 mt-3'>
                 <BiLock className='text-gray-400 text-lg' />
-                <input type='password' id='password' name='password' value={userData.password} onChange={handleChange} className='pl-3 w-full outline-none text-sm' />
+                <input
+                  type='password'
+                  id='password'
+                  name='password'
+                  value={userData.password}
+                  onChange={handleChange}
+                  className='pl-3 w-full outline-none text-sm'
+                />
               </div>
-              <p className='text-sm text-gray-500 mt-2 cursor-pointer' onClick={() => setCurrentPage('forgot')}>Forget password?</p>
+              <p
+                onClick={() => setCurrentPage('forgot')}
+                className='text-sm text-gray-500 mt-2 cursor-pointer'
+              >
+                Forget password?
+              </p>
             </div>
             <div className='flex items-center justify-between'>
-              <button type='submit' className='bg-[#3552DC] text-white rounded-full px-5 py-2 text-sm hover:bg-[#122DB0] transition-[background]'>Sign In</button>
-              <button className='text-sm' onClick={() => setCurrentPage('register')}>Create Account</button>
+              <button
+                type='submit'
+                className='bg-[#3552DC] text-white rounded-full px-5 py-2 text-sm hover:bg-[#122DB0] transition-[background]'
+              >
+                Sign In
+              </button>
+              <button
+                onClick={() => setCurrentPage('register')}
+                className='text-sm'
+              >
+                Create Account
+              </button>
             </div>
           </form>
           <div className='text-center mt-6'>

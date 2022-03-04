@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react'
-import HistoryModal from './../components/modal/HistoryModal'
-import Footer from './../components/general/Footer'
+import { useState, useEffect, useRef } from 'react'
 import Navbar from './../components/general/Navbar'
-import Subscribe from './../components/general/Subscribe'
 import Header from './../components/home/Header'
+import Subscribe from './../components/general/Subscribe'
+import Footer from './../components/general/Footer'
+import HistoryModal from './../components/modal/HistoryModal'
 
 const History = () => {
   const [openHistoryModal, setOpenHistoryModal] = useState(false)
@@ -51,31 +51,12 @@ const History = () => {
                 <td>IDR 15K</td>
                 <td>2</td>
                 <td>
-                  <button className='bg-blue-500 text-white px-3 py-1 rounded-full hover:bg-blue-600 transition-[background]' onClick={() => setOpenHistoryModal(true)}>Detail</button>
-                </td>
-              </tr>
-              <tr className='text-sm text-center bg-gray-100'>
-                <td className='p-3'>1</td>
-                <td>27 Jan 2022</td>
-                <td>637djkf838fuhfh</td>
-                <td>Credit Card</td>
-                <td>IDR 1,250K</td>
-                <td>IDR 15K</td>
-                <td>2</td>
-                <td>
-                  <button className='bg-blue-500 text-white px-3 py-1 rounded-full hover:bg-blue-600 transition-[background]' onClick={() => setOpenHistoryModal(true)}>Detail</button>
-                </td>
-              </tr>
-              <tr className='text-sm text-center bg-gray-100'>
-                <td className='p-3'>1</td>
-                <td>27 Jan 2022</td>
-                <td>637djkf838fuhfh</td>
-                <td>Credit Card</td>
-                <td>IDR 1,250K</td>
-                <td>IDR 15K</td>
-                <td>2</td>
-                <td>
-                  <button className='bg-blue-500 text-white px-3 py-1 rounded-full hover:bg-blue-600 transition-[background]' onClick={() => setOpenHistoryModal(true)}>Detail</button>
+                  <button
+                    onClick={() => setOpenHistoryModal(true)}
+                    className='bg-blue-500 text-white px-3 py-1 rounded-full hover:bg-blue-600 transition-[background]'
+                  >
+                    Detail
+                  </button>
                 </td>
               </tr>
             </tbody>
@@ -85,7 +66,11 @@ const History = () => {
       <Subscribe />
       <Footer />
 
-      <HistoryModal modalRef={modalRef} openHistoryModal={openHistoryModal} setOpenHistoryModal={setOpenHistoryModal} />
+      <HistoryModal
+        modalRef={modalRef}
+        openHistoryModal={openHistoryModal}
+        setOpenHistoryModal={setOpenHistoryModal}
+      />
     </>
   )
 }
