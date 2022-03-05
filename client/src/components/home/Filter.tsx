@@ -10,7 +10,6 @@ interface IProps {
 }
 
 const { createSliderWithTooltip }: any = Slider
-// @ts-ignore
 const Range = createSliderWithTooltip(Slider.Range)
 
 const Filter: React.FC<IProps> = ({ filterRef, openFilter }) => {

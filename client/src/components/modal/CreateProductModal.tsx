@@ -78,8 +78,7 @@ const CreateProductModal: React.FC<IProps> = ({ createProductRef, openCreateProd
 
   const handleChangeFile = (e: InputChange) => {
     const target = e.target as HTMLInputElement
-    // @ts-ignore
-    const files = [...target.files]
+    const files = [...Object.values(target.files!)]
     setImages([...images, ...files])
   }
 
