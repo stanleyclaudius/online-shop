@@ -90,6 +90,38 @@ const authCtrl = {
     } catch (err: any) {
       return res.status(400).json({ msg: err.message })
     }
+  },
+  refreshToken: async(req: Request, res: Response) => {
+    try {
+      const { sneakershub_rfToken: token } = req.cookies
+      if (!token)
+        return res.status(400).json({ msg: 'Invalid authentication.' })
+
+      const decoded = <IDecodedToken>jwt.verify(token, `${process.env.REFRESH_TOKEN_SECRET}`)
+      if (!decoded.id)
+        return res.status(400).json({ msg: 'Invalid authentication.' })
+
+      const user = await User.findOne({ _id: decoded.id }).select('-password +rf_token')
+      if (!user)
+        return res.status(400).json({ msg: 'Invalid authentication.' })
+
+      if (token !== user.rf_token)
+        return res.status(400).json({ msg: 'Invalid authentication.' })
+
+      const accessToken = generateAccessToken({ id: user._id })
+      const refreshToken = generateRefreshToken({ id: user._id }, res)
+
+      await User.findOneAndUpdate({ _id: user._id }, {
+        rf_token: refreshToken
+      })
+
+      return res.status(200).json({
+        accessToken,
+        user
+      })
+    } catch (err: any) {
+      return res.status(500).json({ msg: err.message })
+    }
   }
 }
 
