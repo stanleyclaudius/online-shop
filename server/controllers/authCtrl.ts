@@ -1,9 +1,10 @@
 import { Request, Response } from 'express'
 import { validateEmail } from './../utils/validator'
-import { generateActivationToken } from './../utils/generateToken'
-import { IDecodedToken } from './../utils/Interface'
+import { generateAccessToken, generateActivationToken, generateRefreshToken } from './../utils/generateToken'
+import { IDecodedToken, IReqUser, IUser } from './../utils/Interface'
 import User from './../models/User'
 import sendEmail from './../utils/sendMail'
+import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
 const authCtrl = {
@@ -23,7 +24,9 @@ const authCtrl = {
       if (user)
         return res.status(400).json({ msg: `Email ${email} has been used before.` })
 
-      const newUser = { name, email, password }
+      const passwordHash = await bcrypt.hash(password, 12)
+
+      const newUser = { name, email, password: passwordHash }
       const token = generateActivationToken({ newUser })
       const url = `${process.env.CLIENT_URL}/activate/${token}`
 
@@ -53,7 +56,66 @@ const authCtrl = {
     } catch (err: any) {
       return res.status(500).json({ msg: err.message })
     }
+  },
+  login: async(req: Request, res: Response) => {
+    try {
+      const { email, password } = req.body
+      if (!email || !password)
+        return res.status(400).json({ msg: 'Please fill up every field.' })
+      
+      if (!validateEmail(email))
+        return res.status(400).json({ msg: 'Please provide valid email address.' })
+
+      const user = await User.findOne({ email })
+      if (!user)
+        return res.status(400).json({ msg: 'Invalid credential.' })
+
+      loginUser(user, password, res)
+    } catch (err: any) {
+      return res.status(500).json({ msg: err.message })
+    }
+  },
+  logout: async(req: IReqUser, res: Response) => {
+    if (!req.user)
+      return res.status(400).json({ msg: 'Invalid authentication.' })
+
+    try {
+      res.clearCookie('sneakershub_rfToken', { path: '/api/v1/auth/refresh_token' })
+
+      await User.findOneAndUpdate({ _id: req.user._id }, {
+        rf_token: ''
+      })
+
+      return res.status(200).json({ msg: 'Logout success.' })
+    } catch (err: any) {
+      return res.status(400).json({ msg: err.message })
+    }
   }
+}
+
+const loginUser = async (user: IUser, password: string, res: Response) => {
+  const isMatch = await bcrypt.compare(password, user.password)
+
+  if (!isMatch) {
+    let msg = user.type === 'register' ? 'Invalid credential' : ''
+    return res.status(400).json({ msg })
+  }
+
+  const accessToken = generateAccessToken({ id: user._id })
+  const refreshToken = generateRefreshToken({ id: user._id }, res)
+
+  await User.findOneAndUpdate({ _id: user._id }, {
+    rf_token: refreshToken
+  })
+
+  return res.status(200).json({
+    msg: `Authenticated as ${user.name}`,
+    accessToken,
+    user: {
+      ...user._doc,
+      password: ''
+    }
+  })
 }
 
 export default authCtrl
