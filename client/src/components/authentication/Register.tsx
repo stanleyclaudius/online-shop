@@ -1,8 +1,10 @@
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { AiOutlineClose } from 'react-icons/ai'
 import { FaRegUser } from 'react-icons/fa'
 import { BiLock } from 'react-icons/bi'
 import { InputChange, FormSubmit } from './../../utils/Interface'
+import { register } from './../../redux/actions/authActions'
 
 interface IProps {
   setCurrentPage: React.Dispatch<React.SetStateAction<string>>
@@ -17,13 +19,23 @@ const Register: React.FC<IProps> = ({ setCurrentPage, setOpenAuthenticationModal
     passwordConfirmation: ''
   })
 
+  const dispatch = useDispatch()
+
   const handleChange = (e: InputChange) => {
     const { name, value } = e.target
     setUserData({ ...userData, [name]: value })
   }
 
-  const handleSubmit = (e: FormSubmit) => {
+  const handleSubmit = async (e: FormSubmit) => {
     e.preventDefault()
+    await dispatch(register(userData))
+    setOpenAuthenticationModal(false)
+    setUserData({
+      name: '',
+      email: '',
+      password: '',
+      passwordConfirmation: ''
+    })
   }
 
   return (

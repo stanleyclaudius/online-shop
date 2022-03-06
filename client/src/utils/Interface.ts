@@ -12,6 +12,11 @@ export interface IUserLogin {
   password: string
 }
 
+export interface IUserRegister extends IUserLogin {
+  name: string
+  passwordConfirmation: string
+}
+
 export interface IUser extends IUserLogin {
   name: string
   avatar: string

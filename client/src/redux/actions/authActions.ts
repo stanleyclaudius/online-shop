@@ -1,9 +1,36 @@
 import { Dispatch } from 'redux'
-import { IUserLogin } from './../../utils/Interface'
+import { IUserLogin, IUserRegister } from './../../utils/Interface'
 import { postDataAPI } from './../../utils/fetchData'
 import { AUTH, IAuthType } from './../types/authTypes'
 import { ALERT, IAlertType } from './../types/alertTypes'
 import { checkTokenExp } from '../../utils/checkTokenExp'
+
+export const register = (userData: IUserRegister) => async (dispatch: Dispatch<IAuthType | IAlertType>) => {
+  try {
+    dispatch({
+      type: ALERT,
+      payload: {
+        loading: true
+      }
+    })
+
+    const res = await postDataAPI('auth/register', userData)
+    
+    dispatch({
+      type: ALERT,
+      payload: {
+        success: res.data.msg
+      }
+    })
+  } catch (err: any) {
+    dispatch({
+      type: ALERT,
+      payload: {
+        errors: err.response.data.msg
+      }
+    })
+  }
+}
 
 export const login = (userData: IUserLogin) => async (dispatch: Dispatch<IAuthType | IAlertType>) => {
   try {

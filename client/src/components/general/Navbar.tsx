@@ -106,7 +106,9 @@ const Navbar = () => {
                 <div
                   onClick={() => setOpenProfileDropdown(!openProfileDropdown)}
                   className='w-6 h-6 rounded-full bg-gray-100 cursor-pointer'
-                ></div>
+                >
+                  <img src={auth.user?.avatar} alt={auth.user?.name} className='rounded-full' />
+                </div>
                 <div
                   ref={profileRef}
                   className={`${openProfileDropdown ? 'scale-y-1' : 'scale-y-0'} transition-[transform] origin-top absolute w-[200px] bg-white right-0 translate-y-3 rounded-md shadow-xl text-black font-opensans`}
