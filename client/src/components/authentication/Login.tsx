@@ -1,9 +1,11 @@
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { FaRegUser } from 'react-icons/fa'
 import { BiLock } from 'react-icons/bi'
 import { AiOutlineClose } from 'react-icons/ai'
 import { GoogleLogin, GoogleLoginResponse } from 'react-google-login-lite'
 import { FacebookLogin, FacebookLoginAuthResponse } from 'react-facebook-login-lite'
+import { login } from './../../redux/actions/authActions'
 import { FormSubmit, InputChange } from './../../utils/Interface'
 import { GOOGLE_CLIENT_ID, FACEBOOK_APP_ID } from './../../utils/constant'
 
@@ -18,13 +20,21 @@ const Login: React.FC<IProps> = ({ setCurrentPage, setOpenAuthenticationModal })
     password: ''
   })
 
+  const dispatch = useDispatch()
+
   const handleChange = (e: InputChange) => {
     const { name, value } = e.target
     setUserData({ ...userData, [name]: value })
   }
 
-  const handleSubmit = (e: FormSubmit) => {
+  const handleSubmit = async (e: FormSubmit) => {
     e.preventDefault()
+    await dispatch(login(userData))
+    setOpenAuthenticationModal(false)
+    setUserData({
+      email: '',
+      password: ''
+    })
   }
 
   const onGoogleSuccess = (response: GoogleLoginResponse) => {}

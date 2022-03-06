@@ -1,9 +1,12 @@
 import { useState, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import { AiOutlineSearch, AiOutlineHeart, AiOutlineShoppingCart, AiOutlineUser } from 'react-icons/ai'
 import { FaClipboardList, FaUserEdit } from 'react-icons/fa'
 import { MdLogout } from 'react-icons/md'
 import { IoMdTrash } from 'react-icons/io'
+import { RootStore } from './../../utils/Interface'
+import { logout } from './../../redux/actions/authActions'
 import SearchModal from './../modal/SearchModal'
 import AuthenticationModal from './../modal/AuthenticationModal'
 
@@ -19,6 +22,14 @@ const Navbar = () => {
   const likeRef = useRef() as React.MutableRefObject<HTMLDivElement>
   const cartRef = useRef() as React.MutableRefObject<HTMLDivElement>
   const profileRef = useRef() as React.MutableRefObject<HTMLDivElement>
+
+  const dispatch = useDispatch()
+  const { auth } = useSelector((state: RootStore) => state)
+
+  const handleLogout = () => {
+    if (!auth.token) return
+    dispatch(logout(auth.token))
+  }
 
   useEffect(() => {
     const checkIfClickedOutside = (e: MouseEvent) => {
@@ -88,39 +99,49 @@ const Navbar = () => {
           SNEAKERSHUB
         </Link>
         <div className='flex items-center gap-3 md:gap-6'>
-          <div className='relative'>
-            <div
-              onClick={() => setOpenProfileDropdown(!openProfileDropdown)}
-              className='w-6 h-6 rounded-full bg-gray-100 cursor-pointer'
-            ></div>
-            <div
-              ref={profileRef}
-              className={`${openProfileDropdown ? 'scale-y-1' : 'scale-y-0'} transition-[transform] origin-top absolute w-[200px] bg-white right-0 translate-y-3 rounded-md shadow-xl text-black font-opensans`}
-            >
-              <Link
-                to='/profile'
-                className='flex items-center gap-2 border-b border-gray-300 px-3 py-2 hover:bg-gray-100 cursor-pointer rounded-tl-md rounded-tr-md'
-              >
-                <FaUserEdit />
-                <p>Edit Profile</p>
-              </Link>
-              <Link
-                to='/history'
-                className='flex items-center gap-2 border-b border-gray-300 px-3 py-2 hover:bg-gray-100 cursor-pointer'
-              >
-                <FaClipboardList />
-                <p>Transaction History</p>
-              </Link>
-              <div className='flex items-center gap-2 px-3 py-2 hover:bg-gray-100 cursor-pointer rounded-bl-md rounded-br-md'>
-                <MdLogout />
-                <p>Logout</p>
+          {
+            auth.user
+            ? (
+              <div className='relative'>
+                <div
+                  onClick={() => setOpenProfileDropdown(!openProfileDropdown)}
+                  className='w-6 h-6 rounded-full bg-gray-100 cursor-pointer'
+                ></div>
+                <div
+                  ref={profileRef}
+                  className={`${openProfileDropdown ? 'scale-y-1' : 'scale-y-0'} transition-[transform] origin-top absolute w-[200px] bg-white right-0 translate-y-3 rounded-md shadow-xl text-black font-opensans`}
+                >
+                  <Link
+                    to='/profile'
+                    className='flex items-center gap-2 border-b border-gray-300 px-3 py-2 hover:bg-gray-100 cursor-pointer rounded-tl-md rounded-tr-md'
+                  >
+                    <FaUserEdit />
+                    <p>Edit Profile</p>
+                  </Link>
+                  <Link
+                    to='/history'
+                    className='flex items-center gap-2 border-b border-gray-300 px-3 py-2 hover:bg-gray-100 cursor-pointer'
+                  >
+                    <FaClipboardList />
+                    <p>Transaction History</p>
+                  </Link>
+                  <div
+                    onClick={handleLogout}
+                    className='flex items-center gap-2 px-3 py-2 hover:bg-gray-100 cursor-pointer rounded-bl-md rounded-br-md'
+                  >
+                    <MdLogout />
+                    <p>Logout</p>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          <AiOutlineUser
-            onClick={() => setOpenAuthenticationModal(true)}
-            className='text-lg cursor-pointer'
-          />
+            )
+            : (
+              <AiOutlineUser
+                onClick={() => setOpenAuthenticationModal(true)}
+                className='text-lg cursor-pointer'
+              />
+            )
+          }
           <div className='relative'>
             <AiOutlineHeart
               onClick={() => setOpenLike(!openLike)}
@@ -189,7 +210,7 @@ const Navbar = () => {
         openNavbarSearch={openNavbarSearch}
         setOpenNavbarSearch={setOpenNavbarSearch}
       />
-
+      
       <AuthenticationModal
         authenticationRef={authenticationRef}
         openAuthenticationModal={openAuthenticationModal}
