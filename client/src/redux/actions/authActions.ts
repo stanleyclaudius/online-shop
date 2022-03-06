@@ -40,6 +40,41 @@ export const login = (userData: IUserLogin) => async (dispatch: Dispatch<IAuthTy
   }
 }
 
+export const refreshToken = () => async(dispatch: Dispatch<IAuthType | IAlertType>) => {
+  const firstLogin = localStorage.getItem('sneakershub_firstLogin')
+  if (firstLogin !== 'true') return
+  
+  try {
+    dispatch({
+      type: ALERT,
+      payload: {
+        loading: true
+      }
+    })
+    
+    const res = await postDataAPI('auth/refresh_token', {})
+    dispatch({
+      type: AUTH,
+      payload: {
+        user: res.data.user,
+        token: res.data.accessToken
+      }
+    })
+
+    dispatch({
+      type: ALERT,
+      payload: {}
+    })
+  } catch (err: any) {
+    dispatch({
+      type: ALERT,
+      payload: {
+        errors: err.response.data.msg
+      }
+    })
+  }
+}
+
 export const logout = (token: string) => async (dispatch: Dispatch<IAuthType | IAlertType>) => {
   const tokenExpRes = await checkTokenExp(token, dispatch)
   const accessToken = tokenExpRes ? tokenExpRes : token
