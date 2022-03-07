@@ -23,3 +23,12 @@ export const isAuthenticated = async (req: IReqUser, res: Response, next: NextFu
     return res.status(500).json({ msg: err.message })
   }
 }
+
+export const authorizeRoles = (...roles: string[]) => {
+  return (req: IReqUser, res: Response, next: NextFunction) => {
+    if (!roles.includes(req.user!.role)) {
+      return res.status(403).json({ msg: `User with role ${req.user!.role} can't access this resource.` })
+    }
+    next()
+  }
+}

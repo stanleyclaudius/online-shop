@@ -1,6 +1,8 @@
 import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { AiOutlineClose } from 'react-icons/ai'
-import { FormSubmit } from './../../utils/Interface'
+import { FormSubmit, RootStore } from './../../utils/Interface'
+import { createBrand } from './../../redux/actions/brandActions'
 
 interface IProps {
   createBrandRef: React.MutableRefObject<HTMLDivElement>
@@ -11,8 +13,12 @@ interface IProps {
 const CreateBrandModal: React.FC<IProps> = ({ createBrandRef, openCreateBrandModal, setOpenCreateBrandModal }) => {
   const [name, setName] = useState('')
 
+  const dispatch = useDispatch()
+  const { auth } = useSelector((state: RootStore) => state)
+
   const handleSubmit = (e: FormSubmit) => {
     e.preventDefault()
+    dispatch(createBrand({ name }, auth.token!))
   }
 
   return (

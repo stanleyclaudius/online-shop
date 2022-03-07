@@ -19,6 +19,7 @@ app.use(morgan('dev'))
 app.use(cookieParser())
 
 app.use('/api/v1/auth', routes.authRouter)
+app.use('/api/v1/brand', routes.brandRouter)
 
 connectDB()
 app.listen(process.env.PORT, () => console.log(`Server is running on port ${process.env.PORT}.`))

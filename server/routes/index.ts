@@ -1,7 +1,9 @@
 import authRouter from './auth.route'
+import brandRouter from './brand.route'
 
 const routes = {
-  authRouter
+  authRouter,
+  brandRouter
 }
 
 export default routes
