@@ -1,10 +1,11 @@
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { AiOutlineClose } from 'react-icons/ai'
 import { FaRegUser } from 'react-icons/fa'
 import { BiLock } from 'react-icons/bi'
-import { InputChange, FormSubmit } from './../../utils/Interface'
+import { InputChange, FormSubmit, RootStore } from './../../utils/Interface'
 import { register } from './../../redux/actions/authActions'
+import Loader from './../general/Loader'
 
 interface IProps {
   setCurrentPage: React.Dispatch<React.SetStateAction<string>>
@@ -19,6 +20,7 @@ const Register: React.FC<IProps> = ({ setCurrentPage, setOpenAuthenticationModal
     passwordConfirmation: ''
   })
 
+  const { alert } = useSelector((state: RootStore) => state)
   const dispatch = useDispatch()
 
   const handleChange = (e: InputChange) => {
@@ -111,9 +113,10 @@ const Register: React.FC<IProps> = ({ setCurrentPage, setOpenAuthenticationModal
             <div className='flex items-center justify-between'>
               <button
                 type='submit'
-                className='bg-[#3552DC] text-white rounded-full px-5 py-2 text-sm hover:bg-[#122DB0] transition-[background]'
+                disabled={alert.loading ? true : false}
+                className={`${alert.loading ? 'bg-blue-300' : 'bg-[#3552DC]'} text-white rounded-full px-5 py-2 text-sm transition-[background] ${alert.loading ? 'hover:bg-blue-300' : 'hover:bg-[#122DB0]'} ${alert.loading ? 'cursor-auto' : 'cursor-pointer'}`}
               >
-                Sign Up
+                {alert.loading ? <Loader /> : 'Sign Up'}
               </button>
               <button
                 onClick={() => setCurrentPage('login')}

@@ -1,13 +1,14 @@
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { FaRegUser } from 'react-icons/fa'
 import { BiLock } from 'react-icons/bi'
 import { AiOutlineClose } from 'react-icons/ai'
 import { GoogleLogin, GoogleLoginResponse } from 'react-google-login-lite'
 import { FacebookLogin, FacebookLoginAuthResponse } from 'react-facebook-login-lite'
 import { login, googleLogin, facebookLogin } from './../../redux/actions/authActions'
-import { FormSubmit, InputChange } from './../../utils/Interface'
+import { FormSubmit, InputChange, RootStore } from './../../utils/Interface'
 import { GOOGLE_CLIENT_ID, FACEBOOK_APP_ID } from './../../utils/constant'
+import Loader from './../general/Loader'
 
 interface IProps {
   setCurrentPage: React.Dispatch<React.SetStateAction<string>>
@@ -21,6 +22,7 @@ const Login: React.FC<IProps> = ({ setCurrentPage, setOpenAuthenticationModal })
   })
 
   const dispatch = useDispatch()
+  const { alert } = useSelector((state: RootStore) => state)
 
   const handleChange = (e: InputChange) => {
     const { name, value } = e.target
@@ -99,9 +101,10 @@ const Login: React.FC<IProps> = ({ setCurrentPage, setOpenAuthenticationModal })
             <div className='flex items-center justify-between'>
               <button
                 type='submit'
-                className='bg-[#3552DC] text-white rounded-full px-5 py-2 text-sm hover:bg-[#122DB0] transition-[background]'
+                disabled={alert.loading ? true : false}
+                className={`${alert.loading ? 'bg-blue-300' : 'bg-[#3552DC]'} text-white rounded-full px-5 py-2 text-sm transition-[background] ${alert.loading ? 'hover:bg-blue-300' : 'hover:bg-[#122DB0]'} ${alert.loading ? 'cursor-auto' : 'cursor-pointer'}`}
               >
-                Sign In
+                {alert.loading ? <Loader /> : 'Sign In'}
               </button>
               <button
                 onClick={() => setCurrentPage('register')}
