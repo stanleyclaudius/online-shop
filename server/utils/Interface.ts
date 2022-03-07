@@ -34,3 +34,18 @@ export interface IDecodedToken {
 export interface IReqUser extends Request {
   user?: IUser
 }
+
+export interface IGooglePayload {
+  email: string
+  email_verified: boolean
+  name: string
+  picture: string
+}
+
+export interface IUserSocialRegister {
+  name: string
+  email: string
+  password: string
+  type: string
+  avatar: string
+}

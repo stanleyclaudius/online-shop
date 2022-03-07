@@ -129,3 +129,38 @@ export const logout = (token: string) => async (dispatch: Dispatch<IAuthType | I
     })
   }
 }
+
+export const googleLogin = (token: string) => async (dispatch: Dispatch<IAuthType | IAlertType>) => {
+  try {
+    dispatch({
+      type: ALERT,
+      payload: {
+        loading: true
+      }
+    })
+
+    const res = await postDataAPI('auth/google_login', { token })
+    dispatch({
+      type: AUTH,
+      payload: {
+        user: res.data.user,
+        token: res.data.accessToken
+      }
+    })
+    localStorage.setItem('sneakershub_firstLogin', 'true')
+
+    dispatch({
+      type: ALERT,
+      payload: {
+        success: res.data.msg
+      }
+    })
+  } catch (err: any) {
+    dispatch({
+      type: ALERT,
+      payload: {
+        errors: err.response.data.msg
+      }
+    })
+  }
+}

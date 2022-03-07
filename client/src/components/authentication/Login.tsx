@@ -5,7 +5,7 @@ import { BiLock } from 'react-icons/bi'
 import { AiOutlineClose } from 'react-icons/ai'
 import { GoogleLogin, GoogleLoginResponse } from 'react-google-login-lite'
 import { FacebookLogin, FacebookLoginAuthResponse } from 'react-facebook-login-lite'
-import { login } from './../../redux/actions/authActions'
+import { login, googleLogin } from './../../redux/actions/authActions'
 import { FormSubmit, InputChange } from './../../utils/Interface'
 import { GOOGLE_CLIENT_ID, FACEBOOK_APP_ID } from './../../utils/constant'
 
@@ -37,7 +37,11 @@ const Login: React.FC<IProps> = ({ setCurrentPage, setOpenAuthenticationModal })
     })
   }
 
-  const onGoogleSuccess = (response: GoogleLoginResponse) => {}
+  const onGoogleSuccess = async (response: GoogleLoginResponse) => {
+    const token = response.getAuthResponse().id_token
+    await dispatch(googleLogin(token))
+    setOpenAuthenticationModal(false)
+  }
 
   const onFacebookSuccess = (response: FacebookLoginAuthResponse) => {}
 

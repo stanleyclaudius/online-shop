@@ -1,11 +1,14 @@
 import { Request, Response } from 'express'
 import { validateEmail } from './../utils/validator'
 import { generateAccessToken, generateActivationToken, generateRefreshToken } from './../utils/generateToken'
-import { IDecodedToken, IReqUser, IUser } from './../utils/Interface'
+import { IDecodedToken, IGooglePayload, IReqUser, IUser, IUserSocialRegister } from './../utils/Interface'
+import { OAuth2Client } from 'google-auth-library'
 import User from './../models/User'
 import sendEmail from './../utils/sendMail'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
+
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID)
 
 const authCtrl = {
   register: async(req: Request, res: Response) => {
@@ -122,6 +125,40 @@ const authCtrl = {
     } catch (err: any) {
       return res.status(500).json({ msg: err.message })
     }
+  },
+  googleLogin: async(req: Request, res: Response) => {
+    try {
+      const { token } = req.body
+      const verify = await client.verifyIdToken({
+        idToken: token,
+        audience: process.env.GOOGLE_CLIENT_ID
+      })
+
+      const { email, email_verified, name, picture } = <IGooglePayload>verify.getPayload()
+
+      if (!email_verified)
+        return res.status(400).json({ msg: 'Email hasn\'t been verified yet.' })
+
+      const password = email + '824jjKFdjFJFJYYouuRURRd))DPP-__pPpapPasswordddRR))=-_hHeree'
+      const passwordHash = await bcrypt.hash(password, 12)
+
+      const user = await User.findOne({ email })
+
+      if (user) {
+        loginUser(user, password, res)
+      } else {
+        const user = {
+          name,
+          email,
+          password: passwordHash,
+          type: 'google',
+          avatar: picture
+        }
+        registerUser(user, res)
+      }
+    } catch (err: any) {
+      return res.status(500).json({ msg: err.message })
+    }
   }
 }
 
@@ -129,7 +166,7 @@ const loginUser = async (user: IUser, password: string, res: Response) => {
   const isMatch = await bcrypt.compare(password, user.password)
 
   if (!isMatch) {
-    let msg = user.type === 'register' ? 'Invalid credential' : ''
+    let msg = user.type === 'register' ? 'Invalid credential' : `This account use ${user.type} login feature.`
     return res.status(400).json({ msg })
   }
 
@@ -145,6 +182,25 @@ const loginUser = async (user: IUser, password: string, res: Response) => {
     accessToken,
     user: {
       ...user._doc,
+      password: ''
+    }
+  })
+}
+
+const registerUser = async (user: IUserSocialRegister, res: Response) => {
+  const newUser = new User(user)
+
+  const accessToken = generateAccessToken({ id: newUser._id })
+  const refreshToken = generateRefreshToken({ id: newUser._id }, res)
+
+  newUser.rf_token = refreshToken
+  await newUser.save()
+
+  return res.status(200).json({
+    msg: `Authenticated as ${newUser.name}`,
+    accessToken,
+    user: {
+      ...newUser._doc,
       password: ''
     }
   })
