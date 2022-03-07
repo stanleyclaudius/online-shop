@@ -5,7 +5,9 @@ import { BiLock } from 'react-icons/bi'
 import { AiOutlineClose } from 'react-icons/ai'
 import { GoogleLogin, GoogleLoginResponse } from 'react-google-login-lite'
 import { FacebookLogin, FacebookLoginAuthResponse } from 'react-facebook-login-lite'
+import { ALERT } from './../../redux/types/alertTypes'
 import { login, googleLogin, facebookLogin } from './../../redux/actions/authActions'
+import { validateEmail } from './../../utils/validateEmail'
 import { FormSubmit, InputChange, RootStore } from './../../utils/Interface'
 import { GOOGLE_CLIENT_ID, FACEBOOK_APP_ID } from './../../utils/constant'
 import Loader from './../general/Loader'
@@ -31,6 +33,34 @@ const Login: React.FC<IProps> = ({ setCurrentPage, setOpenAuthenticationModal })
 
   const handleSubmit = async (e: FormSubmit) => {
     e.preventDefault()
+
+    if (!userData.email || !userData.password) {
+      return dispatch({
+        type: ALERT,
+        payload: {
+          errors: 'Please fill up every field.'
+        }
+      })
+    }
+
+    if (!validateEmail(userData.email)) {
+      return dispatch({
+        type: ALERT,
+        payload: {
+          errors: 'Please provide valid email address.'
+        }
+      })
+    }
+
+    if (userData.password.length < 8) {
+      return dispatch({
+        type: ALERT,
+        payload: {
+          errors: 'Password should be at least 8 characters.'
+        }
+      })
+    }
+
     await dispatch(login(userData))
     setOpenAuthenticationModal(false)
     setUserData({

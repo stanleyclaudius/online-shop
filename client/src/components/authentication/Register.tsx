@@ -5,6 +5,8 @@ import { FaRegUser } from 'react-icons/fa'
 import { BiLock } from 'react-icons/bi'
 import { InputChange, FormSubmit, RootStore } from './../../utils/Interface'
 import { register } from './../../redux/actions/authActions'
+import { ALERT } from './../../redux/types/alertTypes'
+import { validateEmail } from './../../utils/validateEmail'
 import Loader from './../general/Loader'
 
 interface IProps {
@@ -30,6 +32,43 @@ const Register: React.FC<IProps> = ({ setCurrentPage, setOpenAuthenticationModal
 
   const handleSubmit = async (e: FormSubmit) => {
     e.preventDefault()
+
+    if (!userData.name || !userData.email || !userData.password || !userData.passwordConfirmation) {
+      return dispatch({
+        type: ALERT,
+        payload: {
+          errors: 'Please fill up every field.'
+        }
+      })
+    }
+
+    if (!validateEmail(userData.email)) {
+      return dispatch({
+        type: ALERT,
+        payload: {
+          errors: 'Please provide valid email address.'
+        }
+      })
+    }
+
+    if (userData.password.length < 8) {
+      return dispatch({
+        type: ALERT,
+        payload: {
+          errors: 'Password should be at least 8 characters.'
+        }
+      })
+    }
+
+    if (userData.password !== userData.passwordConfirmation) {
+      return dispatch({
+        type: ALERT,
+        payload: {
+          errors: 'Password confirmation should be matched.'
+        }
+      })
+    }
+
     await dispatch(register(userData))
     setOpenAuthenticationModal(false)
     setUserData({

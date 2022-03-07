@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { AiOutlineSearch, AiOutlineHeart, AiOutlineShoppingCart, AiOutlineUser } from 'react-icons/ai'
+import { AiOutlineSearch, AiOutlineHeart, AiOutlineShoppingCart, AiOutlineUser, AiFillDashboard } from 'react-icons/ai'
 import { FaClipboardList, FaUserEdit } from 'react-icons/fa'
 import { MdLogout } from 'react-icons/md'
 import { IoMdTrash } from 'react-icons/io'
@@ -113,20 +113,36 @@ const Navbar = () => {
                   ref={profileRef}
                   className={`${openProfileDropdown ? 'scale-y-1' : 'scale-y-0'} transition-[transform] origin-top absolute w-[200px] bg-white right-0 translate-y-3 rounded-md shadow-xl text-black font-opensans`}
                 >
-                  <Link
-                    to='/profile'
-                    className='flex items-center gap-2 border-b border-gray-300 px-3 py-2 hover:bg-gray-100 cursor-pointer rounded-tl-md rounded-tr-md'
-                  >
-                    <FaUserEdit />
-                    <p>Edit Profile</p>
-                  </Link>
-                  <Link
-                    to='/history'
-                    className='flex items-center gap-2 border-b border-gray-300 px-3 py-2 hover:bg-gray-100 cursor-pointer'
-                  >
-                    <FaClipboardList />
-                    <p>Transaction History</p>
-                  </Link>
+                  {
+                    auth.user?.role === 'user'
+                    ? (
+                      <>
+                        <Link
+                          to='/profile'
+                          className='flex items-center gap-2 border-b border-gray-300 px-3 py-2 hover:bg-gray-100 rounded-tl-md rounded-tr-md'
+                        >
+                          <FaUserEdit />
+                          <p>Edit Profile</p>
+                        </Link>
+                        <Link
+                          to='/history'
+                          className='flex items-center gap-2 border-b border-gray-300 px-3 py-2 hover:bg-gray-100'
+                        >
+                          <FaClipboardList />
+                          <p>Transaction History</p>
+                        </Link>
+                      </>
+                    )
+                    : (
+                      <Link
+                        to='/dashboard'
+                        className='flex items-center gap-2 border-b border-gray-300 px-3 py-2 hover:bg-gray-100 rounded-tl-md rounded-tr-md'
+                      >
+                        <AiFillDashboard />
+                        <p>Dashboard</p>
+                      </Link>
+                    )
+                  }
                   <div
                     onClick={handleLogout}
                     className='flex items-center gap-2 px-3 py-2 hover:bg-gray-100 cursor-pointer rounded-bl-md rounded-br-md'
