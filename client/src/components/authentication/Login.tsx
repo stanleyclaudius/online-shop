@@ -5,7 +5,7 @@ import { BiLock } from 'react-icons/bi'
 import { AiOutlineClose } from 'react-icons/ai'
 import { GoogleLogin, GoogleLoginResponse } from 'react-google-login-lite'
 import { FacebookLogin, FacebookLoginAuthResponse } from 'react-facebook-login-lite'
-import { login, googleLogin } from './../../redux/actions/authActions'
+import { login, googleLogin, facebookLogin } from './../../redux/actions/authActions'
 import { FormSubmit, InputChange } from './../../utils/Interface'
 import { GOOGLE_CLIENT_ID, FACEBOOK_APP_ID } from './../../utils/constant'
 
@@ -43,7 +43,11 @@ const Login: React.FC<IProps> = ({ setCurrentPage, setOpenAuthenticationModal })
     setOpenAuthenticationModal(false)
   }
 
-  const onFacebookSuccess = (response: FacebookLoginAuthResponse) => {}
+  const onFacebookSuccess = async (response: FacebookLoginAuthResponse) => {
+    const { accessToken, userID } = response.authResponse
+    await dispatch(facebookLogin(accessToken, userID))
+    setOpenAuthenticationModal(false)
+  }
 
   return (
     <div className='font-opensans'>

@@ -164,3 +164,38 @@ export const googleLogin = (token: string) => async (dispatch: Dispatch<IAuthTyp
     })
   }
 }
+
+export const facebookLogin = (accessToken: string, userID: string) => async(dispatch: Dispatch<IAuthType | IAlertType>) => {
+  try {
+    dispatch({
+      type: ALERT,
+      payload: {
+        loading: true
+      }
+    })
+
+    const res = await postDataAPI('auth/facebook_login', { accessToken, userID })
+    dispatch({
+      type: AUTH,
+      payload: {
+        user: res.data.user,
+        token: res.data.accessToken
+      }
+    })
+    localStorage.setItem('sneakershub_firstLogin', 'true')
+
+    dispatch({
+      type: ALERT,
+      payload: {
+        success: res.data.msg
+      }
+    })
+  } catch (err: any) {
+    dispatch({
+      type: ALERT,
+      payload: {
+        errors: err.response.data.msg
+      }
+    })
+  }
+}

@@ -10,5 +10,6 @@ router.route('/login').post(authCtrl.login)
 router.route('/logout').post(isAuthenticated, authCtrl.logout)
 router.route('/refresh_token').post(authCtrl.refreshToken)
 router.route('/google_login').post(authCtrl.googleLogin)
+router.route('/facebook_login').post(authCtrl.facebookLogin)
 
 export default router

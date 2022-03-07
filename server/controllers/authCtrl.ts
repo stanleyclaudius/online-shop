@@ -7,6 +7,7 @@ import User from './../models/User'
 import sendEmail from './../utils/sendMail'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
+import fetch from 'cross-fetch'
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID)
 
@@ -153,6 +154,39 @@ const authCtrl = {
           password: passwordHash,
           type: 'google',
           avatar: picture
+        }
+        registerUser(user, res)
+      }
+    } catch (err: any) {
+      return res.status(500).json({ msg: err.message })
+    }
+  },
+  facebookLogin: async(req: Request, res: Response) => {
+    try {
+      const { accessToken, userID } = req.body
+
+      const facebookEndpoint = `https://graph.facebook.com/v3.0/${userID}/?fields=id,name,email,picture&access_token=${accessToken}`
+
+      const data = await fetch(facebookEndpoint)
+        .then(res => res.json())
+        .then(res => { return res })
+
+      const { email, name, picture } = data
+
+      const password = email + 'd8f9jio3jkledskflYYufouroruuuRURRpPpasosowrdddsoGoosgghheereREerer'
+      const passwordHash = await bcrypt.hash(password, 12)
+
+      const user = await User.findOne({ email })
+
+      if (user) {
+        loginUser(user, password, res)
+      } else {
+        const user = {
+          name,
+          email,
+          password: passwordHash,
+          type: 'facebook',
+          avatar: picture.data.url
         }
         registerUser(user, res)
       }
