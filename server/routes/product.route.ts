@@ -9,6 +9,7 @@ router.route('/')
   .post(isAuthenticated, authorizeRoles('admin'), productCtrl.createProduct)
 
 router.route('/:id')
+  .patch(isAuthenticated, authorizeRoles('admin'), productCtrl.updateProduct)
   .delete(isAuthenticated, authorizeRoles('admin'), productCtrl.deleteProduct)
 
 export default router

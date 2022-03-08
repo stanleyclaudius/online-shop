@@ -1,10 +1,11 @@
-import { MouseEvent, useState, useEffect } from 'react'
+import React, { MouseEvent, useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AiOutlineClose } from 'react-icons/ai'
 import { FormSubmit, InputChange, RootStore } from './../../utils/Interface'
 import { getBrand } from './../../redux/actions/brandActions'
 import { getCategory } from './../../redux/actions/categoryActions'
 import { createProduct } from './../../redux/actions/productActions'
+import { IProductData } from './../../redux/types/productTypes'
 import { ALERT } from './../../redux/types/alertTypes'
 import Loader from './../general/Loader'
 
@@ -12,6 +13,8 @@ interface IProps {
   createProductRef: React.MutableRefObject<HTMLDivElement>
   openCreateProductModal: boolean
   setOpenCreateProductModal: React.Dispatch<React.SetStateAction<boolean>>
+  updatedItem: IProductData
+  setUpdatedItem: React.Dispatch<React.SetStateAction<IProductData>>
 }
 
 type stock = {
@@ -19,7 +22,7 @@ type stock = {
   stock: number
 }
 
-const CreateProductModal: React.FC<IProps> = ({ createProductRef, openCreateProductModal, setOpenCreateProductModal }) => {
+const CreateProductModal: React.FC<IProps> = ({ createProductRef, openCreateProductModal, setOpenCreateProductModal, updatedItem, setUpdatedItem }) => {
   const [productData, setProductData] = useState({
     name: '',
     brand: '',
@@ -32,6 +35,7 @@ const CreateProductModal: React.FC<IProps> = ({ createProductRef, openCreateProd
   const [colorInput, setColorInput] = useState('')
   const [stock, setStock] = useState<stock[]>([])
   const [loading, setLoading] = useState(false)
+  const [isUpdated, setIsUpdated] = useState(false)
 
   const [sizes, setSizes] = useState<number[]>([])
   const [colors, setColors] = useState<string[]>([])
@@ -39,7 +43,7 @@ const CreateProductModal: React.FC<IProps> = ({ createProductRef, openCreateProd
   const [openColorInput, setOpenColorInput] = useState(false)
   const [openSizeInput, setOpenSizeInput] = useState(false)
   
-  const [images, setImages] = useState<File[]>([])
+  const [images, setImages] = useState<any[]>([])
 
   const dispatch = useDispatch()
   const { auth, brand, category } = useSelector((state: RootStore) => state)
@@ -125,6 +129,24 @@ const CreateProductModal: React.FC<IProps> = ({ createProductRef, openCreateProd
     )
   }
 
+  const handleCloseModal = () => {
+    setOpenCreateProductModal(false)
+    setIsUpdated(false)
+    setUpdatedItem({
+      _id: '',
+      name: '',
+      brand: '',
+      category: '',
+      colors: [],
+      sizes: [],
+      price: 0,
+      discount: 0,
+      description: '',
+      images: [],
+      stock: []
+    })
+  }
+
   const handleSubmit = async(e: FormSubmit) => {
     e.preventDefault()
 
@@ -207,6 +229,40 @@ const CreateProductModal: React.FC<IProps> = ({ createProductRef, openCreateProd
     dispatch(getCategory())
   }, [dispatch])
 
+  useEffect(() => {
+    if (updatedItem._id) {
+      setIsUpdated(true)
+      setProductData({
+        name: updatedItem.name,
+        brand: (typeof updatedItem.brand === 'string') ? updatedItem.brand : updatedItem.brand._id,
+        category: (typeof updatedItem.category === 'string') ? updatedItem.category : updatedItem.category._id,
+        price: updatedItem.price,
+        discount: updatedItem.discount,
+        description: updatedItem.description
+      })
+      setColors(updatedItem.colors)
+      setSizes(updatedItem.sizes)
+      setStock(updatedItem.stock)
+      setImages(updatedItem.images)
+    }
+
+    return () => {
+      setIsUpdated(false)
+      setProductData({
+        name: '',
+        brand: '',
+        category: '',
+        price: 0,
+        discount: 0,
+        description: ''
+      })
+      setColors([])
+      setSizes([])
+      setStock([])
+      setImages([])
+    }
+  }, [updatedItem])
+
   return (
     <div className={`${openCreateProductModal ? 'opacity-100' : 'opacity-0'} ${openCreateProductModal ? 'pointer-events-auto' : 'pointer-events-none'} transition-opacity fixed top-0 left-0 bottom-0 right-0 bg-[rgba(0,0,0,.7)] z-[9999] flex justify-center items-center px-5 font-opensans`}>
       <div
@@ -214,9 +270,9 @@ const CreateProductModal: React.FC<IProps> = ({ createProductRef, openCreateProd
         className={`${openCreateProductModal ? 'translate-y-0' : '-translate-y-12'} transition-transform w-full max-w-[500px] bg-white rounded-md`}
       >
         <div className='flex items-center justify-between px-5 py-3 border-b boder-gray-300'>
-          <h1 className='text-lg'>Create Product</h1>
+          <h1 className='text-lg'>{isUpdated ? 'Update' : 'Create'} Product</h1>
           <AiOutlineClose
-            onClick={() => setOpenCreateProductModal(false)}
+            onClick={handleCloseModal}
             className='cursor-pointer'
           />
         </div>
@@ -501,7 +557,7 @@ const CreateProductModal: React.FC<IProps> = ({ createProductRef, openCreateProd
                       key={idx}
                       className='w-20 h-20 rounded-md border border-gray-300 flex items-center justify-center p-1 relative'
                     >
-                      <img src={URL.createObjectURL(img)} alt='jaja' />
+                      <img src={img.toString().match(/image/i) ? img : URL.createObjectURL(img)} alt='Sneakershub' />
                       <div
                         onClick={() => deleteItem(idx, 'image')}
                         className='absolute -top-2 -right-2 bg-red-500 rounded-full text-white font-bold cursor-pointer text-sm'

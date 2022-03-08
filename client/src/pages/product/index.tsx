@@ -13,6 +13,19 @@ const Product = () => {
   const [openCreateProductModal, setOpenCreateProductModal] = useState(false)
   const [openDeleteModal, setOpenDeleteModal] = useState(false)
   const [selectedId, setSelectedId] = useState('')
+  const [updatedItem, setUpdatedItem] = useState<IProductData>({
+    _id: '',
+    name: '',
+    brand: '',
+    category: '',
+    colors: [],
+    sizes: [],
+    price: 0,
+    discount: 0,
+    description: '',
+    images: [],
+    stock: []
+  })
 
   const createProductRef = useRef() as React.MutableRefObject<HTMLDivElement>
   const deleteModalRef = useRef() as React.MutableRefObject<HTMLDivElement>
@@ -30,10 +43,28 @@ const Product = () => {
     setOpenDeleteModal(false)
   }
 
+  const handleUpdateButtonClicked = (item: IProductData) => {
+    setOpenCreateProductModal(true)
+    setUpdatedItem(item)
+  }
+
   useEffect(() => {
     const checkIfClickedOutside = (e: MouseEvent) => {
       if (openCreateProductModal && createProductRef.current && !createProductRef.current.contains(e.target as Node)) {
         setOpenCreateProductModal(false)
+        setUpdatedItem({
+          _id: '',
+          name: '',
+          brand: '',
+          category: '',
+          colors: [],
+          sizes: [],
+          price: 0,
+          discount: 0,
+          description: '',
+          images: [],
+          stock: []
+        })
       }
     }
 
@@ -95,14 +126,13 @@ const Product = () => {
                       <tr key={item._id} className='text-sm text-center bg-gray-100'>
                         <td className='p-3'>{idx + 1}</td>
                         <td>{item.name}</td>
-                        {/* @ts-ignore */}
-                        <td>{item.brand.name}</td>
-                        {/* @ts-ignore */}
-                        <td>{item.category.name}</td>
+                        <td>{(typeof item.brand === 'string') ? item.brand : item.brand.name}</td>
+                        <td>{(typeof item.category === 'string') ? item.category : item.category.name}</td>
                         <td>IDR{item.price}</td>
                         <td>{item.discount}%</td>
                         <td>
                           <button
+                            onClick={() => handleUpdateButtonClicked(item)}
                             className='bg-yellow-500 text-white px-3 py-1 rounded-full hover:bg-yellow-600 transition-[background] mr-3'
                           >
                             Update
@@ -128,6 +158,8 @@ const Product = () => {
         createProductRef={createProductRef}
         openCreateProductModal={openCreateProductModal}
         setOpenCreateProductModal={setOpenCreateProductModal}
+        updatedItem={updatedItem}
+        setUpdatedItem={setUpdatedItem}
       />
 
       <DeleteModal
