@@ -1,19 +1,46 @@
 import { useState, useEffect, useRef } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootStore } from './../utils/Interface'
+import { getCategory, deleteCategory } from '../redux/actions/categoryActions'
+import { ICategoryData } from './../redux/types/categoryTypes'
 import Layout from './../components/admin/Layout'
 import DeleteModal from './../components/modal/DeleteModal'
 import CreateCategoryModal from './../components/modal/CreateCategoryModal'
+import Loader from '../components/general/Loader'
 
 const Category = () => {
+  const [categories, setCategories] = useState<ICategoryData[]>([])
   const [openCreateCategoryModal, setOpenCreateCategoryModal] = useState(false)
   const [openDeleteModal, setOpenDeleteModal] = useState(false)
+  const [selectedId, setSelectedId] = useState('')
+  const [updatedItem, setUpdatedItem] = useState<ICategoryData>({ _id: '', name: '' })
 
   const deleteModalRef = useRef() as React.MutableRefObject<HTMLDivElement>
   const createCategoryRef = useRef() as React.MutableRefObject<HTMLDivElement>
+  
+  const dispatch = useDispatch()
+  const { category, alert, auth } = useSelector((state: RootStore) => state)
+
+  const handleDeleteButtonClicked = (id: string) => {
+    setOpenDeleteModal(true)
+    setSelectedId(id)
+  }
+
+  const handleUpdateButtonClicked = (item: ICategoryData) => {
+    setOpenCreateCategoryModal(true)
+    setUpdatedItem(item)
+  }
+
+  const handleDeleteCategory = async() => {
+    await dispatch(deleteCategory(selectedId, auth.token!))
+    setOpenDeleteModal(false)
+  }
 
   useEffect(() => {
     const checkIfClickedOutside = (e: MouseEvent) => {
       if (openCreateCategoryModal && createCategoryRef.current && !createCategoryRef.current.contains(e.target as Node)) {
         setOpenCreateCategoryModal(false)
+        setUpdatedItem({ _id: '', name: '' })
       }
     }
 
@@ -32,6 +59,14 @@ const Category = () => {
     return () => document.removeEventListener('mousedown', checkIfClickedOutside)
   }, [openDeleteModal])
 
+  useEffect(() => {
+    dispatch(getCategory())
+  }, [dispatch])
+
+  useEffect(() => {
+    setCategories(category.data)
+  }, [category.data])
+
   return (
     <>
       <Layout>
@@ -44,48 +79,62 @@ const Category = () => {
             Create Category
           </button>
         </div>
-        <div className='overflow-x-auto mt-8'>
-          <table className='w-full'>
-            <thead>
-              <tr className='text-sm bg-[#3552DC] text-white'>
-                <th className='p-3'>No</th>
-                <th>Name</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className='text-sm text-center bg-gray-100'>
-                <td className='p-3'>1</td>
-                <td>Lorem Ipsum</td>
-                <td>
-                  <button
-                    className='bg-yellow-500 text-white px-3 py-1 rounded-full hover:bg-yellow-600 transition-[background] mr-3'
-                  >
-                    Update
-                  </button>
-                  <button
-                    onClick={() => setOpenDeleteModal(true)}
-                    className='bg-red-500 text-white px-3 py-1 rounded-full hover:bg-red-600 transition-[background]'
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        {
+          alert.loading
+          ? <Loader size='xl' />
+          : (
+            <div className='overflow-x-auto mt-8'>
+              <table className='w-full'>
+                <thead>
+                  <tr className='text-sm bg-[#3552DC] text-white'>
+                    <th className='p-3'>No</th>
+                    <th>Name</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    categories.map((item, idx) => (
+                      <tr className='text-sm text-center bg-gray-100' key={item._id}>
+                        <td className='p-3'>{idx + 1}</td>
+                        <td>{item.name}</td>
+                        <td>
+                          <button
+                            onClick={() => handleUpdateButtonClicked(item)}
+                            className='bg-yellow-500 text-white px-3 py-1 rounded-full hover:bg-yellow-600 transition-[background] mr-3'
+                          >
+                            Update
+                          </button>
+                          <button
+                            onClick={() => handleDeleteButtonClicked(`${item._id}`)}
+                            className='bg-red-500 text-white px-3 py-1 rounded-full hover:bg-red-600 transition-[background]'
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    ))
+                  }
+                </tbody>
+              </table>
+            </div>
+          )
+        }
       </Layout>
 
       <DeleteModal
         deleteModalRef={deleteModalRef}
         openDeleteModal={openDeleteModal}
         setOpenDeleteModal={setOpenDeleteModal}
+        success={handleDeleteCategory}
       />
 
       <CreateCategoryModal
         createCategoryRef={createCategoryRef}
         openCreateCategoryModal={openCreateCategoryModal}
         setOpenCreateCategoryModal={setOpenCreateCategoryModal}
+        updatedItem={updatedItem}
+        setUpdatedItem={setUpdatedItem}
       />
     </>
   )
