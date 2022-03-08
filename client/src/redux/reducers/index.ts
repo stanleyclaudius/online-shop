@@ -10,5 +10,5 @@ export default combineReducers({
   auth: authReducer,
   brand: brandReducer,
   category: categoryReducer,
-  produt: productReducer
+  product: productReducer
 })

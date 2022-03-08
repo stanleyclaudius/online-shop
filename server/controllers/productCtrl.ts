@@ -40,6 +40,26 @@ const productCtrl = {
     } catch (err: any) {
       return res.status(500).json({ msg: err.message })
     }
+  },
+  getProduct: async(req: Request, res: Response) => {
+    try {
+      const products = await Product.find().sort('-createdAt').populate('brand category')
+      return res.status(200).json({ products })
+    } catch (err: any) {
+      return res.status(500).json({ msg: err.message })
+    }
+  },
+  deleteProduct: async(req: Request, res: Response) => {
+    try {
+      const { id } = req.params
+      const product = await Product.findByIdAndDelete(id)
+      if (!product)
+        return res.status(404).json({ msg: `Product with ID ${id} not found.` })
+      
+      return res.status(200).json({ msg: `${product.name} product has been deleted successfully.` })
+    } catch (err: any) {
+      return res.status(500).json({ msg: err.message })
+    }
   }
 }
 
