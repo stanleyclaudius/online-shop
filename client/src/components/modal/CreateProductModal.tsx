@@ -1,6 +1,12 @@
-import React, { MouseEvent, useState } from 'react'
+import { MouseEvent, useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { AiOutlineClose } from 'react-icons/ai'
-import { InputChange } from './../../utils/Interface'
+import { FormSubmit, InputChange, RootStore } from './../../utils/Interface'
+import { getBrand } from './../../redux/actions/brandActions'
+import { getCategory } from './../../redux/actions/categoryActions'
+import { createProduct } from './../../redux/actions/productActions'
+import { ALERT } from './../../redux/types/alertTypes'
+import Loader from './../general/Loader'
 
 interface IProps {
   createProductRef: React.MutableRefObject<HTMLDivElement>
@@ -8,9 +14,24 @@ interface IProps {
   setOpenCreateProductModal: React.Dispatch<React.SetStateAction<boolean>>
 }
 
+type stock = {
+  size: number
+  stock: number
+}
+
 const CreateProductModal: React.FC<IProps> = ({ createProductRef, openCreateProductModal, setOpenCreateProductModal }) => {
+  const [productData, setProductData] = useState({
+    name: '',
+    brand: '',
+    category: '',
+    price: 0,
+    discount: 0,
+    description: ''
+  })
   const [sizeInput, setSizeInput] = useState(0)
   const [colorInput, setColorInput] = useState('')
+  const [stock, setStock] = useState<stock[]>([])
+  const [loading, setLoading] = useState(false)
 
   const [sizes, setSizes] = useState<number[]>([])
   const [colors, setColors] = useState<string[]>([])
@@ -19,6 +40,9 @@ const CreateProductModal: React.FC<IProps> = ({ createProductRef, openCreateProd
   const [openSizeInput, setOpenSizeInput] = useState(false)
   
   const [images, setImages] = useState<File[]>([])
+
+  const dispatch = useDispatch()
+  const { auth, brand, category } = useSelector((state: RootStore) => state)
 
   const addItem = (e: MouseEvent<HTMLButtonElement>, type: string) => {
     e.preventDefault()
@@ -33,6 +57,7 @@ const CreateProductModal: React.FC<IProps> = ({ createProductRef, openCreateProd
         setSizes([...sizes, sizeInput])
         setSizeInput(0)
         setOpenSizeInput(false)
+        setStock([...stock, { size: sizeInput, stock: 0 }])
         break
       default:
         break
@@ -65,6 +90,10 @@ const CreateProductModal: React.FC<IProps> = ({ createProductRef, openCreateProd
         const sizesCopy = [...sizes]
         sizesCopy.splice(idx, 1)
         setSizes(sizesCopy)
+
+        const stockCopy = [...stock]
+        stockCopy.splice(idx, 1)
+        setStock(stockCopy)
         break
       case 'image':
         const imagesCopy = [...images]
@@ -82,6 +111,102 @@ const CreateProductModal: React.FC<IProps> = ({ createProductRef, openCreateProd
     setImages([...images, ...files])
   }
 
+  const handleGeneralChange = (e: InputChange) => {
+    const { name, value } = e.target
+    setProductData({ ...productData, [name]: value })
+  }
+
+  const handleChangeStock = (e: InputChange, idx: number) => {
+    const value = e.target.value
+    const getStock = stock[idx]
+    getStock.stock = parseInt(value)
+    setStock(
+      stock.map((item, i) => i === idx ? getStock : item)
+    )
+  }
+
+  const handleSubmit = async(e: FormSubmit) => {
+    e.preventDefault()
+
+    if (
+      !productData.name ||
+      !productData.brand ||
+      !productData.category ||
+      !productData.price ||
+      !productData.description
+    ) {
+      return dispatch({
+        type: ALERT,
+        payload: {
+          errors: 'Please fill all needed data to create product.'
+        }
+      })
+    }
+
+    if (sizes.length < 1 || colors.length < 1 || images.length < 1) {
+      return dispatch({
+        type: ALERT,
+        payload: {
+          errors: 'Please fill all needed data to create product.'
+        }
+      })
+    }
+
+    if (productData.price < 10000) {
+      return dispatch({
+        type: ALERT,
+        payload: {
+          errors: 'Product price can\'t be lower than IDR10.000'
+        }
+      })
+    }
+
+    if (productData.discount !== 0) {
+      if (productData.discount < 1 || productData.discount > 100) {
+        return dispatch({
+          type: ALERT,
+          payload: {
+            errors: 'Discount should be in range of 1 and 100'
+          }
+        })
+      }
+    }
+
+    for (const item of stock) {
+      if (item.stock <= 0) {
+        return dispatch({
+          type: ALERT,
+          payload: {
+            errors: 'Product stock can\'t be 0.'
+          }
+        })
+      }
+    }
+    
+    setLoading(true)
+    await dispatch(createProduct({ ...productData, sizes, colors, images, stock }, auth.token!))
+    setLoading(false)
+    setOpenCreateProductModal(false)
+
+    setProductData({
+      name: '',
+      brand: '',
+      category: '',
+      price: 0,
+      discount: 0,
+      description: ''
+    })
+    setSizes([])
+    setColors([])
+    setStock([])
+    setImages([])
+  }
+
+  useEffect(() => {
+    dispatch(getBrand())
+    dispatch(getCategory())
+  }, [dispatch])
+
   return (
     <div className={`${openCreateProductModal ? 'opacity-100' : 'opacity-0'} ${openCreateProductModal ? 'pointer-events-auto' : 'pointer-events-none'} transition-opacity fixed top-0 left-0 bottom-0 right-0 bg-[rgba(0,0,0,.7)] z-[9999] flex justify-center items-center px-5 font-opensans`}>
       <div
@@ -96,7 +221,7 @@ const CreateProductModal: React.FC<IProps> = ({ createProductRef, openCreateProd
           />
         </div>
         <div className='px-5 py-3 h-[75vh] overflow-auto hide-scrollbar'>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div>
               <label
                 htmlFor='name'
@@ -109,6 +234,8 @@ const CreateProductModal: React.FC<IProps> = ({ createProductRef, openCreateProd
                 autoComplete='off'
                 id='name'
                 name='name'
+                value={productData.name}
+                onChange={handleGeneralChange}
                 className='w-full rounded-md border border-gray-300 outline-0 p-2 text-sm mt-2'
               />
             </div>
@@ -122,9 +249,16 @@ const CreateProductModal: React.FC<IProps> = ({ createProductRef, openCreateProd
               <select
                 id='brand'
                 name='brand'
+                value={productData.brand}
+                onChange={handleGeneralChange}
                 className='w-full p-2 bg-white outline-0 rounded-md border border-gray-300 text-sm mt-2'
               >
                 <option value=''>- Select Brand -</option>
+                {
+                  brand.data.map(item => (
+                    <option value={item._id}>{item.name}</option>
+                  ))
+                }
               </select>
             </div>
             <div className='mt-4'>
@@ -137,9 +271,16 @@ const CreateProductModal: React.FC<IProps> = ({ createProductRef, openCreateProd
               <select
                 id='category'
                 name='category'
+                value={productData.category}
+                onChange={handleGeneralChange}
                 className='w-full p-2 bg-white outline-0 rounded-md border border-gray-300 text-sm mt-2'
               >
                 <option value=''>- Select Category -</option>
+                {
+                  category.data.map(item => (
+                    <option value={item._id}>{item.name}</option>
+                  ))
+                }
               </select>
             </div>
             <div className='mt-4'>
@@ -272,13 +413,15 @@ const CreateProductModal: React.FC<IProps> = ({ createProductRef, openCreateProd
                 htmlFor='price'
                 className='text-sm'
               >
-                Price (IDR in K)
+                Price (in IDR)
               </label>
               <input
                 type='number'
                 autoComplete='off'
                 id='price'
                 name='price'
+                value={productData.price}
+                onChange={handleGeneralChange}
                 className='w-full rounded-md border border-gray-300 outline-0 p-2 text-sm mt-2'
               />
             </div>
@@ -294,6 +437,8 @@ const CreateProductModal: React.FC<IProps> = ({ createProductRef, openCreateProd
                 autoComplete='off'
                 id='discount'
                 name='discount'
+                value={productData.discount}
+                onChange={handleGeneralChange}
                 className='w-full rounded-md border border-gray-300 outline-0 p-2 text-sm mt-2'
               />
             </div>
@@ -302,11 +447,13 @@ const CreateProductModal: React.FC<IProps> = ({ createProductRef, openCreateProd
               <div className='mt-4'>
                 <label htmlFor='stock'>Stock</label>
                 {
-                  sizes.map((size, idx) => (
+                  stock.map((item, idx) => (
                     <div className='mt-2 flex items-center gap-2' key={idx}>
-                      <div className='text-sm px-2 py-1 bg-gray-100 rounded-md border border-gray-300'>{size}</div>
+                      <div className='text-sm px-2 py-1 bg-gray-100 rounded-md border border-gray-300'>{item.size}</div>
                       <input
                         type='number'
+                        value={item.stock}
+                        onChange={(e) => handleChangeStock(e, idx)}
                         className='w-full rounded-md border border-gray-300 outline-0 py-1 px-2 text-sm'
                       />
                     </div>
@@ -324,6 +471,8 @@ const CreateProductModal: React.FC<IProps> = ({ createProductRef, openCreateProd
               <textarea
                 id='description'
                 name='description'
+                value={productData.description}
+                onChange={handleGeneralChange}
                 className='p-2 w-full rounded-md border border-gray-300 outline-0 text-sm mt-2 resize-none'
               />
             </div>
@@ -364,7 +513,12 @@ const CreateProductModal: React.FC<IProps> = ({ createProductRef, openCreateProd
                 }
               </div>
             }
-            <button className='text-sm bg-blue-500 hover:bg-blue-600 transition-[background] rounded-md float-right text-white px-5 py-2 my-5'>Save</button>
+            <button
+              disabled={loading ? true : false}
+              className={`text-sm ${loading ? 'bg-blue-300' : 'bg-blue-500'} ${loading ? 'bg-blue-300' : 'hover:bg-blue-600'} ${loading ? 'cursor-auto' : 'cursor-pointer'} transition-[background] rounded-md float-right text-white px-5 py-2 my-5`}
+            >
+              {loading ? <Loader /> : 'Save'}
+            </button>
             <div className='clear-both' />
           </form>
         </div>
