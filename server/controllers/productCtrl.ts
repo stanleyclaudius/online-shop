@@ -90,7 +90,7 @@ const productCtrl = {
 
       const product = await Product.findOneAndUpdate({ _id: id }, {
         name, brand, category, colors, sizes, price, description, discount, images, stock
-      }, { new: true })
+      }, { new: true }).populate('category brand')
       if (!product)
         return res.status(404).json({ msg: 'Product not found.' })
 

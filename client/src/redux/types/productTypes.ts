@@ -23,7 +23,7 @@ export interface IProductData {
   price: number
   discount: number
   description: string
-  images: string[] | File[]
+  images: any[]
   stock: stock[]
 }
 

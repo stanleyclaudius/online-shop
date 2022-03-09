@@ -4,7 +4,7 @@ import { AiOutlineClose } from 'react-icons/ai'
 import { FormSubmit, InputChange, RootStore } from './../../utils/Interface'
 import { getBrand } from './../../redux/actions/brandActions'
 import { getCategory } from './../../redux/actions/categoryActions'
-import { createProduct } from './../../redux/actions/productActions'
+import { createProduct, updateProduct } from './../../redux/actions/productActions'
 import { IProductData } from './../../redux/types/productTypes'
 import { ALERT } from './../../redux/types/alertTypes'
 import Loader from './../general/Loader'
@@ -206,7 +206,25 @@ const CreateProductModal: React.FC<IProps> = ({ createProductRef, openCreateProd
     }
     
     setLoading(true)
-    await dispatch(createProduct({ ...productData, sizes, colors, images, stock }, auth.token!))
+    if (isUpdated) {
+      await dispatch(updateProduct({ ...productData, _id: updatedItem._id, sizes, colors, images, stock }, auth.token!))
+      setIsUpdated(false)
+      setUpdatedItem({
+        _id: '',
+        name: '',
+        brand: '',
+        category: '',
+        colors: [],
+        sizes: [],
+        price: 0,
+        discount: 0,
+        description: '',
+        images: [],
+        stock: []
+      })
+    } else {
+      await dispatch(createProduct({ ...productData, sizes, colors, images, stock }, auth.token!))
+    }
     setLoading(false)
     setOpenCreateProductModal(false)
 
