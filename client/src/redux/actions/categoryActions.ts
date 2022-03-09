@@ -2,7 +2,7 @@ import { Dispatch } from 'redux'
 import { checkTokenExp } from '../../utils/checkTokenExp'
 import { deleteDataAPI, getDataAPI, patchDataAPI, postDataAPI } from '../../utils/fetchData'
 import { ALERT, IAlertType } from '../types/alertTypes'
-import { ICreateCategoryType, ICategoryData, CREATE_CATEGORY, IGetCategoryType, GET_CATEGORY, IDeleteCategoryType, DELETE_CATEGORY, IUpdateCategoryType, UPDATE_CATEGORY } from './../types/categoryTypes'
+import { ICreateCategoryType, ICategoryData, CREATE_CATEGORY, IGetCategoryType, GET_CATEGORY, IDeleteCategoryType, DELETE_CATEGORY, IUpdateCategoryType, UPDATE_CATEGORY, IGetHomeCategoryType, GET_HOME_CATEGORY } from './../types/categoryTypes'
 
 export const createCategory = (categoryData: ICategoryData, token: string) => async(dispatch: Dispatch<ICreateCategoryType | IAlertType>) => {
   const tokenExpResult = await checkTokenExp(token, dispatch)
@@ -49,6 +49,21 @@ export const getCategory = () => async(dispatch: Dispatch<IGetCategoryType | IAl
     dispatch({
       type: ALERT,
       payload: {}
+    })
+  } catch (err: any) {
+    dispatch({
+      type: ALERT,
+      payload: err.response.data.msg
+    })
+  }
+}
+
+export const getHomeCategory = () => async(dispatch: Dispatch<IGetHomeCategoryType | IAlertType>) => {
+  try {
+    const res = await getDataAPI('category/home')
+    dispatch({
+      type: GET_HOME_CATEGORY,
+      payload: res.data.categories
     })
   } catch (err: any) {
     dispatch({

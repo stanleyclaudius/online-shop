@@ -52,7 +52,38 @@ export const getProduct = () => async(dispatch: Dispatch<IGetProductType | IAler
   }
 }
 
-export const getHomeProduct = () => async(dispatch: Dispatch<IGetHomeProductType | IAlertType>) => {
+export const getHomeProduct = (categoryId = '', selectedBrand: string[] = [], selectedSize: number[] = [], selectedColor: string[] = [], selectedPrice: number[] = []) => async(dispatch: Dispatch<IGetHomeProductType | IAlertType>) => {
+  let brandQueryStr = ''
+  let sizeQueryStr = ''
+  let colorQueryStr = ''
+
+  if (selectedBrand.length > 0) {
+    for (let i = 0; i < selectedBrand.length; i++) {
+      if (i !== (selectedBrand.length - 1))
+        brandQueryStr += `brand=${selectedBrand[i]}&`
+      else
+        brandQueryStr += `brand=${selectedBrand[i]}`
+    }
+  }
+
+  if (selectedSize.length > 0) {
+    for (let i = 0; i < selectedSize.length; i++) {
+      if (i !== (selectedSize.length - 1))
+        sizeQueryStr += `sizes=${selectedSize[i]}&`
+      else
+        sizeQueryStr += `sizes=${selectedSize[i]}`
+    }
+  }
+
+  if (selectedColor.length > 0) {
+    for (let i = 0; i < selectedColor.length; i++) {
+      if (i !== (selectedColor.length - 1))
+        colorQueryStr += `colors=${selectedColor[i]}&`
+      else
+        colorQueryStr += `colors=${selectedColor[i]}`
+    }
+  }
+
   try {
     dispatch({
       type: ALERT,
@@ -61,7 +92,13 @@ export const getHomeProduct = () => async(dispatch: Dispatch<IGetHomeProductType
       }
     })
 
-    const res = await getDataAPI('product/home')
+    let url = `product/home?category=${categoryId}&${brandQueryStr}&${sizeQueryStr}&${colorQueryStr}`
+
+    if (selectedPrice.length > 0) {
+      url += `&gt=${selectedPrice[0]}&lt=${selectedPrice[1]}`
+    }
+
+    const res = await getDataAPI(url)
     dispatch({
       type: GET_HOME_PRODUCT,
       payload: {

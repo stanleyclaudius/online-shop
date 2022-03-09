@@ -1,4 +1,5 @@
 import { Request, Response } from 'express'
+import Product from './../models/Product'
 import Category from './../models/Category'
 
 const categoryCtrl = {
@@ -26,6 +27,37 @@ const categoryCtrl = {
   getCategory: async(req: Request, res: Response) => {
     try {
       const categories = await Category.find().sort('-createdAt')
+      return res.status(200).json({ categories })
+    } catch (err: any) {
+      return res.status(500).json({ msg: err.message })
+    }
+  },
+  getHomeCategory: async(req: Request, res: Response) => {
+    try {
+      const categories = await Product.aggregate([
+        {
+          $lookup: {
+            'from': 'categories',
+            'localField': 'category',
+            'foreignField': '_id',
+            'as': 'category'
+          }
+        },
+        { $unwind: '$category' },
+        {
+          $group: {
+            _id: '$category._id',
+            name: { $first: '$category.name' },
+            count: { $sum: 1 }
+          }
+        },
+        {
+          $project: {
+            count: 1,
+            name: 1
+          }
+        }
+      ])
       return res.status(200).json({ categories })
     } catch (err: any) {
       return res.status(500).json({ msg: err.message })

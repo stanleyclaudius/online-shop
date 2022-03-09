@@ -5,6 +5,7 @@ import brandReducer from './brandReducer'
 import categoryReducer from './categoryReducer'
 import productReducer from './productReducer'
 import homeProductReducer from './homeProductReducer'
+import homeCategoryReducer from './homeCategoryReducer'
 
 export default combineReducers({
   alert: alertReducer,
@@ -12,5 +13,6 @@ export default combineReducers({
   brand: brandReducer,
   category: categoryReducer,
   product: productReducer,
-  homeProduct: homeProductReducer
+  homeProduct: homeProductReducer,
+  homeCategory: homeCategoryReducer
 })

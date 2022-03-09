@@ -120,24 +120,7 @@ const productCtrl = {
         }
       },
       { $unwind: '$brand' },
-      { $sort: { createdAt: -1 } },
-      {
-        $group: {
-          _id: '$category._id',
-          name: { $first: '$category.name' },
-          products: { $push: '$$ROOT' },
-          count: { $sum: 1 }
-        }
-      },
-      {
-        $project: {
-          products: {
-            $slice: ['$products', 0, 4]
-          },
-          name: 1,
-          count: 1
-        }
-      }
+      { $sort: { createdAt: -1 } }
     ]
 
     if (brandQuery.length !== 0) {
@@ -172,13 +155,13 @@ const productCtrl = {
 
     if (req.query.gt) {
       aggregation.unshift({
-        $match: { price: { $gt: parseInt(`${req.query.gt}`) } }
+        $match: { price: { $gte: parseInt(`${req.query.gt}`) } }
       })
     }
 
     if (req.query.lt) {
       aggregation.unshift({
-        $match: { price: { $lt: parseInt(`${req.query.lt}`) } }
+        $match: { price: { $lte: parseInt(`${req.query.lt}`) } }
       })
     }
 

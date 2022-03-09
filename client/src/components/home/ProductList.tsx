@@ -1,21 +1,44 @@
 import { useState, useEffect, useRef } from 'react'
-import { IBrandData } from './../../redux/types/brandTypes'
-import { IHomeProductData } from './../../redux/types/homeProductTypes'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootStore } from './../../utils/Interface'
+import { getHomeProduct, getProduct } from './../../redux/actions/productActions'
+import { getBrand } from './../../redux/actions/brandActions'
+import { getHomeCategory } from './../../redux/actions/categoryActions'
+import { IProductData } from './../../redux/types/productTypes'
 import HighlightedItem from './HighlightedItem'
 import ProductCard from '../general/ProductCard'
 import Filter from './Filter'
 import ProductViewOption from './ProductViewOption'
-import Pagination from '../general/Pagination'
+import Pagination from './../general/Pagination'
 
-interface IProps {
-  products: IHomeProductData[]
-  brands: IBrandData[]
-}
-
-const ProductList: React.FC<IProps> = ({ products, brands }) => {
+const ProductList = () => {
   const [openFilter, setOpenFilter] = useState(false)
+  const [products, setProducts] = useState<IProductData[]>([])
+
+  const [selectedCategory, setSelectedCategory] = useState('')
+  const [selectedBrand, setSelectedBrand] = useState<string[]>([])
+  const [selectedSize, setSelectedSize] = useState<number[]>([])
+  const [selectedColor, setSelectedColor] = useState<string[]>([])
+  const [selectedPrice, setSelectedPrice] = useState<number[]>([])
 
   const filterRef = useRef() as React.MutableRefObject<HTMLDivElement>
+  
+  const dispatch = useDispatch()
+  const { brand, homeProduct, homeCategory: category } = useSelector((state: RootStore) => state)
+
+  useEffect(() => {
+    dispatch(getHomeProduct(selectedCategory, selectedBrand, selectedSize, selectedColor, selectedPrice))
+  }, [dispatch, selectedCategory, selectedBrand, selectedSize, selectedColor, selectedPrice])
+
+  useEffect(() => {
+    dispatch(getProduct())
+    dispatch(getHomeCategory())
+    dispatch(getBrand())
+  }, [dispatch])
+
+  useEffect(() => {
+    setProducts(homeProduct.data)
+  }, [homeProduct])
 
   useEffect(() => {
     const checkIfClickedOutside = (e: MouseEvent) => {
@@ -35,8 +58,16 @@ const ProductList: React.FC<IProps> = ({ products, brands }) => {
         <Filter
           filterRef={filterRef}
           openFilter={openFilter}
-          categories={products}
-          brands={brands}
+          categories={category.data}
+          brands={brand.data}
+          setSelectedCategory={setSelectedCategory}
+          selectedBrand={selectedBrand}
+          setSelectedBrand={setSelectedBrand}
+          selectedSize={selectedSize}
+          setSelectedSize={setSelectedSize}
+          selectedColor={selectedColor}
+          setSelectedColor={setSelectedColor}
+          setSelectedPrice={setSelectedPrice}
         />
         <div className='flex-[3]'>
           <ProductViewOption
@@ -46,9 +77,7 @@ const ProductList: React.FC<IProps> = ({ products, brands }) => {
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
             {
               products.map(item => (
-                item.products.map(i => (
-                  <ProductCard product={i} />
-                ))
+                <ProductCard product={item} />
               ))
             }
           </div>
