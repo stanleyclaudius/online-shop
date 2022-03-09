@@ -1,18 +1,22 @@
 import { useState } from 'react'
 import { HiOutlineRefresh } from 'react-icons/hi'
 import { BiChevronDown } from 'react-icons/bi'
+import { ICategoryData } from './../../redux/types/categoryTypes'
+import { IBrandData } from './../../redux/types/brandTypes'
 import Slider from 'rc-slider'
 import 'rc-slider/assets/index.css'
 
 interface IProps {
   filterRef: React.MutableRefObject<HTMLDivElement>
   openFilter: boolean
+  categories: ICategoryData[]
+  brands: IBrandData[]
 }
 
 const { createSliderWithTooltip }: any = Slider
 const Range = createSliderWithTooltip(Slider.Range)
 
-const Filter: React.FC<IProps> = ({ filterRef, openFilter }) => {
+const Filter: React.FC<IProps> = ({ filterRef, openFilter, brands, categories }) => {
   const [price, setPrice] = useState([1, 1000])
 
   return (
@@ -31,26 +35,14 @@ const Filter: React.FC<IProps> = ({ filterRef, openFilter }) => {
           <BiChevronDown />
           <p className='text-xs font-bold tracking-widest ml-3'>CATEGORIES</p>
         </div>
-        <div className='flex items-center justify-between pl-11 pr-3 py-2 cursor-pointer'>
-          <p className='text-sm'>Category 1</p>
-          <p className='text-sm text-gray-500'>25</p>
-        </div>
-        <div className='flex items-center justify-between pl-11 pr-3 py-2 cursor-pointer'>
-          <p className='text-sm'>Category 1</p>
-          <p className='text-sm text-gray-500'>25</p>
-        </div>
-        <div className='flex items-center justify-between pl-11 pr-3 py-2 cursor-pointer'>
-          <p className='text-sm'>Category 1</p>
-          <p className='text-sm text-gray-500'>25</p>
-        </div>
-        <div className='flex items-center justify-between pl-11 pr-3 py-2 cursor-pointer'>
-          <p className='text-sm'>Category 1</p>
-          <p className='text-sm text-gray-500'>25</p>
-        </div>
-        <div className='flex items-center justify-between pl-11 pr-3 py-2 cursor-pointer'>
-          <p className='text-sm'>Category 1</p>
-          <p className='text-sm text-gray-500'>25</p>
-        </div>
+        {
+          categories.map(item => (
+            <div key={item._id} className='flex items-center justify-between pl-11 pr-3 py-2 cursor-pointer'>
+              <p className='text-sm'>{item.name}</p>
+              <p className='text-sm text-gray-500'>25</p>
+            </div>
+          ))
+        }
       </div>
       <div className='border-b border-gray-300'>
         <div className='flex items-center px-4 pt-4 pb-2'>
@@ -90,18 +82,14 @@ const Filter: React.FC<IProps> = ({ filterRef, openFilter }) => {
           <BiChevronDown />
           <p className='text-xs font-bold tracking-widest ml-3'>BRANDS</p>
         </div>
-        <div className='flex items-center justify-between pl-11 pr-3 my-2'>
-          <label htmlFor='nike'>Nike</label>
-          <input type='checkbox' id='nike' />
-        </div>
-        <div className='flex items-center justify-between pl-11 pr-3 my-2'>
-          <label htmlFor='adidas'>Adidas</label>
-          <input type='checkbox' id='adidas' />
-        </div>
-        <div className='flex items-center justify-between pl-11 pr-3 my-2'>
-          <label htmlFor='skechers'>Skechers</label>
-          <input type='checkbox' id='skechers' />
-        </div>
+        {
+          brands.map(item => (
+            <div key={item._id} className='flex items-center justify-between pl-11 pr-3 my-2'>
+              <label htmlFor={item.name}>{item.name}</label>
+              <input type='checkbox' id={item.name} />
+            </div>
+          ))
+        }
       </div>
       <div className='border-b border-gray-300'>
         <div className='flex items-center px-4 pt-4 pb-2'>

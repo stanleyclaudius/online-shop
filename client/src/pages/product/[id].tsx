@@ -25,13 +25,13 @@ const ProductDetail = () => {
             <p className='font-oswald text-white font-bold text-2xl'>SIMILAR PRODUCTS</p>
             <p className='text-gray-400 text-sm'>Similar products that you might like</p>
           </div>
+          {/* <ProductCard />
           <ProductCard />
           <ProductCard />
           <ProductCard />
           <ProductCard />
           <ProductCard />
-          <ProductCard />
-          <ProductCard />
+          <ProductCard /> */}
         </div>
       </div>
       <Subscribe />

@@ -1,11 +1,20 @@
 import { useState, useEffect, useRef } from 'react'
+import { IProductData } from './../../redux/types/productTypes'
+import { IBrandData } from './../../redux/types/brandTypes'
+import { ICategoryData } from './../../redux/types/categoryTypes'
 import HighlightedItem from './HighlightedItem'
 import ProductCard from '../general/ProductCard'
 import Filter from './Filter'
 import ProductViewOption from './ProductViewOption'
 import Pagination from '../general/Pagination'
 
-const ProductList = () => {
+interface IProps {
+  products: IProductData[]
+  brands: IBrandData[]
+  categories: ICategoryData[]
+}
+
+const ProductList: React.FC<IProps> = ({ products, brands, categories }) => {
   const [openFilter, setOpenFilter] = useState(false)
 
   const filterRef = useRef() as React.MutableRefObject<HTMLDivElement>
@@ -28,6 +37,8 @@ const ProductList = () => {
         <Filter
           filterRef={filterRef}
           openFilter={openFilter}
+          categories={categories}
+          brands={brands}
         />
         <div className='flex-[3]'>
           <ProductViewOption
@@ -35,15 +46,11 @@ const ProductList = () => {
             setOpenFilter={setOpenFilter}
           />
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
+            {
+              products.map(product => (
+                <ProductCard product={product} />
+              ))
+            }
           </div>
           <Pagination />
         </div>
