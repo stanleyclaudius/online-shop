@@ -1,7 +1,8 @@
 import { Dispatch } from 'redux'
-import { checkTokenExp } from '../../utils/checkTokenExp'
-import { deleteDataAPI, getDataAPI, patchDataAPI, postDataAPI } from '../../utils/fetchData'
-import { uploadImages } from '../../utils/imageHelper'
+import { checkTokenExp } from './../../utils/checkTokenExp'
+import { deleteDataAPI, getDataAPI, patchDataAPI, postDataAPI } from './../../utils/fetchData'
+import { uploadImages } from './../../utils/imageHelper'
+import { IGetHomeProductType, GET_HOME_PRODUCT } from './../types/homeProductTypes'
 import { ALERT, IAlertType } from './../types/alertTypes'
 import { CREATE_PRODUCT, DELETE_PRODUCT, GET_PRODUCT, ICreateProductType, IDeleteProductType, IGetProductType, IProductData, IUpdateProductType, UPDATE_PRODUCT } from './../types/productTypes'
 
@@ -40,6 +41,39 @@ export const getProduct = () => async(dispatch: Dispatch<IGetProductType | IAler
     dispatch({
       type: GET_PRODUCT,
       payload: res.data.products
+    })
+  } catch (err: any) {
+    dispatch({
+      type: ALERT,
+      payload: {
+        errors: err.response.data.msg
+      }
+    })
+  }
+}
+
+export const getHomeProduct = () => async(dispatch: Dispatch<IGetHomeProductType | IAlertType>) => {
+  try {
+    dispatch({
+      type: ALERT,
+      payload: {
+        loading: true
+      }
+    })
+
+    const res = await getDataAPI('product/home')
+    dispatch({
+      type: GET_HOME_PRODUCT,
+      payload: {
+        data: res.data.products,
+        maxPrice: res.data.maxPrice,
+        minPrice: res.data.minPrice
+      }
+    })
+
+    dispatch({
+      type: ALERT,
+      payload: {}
     })
   } catch (err: any) {
     dispatch({

@@ -1,15 +1,18 @@
-import { useState } from 'react'
+import { useState, useEffect, useCallback } from 'react'
+import { useSelector } from 'react-redux'
 import { HiOutlineRefresh } from 'react-icons/hi'
 import { BiChevronDown } from 'react-icons/bi'
-import { ICategoryData } from './../../redux/types/categoryTypes'
 import { IBrandData } from './../../redux/types/brandTypes'
+import { IHomeProductData } from './../../redux/types/homeProductTypes'
+import { RootStore } from './../../utils/Interface'
 import Slider from 'rc-slider'
 import 'rc-slider/assets/index.css'
+import { numberFormatter } from '../../utils/numberFormatter'
 
 interface IProps {
   filterRef: React.MutableRefObject<HTMLDivElement>
   openFilter: boolean
-  categories: ICategoryData[]
+  categories: IHomeProductData[]
   brands: IBrandData[]
 }
 
@@ -18,6 +21,41 @@ const Range = createSliderWithTooltip(Slider.Range)
 
 const Filter: React.FC<IProps> = ({ filterRef, openFilter, brands, categories }) => {
   const [price, setPrice] = useState([1, 1000])
+  const [colors, setColors] = useState<string[]>([])
+  const [sizes, setSizes] = useState<number[]>([])
+
+  const { homeProduct } = useSelector((state: RootStore) => state)
+
+  const getSizeAndBrand = useCallback(() => {
+    const sizesTemp: number[] = []
+    const colorsTemp: string[] = []
+
+    homeProduct.data.forEach(item => {
+      item.products.forEach(prod => {
+        prod.sizes.forEach(sz => {
+          if (!sizesTemp.includes(sz)) {
+            sizesTemp.push(sz)
+          }
+        })
+
+        prod.colors.forEach(clr => {
+          if (!colorsTemp.includes(clr))
+          colorsTemp.push(clr)
+        })
+      })
+    })
+
+    setSizes(sizesTemp)
+    setColors(colorsTemp)
+  }, [homeProduct.data])
+
+  useEffect(() => {
+    setPrice([homeProduct.minPrice, homeProduct.maxPrice])
+  }, [homeProduct.maxPrice, homeProduct.minPrice])
+
+  useEffect(() => {
+    getSizeAndBrand()
+  }, [getSizeAndBrand])
 
   return (
     <div
@@ -39,7 +77,7 @@ const Filter: React.FC<IProps> = ({ filterRef, openFilter, brands, categories })
           categories.map(item => (
             <div key={item._id} className='flex items-center justify-between pl-11 pr-3 py-2 cursor-pointer'>
               <p className='text-sm'>{item.name}</p>
-              <p className='text-sm text-gray-500'>25</p>
+              <p className='text-sm text-gray-500'>{item.count}</p>
             </div>
           ))
         }
@@ -51,24 +89,24 @@ const Filter: React.FC<IProps> = ({ filterRef, openFilter, brands, categories })
         </div>
         <div className='flex gap-4 pl-11 pr-3 w-full mt-2'>
           <input
-            type='number'
+            type='text'
             disabled
-            value={price[0]}
-            className='text-center w-[50%] h-9 border border-gray-300 bg-gray-100 rounded-md'
+            value={numberFormatter(price[0])}
+            className='text-center text-sm w-[50%] h-9 border border-gray-300 bg-gray-100 rounded-md'
           />
           <input
-            type='number'
+            type='text'
             disabled
-            value={price[1]}
-            className='text-center w-[50%] border border-gray-300 bg-gray-100 rounded-md'
+            value={numberFormatter(price[1])}
+            className='text-center text-sm w-[50%] border border-gray-300 bg-gray-100 rounded-md'
           />
         </div>
         <div className='ml-11 mr-3 my-4'>
           <Range
-            min={1}
-            max={1000}
-            defaultValue={[1, 1000]}
-            tipFormatter={(value: number) => `$${value}`}
+            min={homeProduct.minPrice}
+            max={homeProduct.maxPrice}
+            defaultValue={[homeProduct.minPrice, homeProduct.maxPrice]}
+            tipFormatter={(value: number) => numberFormatter(value)}
             tipProps={{
               placement: 'top'
             }}
@@ -97,19 +135,11 @@ const Filter: React.FC<IProps> = ({ filterRef, openFilter, brands, categories })
           <p className='text-xs font-bold tracking-widest ml-3'>COLORS</p>
         </div>
         <div className='grid grid-cols-7 pl-11 pr-3 gap-2 mt-2 mb-4'>
-          <div className='w-6 h-6 bg-gray-300 rounded-full cursor-pointer hover:outline hover:outline-2 hover:outline-gray-300 hover:outline-offset-2' />
-          <div className='w-6 h-6 bg-gray-300 rounded-full cursor-pointer hover:outline hover:outline-2 hover:outline-gray-300 hover:outline-offset-2' />
-          <div className='w-6 h-6 bg-gray-300 rounded-full cursor-pointer hover:outline hover:outline-2 hover:outline-gray-300 hover:outline-offset-2' />
-          <div className='w-6 h-6 bg-gray-300 rounded-full cursor-pointer hover:outline hover:outline-2 hover:outline-gray-300 hover:outline-offset-2' />
-          <div className='w-6 h-6 bg-gray-300 rounded-full cursor-pointer hover:outline hover:outline-2 hover:outline-gray-300 hover:outline-offset-2' />
-          <div className='w-6 h-6 bg-gray-300 rounded-full cursor-pointer hover:outline hover:outline-2 hover:outline-gray-300 hover:outline-offset-2' />
-          <div className='w-6 h-6 bg-gray-300 rounded-full cursor-pointer hover:outline hover:outline-2 hover:outline-gray-300 hover:outline-offset-2' />
-          <div className='w-6 h-6 bg-gray-300 rounded-full cursor-pointer hover:outline hover:outline-2 hover:outline-gray-300 hover:outline-offset-2' />
-          <div className='w-6 h-6 bg-gray-300 rounded-full cursor-pointer hover:outline hover:outline-2 hover:outline-gray-300 hover:outline-offset-2' />
-          <div className='w-6 h-6 bg-gray-300 rounded-full cursor-pointer hover:outline hover:outline-2 hover:outline-gray-300 hover:outline-offset-2' />
-          <div className='w-6 h-6 bg-gray-300 rounded-full cursor-pointer hover:outline hover:outline-2 hover:outline-gray-300 hover:outline-offset-2' />
-          <div className='w-6 h-6 bg-gray-300 rounded-full cursor-pointer hover:outline hover:outline-2 hover:outline-gray-300 hover:outline-offset-2' />
-          <div className='w-6 h-6 bg-gray-300 rounded-full cursor-pointer hover:outline hover:outline-2 hover:outline-gray-300 hover:outline-offset-2' />
+          {
+            colors.map(item => (
+              <div className='w-6 h-6 rounded-full cursor-pointer hover:outline hover:outline-2 hover:outline-gray-300 hover:outline-offset-2' style={{ background: item }} />
+            ))
+          }
         </div>
       </div>
       <div>
@@ -118,20 +148,11 @@ const Filter: React.FC<IProps> = ({ filterRef, openFilter, brands, categories })
           <p className='text-xs font-bold tracking-widest ml-3'>SIZE</p>
         </div>
         <div className='grid grid-cols-5 pl-11 pr-3 mt-2 mb-4'>
-          <div className='border border-gray-300 flex items-center justify-center py-2 cursor-pointer hover:bg-[#415DDA] hover:text-white transition-all'>1</div>
-          <div className='border border-gray-300 flex items-center justify-center py-2 cursor-pointer hover:bg-[#415DDA] hover:text-white transition-all'>1</div>
-          <div className='border border-gray-300 flex items-center justify-center py-2 cursor-pointer hover:bg-[#415DDA] hover:text-white transition-all'>1</div>
-          <div className='border border-gray-300 flex items-center justify-center py-2 cursor-pointer hover:bg-[#415DDA] hover:text-white transition-all'>1</div>
-          <div className='border border-gray-300 flex items-center justify-center py-2 cursor-pointer hover:bg-[#415DDA] hover:text-white transition-all'>1</div>
-          <div className='border border-gray-300 flex items-center justify-center py-2 cursor-pointer hover:bg-[#415DDA] hover:text-white transition-all'>1</div>
-          <div className='border border-gray-300 flex items-center justify-center py-2 cursor-pointer hover:bg-[#415DDA] hover:text-white transition-all'>1</div>
-          <div className='border border-gray-300 flex items-center justify-center py-2 cursor-pointer hover:bg-[#415DDA] hover:text-white transition-all'>1</div>
-          <div className='border border-gray-300 flex items-center justify-center py-2 cursor-pointer hover:bg-[#415DDA] hover:text-white transition-all'>1</div>
-          <div className='border border-gray-300 flex items-center justify-center py-2 cursor-pointer hover:bg-[#415DDA] hover:text-white transition-all'>1</div>
-          <div className='border border-gray-300 flex items-center justify-center py-2 cursor-pointer hover:bg-[#415DDA] hover:text-white transition-all'>1</div>
-          <div className='border border-gray-300 flex items-center justify-center py-2 cursor-pointer hover:bg-[#415DDA] hover:text-white transition-all'>1</div>
-          <div className='border border-gray-300 flex items-center justify-center py-2 cursor-pointer hover:bg-[#415DDA] hover:text-white transition-all'>1</div>
-          <div className='border border-gray-300 flex items-center justify-center py-2 cursor-pointer hover:bg-[#415DDA] hover:text-white transition-all'>1</div>
+          {
+            sizes.sort().map(item => (
+              <div className='border border-gray-300 flex items-center justify-center py-2 cursor-pointer hover:bg-[#415DDA] hover:text-white transition-all'>{item}</div>
+            ))
+          }
         </div>
       </div>
     </div>

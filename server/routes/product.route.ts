@@ -8,6 +8,9 @@ router.route('/')
   .get(productCtrl.getProduct)
   .post(isAuthenticated, authorizeRoles('admin'), productCtrl.createProduct)
 
+router.route('/home')
+  .get(productCtrl.getHomeProduct)
+
 router.route('/:id')
   .patch(isAuthenticated, authorizeRoles('admin'), productCtrl.updateProduct)
   .delete(isAuthenticated, authorizeRoles('admin'), productCtrl.deleteProduct)

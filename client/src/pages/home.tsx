@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getProduct } from './../redux/actions/productActions'
-import { IProductData } from './../redux/types/productTypes'
+import { getHomeProduct } from './../redux/actions/productActions'
 import { getBrand } from './../redux/actions/brandActions'
 import { getCategory } from './../redux/actions/categoryActions'
 import { RootStore } from './../utils/Interface'
+import { IHomeProductData } from './../redux/types/homeProductTypes'
 import Navbar from './../components/general/Navbar'
 import Header from './../components/home/Header'
 import ProductList from './../components/home/ProductList'
@@ -12,13 +12,13 @@ import Subscribe from './../components/general/Subscribe'
 import Footer from './../components/general/Footer'
 
 const Home = () => {
-  const [products, setProducts] = useState<IProductData[]>([])
+  const [products, setProducts] = useState<IHomeProductData[]>([])
 
   const dispatch = useDispatch()
-  const { category, brand, product } = useSelector((state: RootStore) => state)
+  const { brand, homeProduct: product } = useSelector((state: RootStore) => state)
 
   useEffect(() => {
-    dispatch(getProduct())
+    dispatch(getHomeProduct())
     dispatch(getBrand())
     dispatch(getCategory())
   }, [dispatch])
@@ -31,7 +31,7 @@ const Home = () => {
     <>
       <Navbar />
       <Header />
-      <ProductList products={products} brands={brand.data} categories={category.data} />
+      <ProductList products={products} brands={brand.data} />
       <Subscribe />
       <Footer />
     </>

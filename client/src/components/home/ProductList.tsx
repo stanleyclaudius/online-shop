@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
-import { IProductData } from './../../redux/types/productTypes'
 import { IBrandData } from './../../redux/types/brandTypes'
-import { ICategoryData } from './../../redux/types/categoryTypes'
+import { IHomeProductData } from './../../redux/types/homeProductTypes'
 import HighlightedItem from './HighlightedItem'
 import ProductCard from '../general/ProductCard'
 import Filter from './Filter'
@@ -9,12 +8,11 @@ import ProductViewOption from './ProductViewOption'
 import Pagination from '../general/Pagination'
 
 interface IProps {
-  products: IProductData[]
+  products: IHomeProductData[]
   brands: IBrandData[]
-  categories: ICategoryData[]
 }
 
-const ProductList: React.FC<IProps> = ({ products, brands, categories }) => {
+const ProductList: React.FC<IProps> = ({ products, brands }) => {
   const [openFilter, setOpenFilter] = useState(false)
 
   const filterRef = useRef() as React.MutableRefObject<HTMLDivElement>
@@ -37,7 +35,7 @@ const ProductList: React.FC<IProps> = ({ products, brands, categories }) => {
         <Filter
           filterRef={filterRef}
           openFilter={openFilter}
-          categories={categories}
+          categories={products}
           brands={brands}
         />
         <div className='flex-[3]'>
@@ -47,8 +45,10 @@ const ProductList: React.FC<IProps> = ({ products, brands, categories }) => {
           />
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
             {
-              products.map(product => (
-                <ProductCard product={product} />
+              products.map(item => (
+                item.products.map(i => (
+                  <ProductCard product={i} />
+                ))
               ))
             }
           </div>
