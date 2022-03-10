@@ -1,21 +1,59 @@
 import { BiChevronLeft, BiChevronRight } from 'react-icons/bi'
 
-const Pagination = () => {
+interface IProps {
+  selectedPage: number
+  setSelectedPage: React.Dispatch<React.SetStateAction<number>>
+  totalPage: number
+}
+
+const Pagination: React.FC<IProps> = ({ selectedPage, setSelectedPage, totalPage }) => {
+  const handleArrow = (type: string) => {
+    switch (type) {
+      case 'prev':
+        if (selectedPage !== 1) {
+          setSelectedPage(selectedPage - 1)
+        }
+        break
+      case 'next':
+        if (selectedPage !== totalPage) {
+          setSelectedPage(selectedPage + 1)
+        }
+        break
+      default:
+        return
+    }
+  }
+
+  const handleClickPage = (page: number) => {
+    setSelectedPage(page)
+  }
+
   return (
     <div className='flex items-center justify-between border-r border-b border-gray-300'>
-      <div className='p-3 cursor-pointer'>
-        <BiChevronLeft className='text-2xl text-gray-500' />
+      {
+        selectedPage !== 1 &&
+        <div className='p-3 cursor-pointer' onClick={() => handleArrow('prev')}>
+          <BiChevronLeft className='text-2xl text-gray-500' />
+        </div>
+      }
+      <div className='flex items-center border-l flex-1 border-r border-gray-300 justify-center'>
+        {
+          Array.from(Array(totalPage).keys()).map((_, idx) => (
+            <div
+              onClick={() => handleClickPage(idx + 1)}
+              className={`py-3 px-5 cursor-pointer hover:bg-[#3552DC] hover:text-white ${selectedPage === idx + 1 ? 'bg-[#3552DC] text-white' : undefined}`}
+            >
+              {idx + 1}
+            </div>
+          ))
+        }
       </div>
-      <div className='flex items-center gap-2 border-l flex-1 border-r border-gray-300 justify-center'>
-        <div className='py-3 px-4 cursor-pointer hover:bg-[#3552DC] hover:text-white'>1</div>
-        <div className='py-3 px-4 cursor-pointer hover:bg-[#3552DC] hover:text-white'>2</div>
-        <div className='py-3 px-4 cursor-pointer hover:bg-[#3552DC] hover:text-white'>3</div>
-        <div className='py-3 px-4 cursor-pointer hover:bg-[#3552DC] hover:text-white'>4</div>
-        <div className='py-3 px-4 cursor-pointer hover:bg-[#3552DC] hover:text-white'>5</div>
-      </div>
-      <div className='p-3 cursor-pointer'>
-        <BiChevronRight className='text-2xl text-gray-500' />
-      </div>
+      {
+        selectedPage !== totalPage &&
+        <div className='p-3 cursor-pointer' onClick={() => handleArrow('next')}>
+          <BiChevronRight className='text-2xl text-gray-500' />
+        </div>
+      }
     </div>
   )
 }

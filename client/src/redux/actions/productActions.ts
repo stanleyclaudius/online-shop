@@ -52,7 +52,7 @@ export const getProduct = () => async(dispatch: Dispatch<IGetProductType | IAler
   }
 }
 
-export const getHomeProduct = (categoryId = '', selectedBrand: string[] = [], selectedSize: number[] = [], selectedColor: string[] = [], selectedPrice: number[] = []) => async(dispatch: Dispatch<IGetHomeProductType | IAlertType>) => {
+export const getHomeProduct = (categoryId = '', selectedBrand: string[] = [], selectedSize: number[] = [], selectedColor: string[] = [], selectedPrice: number[] = [], selectedPage: number = 1) => async(dispatch: Dispatch<IGetHomeProductType | IAlertType>) => {
   let brandQueryStr = ''
   let sizeQueryStr = ''
   let colorQueryStr = ''
@@ -92,7 +92,7 @@ export const getHomeProduct = (categoryId = '', selectedBrand: string[] = [], se
       }
     })
 
-    let url = `product/home?category=${categoryId}&${brandQueryStr}&${sizeQueryStr}&${colorQueryStr}`
+    let url = `product/home?category=${categoryId}&${brandQueryStr}&${sizeQueryStr}&${colorQueryStr}&page=${selectedPage}`
 
     if (selectedPrice.length > 0) {
       url += `&gt=${selectedPrice[0]}&lt=${selectedPrice[1]}`
@@ -103,6 +103,7 @@ export const getHomeProduct = (categoryId = '', selectedBrand: string[] = [], se
       type: GET_HOME_PRODUCT,
       payload: {
         data: res.data.products,
+        totalPage: res.data.totalPage,
         maxPrice: res.data.maxPrice,
         minPrice: res.data.minPrice
       }

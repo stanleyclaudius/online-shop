@@ -3,6 +3,7 @@ export const GET_HOME_PRODUCT = 'GET_HOME_PRODUCT'
 
 export interface IHomeProduct {
   data: IProductData[]
+  totalPage: number
   maxPrice: number
   minPrice: number
 }

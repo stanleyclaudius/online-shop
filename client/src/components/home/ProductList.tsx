@@ -20,6 +20,7 @@ const ProductList = () => {
   const [selectedSize, setSelectedSize] = useState<number[]>([])
   const [selectedColor, setSelectedColor] = useState<string[]>([])
   const [selectedPrice, setSelectedPrice] = useState<number[]>([])
+  const [selectedPage, setSelectedPage] = useState(1)
 
   const filterRef = useRef() as React.MutableRefObject<HTMLDivElement>
   
@@ -27,8 +28,8 @@ const ProductList = () => {
   const { brand, homeProduct, homeCategory: category } = useSelector((state: RootStore) => state)
 
   useEffect(() => {
-    dispatch(getHomeProduct(selectedCategory, selectedBrand, selectedSize, selectedColor, selectedPrice))
-  }, [dispatch, selectedCategory, selectedBrand, selectedSize, selectedColor, selectedPrice])
+    dispatch(getHomeProduct(selectedCategory, selectedBrand, selectedSize, selectedColor, selectedPrice, selectedPage))
+  }, [dispatch, selectedCategory, selectedBrand, selectedSize, selectedColor, selectedPrice, selectedPage])
 
   useEffect(() => {
     dispatch(getProduct())
@@ -68,6 +69,7 @@ const ProductList = () => {
           selectedColor={selectedColor}
           setSelectedColor={setSelectedColor}
           setSelectedPrice={setSelectedPrice}
+          setSelectedPage={setSelectedPage}
         />
         <div className='flex-[3]'>
           <ProductViewOption
@@ -81,7 +83,14 @@ const ProductList = () => {
               ))
             }
           </div>
-          <Pagination />
+          {
+            homeProduct.totalPage > 1 &&
+            <Pagination
+              selectedPage={selectedPage}
+              setSelectedPage={setSelectedPage}
+              totalPage={homeProduct.totalPage}
+            />
+          }
         </div>
       </div>
     </div>

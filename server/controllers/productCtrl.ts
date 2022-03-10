@@ -4,6 +4,13 @@ import Brand from './../models/Brand'
 import Category from './../models/Category'
 import Product from './../models/Product'
 
+const Pagination = (req: Request) => {
+  const page = Number(req.query.page) || 1
+  const limit = Number(req.query.limit) || 9
+  const skip = (page - 1) * limit
+  return { page, limit, skip }
+}
+
 const productCtrl = {
   createProduct: async(req: Request, res: Response) => {
     try {
@@ -60,6 +67,8 @@ const productCtrl = {
     }
   },
   getHomeProduct: async(req: Request, res: Response) => {
+    const { skip, limit } = Pagination(req)
+
     const brandQuery = []
     if (req.query.brand) {
       if (typeof req.query.brand === 'string') {
@@ -120,7 +129,9 @@ const productCtrl = {
         }
       },
       { $unwind: '$brand' },
-      { $sort: { createdAt: -1 } }
+      { $sort: { createdAt: -1 } },
+      { $skip: skip },
+      { $limit: limit }
     ]
 
     if (brandQuery.length !== 0) {
@@ -131,8 +142,18 @@ const productCtrl = {
       })
     }
 
+    const countAggregation: any[] = [
+      { $count: 'count' }
+    ]
+
     if (sizeQuery.length !== 0) {
       aggregation.unshift({
+        $match: {
+          sizes: { $in: sizeQuery }
+        }
+      })
+
+      countAggregation.unshift({
         $match: {
           sizes: { $in: sizeQuery }
         }
@@ -145,10 +166,20 @@ const productCtrl = {
           colors: { $in: colorQuery }
         }
       })
+
+      countAggregation.unshift({
+        $match: {
+          colors: { $in: colorQuery }
+        }
+      })
     }
 
     if (categoryQuery) {
       aggregation.unshift({
+        $match: { category: { $eq: categoryQuery } }
+      })
+
+      countAggregation.unshift({
         $match: { category: { $eq: categoryQuery } }
       })
     }
@@ -157,22 +188,58 @@ const productCtrl = {
       aggregation.unshift({
         $match: { price: { $gte: parseInt(`${req.query.gt}`) } }
       })
+
+      countAggregation.unshift({
+        $match: { price: { $gte: parseInt(`${req.query.gt}`) } }
+      })
     }
 
     if (req.query.lt) {
       aggregation.unshift({
         $match: { price: { $lte: parseInt(`${req.query.lt}`) } }
       })
+
+      countAggregation.unshift({
+        $match: { price: { $lte: parseInt(`${req.query.lt}`) } }
+      })
     }
 
     try {
-      const products = await Product.aggregate(aggregation)
+      const data = await Product.aggregate([
+        {
+          $facet: {
+            totalData: aggregation,
+            totalCount: countAggregation
+          }
+        },
+        {
+          $project: {
+            count: { $arrayElemAt: ['$totalCount.count', 0] },
+            totalData: 1
+          }
+        }
+      ])
+
+      const products = data[0].totalData
+      const totalProduct = data[0].count
+      let totalPage = 0
+        
+      if (products.length === 0) {
+        totalPage = 0
+      } else {
+        if (totalProduct % limit === 0)  {
+          totalPage = totalProduct / limit
+        } else {
+          totalPage = Math.floor(totalProduct / limit) + 1
+        }
+      }
 
       const maxPrice = await Product.find().sort('-price').limit(1)
       const minPrice = await Product.find().sort('price').limit(1)
 
       return res.status(200).json({
         products,
+        totalPage,
         maxPrice: maxPrice[0].price,
         minPrice: minPrice[0].price
       })

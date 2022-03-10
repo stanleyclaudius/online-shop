@@ -25,12 +25,27 @@ interface IProps {
   selectedColor: string[]
   setSelectedColor: React.Dispatch<React.SetStateAction<string[]>>
   setSelectedPrice: React.Dispatch<React.SetStateAction<number[]>>
+  setSelectedPage: React.Dispatch<React.SetStateAction<number>>
 }
 
 const { createSliderWithTooltip }: any = Slider
 const Range = createSliderWithTooltip(Slider.Range)
 
-const Filter: React.FC<IProps> = ({ filterRef, openFilter, brands, categories, setSelectedCategory, selectedBrand, setSelectedBrand, selectedSize, setSelectedSize, selectedColor, setSelectedColor, setSelectedPrice }) => {
+const Filter: React.FC<IProps> = ({
+  filterRef,
+  openFilter,
+  brands,
+  categories,
+  setSelectedCategory,
+  selectedBrand,
+  setSelectedBrand,
+  selectedSize,
+  setSelectedSize,
+  selectedColor,
+  setSelectedColor,
+  setSelectedPrice,
+  setSelectedPage
+}) => {
   const [price, setPrice] = useState([1, 1000])
   const [colors, setColors] = useState<string[]>([])
   const [sizes, setSizes] = useState<number[]>([])
@@ -44,6 +59,7 @@ const Filter: React.FC<IProps> = ({ filterRef, openFilter, brands, categories, s
     setSelectedColor([])
     setSelectedPrice([])
     setPrice([homeProduct.minPrice, homeProduct.maxPrice])
+    setSelectedPage(1)
   }
 
   const getSizeAndBrand = useCallback(() => {
@@ -169,7 +185,9 @@ const Filter: React.FC<IProps> = ({ filterRef, openFilter, brands, categories, s
           <button
             onClick={handleSetPrice}
             className='text-sm bg-blue-500 text-white rounded-md float-right mt-3 px-4 py-2 hover:bg-blue-600 transition-[background]'
-          >Set Price</button>
+          >
+            Set Price
+          </button>
           <div className='clear-both' />
         </div>
       </div>
