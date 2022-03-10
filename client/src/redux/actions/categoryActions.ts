@@ -1,8 +1,20 @@
 import { Dispatch } from 'redux'
-import { checkTokenExp } from '../../utils/checkTokenExp'
-import { deleteDataAPI, getDataAPI, patchDataAPI, postDataAPI } from '../../utils/fetchData'
-import { ALERT, IAlertType } from '../types/alertTypes'
-import { ICreateCategoryType, ICategoryData, CREATE_CATEGORY, IGetCategoryType, GET_CATEGORY, IDeleteCategoryType, DELETE_CATEGORY, IUpdateCategoryType, UPDATE_CATEGORY, IGetHomeCategoryType, GET_HOME_CATEGORY } from './../types/categoryTypes'
+import { checkTokenExp } from './../../utils/checkTokenExp'
+import { deleteDataAPI, getDataAPI, patchDataAPI, postDataAPI } from './../../utils/fetchData'
+import { ALERT, IAlertType } from './../types/alertTypes'
+import {
+  GET_CATEGORY,
+  GET_HOME_CATEGORY,
+  CREATE_CATEGORY,
+  UPDATE_CATEGORY,
+  DELETE_CATEGORY,
+  ICategoryData,
+  IGetCategoryType,
+  IGetHomeCategoryType,
+  ICreateCategoryType,
+  IUpdateCategoryType,
+  IDeleteCategoryType
+} from './../types/categoryTypes'
 
 export const createCategory = (categoryData: ICategoryData, token: string) => async(dispatch: Dispatch<ICreateCategoryType | IAlertType>) => {
   const tokenExpResult = await checkTokenExp(token, dispatch)

@@ -1,4 +1,14 @@
-import { GET_BRAND, CREATE_BRAND, IBrand, ICreateBrandType, IGetBrandType, DELETE_BRAND, IDeleteBrandType, UPDATE_BRAND, IUpdateBrandType } from './../types/brandTypes'
+import {
+  GET_BRAND,
+  CREATE_BRAND,
+  UPDATE_BRAND,
+  DELETE_BRAND,
+  IBrand,
+  IGetBrandType,
+  ICreateBrandType,
+  IUpdateBrandType,
+  IDeleteBrandType
+} from './../types/brandTypes'
 
 const initialState = {
   data: []

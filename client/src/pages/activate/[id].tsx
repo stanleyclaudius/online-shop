@@ -2,7 +2,7 @@ import { useEffect, useCallback } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { ALERT } from './../../redux/types/alertTypes'
-import { postDataAPI } from '../../utils/fetchData'
+import { postDataAPI } from './../../utils/fetchData'
 
 const Activate = () => {
   const { id } = useParams()

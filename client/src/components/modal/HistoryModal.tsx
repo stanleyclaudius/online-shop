@@ -1,4 +1,3 @@
-import React from 'react'
 import { AiOutlineClose } from 'react-icons/ai'
 import { FaPercentage } from 'react-icons/fa'
 import { MdLocationOn } from 'react-icons/md'

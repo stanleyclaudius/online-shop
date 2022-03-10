@@ -1,4 +1,8 @@
-import { GET_HOME_CATEGORY, IGetHomeCategoryType, IHomeCategory } from './../types/categoryTypes'
+import {
+  GET_HOME_CATEGORY,
+  IGetHomeCategoryType,
+  IHomeCategory
+} from './../types/categoryTypes'
 
 const initialState = {
   data: []

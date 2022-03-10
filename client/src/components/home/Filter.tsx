@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import { HiOutlineRefresh } from 'react-icons/hi'
 import { BiChevronDown } from 'react-icons/bi'
@@ -6,11 +6,11 @@ import { IBrandData } from './../../redux/types/brandTypes'
 import { numberFormatter } from './../../utils/numberFormatter'
 import { IHomeCategoryData } from './../../redux/types/categoryTypes'
 import { InputChange, RootStore } from './../../utils/Interface'
-import ColorTag from './../filter/ColorTag'
 import Slider from 'rc-slider'
+import ColorTag from './../filter/ColorTag'
+import SizeTag from './../filter/SizeTag'
+import CategoryTag from './../filter/CategoryTag'
 import 'rc-slider/assets/index.css'
-import SizeTag from '../filter/SizeTag'
-import CategoryTag from '../filter/CategoryTag'
 
 interface IProps {
   filterRef: React.MutableRefObject<HTMLDivElement>

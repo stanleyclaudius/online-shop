@@ -1,8 +1,18 @@
 import { Dispatch } from 'redux'
 import { ALERT, IAlertType } from './../types/alertTypes'
-import { GET_BRAND, CREATE_BRAND, IBrandData, IGetBrandType, ICreateBrandType, IDeleteBrandType, DELETE_BRAND, IUpdateBrandType, UPDATE_BRAND } from './../types/brandTypes'
+import { checkTokenExp } from './../../utils/checkTokenExp'
 import { deleteDataAPI, getDataAPI, patchDataAPI, postDataAPI } from './../../utils/fetchData'
-import { checkTokenExp } from '../../utils/checkTokenExp'
+import {
+  GET_BRAND,
+  CREATE_BRAND,
+  UPDATE_BRAND,
+  DELETE_BRAND,
+  IBrandData,
+  IGetBrandType,
+  ICreateBrandType,
+  IUpdateBrandType,
+  IDeleteBrandType
+} from './../types/brandTypes'
 
 export const createBrand = (brandData: IBrandData, token: string) => async(dispatch: Dispatch<ICreateBrandType | IAlertType>) => {
   const tokenExpResult = await checkTokenExp(token, dispatch)

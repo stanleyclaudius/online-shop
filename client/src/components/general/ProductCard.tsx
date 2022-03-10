@@ -21,7 +21,9 @@ const ProductCard: React.FC<IProps> = ({ product }) => {
       <p className='font-opensans text-sm'>{numberFormatter(product.price)},00</p>
       <div className='product-detail opacity-0 drop-shadow-2xl absolute top-0 right-0 bg-[#415DDA] w-full h-full px-5 py-7 flex flex-col justify-between'>
         <div className='flex items-center justify-between'>
-          <p className='text-sm text-white font-bold uppercase'>{(typeof product.category === 'string') ? product.category : product.category.name}</p>
+          <p className='text-sm text-white font-bold uppercase'>
+            {(typeof product.category === 'string') ? product.category : product.category.name}
+          </p>
           {
             product.discount !== 0 &&
             <div className='font-opensans text-xs bg-black w-fit text-white rounded-md p-2 font-bold'>- {product.discount}%</div>

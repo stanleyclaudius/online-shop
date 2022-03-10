@@ -72,7 +72,9 @@ const CreateProductModal: React.FC<IProps> = ({ createDiscountRef, openCreateDis
                 className='w-full border border-gray-300 p-2 outline-0 mt-2 rounded-md text-sm'
               />
             </div>
-            <button className='text-sm bg-blue-500 hover:bg-blue-600 transition-[background] rounded-md float-right text-white px-5 py-2 my-5'>Save</button>
+            <button className='text-sm bg-blue-500 hover:bg-blue-600 transition-[background] rounded-md float-right text-white px-5 py-2 my-5'>
+              Save
+            </button>
             <div className='clear-both' />
           </form>
         </div>

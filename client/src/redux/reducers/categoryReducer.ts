@@ -1,4 +1,14 @@
-import { CREATE_CATEGORY, DELETE_CATEGORY, GET_CATEGORY, ICategory, ICreateCategoryType, IDeleteCategoryType, IGetCategoryType, IUpdateCategoryType, UPDATE_CATEGORY } from './../types/categoryTypes'
+import {
+  GET_CATEGORY,
+  CREATE_CATEGORY,
+  UPDATE_CATEGORY,
+  DELETE_CATEGORY,
+  ICategory,
+  IGetCategoryType,
+  ICreateCategoryType,
+  IUpdateCategoryType,
+  IDeleteCategoryType
+} from './../types/categoryTypes'
 
 const initialState = {
   data: []

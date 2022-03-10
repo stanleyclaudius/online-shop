@@ -1,4 +1,4 @@
-import { GET_HOME_PRODUCT, IGetHomeProductType, IHomeProduct } from './../types/homeProductTypes'
+import { GET_HOME_PRODUCT, IGetHomeProductType, IHomeProduct } from './../types/productTypes'
 
 const initialState = {
   data: [],

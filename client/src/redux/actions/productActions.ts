@@ -2,9 +2,20 @@ import { Dispatch } from 'redux'
 import { checkTokenExp } from './../../utils/checkTokenExp'
 import { deleteDataAPI, getDataAPI, patchDataAPI, postDataAPI } from './../../utils/fetchData'
 import { uploadImages } from './../../utils/imageHelper'
-import { IGetHomeProductType, GET_HOME_PRODUCT } from './../types/homeProductTypes'
 import { ALERT, IAlertType } from './../types/alertTypes'
-import { CREATE_PRODUCT, DELETE_PRODUCT, GET_PRODUCT, ICreateProductType, IDeleteProductType, IGetProductType, IProductData, IUpdateProductType, UPDATE_PRODUCT } from './../types/productTypes'
+import {
+  GET_PRODUCT,
+  GET_HOME_PRODUCT,
+  CREATE_PRODUCT,
+  UPDATE_PRODUCT,
+  DELETE_PRODUCT,
+  IProductData,
+  IGetProductType,
+  IGetHomeProductType,
+  ICreateProductType,
+  IUpdateProductType,
+  IDeleteProductType
+} from './../types/productTypes'
 
 export const createProduct = (productData: IProductData, token: string) => async(dispatch: Dispatch<ICreateProductType | IAlertType>) => {
   const tokenExpResult = await checkTokenExp(token, dispatch)
@@ -52,7 +63,14 @@ export const getProduct = () => async(dispatch: Dispatch<IGetProductType | IAler
   }
 }
 
-export const getHomeProduct = (categoryId = '', selectedBrand: string[] = [], selectedSize: number[] = [], selectedColor: string[] = [], selectedPrice: number[] = [], selectedPage: number = 1) => async(dispatch: Dispatch<IGetHomeProductType | IAlertType>) => {
+export const getHomeProduct = (
+  categoryId = '',
+  selectedBrand: string[] = [],
+  selectedSize: number[] = [],
+  selectedColor: string[] = [],
+  selectedPrice: number[] = [],
+  selectedPage: number = 1
+) => async(dispatch: Dispatch<IGetHomeProductType | IAlertType>) => {
   let brandQueryStr = ''
   let sizeQueryStr = ''
   let colorQueryStr = ''

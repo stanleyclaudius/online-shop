@@ -1,12 +1,12 @@
 import { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootStore } from './../utils/Interface'
-import { getCategory, deleteCategory } from '../redux/actions/categoryActions'
+import { getCategory, deleteCategory } from './../redux/actions/categoryActions'
 import { ICategoryData } from './../redux/types/categoryTypes'
 import Layout from './../components/admin/Layout'
 import DeleteModal from './../components/modal/DeleteModal'
 import CreateCategoryModal from './../components/modal/CreateCategoryModal'
-import Loader from '../components/general/Loader'
+import Loader from './../components/general/Loader'
 
 const Category = () => {
   const [categories, setCategories] = useState<ICategoryData[]>([])

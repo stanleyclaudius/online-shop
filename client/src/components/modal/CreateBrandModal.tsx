@@ -4,7 +4,7 @@ import { AiOutlineClose } from 'react-icons/ai'
 import { FormSubmit, RootStore } from './../../utils/Interface'
 import { createBrand, updateBrand } from './../../redux/actions/brandActions'
 import { IBrandData } from './../../redux/types/brandTypes'
-import { ALERT } from '../../redux/types/alertTypes'
+import { ALERT } from './../../redux/types/alertTypes'
 import Loader from './../general/Loader'
 
 interface IProps {
@@ -15,7 +15,13 @@ interface IProps {
   setUpdatedItem: React.Dispatch<React.SetStateAction<IBrandData>>
 }
 
-const CreateBrandModal: React.FC<IProps> = ({ createBrandRef, openCreateBrandModal, setOpenCreateBrandModal, updatedItem, setUpdatedItem }) => {
+const CreateBrandModal: React.FC<IProps> = ({
+  createBrandRef,
+  openCreateBrandModal,
+  setOpenCreateBrandModal,
+  updatedItem,
+  setUpdatedItem
+}) => {
   const [loading, setLoading] = useState(false)
   const [name, setName] = useState('')
   const [isUpdated, setIsUpdated] = useState(false)

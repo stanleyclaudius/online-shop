@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { AiOutlineClose, AiOutlineSearch } from 'react-icons/ai'
 
 interface IProps {

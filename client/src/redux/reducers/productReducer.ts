@@ -1,4 +1,14 @@
-import { CREATE_PRODUCT, IProduct, ICreateProductType, GET_PRODUCT, IGetProductType, DELETE_PRODUCT, IDeleteProductType, IUpdateProductType, UPDATE_PRODUCT } from './../types/productTypes'
+import {
+  GET_PRODUCT,
+  CREATE_PRODUCT,
+  UPDATE_PRODUCT,
+  DELETE_PRODUCT,
+  IProduct,
+  IGetProductType,
+  ICreateProductType,
+  IUpdateProductType,
+  IDeleteProductType
+} from './../types/productTypes'
 
 const initialState = {
   data: []

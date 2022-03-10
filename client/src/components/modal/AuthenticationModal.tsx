@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Register from './../authentication/Register'
 import Login from './../authentication/Login'
-import ForgotPassword from '../authentication/ForgotPassword'
+import ForgotPassword from './../authentication/ForgotPassword'
 
 interface IProps {
   authenticationRef: React.MutableRefObject<HTMLDivElement>

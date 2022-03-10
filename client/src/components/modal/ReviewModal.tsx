@@ -43,7 +43,9 @@ const ReviewModal= () => {
                 className='outline-0 border border-gray-300 rounded-md w-full p-2 text-sm resize-none mt-2 h-[100px]'
               />
             </div>
-            <button className='bg-[#3552DC] hover:bg-[#122DB0] transition-[background] text-white text-sm rounded-full px-5 py-2 mt-4 float-right'>Rate Product</button>
+            <button className='bg-[#3552DC] hover:bg-[#122DB0] transition-[background] text-white text-sm rounded-full px-5 py-2 mt-4 float-right'>
+              Rate Product
+            </button>
             <div className='clear-both' />
           </form>
         </div>

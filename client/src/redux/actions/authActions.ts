@@ -3,7 +3,7 @@ import { IUserLogin, IUserRegister } from './../../utils/Interface'
 import { postDataAPI } from './../../utils/fetchData'
 import { AUTH, IAuthType } from './../types/authTypes'
 import { ALERT, IAlertType } from './../types/alertTypes'
-import { checkTokenExp } from '../../utils/checkTokenExp'
+import { checkTokenExp } from './../../utils/checkTokenExp'
 
 export const register = (userData: IUserRegister) => async (dispatch: Dispatch<IAuthType | IAlertType>) => {
   try {

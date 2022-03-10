@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AiOutlineClose } from 'react-icons/ai'
 import { FormSubmit, RootStore } from './../../utils/Interface'
@@ -15,7 +15,13 @@ interface IProps {
   setUpdatedItem: React.Dispatch<React.SetStateAction<ICategoryData>>
 }
 
-const CreateProductModal: React.FC<IProps> = ({ createCategoryRef, openCreateCategoryModal, setOpenCreateCategoryModal, updatedItem, setUpdatedItem }) => {
+const CreateProductModal: React.FC<IProps> = ({
+  createCategoryRef,
+  openCreateCategoryModal,
+  setOpenCreateCategoryModal,
+  updatedItem,
+  setUpdatedItem
+}) => {
   const [name, setName] = useState('')
   const [loading, setLoading] = useState(false)
   const [isUpdated, setIsUpdated] = useState(false)

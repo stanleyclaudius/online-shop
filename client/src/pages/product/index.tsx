@@ -6,7 +6,7 @@ import { IProductData } from './../../redux/types/productTypes'
 import Layout from './../../components/admin/Layout'
 import DeleteModal from './../../components/modal/DeleteModal'
 import CreateProductModal from './../../components/modal/CreateProductModal'
-import Loader from '../../components/general/Loader'
+import Loader from './../../components/general/Loader'
 
 const Product = () => {
   const [products, setProducts] = useState<IProductData[]>([])

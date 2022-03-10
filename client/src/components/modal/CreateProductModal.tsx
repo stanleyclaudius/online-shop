@@ -1,4 +1,4 @@
-import React, { MouseEvent, useState, useEffect } from 'react'
+import { MouseEvent, useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AiOutlineClose } from 'react-icons/ai'
 import { FormSubmit, InputChange, RootStore } from './../../utils/Interface'
@@ -22,7 +22,13 @@ type stock = {
   stock: number
 }
 
-const CreateProductModal: React.FC<IProps> = ({ createProductRef, openCreateProductModal, setOpenCreateProductModal, updatedItem, setUpdatedItem }) => {
+const CreateProductModal: React.FC<IProps> = ({
+  createProductRef,
+  openCreateProductModal,
+  setOpenCreateProductModal,
+  updatedItem,
+  setUpdatedItem
+}) => {
   const [productData, setProductData] = useState({
     name: '',
     brand: '',

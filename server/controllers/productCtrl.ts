@@ -75,8 +75,7 @@ const productCtrl = {
         brandQuery.push(new mongoose.Types.ObjectId(req.query.brand))
       } else {
         for (let i = 0; i < `${req.query.brand}`.length; i++) {
-          // @ts-ignore
-          brandQuery.push(new mongoose.Types.ObjectId(req.query.brand[i]))
+          brandQuery.push(new mongoose.Types.ObjectId((req.query.brand as string[])[i]))
         }
       }
     }
@@ -87,8 +86,7 @@ const productCtrl = {
         sizeQuery.push(parseInt(req.query.sizes))
       } else {
         for (let i = 0; i < `${req.query.sizes}`.length; i++) {
-          // @ts-ignore
-          sizeQuery.push(parseInt(req.query.sizes[i]))
+          sizeQuery.push(parseInt((req.query.sizes as string[])[i]))
         }
       }
     }
@@ -99,8 +97,7 @@ const productCtrl = {
         colorQuery.push('#' + req.query.colors)
       } else {
         for (let i = 0; i < `${req.query.colors}`.length; i++) {
-          // @ts-ignore
-          colorQuery.push('#' + req.query.colors[i])
+          colorQuery.push('#' + (req.query.colors as string[])[i])
         }
       }
     }
@@ -110,7 +107,7 @@ const productCtrl = {
       categoryQuery = new mongoose.Types.ObjectId(`${req.query.category}`)
     }
 
-    const aggregation: any[] = [
+    const dataAggregation: any[] = [
       {
         $lookup: {
           'from': 'categories',
@@ -134,20 +131,26 @@ const productCtrl = {
       { $limit: limit }
     ]
 
+    const countAggregation: any[] = [
+      { $count: 'count' }
+    ]
+
     if (brandQuery.length !== 0) {
-      aggregation.unshift({
+      dataAggregation.unshift({
+        $match: {
+          brand: { $in: brandQuery }
+        }
+      })
+
+      countAggregation.unshift({
         $match: {
           brand: { $in: brandQuery }
         }
       })
     }
 
-    const countAggregation: any[] = [
-      { $count: 'count' }
-    ]
-
     if (sizeQuery.length !== 0) {
-      aggregation.unshift({
+      dataAggregation.unshift({
         $match: {
           sizes: { $in: sizeQuery }
         }
@@ -161,7 +164,7 @@ const productCtrl = {
     }
 
     if (colorQuery.length !== 0) {
-      aggregation.unshift({
+      dataAggregation.unshift({
         $match: {
           colors: { $in: colorQuery }
         }
@@ -175,7 +178,7 @@ const productCtrl = {
     }
 
     if (categoryQuery) {
-      aggregation.unshift({
+      dataAggregation.unshift({
         $match: { category: { $eq: categoryQuery } }
       })
 
@@ -185,7 +188,7 @@ const productCtrl = {
     }
 
     if (req.query.gt) {
-      aggregation.unshift({
+      dataAggregation.unshift({
         $match: { price: { $gte: parseInt(`${req.query.gt}`) } }
       })
 
@@ -195,7 +198,7 @@ const productCtrl = {
     }
 
     if (req.query.lt) {
-      aggregation.unshift({
+      dataAggregation.unshift({
         $match: { price: { $lte: parseInt(`${req.query.lt}`) } }
       })
 
@@ -208,7 +211,7 @@ const productCtrl = {
       const data = await Product.aggregate([
         {
           $facet: {
-            totalData: aggregation,
+            totalData: dataAggregation,
             totalCount: countAggregation
           }
         },

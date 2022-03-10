@@ -1,7 +1,7 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
 import { FaChevronCircleLeft, FaChevronCircleRight } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
 
 const HighlightedItem = () => {
   const [currSlide, setCurrSlide] = useState(1)
