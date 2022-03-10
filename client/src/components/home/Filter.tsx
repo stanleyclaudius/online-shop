@@ -6,8 +6,11 @@ import { IBrandData } from './../../redux/types/brandTypes'
 import { numberFormatter } from './../../utils/numberFormatter'
 import { IHomeCategoryData } from './../../redux/types/categoryTypes'
 import { InputChange, RootStore } from './../../utils/Interface'
+import ColorTag from './../filter/ColorTag'
 import Slider from 'rc-slider'
 import 'rc-slider/assets/index.css'
+import SizeTag from '../filter/SizeTag'
+import CategoryTag from '../filter/CategoryTag'
 
 interface IProps {
   filterRef: React.MutableRefObject<HTMLDivElement>
@@ -128,10 +131,7 @@ const Filter: React.FC<IProps> = ({ filterRef, openFilter, brands, categories, s
         </div>
         {
           categories.map(item => (
-            <div key={item._id} onClick={() => handleClickCategory(`${item._id}`)} className='flex items-center justify-between pl-11 pr-3 py-2 cursor-pointer'>
-              <p className='text-sm'>{item.name}</p>
-              <p className='text-sm text-gray-500'>{item.count}</p>
-            </div>
+            <CategoryTag handleClickCategory={handleClickCategory} item={item} />
           ))
         }
       </div>
@@ -192,10 +192,10 @@ const Filter: React.FC<IProps> = ({ filterRef, openFilter, brands, categories, s
           <BiChevronDown />
           <p className='text-xs font-bold tracking-widest ml-3'>COLORS</p>
         </div>
-        <div className='grid grid-cols-7 pl-11 pr-3 gap-2 mt-2 mb-4'>
+        <div className='grid grid-cols-7 pl-11 pr-3 gap-4 mt-2 mb-4'>
           {
             colors.map(item => (
-              <div key={item} onClick={() => handleClickColor(item)} className='w-6 h-6 rounded-full cursor-pointer hover:outline hover:outline-2 hover:outline-gray-300 hover:outline-offset-2' style={{ background: item }} />
+              <ColorTag handleClickColor={handleClickColor} item={item} />
             ))
           }
         </div>
@@ -208,13 +208,7 @@ const Filter: React.FC<IProps> = ({ filterRef, openFilter, brands, categories, s
         <div className='grid grid-cols-5 pl-11 pr-3 mt-2 mb-4'>
           {
             sizes.sort().map(item => (
-              <div
-                key={item}
-                onClick={() => handleClickSize(item)}
-                className='border border-gray-300 flex items-center justify-center py-2 cursor-pointer hover:bg-[#415DDA] hover:text-white transition-all'
-              >
-                {item}
-              </div>
+              <SizeTag handleClickSize={handleClickSize} item={item} />
             ))
           }
         </div>
