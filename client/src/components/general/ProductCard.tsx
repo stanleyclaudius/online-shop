@@ -1,4 +1,6 @@
-import { AiOutlineShoppingCart, AiOutlineHeart } from 'react-icons/ai'
+import { useNavigate } from 'react-router-dom'
+import { AiOutlineHeart } from 'react-icons/ai'
+import { BiDetail } from 'react-icons/bi'
 import { IoCopyOutline } from 'react-icons/io5'
 import { numberFormatter } from './../../utils/numberFormatter'
 import { IProductData } from './../../redux/types/productTypes'
@@ -8,6 +10,8 @@ interface IProps {
 }
 
 const ProductCard: React.FC<IProps> = ({ product }) => {
+  const navigate = useNavigate()
+
   return (
     <div className='product-card border-b border-r border-gray-300 px-7 pt-14 pb-4 relative relative'>
       {
@@ -30,9 +34,12 @@ const ProductCard: React.FC<IProps> = ({ product }) => {
           }
         </div>
         <div className='flex items-center gap-7'>
-          <button className='flex items-center gap-2 bg-white rounded-full px-7 font-medium py-3 text-[#415FFA] text-sm'>
-            <AiOutlineShoppingCart />
-            Buy
+          <button
+            onClick={() => navigate(`/product/${product._id}`)}
+            className='flex items-center gap-2 bg-white rounded-full px-7 font-medium py-3 text-[#415FFA] text-sm'
+          >
+            <BiDetail />
+            Detail
           </button>
           <div className='flex items-center gap-3'>
             <button className='rounded-full text-white bg-[#667AD3] w-9 h-9 flex items-center justify-center'><IoCopyOutline /></button>

@@ -66,6 +66,18 @@ const productCtrl = {
       return res.status(500).json({ msg: err.message })
     }
   },
+  getProductById: async(req: Request, res: Response) => {
+    try {
+      const { id } = req.params
+      const product = await Product.findById(id).populate('brand category')
+      if (!product)
+        return res.status(404).json({ msg: `Product with ID ${id} not found.` })
+
+      return res.status(200).json({ product })
+    } catch (err: any) {
+      return res.status(500).json({ msg: err.message })
+    }
+  },
   getHomeProduct: async(req: Request, res: Response) => {
     const { skip, limit } = Pagination(req)
 
@@ -249,6 +261,21 @@ const productCtrl = {
     } catch (err: any) {
       return res.status(500).json({ msg: err.message })
     }
+  },
+  getSimilarProduct: async(req: Request, res: Response) => {
+    const products = await Product.aggregate([
+      { $match: { _id: { $nin: [new mongoose.Types.ObjectId(req.params.id)] } } },
+      {
+        $match: {
+          category: { $eq: new mongoose.Types.ObjectId(req.params.category) }
+        }
+      },
+      { $sample: { size: 7 } },
+      { $lookup: { from: 'category', localField: 'category', foreignField: '_id', as: 'category' } },
+      { $lookup: { from: 'brand', localField: 'brand', foreignField: '_id', as: 'brand' } }
+    ])
+    
+    return res.status(200).json({ products })
   },
   deleteProduct: async(req: Request, res: Response) => {
     try {

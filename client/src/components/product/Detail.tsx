@@ -1,12 +1,29 @@
+import { useState, useEffect } from 'react'
 import { AiFillStar, AiOutlineShoppingCart, AiOutlineHeart } from 'react-icons/ai'
 import { IoCopyOutline } from 'react-icons/io5'
+import { numberFormatter } from '../../utils/numberFormatter'
+import { IProductData } from './../../redux/types/productTypes'
 
-const Detail = () => {
+interface IProps {
+  product: IProductData
+}
+
+const Detail: React.FC<IProps> = ({ product }) => {
+  const [currImage, setCurrImage] = useState('')
+
+  useEffect(() => {
+    if (product?.images) {
+      setCurrImage(product?.images[0])
+    }
+
+    return () => setCurrImage('')
+  }, [product?.images])
+
   return (
     <div className='flex md:flex-row flex-col-reverse flex-col items-center md:pl-16 pl-8 py-10 md:pr-48 pr-8'>
       <div className='flex-[2] md:mt-0 mt-8'>
-        <p className='tracking-widest text-blue-600 text-xs font-bold mb-2'>LIFESTYLE</p>
-        <h1 className='mb-5 font-oswald tracking-wide text-xl'>Lebron XII Premium AS iD</h1>
+        <p className='tracking-widest text-blue-600 text-xs font-bold mb-2 uppercase'>{(typeof product?.category === 'string') ? product?.category : product?.category.name}</p>
+        <h1 className='mb-5 font-oswald tracking-wide text-xl'>{product?.name}</h1>
         <div className='flex items-center gap-7 mb-5'>
           <div className='flex'>
             <AiFillStar className='text-orange-300 text-lg' />
@@ -21,28 +38,37 @@ const Detail = () => {
           <div>
             <p className='tracking-widest text-blue-600 text-xs font-bold mb-3'>COLORS</p>
             <div className='flex items-center gap-2'>
-              <div className='w-5 h-5 rounded-full bg-blue-600' />
-              <div className='w-5 h-5 rounded-full bg-yellow-500' />
-              <div className='w-5 h-5 rounded-full bg-red-500' />
+              {
+                product?.colors.map((item, idx) => (
+                  <div key={idx} className='w-5 h-5 rounded-full' style={{ background: item }} />
+                ))
+              }
             </div>
           </div>
           <div>
             <p className='tracking-widest text-blue-600 text-xs font-bold mb-3'>SIZE</p>
             <div className='flex items-center gap-3'>
-              <p className='text-sm text-gray-400'>4.5</p>
-              <p className='text-sm text-gray-400'>5</p>
-              <p className='text-sm text-gray-400'>5</p>
-              <p className='text-sm text-gray-400'>5.5</p>
+              {
+                product?.sizes.sort().map((item, idx) => (
+                  <p key={idx} className='text-sm text-gray-400'>{item}</p>
+                ))
+              }
             </div>
           </div>
         </div>
         <div className='flex flex-col md:flex-row md:items-center items-start gap-10 md:mt-5 mt-8'> 
           <div className='flex items-center gap-9'>
             <div className='flex items-center gap-2'>
-              <p className='font-bold'>IDR 500K</p>
-              <p className='text-gray-400 text-sm line-through'>IDR 750K</p>
+              <p className='font-bold'>{numberFormatter(product?.discount ? product?.price - ((product?.discount / 100) * product?.price) : product?.price)}</p>
+              {
+                product?.discount !== 0 &&
+                <p className='text-gray-400 text-sm line-through'>{numberFormatter(product?.price)}</p>
+              }
             </div>
-            <div className='text-xs text-white rounded-md bg-black w-fit p-1 font-bold'>- 15%</div>
+            {
+              product?.discount !== 0 &&
+              <div className='text-xs text-white rounded-md bg-black w-fit p-1 font-bold'>- {product?.discount}%</div>
+            }
           </div>
           <div className='flex items-center gap-5 md:mt-0 -mt-3'>
             <div className='flex gap-2'>
@@ -68,23 +94,18 @@ const Detail = () => {
         </div>
       </div>
       <div className='flex-1 flex flex-col md:flex-row items-center gap-10'>
-        <img src={`${process.env.PUBLIC_URL}/images/shoes-single.png`} alt='sneakershub' />
+        <img src={currImage} alt={product?.name} />
         <div className='flex md:flex-col flex-row gap-4'>
-          <div className='border border-gray-300 border-2 w-12 h-9 rounded-md p-1'>
-            <img src={`${process.env.PUBLIC_URL}/images/shoes-single.png`} alt="Sneakershub" />
-          </div>
-          <div className='border border-gray-300 border-2 w-12 h-9 rounded-md p-1'>
-            <img src={`${process.env.PUBLIC_URL}/images/shoes-single.png`} alt="Sneakershub" />
-          </div>
-          <div className='border border-gray-300 border-2 w-12 h-9 rounded-md p-1'>
-            <img src={`${process.env.PUBLIC_URL}/images/shoes-single.png`} alt="Sneakershub" />
-          </div>
-          <div className='border border-gray-300 border-2 w-12 h-9 rounded-md p-1'>
-            <img src={`${process.env.PUBLIC_URL}/images/shoes-single.png`} alt="Sneakershub" />
-          </div>
-          <div className='border border-gray-300 border-2 w-12 h-9 rounded-md p-1'>
-            <img src={`${process.env.PUBLIC_URL}/images/shoes-single.png`} alt="Sneakershub" />
-          </div>
+          {
+            product?.images.map((item, idx) => (
+              <div
+                onClick={() => setCurrImage(item)}
+                className='border border-gray-300 border-2 w-12 h-9 rounded-md p-1 cursor-pointer'
+              >
+                <img src={item} alt={product?.name} />
+              </div>
+            ))
+          }
         </div>
       </div>
     </div>

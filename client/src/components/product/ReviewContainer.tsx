@@ -12,10 +12,6 @@ const ReviewContainer = () => {
         <div>
           <Review />
           <Review />
-          <Review />
-          <Review />
-          <Review />
-          <Review />
         </div>
         <div className='flex items-center justify-end mt-6 gap-7 text-sm font-bold'>
           <div>1</div>
