@@ -150,7 +150,7 @@ export const logout = (token: string) => async (dispatch: Dispatch<IResetCartTyp
   }
 }
 
-export const googleLogin = (token: string) => async (dispatch: Dispatch<IAuthType | IAlertType>) => {
+export const googleLogin = (token: string) => async (dispatch: Dispatch<IGetCartType | IAuthType | IAlertType>) => {
   try {
     dispatch({
       type: ALERT,
@@ -169,6 +169,20 @@ export const googleLogin = (token: string) => async (dispatch: Dispatch<IAuthTyp
     })
     localStorage.setItem('sneakershub_firstLogin', 'true')
 
+    const cartData = JSON.parse(localStorage.getItem('sneakershub_cartItems') as string)
+    if (cartData!.length > 0) {
+      cartData!.forEach(async(item: ICartData) => {
+        await postDataAPI('cart', { product: item._id, color: item.color, size: item.size, qty: item.qty }, res.data.accessToken)
+      })
+      localStorage.setItem('sneakershub_cartItems', JSON.stringify([]))
+    }
+
+    const cartRes = await getDataAPI('cart', res.data.accessToken)
+    dispatch({
+      type: GET_CART,
+      payload: cartRes.data.carts
+    })
+
     dispatch({
       type: ALERT,
       payload: {
@@ -185,7 +199,7 @@ export const googleLogin = (token: string) => async (dispatch: Dispatch<IAuthTyp
   }
 }
 
-export const facebookLogin = (accessToken: string, userID: string) => async(dispatch: Dispatch<IAuthType | IAlertType>) => {
+export const facebookLogin = (accessToken: string, userID: string) => async(dispatch: Dispatch<IGetCartType | IAuthType | IAlertType>) => {
   try {
     dispatch({
       type: ALERT,
@@ -203,6 +217,20 @@ export const facebookLogin = (accessToken: string, userID: string) => async(disp
       }
     })
     localStorage.setItem('sneakershub_firstLogin', 'true')
+
+    const cartData = JSON.parse(localStorage.getItem('sneakershub_cartItems') as string)
+    if (cartData!.length > 0) {
+      cartData!.forEach(async(item: ICartData) => {
+        await postDataAPI('cart', { product: item._id, color: item.color, size: item.size, qty: item.qty }, res.data.accessToken)
+      })
+      localStorage.setItem('sneakershub_cartItems', JSON.stringify([]))
+    }
+
+    const cartRes = await getDataAPI('cart', res.data.accessToken)
+    dispatch({
+      type: GET_CART,
+      payload: cartRes.data.carts
+    })
 
     dispatch({
       type: ALERT,

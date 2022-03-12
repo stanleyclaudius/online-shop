@@ -1,15 +1,18 @@
+import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { AiOutlineHeart } from 'react-icons/ai'
 import { BiDetail } from 'react-icons/bi'
 import { IoCopyOutline } from 'react-icons/io5'
 import { numberFormatter } from './../../utils/numberFormatter'
 import { IProductData } from './../../redux/types/productTypes'
+import { addWishlist } from '../../redux/actions/wishlistActions'
 
 interface IProps {
   product: IProductData
 }
 
 const ProductCard: React.FC<IProps> = ({ product }) => {
+  const dispatch = useDispatch()
   const navigate = useNavigate()
 
   return (
@@ -43,7 +46,12 @@ const ProductCard: React.FC<IProps> = ({ product }) => {
           </button>
           <div className='flex items-center gap-3'>
             <button className='rounded-full text-white bg-[#667AD3] w-9 h-9 flex items-center justify-center'><IoCopyOutline /></button>
-            <button className='rounded-full text-white bg-[#667AD3] w-9 h-9 flex items-center justify-center'><AiOutlineHeart /></button>
+            <button
+              onClick={() => dispatch(addWishlist(`${product._id}`))}
+              className='rounded-full text-white bg-[#667AD3] w-9 h-9 flex items-center justify-center'
+            >
+              <AiOutlineHeart />
+            </button>
           </div>
         </div>
         <div className='text-white'>
