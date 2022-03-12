@@ -6,6 +6,7 @@ import { addToCart } from '../../redux/actions/cartActions'
 import { numberFormatter } from '../../utils/numberFormatter'
 import { IProductData } from './../../redux/types/productTypes'
 import { RootStore } from './../../utils/Interface'
+import { ALERT } from './../../redux/types/alertTypes'
 
 interface IProps {
   product: IProductData
@@ -51,7 +52,22 @@ const Detail: React.FC<IProps> = ({ product }) => {
   }
 
   const handleAddToCart = () => {
+    if (!selectedColor || !selectedSize) {
+      return dispatch({
+        type: ALERT,
+        payload: {
+          errors: 'Please select color and size'
+        }
+      })
+    }
     dispatch(addToCart(product?._id!, selectedColor, selectedSize, qty, auth.token!))
+    
+    return dispatch({
+      type: ALERT,
+      payload: {
+        success: 'Item added to cart.'
+      }
+    })
   }
 
   useEffect(() => {

@@ -42,6 +42,15 @@ const cartCtrl = {
     } catch (err: any) {
       return res.status(500).json({ msg: err.message })
     }
+  },
+  deleteCart: async(req: IReqUser, res: Response) => {
+    try {
+      const { productId, productColor, productSize } = req.params
+      await Cart.findOneAndDelete({ user: req.user!._id, product: productId, color: '#' + productColor, size: productSize })
+      return res.status(200).json({ msg: 'Item deleted.' })
+    } catch (err: any) {
+      return res.status(500).json({ msg: err.message })
+    }
   }
 }
 

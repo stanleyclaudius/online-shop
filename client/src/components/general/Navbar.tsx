@@ -7,10 +7,12 @@ import { MdLogout } from 'react-icons/md'
 import { IoMdTrash } from 'react-icons/io'
 import { RootStore } from './../../utils/Interface'
 import { logout } from './../../redux/actions/authActions'
+import { getCart, deleteItem, addToCart } from './../../redux/actions/cartActions'
+import { numberFormatter } from './../../utils/numberFormatter'
+import { IDeleteCartData } from './../../redux/types/cartTypes'
 import SearchModal from './../modal/SearchModal'
 import AuthenticationModal from './../modal/AuthenticationModal'
-import { getCart } from '../../redux/actions/cartActions'
-import { numberFormatter } from '../../utils/numberFormatter'
+import { getDataAPI } from '../../utils/fetchData'
 
 const Navbar = () => {
   const [openNavbarSearch, setOpenNavbarSearch] = useState(false)
@@ -31,6 +33,44 @@ const Navbar = () => {
   const handleLogout = () => {
     if (!auth.token) return
     dispatch(logout(auth.token))
+  }
+
+  const handleDeleteItem = (cartData: IDeleteCartData) => {
+    if (auth.token)
+      cartData.token = auth.token
+
+    dispatch(deleteItem(cartData))
+  }
+
+  const handleChangeQty = async(type: string, productId: string, color: string, size: string, qty: number) => {
+    try {
+      const productData = await getDataAPI(`product/${productId}`)
+      const product = productData.data.product
+
+      let correspondingStock = 0
+      product.stock.forEach((item: any) => {
+        if (item.size === parseInt(size)) {
+          correspondingStock = item.stock
+        }
+      })
+
+      let newQty = qty
+      if (type === 'increase') {
+        newQty = qty + 1
+        if (newQty > correspondingStock) {
+          newQty -= 1
+        }
+      } else {
+        newQty = qty - 1
+        if (newQty < 1) {
+          newQty += 1
+        }
+      }
+
+      dispatch(addToCart(productId, color, parseInt(size), newQty, auth.token!))
+    } catch (err: any) {
+      console.log(err.response.data.msg)
+    }
   }
 
   useEffect(() => {
@@ -202,48 +242,80 @@ const Navbar = () => {
                 </div>
               }
             </div>
-            <div
-              ref={cartRef}
-              className={`${openCart ? 'scale-y-1' : 'scale-y-0'} transition-[transform] origin-top absolute w-[330px] bg-white right-0 translate-y-3 rounded-md shadow-xl`}
-            >
-              <div className='max-h-[250px] overflow-auto hide-scrollbar'>
-                {
-                  cart.length > 0 &&
-                  cart.map(item => (
-                    <div key={`${item.product ? item._id : `${item.name}-${item.color}-${item.size}`}`} className='font-opensans text-black flex items-center p-3'>
-                      <div className='w-20 h-24 rounded-md border border-gray-300 flex items-center justify-center p-2'>
-                        <img src={item.product ? item.product.images[0] : item.image} alt={item.product ? item.product.name : item.name} />
-                      </div>
-                      <div className='ml-3'>
-                        <div className='flex items-center gap-5'>
-                          <h2 className='font-oswald text-lg tracking-wide'>{item.product ? item.product.name : item.name}</h2>
-                          <p className='text-sm bg-gray-200 rounded-md px-2 py-1'>{item.size}</p>
-                          <div className='w-4 h-4 outline outline-2 outline-gray-300 outline-offset-2 rounded-full' style={{ background: item.color }} />
+            {
+              cart.length > 0 &&
+              <div
+                ref={cartRef}
+                className={`${openCart ? 'scale-y-1' : 'scale-y-0'} transition-[transform] origin-top absolute w-[330px] bg-white right-0 translate-y-3 rounded-md shadow-xl`}
+              >
+                <div className='max-h-[250px] overflow-auto hide-scrollbar'>
+                  {
+                    cart.length > 0 &&
+                    cart.map(item => (
+                      <div key={`${item.product ? item._id : `${item.name}-${item.color}-${item.size}`}`} className='font-opensans text-black flex items-center p-3'>
+                        <div className='w-20 h-24 rounded-md border border-gray-300 flex items-center justify-center p-2'>
+                          <img src={item.product ? item.product.images[0] : item.image} alt={item.product ? item.product.name : item.name} />
                         </div>
-                        <p className='mt-1 mb-2 text-sm'>{numberFormatter(item.product ? item.product.price : parseInt(item.price))}</p>
-                        <div className='flex items-center justify-between'>
-                          <div className='flex gap-2'>
-                            <div className='w-6 h-6 rounded-full text-white font-bold flex items-center justify-center bg-[#3552DC] cursor-pointer hover:bg-[#122DB0] transition-[background]'>-</div>
-                            <input type='text' value={item.qty} disabled className='w-[40px] rounded-md bg-gray-100 border border-gray-300 text-center text-sm' />
-                            <div className='w-6 h-6 rounded-full text-white font-bold flex items-center justify-center bg-[#3552DC] cursor-pointer hover:bg-[#122DB0] transition-[background]'>+</div>
+                        <div className='w-full ml-3'>
+                          <div className='flex items-center gap-5'>
+                            <h2 className='font-oswald text-lg tracking-wide'>{item.product ? item.product.name : item.name}</h2>
+                            <p className='text-sm bg-gray-200 rounded-md px-2 py-1'>{item.size}</p>
+                            <div className='w-4 h-4 outline outline-2 outline-gray-300 outline-offset-2 rounded-full' style={{ background: item.color }} />
                           </div>
-                          <IoMdTrash className='text-red-500 text-xl cursor-pointer' />
+                          <p className='mt-1 mb-2 text-sm'>{numberFormatter(item.product ? item.product.price : parseInt(item.price))}</p>
+                          <div className='flex items-center justify-between'>
+                            <div className='flex gap-2'>
+                              <div
+                                onClick={() => handleChangeQty(
+                                  'decrease',
+                                  item.product ? item.product._id : item._id,
+                                  item.color,
+                                  item.size as string,
+                                  item.qty
+                                )}
+                                className='w-6 h-6 rounded-full text-white font-bold flex items-center justify-center bg-[#3552DC] cursor-pointer hover:bg-[#122DB0] transition-[background]'
+                              >
+                                -
+                              </div>
+                              <input type='text' value={item.qty} disabled className='w-[40px] rounded-md bg-gray-100 border border-gray-300 text-center text-sm' />
+                              <div
+                                onClick={() => handleChangeQty(
+                                  'increase',
+                                  item.product ? item.product._id : item._id,
+                                  item.color,
+                                  item.size as string,
+                                  item.qty
+                                )}
+                                className='w-6 h-6 rounded-full text-white font-bold flex items-center justify-center bg-[#3552DC] cursor-pointer hover:bg-[#122DB0] transition-[background]'
+                              >
+                                +
+                              </div>
+                            </div>
+                            <IoMdTrash
+                              onClick={() => handleDeleteItem({
+                                productId: item.product ? item.product._id : item._id,
+                                productSize: item.size,
+                                productColor: item.color
+                              })}
+                              className='text-red-500 text-xl cursor-pointer'
+                            />
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ))
-                }
-              </div>
-              <div>
-                <div className='font-opensans text-black px-3 py-2 border-t border-gray-300 flex items-center justify-between'>
-                  <h1 className='text-sm'>Total Price</h1>
-                  <p className='text-sm font-bold'>{numberFormatter(cart.reduce((acc, item) => (acc + (item.product ? item.product.price * item.qty : parseInt(item.price) * item.qty)), 0))}</p>
+                    ))
+                  }
                 </div>
-                <div className='px-3 pt-2 pb-3 flex items-center justify-end'>
-                  <button className='text-sm rounded-md px-3 py-2 transition-[background] bg-[#3552DC] hover:bg-[#122DB0]'>Checkout</button>
+                <div>
+                  <div className='font-opensans text-black px-3 py-2 border-t border-gray-300 flex items-center justify-between'>
+                    <h1 className='text-sm'>Total Price</h1>
+                    <p className='text-sm font-bold'>{numberFormatter(cart.reduce((acc, item) => (acc + (item.product ? item.product.price * item.qty : parseInt(item.price) * item.qty)), 0))}</p>
+                  </div>
+                  <div className='px-3 pt-2 pb-3 flex items-center justify-end'>
+                    <button className='text-sm rounded-md px-3 py-2 transition-[background] bg-[#3552DC] hover:bg-[#122DB0]'>Checkout</button>
+                  </div>
                 </div>
               </div>
-            </div>
+            }
           </div>
         </div>
       </div>

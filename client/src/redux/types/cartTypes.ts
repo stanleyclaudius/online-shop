@@ -3,6 +3,7 @@ import { IProductData } from './productTypes'
 export const ADD_TO_CART = 'ADD_TO_CART'
 export const GET_CART = 'GET_CART'
 export const RESET_CART = 'RESET_CART'
+export const DELETE_CART_ITEM = 'DELETE_CART_ITEM'
 
 export interface ICartData {
   _id: string
@@ -13,6 +14,13 @@ export interface ICartData {
   color: string
   size: number
   product?: IProductData
+}
+
+export interface IDeleteCartData {
+  productId: string
+  productSize: number
+  productColor: string
+  token?: string
 }
 
 export interface IAddToCartType {
@@ -28,4 +36,9 @@ export interface IGetCartType {
 export interface IResetCartType {
   type: typeof RESET_CART
   payload: Array<any>
+}
+
+export interface IDeleteCartItemType {
+  type: typeof DELETE_CART_ITEM
+  payload: IDeleteCartData
 }
