@@ -82,7 +82,7 @@ const ProductDetail = () => {
                       <>
                         {
                           similarProducts.map(item => (
-                            <ProductCard product={item} />
+                            <ProductCard key={item._id} product={item} />
                           ))
                         }
                       </>

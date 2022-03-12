@@ -4,6 +4,7 @@ import { postDataAPI } from './../../utils/fetchData'
 import { AUTH, IAuthType } from './../types/authTypes'
 import { ALERT, IAlertType } from './../types/alertTypes'
 import { checkTokenExp } from './../../utils/checkTokenExp'
+import { ICartData } from '../types/cartTypes'
 
 export const register = (userData: IUserRegister) => async (dispatch: Dispatch<IAuthType | IAlertType>) => {
   try {
@@ -50,6 +51,14 @@ export const login = (userData: IUserLogin) => async (dispatch: Dispatch<IAuthTy
       }
     })
     localStorage.setItem('sneakershub_firstLogin', 'true')
+
+    const cartData = JSON.parse(localStorage.getItem('sneakershub_cartItems') as string)
+    if (cartData!.length > 0) {
+      cartData!.forEach(async(item: ICartData) => {
+        await postDataAPI('cart', { product: item._id, color: item.color, size: item.size, qty: item.qty }, res.data.accessToken)
+      })
+      localStorage.setItem('sneakershub_cartItems', JSON.stringify([]))
+    }
 
     dispatch({
       type: ALERT,
