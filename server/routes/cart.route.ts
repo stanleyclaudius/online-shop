@@ -4,6 +4,8 @@ import { isAuthenticated } from './../middlewares/auth'
 
 const router = express.Router()
 
-router.route('/').post(isAuthenticated, cartCtrl.addToCart)
+router.route('/')
+  .get(isAuthenticated, cartCtrl.getCart)
+  .post(isAuthenticated, cartCtrl.addToCart)
 
 export default router

@@ -1,10 +1,10 @@
 import { Dispatch } from 'redux'
 import { IUserLogin, IUserRegister } from './../../utils/Interface'
-import { postDataAPI } from './../../utils/fetchData'
+import { getDataAPI, postDataAPI } from './../../utils/fetchData'
 import { AUTH, IAuthType } from './../types/authTypes'
 import { ALERT, IAlertType } from './../types/alertTypes'
 import { checkTokenExp } from './../../utils/checkTokenExp'
-import { ICartData } from '../types/cartTypes'
+import { GET_CART, ICartData, IGetCartType, IResetCartType, RESET_CART } from '../types/cartTypes'
 
 export const register = (userData: IUserRegister) => async (dispatch: Dispatch<IAuthType | IAlertType>) => {
   try {
@@ -33,7 +33,7 @@ export const register = (userData: IUserRegister) => async (dispatch: Dispatch<I
   }
 }
 
-export const login = (userData: IUserLogin) => async (dispatch: Dispatch<IAuthType | IAlertType>) => {
+export const login = (userData: IUserLogin) => async (dispatch: Dispatch<IGetCartType | IAuthType | IAlertType>) => {
   try {
     dispatch({
       type: ALERT,
@@ -59,6 +59,12 @@ export const login = (userData: IUserLogin) => async (dispatch: Dispatch<IAuthTy
       })
       localStorage.setItem('sneakershub_cartItems', JSON.stringify([]))
     }
+
+    const cartRes = await getDataAPI('cart', res.data.accessToken)
+    dispatch({
+      type: GET_CART,
+      payload: cartRes.data.carts
+    })
 
     dispatch({
       type: ALERT,
@@ -111,7 +117,7 @@ export const refreshToken = () => async(dispatch: Dispatch<IAuthType | IAlertTyp
   }
 }
 
-export const logout = (token: string) => async (dispatch: Dispatch<IAuthType | IAlertType>) => {
+export const logout = (token: string) => async (dispatch: Dispatch<IResetCartType | IAuthType | IAlertType>) => {
   const tokenExpRes = await checkTokenExp(token, dispatch)
   const accessToken = tokenExpRes ? tokenExpRes : token
 
@@ -122,6 +128,11 @@ export const logout = (token: string) => async (dispatch: Dispatch<IAuthType | I
       payload: {}
     })
     localStorage.removeItem('sneakershub_firstLogin')
+
+    dispatch({
+      type: RESET_CART,
+      payload: []
+    })
 
     dispatch({
       type: ALERT,

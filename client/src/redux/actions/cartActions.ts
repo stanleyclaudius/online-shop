@@ -3,7 +3,7 @@ import { checkTokenExp } from '../../utils/checkTokenExp'
 import { getDataAPI, postDataAPI } from '../../utils/fetchData'
 import { RootStore } from '../../utils/Interface'
 import { ALERT, IAlertType } from '../types/alertTypes'
-import { ADD_TO_CART, IAddToCartType } from './../types/cartTypes'
+import { ADD_TO_CART, GET_CART, IAddToCartType, IGetCartType } from './../types/cartTypes'
 
 export const addToCart = (
   id: string,
@@ -49,4 +49,24 @@ export const addToCart = (
       }
     })
   } 
+}
+
+export const getCart = (token: string) => async(dispatch: Dispatch<IGetCartType | IAlertType>) => {
+  const tokenExpResult = await checkTokenExp(token, dispatch)
+  const accessToken = tokenExpResult ? tokenExpResult : token
+
+  try {
+    const res = await getDataAPI('cart', accessToken)
+    dispatch({
+      type: GET_CART,
+      payload: res.data.carts
+    })
+  } catch (err: any) {
+    dispatch({
+      type: ALERT,
+      payload: {
+        errors: err.response.data.msg
+      }
+    })
+  }
 }

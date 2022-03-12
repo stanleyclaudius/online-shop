@@ -34,6 +34,14 @@ const cartCtrl = {
     } catch (err: any) {
       return res.status(500).json({ msg: err.message })
     }
+  },
+  getCart: async(req: IReqUser, res: Response) => {
+    try {
+      const carts = await Cart.find({ user: req.user!._id }).populate('product')
+      return res.status(200).json({ carts })
+    } catch (err: any) {
+      return res.status(500).json({ msg: err.message })
+    }
   }
 }
 
