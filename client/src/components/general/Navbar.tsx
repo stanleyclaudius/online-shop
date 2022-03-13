@@ -12,7 +12,8 @@ import { numberFormatter } from './../../utils/numberFormatter'
 import { IDeleteCartData } from './../../redux/types/cartTypes'
 import SearchModal from './../modal/SearchModal'
 import AuthenticationModal from './../modal/AuthenticationModal'
-import { getDataAPI } from '../../utils/fetchData'
+import { getDataAPI } from './../../utils/fetchData'
+import { deleteWishlistItem, getWishlist } from './../../redux/actions/wishlistActions'
 
 const Navbar = () => {
   const [openNavbarSearch, setOpenNavbarSearch] = useState(false)
@@ -28,7 +29,7 @@ const Navbar = () => {
   const profileRef = useRef() as React.MutableRefObject<HTMLDivElement>
 
   const dispatch = useDispatch()
-  const { auth, cart } = useSelector((state: RootStore) => state)
+  const { wishlist, auth, cart } = useSelector((state: RootStore) => state)
 
   const handleLogout = () => {
     if (!auth.token) return
@@ -134,6 +135,12 @@ const Navbar = () => {
     }
   }, [dispatch, auth.token])
 
+  useEffect(() => {
+    if (auth.token) {
+      dispatch(getWishlist(auth.token))
+    }
+  }, [dispatch, auth.token])
+
   return (
     <>
       <div className='flex items-center justify-between bg-[#3853D8] text-white px-7 py-4 drop-shadow-xl sticky top-0 z-[999]'>
@@ -209,25 +216,45 @@ const Navbar = () => {
             )
           }
           <div className='relative'>
-            <AiOutlineHeart
-              onClick={() => setOpenLike(!openLike)}
-              className='text-lg cursor-pointer'
-            />
-            <div
-              ref={likeRef}
-              className={`${openLike ? 'scale-y-1' : 'scale-y-0'} transition-[transform] origin-top absolute w-[300px] bg-white right-0 translate-y-3 rounded-md shadow-xl`}
-            >
-              <div className='font-opensans text-black flex items-center p-3'>
-                <div className='w-20 h-20 bg-gray-300 flex items-center justify-center p-2'>
-                  <img src={`${process.env.PUBLIC_URL}/images/shoes-single.png`} alt="" />
+            <div className='relative'>
+              <AiOutlineHeart
+                onClick={() => setOpenLike(!openLike)}
+                className='text-lg cursor-pointer'
+              />
+              {
+                wishlist.length > 0 &&
+                <div className='absolute -top-2 -right-2 bg-orange-500 rounded-full w-4 h-4 text-white flex items-center justify-center text-xs font-bold'>
+                  {wishlist.length}
                 </div>
-                <div className='ml-3'>
-                  <h2 className='font-oswald text-lg tracking-wide'>Product name goes here</h2>
-                  <p className='my-1 text-sm'>IDR 500K</p>
-                  <p className='text-xs text-red-500 cursor-pointer hover:underline'>Remove</p>
-                </div>
-              </div>
+              }
             </div>
+            {
+              wishlist.length > 0 &&
+              <div
+                ref={likeRef}
+                className={`${openLike ? 'scale-y-1' : 'scale-y-0'} transition-[transform] origin-top absolute w-[300px] bg-white right-0 translate-y-3 rounded-md shadow-xl max-h-[350px] overflow-auto hide-scrollbar`}
+              >
+                {
+                  wishlist.map(item => (
+                    <div className='font-opensans text-black flex items-center p-3'>
+                      <div className='w-20 h-20 bg-gray-300 flex items-center justify-center p-2'>
+                        <img src={item.product.images[0]} alt={item.product.name} />
+                      </div>
+                      <div className='ml-3'>
+                        <h2 className='font-oswald text-lg tracking-wide'>{item.product.name}</h2>
+                        <p className='my-1 text-sm'>{numberFormatter(item.product.price)}</p>
+                        <p
+                          onClick={() => dispatch(deleteWishlistItem(item.product._id, auth.token!))}
+                          className='text-xs text-red-500 cursor-pointer hover:underline'
+                        >
+                          Remove
+                        </p>
+                      </div>
+                    </div>
+                  ))
+                }
+              </div>
+            }
           </div>
           <div className='relative'>
             <div className='relative'>

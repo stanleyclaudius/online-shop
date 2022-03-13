@@ -1,19 +1,21 @@
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { AiOutlineHeart } from 'react-icons/ai'
 import { BiDetail } from 'react-icons/bi'
 import { IoCopyOutline } from 'react-icons/io5'
 import { numberFormatter } from './../../utils/numberFormatter'
 import { IProductData } from './../../redux/types/productTypes'
-import { addWishlist } from '../../redux/actions/wishlistActions'
+import { addWishlist } from './../../redux/actions/wishlistActions'
+import { RootStore } from './../../utils/Interface'
 
 interface IProps {
   product: IProductData
 }
 
 const ProductCard: React.FC<IProps> = ({ product }) => {
-  const dispatch = useDispatch()
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const { auth } = useSelector((state: RootStore) => state)
 
   return (
     <div className='product-card border-b border-r border-gray-300 px-7 pt-14 pb-4 relative relative'>
@@ -47,7 +49,7 @@ const ProductCard: React.FC<IProps> = ({ product }) => {
           <div className='flex items-center gap-3'>
             <button className='rounded-full text-white bg-[#667AD3] w-9 h-9 flex items-center justify-center'><IoCopyOutline /></button>
             <button
-              onClick={() => dispatch(addWishlist(`${product._id}`))}
+              onClick={() => dispatch(addWishlist(product, auth.token!))}
               className='rounded-full text-white bg-[#667AD3] w-9 h-9 flex items-center justify-center'
             >
               <AiOutlineHeart />

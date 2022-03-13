@@ -5,6 +5,7 @@ import { AUTH, IAuthType } from './../types/authTypes'
 import { ALERT, IAlertType } from './../types/alertTypes'
 import { checkTokenExp } from './../../utils/checkTokenExp'
 import { GET_CART, ICartData, IGetCartType, IResetCartType, RESET_CART } from '../types/cartTypes'
+import { GET_WISHLIST, IGetWishlistType, IResetWishlistType, IWishlistData, RESET_WISHLIST } from '../types/wishlistTypes'
 
 export const register = (userData: IUserRegister) => async (dispatch: Dispatch<IAuthType | IAlertType>) => {
   try {
@@ -33,7 +34,7 @@ export const register = (userData: IUserRegister) => async (dispatch: Dispatch<I
   }
 }
 
-export const login = (userData: IUserLogin) => async (dispatch: Dispatch<IGetCartType | IAuthType | IAlertType>) => {
+export const login = (userData: IUserLogin) => async (dispatch: Dispatch<IGetWishlistType | IGetCartType | IAuthType | IAlertType>) => {
   try {
     dispatch({
       type: ALERT,
@@ -64,6 +65,20 @@ export const login = (userData: IUserLogin) => async (dispatch: Dispatch<IGetCar
     dispatch({
       type: GET_CART,
       payload: cartRes.data.carts
+    })
+
+    const wishlistData = JSON.parse(localStorage.getItem('sneakershub_wishlist') as string)
+    if (wishlistData!.length > 0) {
+      wishlistData.forEach(async(item: IWishlistData) => {
+        await postDataAPI('wishlist', { product: item.product }, res.data.accessToken)
+      })
+      localStorage.setItem('sneakershub_wishlist', JSON.stringify([]))
+    }
+
+    const wishlistRes = await getDataAPI('wishlist', res.data.accessToken)
+    dispatch({
+      type: GET_WISHLIST,
+      payload: wishlistRes.data.wishlists
     })
 
     dispatch({
@@ -117,7 +132,7 @@ export const refreshToken = () => async(dispatch: Dispatch<IAuthType | IAlertTyp
   }
 }
 
-export const logout = (token: string) => async (dispatch: Dispatch<IResetCartType | IAuthType | IAlertType>) => {
+export const logout = (token: string) => async (dispatch: Dispatch<IResetWishlistType | IResetCartType | IAuthType | IAlertType>) => {
   const tokenExpRes = await checkTokenExp(token, dispatch)
   const accessToken = tokenExpRes ? tokenExpRes : token
 
@@ -131,6 +146,11 @@ export const logout = (token: string) => async (dispatch: Dispatch<IResetCartTyp
 
     dispatch({
       type: RESET_CART,
+      payload: []
+    })
+
+    dispatch({
+      type: RESET_WISHLIST,
       payload: []
     })
 
@@ -150,7 +170,7 @@ export const logout = (token: string) => async (dispatch: Dispatch<IResetCartTyp
   }
 }
 
-export const googleLogin = (token: string) => async (dispatch: Dispatch<IGetCartType | IAuthType | IAlertType>) => {
+export const googleLogin = (token: string) => async (dispatch: Dispatch<IGetWishlistType | IGetCartType | IAuthType | IAlertType>) => {
   try {
     dispatch({
       type: ALERT,
@@ -183,6 +203,20 @@ export const googleLogin = (token: string) => async (dispatch: Dispatch<IGetCart
       payload: cartRes.data.carts
     })
 
+    const wishlistData = JSON.parse(localStorage.getItem('sneakershub_wishlist') as string)
+    if (wishlistData!.length > 0) {
+      wishlistData.forEach(async(item: IWishlistData) => {
+        await postDataAPI('wishlist', { product: item.product }, res.data.accessToken)
+      })
+      localStorage.setItem('sneakershub_wishlist', JSON.stringify([]))
+    }
+
+    const wishlistRes = await getDataAPI('wishlist', res.data.accessToken)
+    dispatch({
+      type: GET_WISHLIST,
+      payload: wishlistRes.data.wishlists
+    })
+
     dispatch({
       type: ALERT,
       payload: {
@@ -199,7 +233,7 @@ export const googleLogin = (token: string) => async (dispatch: Dispatch<IGetCart
   }
 }
 
-export const facebookLogin = (accessToken: string, userID: string) => async(dispatch: Dispatch<IGetCartType | IAuthType | IAlertType>) => {
+export const facebookLogin = (accessToken: string, userID: string) => async(dispatch: Dispatch<IGetWishlistType | IGetCartType | IAuthType | IAlertType>) => {
   try {
     dispatch({
       type: ALERT,
@@ -230,6 +264,20 @@ export const facebookLogin = (accessToken: string, userID: string) => async(disp
     dispatch({
       type: GET_CART,
       payload: cartRes.data.carts
+    })
+
+    const wishlistData = JSON.parse(localStorage.getItem('sneakershub_wishlist') as string)
+    if (wishlistData!.length > 0) {
+      wishlistData.forEach(async(item: IWishlistData) => {
+        await postDataAPI('wishlist', { product: item.product }, res.data.accessToken)
+      })
+      localStorage.setItem('sneakershub_wishlist', JSON.stringify([]))
+    }
+
+    const wishlistRes = await getDataAPI('wishlist', res.data.accessToken)
+    dispatch({
+      type: GET_WISHLIST,
+      payload: wishlistRes.data.wishlists
     })
 
     dispatch({

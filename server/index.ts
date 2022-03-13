@@ -23,6 +23,7 @@ app.use('/api/v1/brand', routes.brandRouter)
 app.use('/api/v1/category', routes.categoryRouter)
 app.use('/api/v1/product', routes.productRouter)
 app.use('/api/v1/cart', routes.cartRouter)
+app.use('/api/v1/wishlist', routes.wishlistRouter)
 
 connectDB()
 app.listen(process.env.PORT, () => console.log(`Server is running on port ${process.env.PORT}.`))
