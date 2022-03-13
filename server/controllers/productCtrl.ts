@@ -138,7 +138,6 @@ const productCtrl = {
         }
       },
       { $unwind: '$brand' },
-      { $sort: { createdAt: -1 } },
       { $skip: skip },
       { $limit: limit }
     ]
@@ -217,6 +216,22 @@ const productCtrl = {
       countAggregation.unshift({
         $match: { price: { $lte: parseInt(`${req.query.lt}`) } }
       })
+    }
+
+    if (req.query.sortBy) {
+      if (req.query.sortBy === 'price') {
+        if (req.query.sortType === 'asc') {
+          dataAggregation.push({ $sort: { price: 1 } })
+        } else if (req.query.sortType === 'desc') {
+          dataAggregation.push({ $sort: { price: -1 } })
+        }
+      } else if (req.query.sortBy === 'date') {
+        if (req.query.sortType === 'asc') {
+          dataAggregation.push({ $sort: { createdAt: 1 } })
+        } else if (req.query.sortType === 'desc') {
+          dataAggregation.push({ $sort: { createdAt: -1 } })
+        }
+      }
     }
 
     try {

@@ -69,7 +69,9 @@ export const getHomeProduct = (
   selectedSize: number[] = [],
   selectedColor: string[] = [],
   selectedPrice: number[] = [],
-  selectedPage: number = 1
+  selectedPage: number = 1,
+  sortBy: string,
+  sortType: string
 ) => async(dispatch: Dispatch<IGetHomeProductType | IAlertType>) => {
   let brandQueryStr = ''
   let sizeQueryStr = ''
@@ -110,7 +112,7 @@ export const getHomeProduct = (
       }
     })
 
-    let url = `product/home?category=${categoryId}&${brandQueryStr}&${sizeQueryStr}&${colorQueryStr}&page=${selectedPage}`
+    let url = `product/home?category=${categoryId}&${brandQueryStr}&${sizeQueryStr}&${colorQueryStr}&page=${selectedPage}&sortBy=${sortBy}&sortType=${sortType}`
 
     if (selectedPrice.length > 0) {
       url += `&gt=${selectedPrice[0]}&lt=${selectedPrice[1]}`

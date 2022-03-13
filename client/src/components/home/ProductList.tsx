@@ -21,6 +21,8 @@ const ProductList = () => {
   const [selectedColor, setSelectedColor] = useState<string[]>([])
   const [selectedPrice, setSelectedPrice] = useState<number[]>([])
   const [selectedPage, setSelectedPage] = useState(1)
+  const [sortBy, setSortBy] = useState('date')
+  const [sortType, setSortType] = useState('desc')
 
   const filterRef = useRef() as React.MutableRefObject<HTMLDivElement>
   
@@ -28,8 +30,17 @@ const ProductList = () => {
   const { brand, homeProduct, homeCategory: category } = useSelector((state: RootStore) => state)
 
   useEffect(() => {
-    dispatch(getHomeProduct(selectedCategory, selectedBrand, selectedSize, selectedColor, selectedPrice, selectedPage))
-  }, [dispatch, selectedCategory, selectedBrand, selectedSize, selectedColor, selectedPrice, selectedPage])
+    dispatch(getHomeProduct(
+      selectedCategory,
+      selectedBrand,
+      selectedSize,
+      selectedColor,
+      selectedPrice,
+      selectedPage,
+      sortBy,
+      sortType
+    ))
+  }, [dispatch, selectedCategory, selectedBrand, selectedSize, selectedColor, selectedPrice, selectedPage, sortBy, sortType])
 
   useEffect(() => {
     dispatch(getProduct())
@@ -70,11 +81,15 @@ const ProductList = () => {
           setSelectedColor={setSelectedColor}
           setSelectedPrice={setSelectedPrice}
           setSelectedPage={setSelectedPage}
+          setSortBy={setSortBy}
+          setSortType={setSortType}
         />
         <div className='flex-[3]'>
           <ProductViewOption
             openFilter={openFilter}
             setOpenFilter={setOpenFilter}
+            setSortBy={setSortBy}
+            setSortType={setSortType}
           />
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
             {

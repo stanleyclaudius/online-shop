@@ -26,6 +26,8 @@ interface IProps {
   setSelectedColor: React.Dispatch<React.SetStateAction<string[]>>
   setSelectedPrice: React.Dispatch<React.SetStateAction<number[]>>
   setSelectedPage: React.Dispatch<React.SetStateAction<number>>
+  setSortBy: React.Dispatch<React.SetStateAction<string>>
+  setSortType: React.Dispatch<React.SetStateAction<string>>
 }
 
 const { createSliderWithTooltip }: any = Slider
@@ -44,7 +46,9 @@ const Filter: React.FC<IProps> = ({
   selectedColor,
   setSelectedColor,
   setSelectedPrice,
-  setSelectedPage
+  setSelectedPage,
+  setSortBy,
+  setSortType
 }) => {
   const [price, setPrice] = useState([1, 1000])
   const [colors, setColors] = useState<string[]>([])
@@ -60,6 +64,8 @@ const Filter: React.FC<IProps> = ({
     setSelectedPrice([])
     setPrice([homeProduct.minPrice, homeProduct.maxPrice])
     setSelectedPage(1)
+    setSortBy('date')
+    setSortType('desc')
   }
 
   const getSizeAndBrand = useCallback(() => {
