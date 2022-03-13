@@ -8,6 +8,7 @@ import { numberFormatter } from './../../utils/numberFormatter'
 import { IProductData } from './../../redux/types/productTypes'
 import { addWishlist, deleteWishlistItem } from './../../redux/actions/wishlistActions'
 import { RootStore } from './../../utils/Interface'
+import { SET_COMPARE_DATA } from '../../redux/types/compareTypes'
 
 interface IProps {
   product: IProductData
@@ -67,7 +68,12 @@ const ProductCard: React.FC<IProps> = ({ product }) => {
             Detail
           </button>
           <div className='flex items-center gap-3'>
-            <button className='rounded-full text-white bg-[#667AD3] w-9 h-9 flex items-center justify-center'><IoCopyOutline /></button>
+            <button
+              onClick={() => dispatch({ type: SET_COMPARE_DATA, payload: product })}
+              className='rounded-full text-white bg-[#667AD3] w-9 h-9 flex items-center justify-center'
+            >
+              <IoCopyOutline />
+            </button>
             <button
               onClick={handleClickWishlisted}
               className='rounded-full text-white bg-[#667AD3] w-9 h-9 flex items-center justify-center'

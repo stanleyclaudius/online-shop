@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { AiFillStar, AiOutlineShoppingCart, AiOutlineHeart } from 'react-icons/ai'
+import { AiFillStar, AiOutlineShoppingCart, AiOutlineHeart, AiFillHeart } from 'react-icons/ai'
 import { IoCopyOutline } from 'react-icons/io5'
 import { addToCart } from '../../redux/actions/cartActions'
 import { numberFormatter } from '../../utils/numberFormatter'
 import { IProductData } from './../../redux/types/productTypes'
 import { RootStore } from './../../utils/Interface'
 import { ALERT } from './../../redux/types/alertTypes'
+import { SET_COMPARE_DATA } from '../../redux/types/compareTypes'
+import { addWishlist, deleteWishlistItem } from '../../redux/actions/wishlistActions'
 
 interface IProps {
   product: IProductData
@@ -17,9 +19,10 @@ const Detail: React.FC<IProps> = ({ product }) => {
   const [selectedColor, setSelectedColor] = useState('')
   const [selectedSize, setSelectedSize] = useState(0)
   const [qty, setQty] = useState(1)
+  const [isWishlisted, setIsWishlisted] = useState(false)
 
   const dispatch = useDispatch()
-  const { auth } = useSelector((state: RootStore) => state)
+  const { auth, wishlist } = useSelector((state: RootStore) => state)
 
   const handleClickSize = (item: number) => {
     setSelectedSize(item)
@@ -69,6 +72,23 @@ const Detail: React.FC<IProps> = ({ product }) => {
       }
     })
   }
+
+  const handleClickWishlist = () => {
+    if (isWishlisted) {
+      dispatch(deleteWishlistItem(`${product._id}`, auth.token!))
+    } else {
+      dispatch(addWishlist(product, auth.token!))
+    }
+  }
+
+  useEffect(() => {
+    const findWishlist = wishlist.find(item => item.product._id === product?._id)
+    if (findWishlist) {
+      setIsWishlisted(true)
+    }
+
+    return () => setIsWishlisted(false)
+  }, [wishlist, product])
 
   useEffect(() => {
     if (product?.images) {
@@ -145,13 +165,13 @@ const Detail: React.FC<IProps> = ({ product }) => {
           </div>
         </div>
         <div className='flex items-center gap-8 mt-7'>
-          <p className='flex items-center gap-2 text-gray-500 md:text-sm text-xs'>
+          <p onClick={() => dispatch({ type: SET_COMPARE_DATA, payload: product })} className='cursor-pointer flex items-center gap-2 text-gray-500 md:text-sm text-xs'>
             <IoCopyOutline />
             COMPARE
           </p>
-          <p className='flex items-center gap-2 text-gray-500 md:text-sm text-xs'>
-            <AiOutlineHeart />
-            ADD TO WISHLIST
+          <p onClick={handleClickWishlist} className='flex items-center gap-2 text-gray-500 md:text-sm text-xs cursor-pointer'>
+            {isWishlisted ? <AiFillHeart /> : <AiOutlineHeart />}
+            {isWishlisted ? 'REMOVE FROM WISHLIST' : 'ADD TO WISHLIST'}
           </p>
         </div>
       </div>

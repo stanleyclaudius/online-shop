@@ -38,6 +38,13 @@ const CompareModal: React.FC<IProps> = ({ compareRef }) => {
   }
 
   useEffect(() => {
+    if (compare.isOpen && Object.keys(compare.data).length > 0) {
+      setLeftProduct(compare.data)
+      setProductInput({ leftProduct: `${compare.data._id}`, rightProduct: '' })
+    }
+  }, [compare.data, compare.isOpen])
+
+  useEffect(() => {
     if (productInput.leftProduct) {
       getDataAPI(`product/${productInput.leftProduct}`)
         .then(res => {
@@ -76,10 +83,10 @@ const CompareModal: React.FC<IProps> = ({ compareRef }) => {
   }, [rightProduct])
 
   return (
-    <div className={`${compare ? 'opacity-100' : 'opacity-0'} ${compare ? 'pointer-events-auto' : 'pointer-events-none'} transition-opacity fixed top-0 left-0 bottom-0 right-0 bg-[rgba(0,0,0,.7)] z-[9999] flex justify-center items-center px-5 font-opensans`}>
+    <div className={`${compare.isOpen ? 'opacity-100' : 'opacity-0'} ${compare.isOpen ? 'pointer-events-auto' : 'pointer-events-none'} transition-opacity fixed top-0 left-0 bottom-0 right-0 bg-[rgba(0,0,0,.7)] z-[9999] flex justify-center items-center px-5 font-opensans`}>
       <div
         ref={compareRef}
-        className={`${compare ? 'translate-y-0' : '-translate-y-12'} transition-transform w-full max-w-[800px] bg-white rounded-md`}
+        className={`${compare.isOpen ? 'translate-y-0' : '-translate-y-12'} transition-transform w-full max-w-[800px] bg-white rounded-md`}
       >
         <div className='flex items-center justify-between px-5 py-3 border-b boder-gray-300'>
           <h1 className='text-lg'>Compare Products</h1>
@@ -91,7 +98,7 @@ const CompareModal: React.FC<IProps> = ({ compareRef }) => {
         <div className='p-5 flex gap-16 h-[500px] overflow-auto hide-scrollbar mb-5'>
           <div className='flex-1'>
             <label htmlFor='leftProduct' className='text-sm'>Product</label>
-            <select onChange={handleChange} name='leftProduct' id='leftProduct' className='w-full border border-gray-300 rounded-md bg-white p-2 text-sm mt-2 outline-0'>
+            <select value={productInput.leftProduct} onChange={handleChange} name='leftProduct' id='leftProduct' className='w-full border border-gray-300 rounded-md bg-white p-2 text-sm mt-2 outline-0'>
               <option value=''>- Select Product -</option>
               {
                 product.data.map(item => (
@@ -166,7 +173,7 @@ const CompareModal: React.FC<IProps> = ({ compareRef }) => {
           </div>
           <div className='flex-1'>
             <label htmlFor='rightProduct' className='text-sm'>Product</label>
-            <select onChange={handleChange} name='rightProduct' id='rightProduct' className='w-full border border-gray-300 rounded-md bg-white p-2 text-sm mt-2 outline-0'>
+            <select value={productInput.rightProduct} onChange={handleChange} name='rightProduct' id='rightProduct' className='w-full border border-gray-300 rounded-md bg-white p-2 text-sm mt-2 outline-0'>
               <option value=''>- Select Product -</option>
               {
                 product.data.map(item => (
