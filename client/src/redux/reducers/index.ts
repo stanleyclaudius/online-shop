@@ -8,6 +8,7 @@ import homeProductReducer from './homeProductReducer'
 import homeCategoryReducer from './homeCategoryReducer'
 import cartReducer from './cartReducer'
 import wishlistReducer from './wishlistReducer'
+import compareReducer from './compareReducer'
 
 export default combineReducers({
   alert: alertReducer,
@@ -18,5 +19,6 @@ export default combineReducers({
   homeProduct: homeProductReducer,
   homeCategory: homeCategoryReducer,
   cart: cartReducer,
-  wishlist: wishlistReducer
+  wishlist: wishlistReducer,
+  compare: compareReducer
 })
