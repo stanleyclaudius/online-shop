@@ -7,6 +7,7 @@ import { ADD_TO_CART, DELETE_CART_ITEM, GET_CART, IAddToCartType, IDeleteCartDat
 
 export const addToCart = (
   id: string,
+  discount: number,
   color: string,
   size: number,
   qty: number,
@@ -29,6 +30,7 @@ export const addToCart = (
         name: product.name,
         price: product.price,
         image: product.images[0],
+        discount,
         qty,
         color,
         product,

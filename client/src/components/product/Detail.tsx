@@ -60,7 +60,7 @@ const Detail: React.FC<IProps> = ({ product }) => {
         }
       })
     }
-    dispatch(addToCart(product?._id!, selectedColor, selectedSize, qty, auth.token!))
+    dispatch(addToCart(product?._id!, product.discount, selectedColor, selectedSize, qty, auth.token!))
     
     return dispatch({
       type: ALERT,

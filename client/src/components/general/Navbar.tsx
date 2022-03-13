@@ -68,7 +68,7 @@ const Navbar = () => {
         }
       }
 
-      dispatch(addToCart(productId, color, parseInt(size), newQty, auth.token!))
+      dispatch(addToCart(productId, product.discount, color, parseInt(size), newQty, auth.token!))
     } catch (err: any) {
       console.log(err.response.data.msg)
     }
@@ -289,7 +289,7 @@ const Navbar = () => {
                             <p className='text-sm bg-gray-200 rounded-md px-2 py-1'>{item.size}</p>
                             <div className='w-4 h-4 outline outline-2 outline-gray-300 outline-offset-2 rounded-full' style={{ background: item.color }} />
                           </div>
-                          <p className='mt-1 mb-2 text-sm'>{numberFormatter(item.product ? item.product.price : parseInt(item.price))}</p>
+                          <p className='mt-1 mb-2 text-sm'>{numberFormatter(item.product ? (item.product.price - ((item.product.discount * item.product.price) / 100)) : parseInt(item.price))}</p>
                           <div className='flex items-center justify-between'>
                             <div className='flex gap-2'>
                               <div
@@ -335,7 +335,7 @@ const Navbar = () => {
                 <div>
                   <div className='font-opensans text-black px-3 py-2 border-t border-gray-300 flex items-center justify-between'>
                     <h1 className='text-sm'>Total Price</h1>
-                    <p className='text-sm font-bold'>{numberFormatter(cart.reduce((acc, item) => (acc + (item.product ? item.product.price * item.qty : parseInt(item.price) * item.qty)), 0))}</p>
+                    <p className='text-sm font-bold'>{numberFormatter(cart.reduce((acc, item) => (acc + (item.product ? (item.product.price - ((item.product.discount * item.product.price) / 100)) * item.qty : parseInt(item.price) * item.qty)), 0))}</p>
                   </div>
                   <div className='px-3 pt-2 pb-3 flex items-center justify-end'>
                     <button className='text-sm rounded-md px-3 py-2 transition-[background] bg-[#3552DC] hover:bg-[#122DB0]'>Checkout</button>

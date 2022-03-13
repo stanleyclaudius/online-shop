@@ -10,6 +10,7 @@ export interface ICartData {
   name: string
   price: string
   image: string
+  discount: number
   qty: number
   color: string
   size: number
