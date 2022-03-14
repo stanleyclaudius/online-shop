@@ -23,6 +23,7 @@ const ProductList = () => {
   const [selectedPage, setSelectedPage] = useState(1)
   const [sortBy, setSortBy] = useState('date')
   const [sortType, setSortType] = useState('desc')
+  const [view, setView] = useState('grid')
 
   const filterRef = useRef() as React.MutableRefObject<HTMLDivElement>
   
@@ -90,11 +91,12 @@ const ProductList = () => {
             setOpenFilter={setOpenFilter}
             setSortBy={setSortBy}
             setSortType={setSortType}
+            setView={setView}
           />
-          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
+          <div className={`grid grid-cols-1 ${view === 'grid' ? 'md:grid-cols-2 lg:grid-cols-3' : undefined}`}>
             {
               products.map(item => (
-                <ProductCard product={item} />
+                <ProductCard view={view} product={item} />
               ))
             }
           </div>

@@ -4,21 +4,26 @@ import { BiChevronDown } from 'react-icons/bi'
 import { BsFilter } from 'react-icons/bs'
 import { IoCopyOutline, IoGrid } from 'react-icons/io5'
 import { OPEN_COMPARE_MODAL } from './../../redux/types/compareTypes'
+import { FaThList } from 'react-icons/fa'
 
 interface IProps {
   openFilter: boolean
   setOpenFilter: React.Dispatch<React.SetStateAction<boolean>>
   setSortBy: React.Dispatch<React.SetStateAction<string>>
   setSortType: React.Dispatch<React.SetStateAction<string>>
+  setView: React.Dispatch<React.SetStateAction<string>>
 }
 
-const ProductViewOption: React.FC<IProps> = ({ openFilter, setOpenFilter, setSortBy, setSortType }) => {
+const ProductViewOption: React.FC<IProps> = ({ openFilter, setOpenFilter, setSortBy, setSortType, setView }) => {
   const [openSortDropdown, setOpenSortDropdown] = useState(false)
+  const [openViewDropdown, setOpenViewDropdown] = useState(false)
   const [currentSortBy, setCurrentSortBy] = useState('date')
   const [currentSortType, setCurrentSortType] = useState('desc')
+  const [currentView, setCurrentView] = useState('grid')
 
   const dispatch = useDispatch()
   const sortRef = useRef() as React.MutableRefObject<HTMLDivElement>
+  const viewRef = useRef() as React.MutableRefObject<HTMLDivElement>
 
   const handleClickSort = (by: string, type: string) => {
     setCurrentSortBy(by)
@@ -26,6 +31,12 @@ const ProductViewOption: React.FC<IProps> = ({ openFilter, setOpenFilter, setSor
     setSortBy(by)
     setSortType(type)
     setOpenSortDropdown(false)
+  }
+
+  const handleClickView = (view: string) => {
+    setView(view)
+    setCurrentView(view)
+    setOpenViewDropdown(false)
   }
 
   useEffect(() => {
@@ -38,6 +49,17 @@ const ProductViewOption: React.FC<IProps> = ({ openFilter, setOpenFilter, setSor
     document.addEventListener('mousedown', checkIfClickedOutside)
     return () => document.removeEventListener('mousedown', checkIfClickedOutside)
   }, [openSortDropdown])
+
+  useEffect(() => {
+    const checkIfClickedOutside = (e: MouseEvent) => {
+      if (openViewDropdown && viewRef.current && !viewRef.current.contains(e.target as Node)) {
+        setOpenViewDropdown(false)
+      }
+    }
+
+    document.addEventListener('mousedown', checkIfClickedOutside)
+    return () => document.removeEventListener('mousedown', checkIfClickedOutside)
+  }, [openViewDropdown])
 
   return (
     <>
@@ -91,15 +113,44 @@ const ProductViewOption: React.FC<IProps> = ({ openFilter, setOpenFilter, setSor
             </div>
           </div>
         </div>
-        <div className='flex items-center justify-between px-5 py-3 border-r border-b border-gray-300'>
-          <div className='flex gap-3 text-sm font-medium items-center'>
-            <p>View :</p>
-            <p className='flex items-center gap-2'>
-              <IoGrid className='text-blue-600' />
-              Grid
-            </p>
+        <div className='relative'>
+          <div className='flex items-center justify-between px-5 py-3 border-r border-b border-gray-300'>
+            <div className='flex gap-3 text-sm font-medium items-center'>
+              <p>View :</p>
+              <p className='flex items-center gap-2'>
+                {
+                  currentView === 'grid'
+                  ? (
+                    <><IoGrid className='text-blue-600' /> Grid</>
+                  )
+                  : (
+                    <><FaThList className='text-blue-600' /> List</>
+                  )
+                }
+              </p>
+            </div>
+            <BiChevronDown onClick={() => setOpenViewDropdown(true)} className='cursor-pointer' />
           </div>
-          <BiChevronDown className='cursor-pointer' />
+          <div ref={viewRef} className={`${openViewDropdown ? 'scale-y-100' : 'scale-y-0'} transition-[transform] origin-top absolute top-100 w-full border border-gray-300 bg-white z-[999] shadow-lg text-sm`}>
+            <div
+              onClick={() => handleClickView('grid')}
+              className='px-5 py-3 cursor-pointer hover:bg-gray-100 transition-[background]'
+            >
+              <p className='flex items-center gap-2'>
+                <IoGrid className='text-blue-600' />
+                Grid
+              </p>
+            </div>
+            <div
+              onClick={() => handleClickView('list')}
+              className='px-5 py-3 cursor-pointer hover:bg-gray-100 transition-[background]'
+            >
+              <p className='flex items-center gap-2'>
+                <FaThList className='text-blue-600' />
+                List
+              </p>
+            </div>
+          </div>
         </div>
         <div className='flex items-center justify-between px-5 py-3 border-r border-b border-gray-300'>
           <p className='font-medium text-sm'>Compare</p>
