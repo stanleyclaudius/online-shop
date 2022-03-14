@@ -296,12 +296,12 @@ export const facebookLogin = (accessToken: string, userID: string) => async(disp
   }
 }
 
-export const editProfile = (updatedData: object, token: string) => async(dispatch: Dispatch<IAuthType | IAlertType>) => {
+export const editProfile = (data: object, token: string) => async(dispatch: Dispatch<IAuthType | IAlertType>) => {
   const tokenExpResult = await checkTokenExp(token, dispatch)
   const accessToken = tokenExpResult ? tokenExpResult : token
 
   try {
-    const res = await patchDataAPI('auth/profile', updatedData, accessToken)
+    const res = await patchDataAPI('auth/profile', data, accessToken)
     dispatch({
       type: AUTH,
       payload: {
@@ -313,6 +313,28 @@ export const editProfile = (updatedData: object, token: string) => async(dispatc
       }
     })
 
+    dispatch({
+      type: ALERT,
+      payload: {
+        success: res.data.msg
+      }
+    })
+  } catch (err: any) {
+    dispatch({
+      type: ALERT,
+      payload: {
+        errors: err.response.data.msg
+      }
+    })
+  }
+}
+
+export const changePassword = (data: object, token: string) => async(dispatch: Dispatch<IAlertType>) => {
+  const tokenExpResult = await checkTokenExp(token, dispatch)
+  const accessToken = tokenExpResult ? tokenExpResult : token
+
+  try {
+    const res = await patchDataAPI('auth/password', data, accessToken)
     dispatch({
       type: ALERT,
       payload: {

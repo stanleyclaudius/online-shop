@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { InputChange, FormSubmit, RootStore } from './../utils/Interface'
+import { ALERT } from './../redux/types/alertTypes'
+import { changePassword, editProfile } from './../redux/actions/authActions'
 import Navbar from './../components/general/Navbar'
 import Header from './../components/home/Header'
 import Subscribe from './../components/general/Subscribe'
 import Footer from './../components/general/Footer'
-import { ALERT } from '../redux/types/alertTypes'
-import { editProfile } from '../redux/actions/authActions'
+import Loader from '../components/general/Loader'
 
 interface IProvinceData {
   id: number
@@ -37,6 +38,7 @@ const Profile = () => {
   const [provinceData, setProvinceData] = useState<IProvinceData[]>([])
   const [cityData, setCityData] = useState<ICityData[]>([])
   const [districtData, setDistrictData] = useState<IDistrictData[]>([])
+  const [loading, setLoading] = useState('')
 
   const dispatch = useDispatch()
   const { auth } = useSelector((state: RootStore) => state)
@@ -46,7 +48,7 @@ const Profile = () => {
     setProfileData({ ...profileData, [name]: value })
   }
 
-  const handleSubmit = (e: FormSubmit, type: string) => {
+  const handleSubmit = async(e: FormSubmit, type: string) => {
     e.preventDefault()
     switch (type) {
       case 'profile':
@@ -59,7 +61,8 @@ const Profile = () => {
           })
         }
 
-        dispatch(
+        setLoading('profile')
+        await dispatch(
           editProfile({
             ...profileData,
             province: auth.user?.province,
@@ -69,18 +72,51 @@ const Profile = () => {
             address: auth.user?.address
           }, auth.token!)
         )
+        setLoading('')
         break
       case 'address':
-        dispatch(
+        setLoading('address')
+        await dispatch(
           editProfile({
             ...profileData,
             name: auth.user?.name,
             phoneNumber: auth.user?.phone
           }, auth.token!)
         )
+        setLoading('')
         break
       case 'password':
-        alert('password')
+        if (!profileData.currentPassword || !profileData.newPassword || !profileData.newPasswordConfirmation) {
+          return dispatch({
+            type: ALERT,
+            payload: {
+              errors: 'Please provide current password, new password, and the confirmation.'
+            }
+          })
+        }
+
+        if (profileData.newPassword.length < 8) {
+          return dispatch({
+            type: ALERT,
+            payload: {
+              errors: 'Password should be at least 8 characters.'
+            }
+          })
+        }
+
+        if (profileData.newPassword !== profileData.newPasswordConfirmation) {
+          return dispatch({
+            type: ALERT,
+            payload: {
+              errors: 'Password confirmation should be matched.'
+            }
+          })
+        }
+
+        setLoading('password')
+        await dispatch(changePassword(profileData, auth.token!))
+        setProfileData({ ...profileData, currentPassword: '', newPassword: '', newPasswordConfirmation: '' })
+        setLoading('')
         break
       default:
         break
@@ -198,9 +234,14 @@ const Profile = () => {
             </div>
             <button
               type='submit'
-              className='bg-blue-500 hover:bg-blue-600 mt-6 transition-[background] text-sm text-white rounded-md px-5 py-2'
+              disabled={loading === 'profile' ? true : false}
+              className={`${loading === 'profile' ? 'bg-blue-300' : 'bg-blue-500'} ${loading === 'profile' ? 'hover:bg-blue-300' : 'hover:bg-blue-600'} ${loading === 'profile' ? 'cursor-auto' : 'cursor-pointer'} mt-6 transition-[background] text-sm text-white rounded-md px-5 py-2`}
             >
-              Save Changes
+              {
+                loading === 'profile'
+                ? <Loader />
+                : 'Save Changes'
+              }
             </button>
           </form>
         </div>
@@ -311,71 +352,84 @@ const Profile = () => {
             </div>
             <button
               type='submit'
-              className='bg-blue-500 hover:bg-blue-600 mt-6 transition-[background] text-sm text-white rounded-md px-5 py-2'
+              disabled={loading === 'address' ? true : false}
+              className={`${loading === 'address' ? 'bg-blue-300' : 'bg-blue-500'} ${loading === 'address' ? 'hover:bg-blue-300' : 'hover:bg-blue-600'} ${loading === 'address' ? 'cursor-auto' : 'cursor-pointer '} mt-6 transition-[background] text-sm text-white rounded-md px-5 py-2`}
             >
-              Save Changes
+              {
+                loading === 'address'
+                ? <Loader />
+                : 'Save Changes'
+              }
             </button>
           </form>
         </div>
-        <div>
-          <h1 className='text-xl'>Change Password</h1>
-          <form onSubmit={e => handleSubmit(e, 'password')}>
-            <div className='mt-4'>
-              <label
-                htmlFor='currentPassword'
-                className='text-sm'
+        {
+          auth.user?.type === 'register' &&
+          <div>
+            <h1 className='text-xl'>Change Password</h1>
+            <form onSubmit={e => handleSubmit(e, 'password')}>
+              <div className='mt-4'>
+                <label
+                  htmlFor='currentPassword'
+                  className='text-sm'
+                >
+                  Current Password
+                </label>
+                <input
+                  type='password'
+                  id='currentPassword'
+                  name='currentPassword'
+                  value={profileData.currentPassword}
+                  onChange={handleChange}
+                  className='w-full border border-gray-300 rounded-md p-2 text-sm mt-2 outline-0'
+                />
+              </div>
+              <div className='mt-4'>
+                <label
+                  htmlFor='newPassword'
+                  className='text-sm'
+                >
+                  New Password
+                </label>
+                <input
+                  type='password'
+                  id='newPassword'
+                  name='newPassword'
+                  value={profileData.newPassword}
+                  onChange={handleChange}
+                  className='w-full border border-gray-300 rounded-md p-2 text-sm mt-2 outline-0'
+                />
+              </div>
+              <div className='mt-4'>
+                <label
+                  htmlFor='newPasswordConfirmation'
+                  className='text-sm'
+                >
+                  New Password Confirmation
+                </label>
+                <input
+                  type='password'
+                  id='newPasswordConfirmation'
+                  name='newPasswordConfirmation'
+                  value={profileData.newPasswordConfirmation}
+                  onChange={handleChange}
+                  className='w-full border border-gray-300 rounded-md p-2 text-sm mt-2 outline-0'
+                />
+              </div>
+              <button
+                type='submit'
+                disabled={loading === 'password' ? true : false}
+                className={`${loading === 'password' ? 'bg-blue-300' : 'bg-blue-500'} ${loading === 'password' ? 'hover:bg-blue-300' : 'hover:bg-blue-600'} ${loading === 'password' ? 'cursor-auto' : 'cursor-pointer'} mt-6 transition-[background] text-sm text-white rounded-md px-5 py-2`}
               >
-                Current Password
-              </label>
-              <input
-                type='password'
-                id='currentPassword'
-                name='currentPassword'
-                value={profileData.currentPassword}
-                onChange={handleChange}
-                className='w-full border border-gray-300 rounded-md p-2 text-sm mt-2 outline-0'
-              />
-            </div>
-            <div className='mt-4'>
-              <label
-                htmlFor='newPassword'
-                className='text-sm'
-              >
-                New Password
-              </label>
-              <input
-                type='password'
-                id='newPassword'
-                name='newPassword'
-                value={profileData.newPassword}
-                onChange={handleChange}
-                className='w-full border border-gray-300 rounded-md p-2 text-sm mt-2 outline-0'
-              />
-            </div>
-            <div className='mt-4'>
-              <label
-                htmlFor='newPasswordConfirmation'
-                className='text-sm'
-              >
-                New Password Confirmation
-              </label>
-              <input
-                type='password'
-                id='newPasswordConfirmation'
-                name='newPasswordConfirmation'
-                value={profileData.newPasswordConfirmation}
-                onChange={handleChange}
-                className='w-full border border-gray-300 rounded-md p-2 text-sm mt-2 outline-0'
-              />
-            </div>
-            <button
-              type='submit'
-              className='bg-blue-500 hover:bg-blue-600 mt-6 transition-[background] text-sm text-white rounded-md px-5 py-2'
-            >
-              Save Changes
-            </button>
-          </form>
-        </div>
+                {
+                  loading === 'password'
+                  ? <Loader />
+                  : 'Save Changes'
+                }
+              </button>
+            </form>
+          </div>
+        }
       </div>
       <Subscribe />
       <Footer />

@@ -215,6 +215,34 @@ const authCtrl = {
     } catch (err: any) {
       return res.status(500).json({ msg: err.message })
     }
+  },
+  changePassword: async(req: IReqUser, res: Response) => {
+    try {
+      const { currentPassword, newPassword } = req.body
+
+      if (!currentPassword || !newPassword)
+        return res.status(400).json({ msg: 'Please provide your current password and new password.' })
+
+      if (newPassword.length < 8)
+        return res.status(400).json({ msg: 'Password should be at least 8 characters.' })
+
+      if (req.user?.type !== 'register')
+        return res.status(400).json({ msg: `User that login with ${req.user?.type} can't change their password.` })
+
+      const checkCurrPassword = await bcrypt.compare(currentPassword, `${req.user?.password}`)
+      if (!checkCurrPassword)
+        return res.status(400).json({ msg: 'Current password doesn\'t match.' })
+
+      const passwordHash = await bcrypt.hash(newPassword, 12)
+
+      await User.findOneAndUpdate({ _id: req.user?._id }, {
+        password: passwordHash
+      })
+      
+      return res.status(200).json({ msg: 'Password has been changed successfully.' })
+    } catch (err: any) {
+      return res.status(500).json({ msg: err.message })
+    }
   }
 }
 
