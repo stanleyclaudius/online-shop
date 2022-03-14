@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux'
 import { IUserLogin, IUserRegister } from './../../utils/Interface'
-import { getDataAPI, postDataAPI } from './../../utils/fetchData'
+import { getDataAPI, patchDataAPI, postDataAPI } from './../../utils/fetchData'
 import { AUTH, IAuthType } from './../types/authTypes'
 import { ALERT, IAlertType } from './../types/alertTypes'
 import { checkTokenExp } from './../../utils/checkTokenExp'
@@ -278,6 +278,39 @@ export const facebookLogin = (accessToken: string, userID: string) => async(disp
     dispatch({
       type: GET_WISHLIST,
       payload: wishlistRes.data.wishlists
+    })
+
+    dispatch({
+      type: ALERT,
+      payload: {
+        success: res.data.msg
+      }
+    })
+  } catch (err: any) {
+    dispatch({
+      type: ALERT,
+      payload: {
+        errors: err.response.data.msg
+      }
+    })
+  }
+}
+
+export const editProfile = (updatedData: object, token: string) => async(dispatch: Dispatch<IAuthType | IAlertType>) => {
+  const tokenExpResult = await checkTokenExp(token, dispatch)
+  const accessToken = tokenExpResult ? tokenExpResult : token
+
+  try {
+    const res = await patchDataAPI('auth/profile', updatedData, accessToken)
+    dispatch({
+      type: AUTH,
+      payload: {
+        user: {
+          ...res.data.user,
+          password: ''
+        },
+        token: accessToken
+      }
     })
 
     dispatch({

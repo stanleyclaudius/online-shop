@@ -193,6 +193,28 @@ const authCtrl = {
     } catch (err: any) {
       return res.status(500).json({ msg: err.message })
     }
+  },
+  editProfile: async(req: IReqUser, res: Response) => {
+    try {
+      const { name, phoneNumber, province, city, district, postalCode, address } = req.body
+      
+      if (!name)
+        return res.status(400).json({ msg: 'Please provide your name.' })
+
+      const updatedUser = await User.findOneAndUpdate({ _id: req.user?._id }, {
+        name, phone: phoneNumber, province, city, district, postalCode, address
+      }, { new: true })
+
+      if (!updatedUser)
+        return res.status(404).json({ msg: 'User not found.' })
+
+      return res.status(200).json({
+        user: updatedUser._doc,
+        msg: 'Profile updated successfully.'
+      })
+    } catch (err: any) {
+      return res.status(500).json({ msg: err.message })
+    }
   }
 }
 

@@ -48,10 +48,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: ''
   },
-  ward: {
-    type: String,
-    default: ''
-  },
   postalCode: {
     type: String,
     default: ''

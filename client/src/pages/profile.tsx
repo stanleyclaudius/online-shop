@@ -1,9 +1,25 @@
-import { useState } from 'react'
-import { InputChange, FormSubmit } from './../utils/Interface'
+import { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { InputChange, FormSubmit, RootStore } from './../utils/Interface'
 import Navbar from './../components/general/Navbar'
 import Header from './../components/home/Header'
 import Subscribe from './../components/general/Subscribe'
 import Footer from './../components/general/Footer'
+import { ALERT } from '../redux/types/alertTypes'
+import { editProfile } from '../redux/actions/authActions'
+
+interface IProvinceData {
+  id: number
+  nama: string
+}
+
+interface ICityData extends IProvinceData {
+  id_provinsi: string
+}
+
+interface IDistrictData extends IProvinceData {
+  id_kota: string
+}
 
 const Profile = () => {
   const [profileData, setProfileData] = useState({
@@ -18,6 +34,12 @@ const Profile = () => {
     newPassword: '',
     newPasswordConfirmation: ''
   })
+  const [provinceData, setProvinceData] = useState<IProvinceData[]>([])
+  const [cityData, setCityData] = useState<ICityData[]>([])
+  const [districtData, setDistrictData] = useState<IDistrictData[]>([])
+
+  const dispatch = useDispatch()
+  const { auth } = useSelector((state: RootStore) => state)
 
   const handleChange = (e: InputChange) => {
     const { name, value } = e.target
@@ -28,10 +50,34 @@ const Profile = () => {
     e.preventDefault()
     switch (type) {
       case 'profile':
-        alert('profile')
+        if (!profileData.name) {
+          return dispatch({
+            type: ALERT,
+            payload: {
+              errors: 'Please provide your name.'
+            }
+          })
+        }
+
+        dispatch(
+          editProfile({
+            ...profileData,
+            province: auth.user?.province,
+            city: auth.user?.city,
+            district: auth.user?.district,
+            postalCode: auth.user?.postalCode,
+            address: auth.user?.address
+          }, auth.token!)
+        )
         break
       case 'address':
-        alert('address')
+        dispatch(
+          editProfile({
+            ...profileData,
+            name: auth.user?.name,
+            phoneNumber: auth.user?.phone
+          }, auth.token!)
+        )
         break
       case 'password':
         alert('password')
@@ -40,6 +86,59 @@ const Profile = () => {
         break
     }
   }
+
+  useEffect(() => {
+    const getProvinceData = () => {
+      fetch('https://dev.farizdotid.com/api/daerahindonesia/provinsi')
+        .then(res => res.json())
+        .then(res => setProvinceData(res.provinsi))
+    }
+
+    getProvinceData()
+  }, [])
+
+  useEffect(() => {
+    const getCityData = () => {
+      fetch(`https://dev.farizdotid.com/api/daerahindonesia/kota?id_provinsi=${profileData.province}`)
+        .then(res => res.json())
+        .then(res => setCityData(res.kota_kabupaten))
+    }
+
+    if (profileData.province)
+      getCityData()
+    
+    return () => setCityData([])
+  }, [profileData.province])
+
+  useEffect(() => {
+    const getDistrictData = () => {
+      fetch(`https://dev.farizdotid.com/api/daerahindonesia/kecamatan?id_kota=${profileData.city}`)
+        .then(res => res.json())
+        .then(res => setDistrictData(res.kecamatan))
+    }
+
+    if (profileData.city)
+      getDistrictData()
+    
+    return () => setDistrictData([])
+  }, [profileData.city])
+
+  useEffect(() => {
+    if (auth.user) {
+      setProfileData({
+        name: auth.user.name,
+        phoneNumber: auth.user.phone,
+        province: auth.user.province,
+        city: auth.user.city,
+        district: auth.user.district,
+        postalCode: auth.user.postalCode,
+        address: auth.user.address,
+        currentPassword: '',
+        newPassword: '',
+        newPasswordConfirmation: ''
+      })
+    }
+  }, [auth.user])
 
   return (
     <>
@@ -76,6 +175,7 @@ const Profile = () => {
               <input
                 type='text'
                 disabled
+                defaultValue={auth.user?.email}
                 className='w-full border border-gray-300 rounded-md p-2 text-sm mt-2 outline-0 bg-gray-100'
               />
             </div>
@@ -123,6 +223,11 @@ const Profile = () => {
                   className='w-full border border-gray-300 p-2 text-sm rounded-md mt-2 outline-0 bg-white'
                 >
                   <option value=''>- Select Province -</option>
+                  {
+                    provinceData.map(item => (
+                      <option key={item.id} value={item.id}>{item.nama}</option>
+                    ))
+                  }
                 </select>
               </div>
               <div className='flex-1'>
@@ -140,6 +245,11 @@ const Profile = () => {
                   className='w-full border border-gray-300 p-2 text-sm rounded-md mt-2 outline-0 bg-white'
                 >
                   <option value=''>- Select City -</option>
+                  {
+                    cityData.map(item => (
+                      <option key={item.id} value={item.id}>{item.nama}</option>
+                    ))
+                  }
                 </select>
               </div>
             </div>
@@ -159,6 +269,11 @@ const Profile = () => {
                   className='w-full border border-gray-300 p-2 text-sm rounded-md mt-2 outline-0 bg-white'
                 >
                   <option value=''>- Select District -</option>
+                  {
+                    districtData.map(item => (
+                      <option key={item.id} value={item.id}>{item.nama}</option>
+                    ))
+                  }
                 </select>
               </div>
               <div className='flex-1'>
