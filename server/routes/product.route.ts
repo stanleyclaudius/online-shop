@@ -10,6 +10,8 @@ router.route('/')
 
 router.route('/home').get(productCtrl.getHomeProduct)
 
+router.route('/search').get(productCtrl.searchProduct)
+
 router.route('/similar/:id/:category').get(productCtrl.getSimilarProduct)
 
 router.route('/:id')

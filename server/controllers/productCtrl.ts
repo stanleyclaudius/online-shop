@@ -335,6 +335,26 @@ const productCtrl = {
     } catch (err: any) {
       return res.status(500).json({ msg: err.message })
     }
+  },
+  searchProduct: async(req: Request, res: Response) => {
+    try {
+      const products = await Product.aggregate([
+        {
+          $search: {
+            index: 'product',
+            autocomplete: {
+              'query': req.query.name,
+              'path': 'name'
+            }
+          }
+        },
+        { $sort: { createdAt: -1 } }
+      ])
+
+      return res.status(200).json({ products })
+    } catch (err: any) {
+      return res.status(500).json({ msg: err.message })
+    }
   }
 }
 
