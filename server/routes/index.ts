@@ -4,6 +4,7 @@ import categoryRouter from './category.route'
 import productRouter from './product.route'
 import cartRouter from './cart.route'
 import wishlistRouter from './wishlist.route'
+import courierRouter from './courier.route'
 
 const routes = {
   authRouter,
@@ -11,7 +12,8 @@ const routes = {
   categoryRouter,
   productRouter,
   cartRouter,
-  wishlistRouter
+  wishlistRouter,
+  courierRouter
 }
 
 export default routes

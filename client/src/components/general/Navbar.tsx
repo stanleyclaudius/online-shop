@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { AiOutlineSearch, AiOutlineHeart, AiOutlineShoppingCart, AiOutlineUser, AiFillDashboard } from 'react-icons/ai'
 import { FaClipboardList, FaUserEdit } from 'react-icons/fa'
@@ -10,10 +10,10 @@ import { logout } from './../../redux/actions/authActions'
 import { getCart, deleteItem, addToCart } from './../../redux/actions/cartActions'
 import { numberFormatter } from './../../utils/numberFormatter'
 import { IDeleteCartData } from './../../redux/types/cartTypes'
-import SearchModal from './../modal/SearchModal'
-import AuthenticationModal from './../modal/AuthenticationModal'
 import { getDataAPI } from './../../utils/fetchData'
 import { deleteWishlistItem, getWishlist } from './../../redux/actions/wishlistActions'
+import SearchModal from './../modal/SearchModal'
+import AuthenticationModal from './../modal/AuthenticationModal'
 
 const Navbar = () => {
   const [openNavbarSearch, setOpenNavbarSearch] = useState(false)
@@ -28,6 +28,7 @@ const Navbar = () => {
   const cartRef = useRef() as React.MutableRefObject<HTMLDivElement>
   const profileRef = useRef() as React.MutableRefObject<HTMLDivElement>
 
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const { wishlist, auth, cart } = useSelector((state: RootStore) => state)
 
@@ -41,6 +42,14 @@ const Navbar = () => {
       cartData.token = auth.token
 
     dispatch(deleteItem(cartData))
+  }
+
+  const handleClickCheckout = () => {
+    if (auth.token) {
+      navigate('/checkout')
+    } else {
+      setOpenAuthenticationModal(true)
+    }
   }
 
   const handleChangeQty = async(type: string, productId: string, color: string, size: string, qty: number) => {
@@ -338,7 +347,12 @@ const Navbar = () => {
                     <p className='text-sm font-bold'>{numberFormatter(cart.reduce((acc, item) => (acc + (item.product ? (item.product.price - ((item.product.discount * item.product.price) / 100)) * item.qty : parseInt(item.price) * item.qty)), 0))}</p>
                   </div>
                   <div className='px-3 pt-2 pb-3 flex items-center justify-end'>
-                    <button className='text-sm rounded-md px-3 py-2 transition-[background] bg-[#3552DC] hover:bg-[#122DB0]'>Checkout</button>
+                    <button
+                      onClick={handleClickCheckout}
+                      className='text-sm rounded-md px-3 py-2 transition-[background] bg-[#3552DC] hover:bg-[#122DB0]'
+                    >
+                      Checkout
+                    </button>
                   </div>
                 </div>
               </div>

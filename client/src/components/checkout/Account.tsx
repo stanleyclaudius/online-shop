@@ -1,12 +1,21 @@
-import { useState } from 'react'
-import { InputChange, FormSubmit } from './../../utils/Interface'
+import { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { ALERT } from '../../redux/types/alertTypes'
+import { InputChange, FormSubmit, RootStore } from './../../utils/Interface'
 
-const Account = () => {
+interface IProps {
+  setCurrPage: React.Dispatch<React.SetStateAction<string>>
+}
+
+const Account: React.FC<IProps> = ({ setCurrPage }) => {
   const [accountData, setAccountData] = useState({
     recipientName: '',
     recipientPhone: '',
     recipientEmail: ''
   })
+
+  const dispatch = useDispatch()
+  const { auth } = useSelector((state: RootStore) => state)
 
   const handleChange = (e: InputChange) => {
     const { name, value } = e.target
@@ -15,7 +24,35 @@ const Account = () => {
 
   const handleSubmit = (e: FormSubmit) => {
     e.preventDefault()
+    if (!accountData.recipientName || !accountData.recipientPhone || !accountData.recipientEmail) {
+      return dispatch({
+        type: ALERT,
+        payload: {
+          errors: 'Please provide all field.'
+        }
+      })
+    }
+
+    localStorage.setItem('sneakershub_recipient', JSON.stringify(accountData))
+    setCurrPage('shipping')
   }
+
+  useEffect(() => {
+    if (auth.user) {
+      const tempAccountData = JSON.parse(localStorage.getItem('sneakershub_recipient') as string)
+      if (tempAccountData) {
+        setAccountData(tempAccountData)
+      } else {
+        setAccountData({
+          recipientName: auth.user.name,
+          recipientPhone: auth.user.phone,
+          recipientEmail: auth.user.email
+        })
+      }
+    }
+
+    return () => setAccountData({ recipientName: '', recipientPhone: '', recipientEmail: '' })
+  }, [auth.user])
 
   return (
     <div className='mt-8 font-opensans'>
