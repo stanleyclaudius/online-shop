@@ -14,7 +14,7 @@ const Pagination = (req: Request) => {
 const productCtrl = {
   createProduct: async(req: Request, res: Response) => {
     try {
-      const { name, brand, category, colors, sizes, price, description, discount, images, stock } = req.body
+      const { name, brand, category, colors, sizes, price, description, discount, images, stock, weight } = req.body
 
       if (
         !name ||
@@ -25,7 +25,8 @@ const productCtrl = {
         !price ||
         !description ||
         images.length < 1 ||
-        stock.length < 1
+        stock.length < 1 ||
+        weight < 100
       )
         return res.status(400).json({ msg: 'Please fill every needed data to create a product.' })
 
@@ -39,7 +40,8 @@ const productCtrl = {
         description,
         discount,
         images,
-        stock
+        stock,
+        weight
       })
       await newProduct.save()
 
@@ -307,7 +309,7 @@ const productCtrl = {
   updateProduct: async(req: Request, res: Response) => {
     try {
       const { id } = req.params
-      const { name, brand, category, colors, sizes, price, description, discount, images, stock } = req.body
+      const { name, brand, category, colors, sizes, price, description, discount, images, weight, stock } = req.body
 
       if (
         !name ||
@@ -318,12 +320,13 @@ const productCtrl = {
         !price ||
         !description ||
         images.length < 1 ||
-        stock.length < 1
+        stock.length < 1 ||
+        weight < 100
       )
         return res.status(400).json({ msg: 'Please fill every needed data to create a product.' })
 
       const product = await Product.findOneAndUpdate({ _id: id }, {
-        name, brand, category, colors, sizes, price, description, discount, images, stock
+        name, brand, category, colors, sizes, price, description, discount, images, stock, weight
       }, { new: true }).populate('category brand')
       if (!product)
         return res.status(404).json({ msg: 'Product not found.' })

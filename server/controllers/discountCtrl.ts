@@ -39,9 +39,9 @@ const discountCtrl = {
   },
   getDiscountById: async(req: Request, res: Response) => {
     try {
-      const discount = await Discount.findById(req.params.id)
+      const discount = await Discount.findOne({ code: req.params.id })
       if (!discount)
-        return res.status(404).json({ msg: `Discount with ID ${req.params.id} not found.` })
+        return res.status(404).json({ msg: `Discount with code ${req.params.id} not found.` })
 
       return res.status(200).json({ discount })
     } catch (err: any) {

@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { setShipping } from '../../redux/actions/shippingActions'
 import { ALERT } from '../../redux/types/alertTypes'
 import { getDataAPI, postDataAPI } from '../../utils/fetchData'
 import { numberFormatter } from '../../utils/numberFormatter'
-import { InputChange, FormSubmit } from './../../utils/Interface'
+import { InputChange, FormSubmit, RootStore } from './../../utils/Interface'
 
 interface IProvinceData {
   province_id: string
@@ -59,6 +59,7 @@ const Shipping: React.FC<IProps> = ({ setCurrPage }) => {
   const [expeditionService, setExpeditionService] = useState<IExpeditionServiceData[]>([])
 
   const dispatch = useDispatch()
+  const { cart } = useSelector((state: RootStore) => state)
 
   const handleChange = (e: InputChange) => {
     const { name, value } = e.target
@@ -117,7 +118,7 @@ const Shipping: React.FC<IProps> = ({ setCurrPage }) => {
       postDataAPI('courier/cost', {
         origin: '152',
         destination: shippingData.city,
-        weight: 1000,
+        weight: cart.reduce((acc, item) => (acc + item.product.weight * item.qty), 0),
         expedition: shippingData.expedition
       })
         .then(res => {
@@ -126,7 +127,7 @@ const Shipping: React.FC<IProps> = ({ setCurrPage }) => {
     }
 
     return () => setExpeditionService([])
-  }, [shippingData.province, shippingData.city, shippingData.expedition])
+  }, [cart, shippingData.province, shippingData.city, shippingData.expedition])
 
   useEffect(() => {
     const tempShippingData = JSON.parse(localStorage.getItem('sneakershub_shipping') as string)

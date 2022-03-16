@@ -24,7 +24,8 @@ const Product = () => {
     discount: 0,
     description: '',
     images: [],
-    stock: []
+    stock: [],
+    weight: 0
   })
 
   const createProductRef = useRef() as React.MutableRefObject<HTMLDivElement>
@@ -63,7 +64,8 @@ const Product = () => {
           discount: 0,
           description: '',
           images: [],
-          stock: []
+          stock: [],
+          weight: 0
         })
       }
     }

@@ -41,6 +41,10 @@ const productSchema = new mongoose.Schema({
   stock: {
     type: Array,
     required: true
+  },
+  weight: {
+    type: Number,
+    required: true
   }
 }, {
   timestamps: true

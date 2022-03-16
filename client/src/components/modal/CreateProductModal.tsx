@@ -35,7 +35,8 @@ const CreateProductModal: React.FC<IProps> = ({
     category: '',
     price: 0,
     discount: 0,
-    description: ''
+    description: '',
+    weight: 0
   })
   const [sizeInput, setSizeInput] = useState(0)
   const [colorInput, setColorInput] = useState('')
@@ -149,7 +150,8 @@ const CreateProductModal: React.FC<IProps> = ({
       discount: 0,
       description: '',
       images: [],
-      stock: []
+      stock: [],
+      weight: 0
     })
   }
 
@@ -167,6 +169,15 @@ const CreateProductModal: React.FC<IProps> = ({
         type: ALERT,
         payload: {
           errors: 'Please fill all needed data to create product.'
+        }
+      })
+    }
+
+    if (productData.weight < 100) {
+      return dispatch({
+        type: ALERT,
+        payload: {
+          errors: 'Product weight can\'t be less than 100 gram.'
         }
       })
     }
@@ -226,7 +237,8 @@ const CreateProductModal: React.FC<IProps> = ({
         discount: 0,
         description: '',
         images: [],
-        stock: []
+        stock: [],
+        weight: 0
       })
     } else {
       await dispatch(createProduct({ ...productData, sizes, colors, images, stock }, auth.token!))
@@ -240,7 +252,8 @@ const CreateProductModal: React.FC<IProps> = ({
       category: '',
       price: 0,
       discount: 0,
-      description: ''
+      description: '',
+      weight: 0
     })
     setSizes([])
     setColors([])
@@ -262,7 +275,8 @@ const CreateProductModal: React.FC<IProps> = ({
         category: (typeof updatedItem.category === 'string') ? updatedItem.category : updatedItem.category._id,
         price: updatedItem.price,
         discount: updatedItem.discount,
-        description: updatedItem.description
+        description: updatedItem.description,
+        weight: updatedItem.weight
       })
       setColors(updatedItem.colors)
       setSizes(updatedItem.sizes)
@@ -278,7 +292,8 @@ const CreateProductModal: React.FC<IProps> = ({
         category: '',
         price: 0,
         discount: 0,
-        description: ''
+        description: '',
+        weight: 0
       })
       setColors([])
       setSizes([])
@@ -554,6 +569,23 @@ const CreateProductModal: React.FC<IProps> = ({
                 value={productData.description}
                 onChange={handleGeneralChange}
                 className='p-2 w-full rounded-md border border-gray-300 outline-0 text-sm mt-2 resize-none'
+              />
+            </div>
+            <div className='mt-4'>
+              <label
+                htmlFor='weight'
+                className='text-sm'
+              >
+                Weight
+              </label>
+              <input
+                type='number'
+                autoComplete='off'
+                id='weight'
+                name='weight'
+                value={productData.weight}
+                onChange={handleGeneralChange}
+                className='w-full rounded-md border border-gray-300 outline-0 p-2 text-sm mt-2'
               />
             </div>
             <div className='mt-4'>

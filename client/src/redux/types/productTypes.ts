@@ -26,6 +26,7 @@ export interface IProductData {
   description: string
   images: any[]
   stock: stock[]
+  weight: number
 }
 
 export interface IProduct {

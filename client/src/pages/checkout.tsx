@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Navbar from './../components/general/Navbar'
 import Account from './../components/checkout/Account'
 import Shipping from './../components/checkout/Shipping'
@@ -9,11 +9,48 @@ import CheckoutLine from './../components/checkout/CheckoutLine'
 import Footer from './../components/general/Footer'
 import { RootStore } from '../utils/Interface'
 import { numberFormatter } from '../utils/numberFormatter'
+import { ALERT } from '../redux/types/alertTypes'
+import { getDataAPI } from '../utils/fetchData'
 
 const Checkout = () => {
+  const [discount, setDiscount] = useState('')
+  const [discountValue, setDiscountValue] = useState(0)
   const [currPage, setCurrPage] = useState('account')
 
+  const dispatch = useDispatch()
   const { cart, shipping } = useSelector((state: RootStore) => state)
+
+  const checkDiscount = async() => {
+    if (!discount) {
+      return dispatch({
+        type: ALERT,
+        payload: {
+          errors: 'Please provide discount code.'
+        }
+      })
+    }
+    
+    try {
+      const discountRes = await getDataAPI(`discount/${discount}`)
+      setDiscountValue(discountRes.data.discount.value)
+      localStorage.setItem('sneakershub_checkoutDiscount', JSON.stringify(discountRes.data.discount.value))
+      dispatch({
+        type: ALERT,
+        payload: {
+          success: `${discountRes.data.discount.value}% discount applied.`
+        }
+      })
+    } catch (err: any) {
+      setDiscountValue(0)
+      localStorage.setItem('sneakershub_checkoutDiscount', JSON.stringify(0))
+      dispatch({
+        type: ALERT,
+        payload: {
+          errors: err.response.data.msg
+        }
+      })
+    }
+  }
   
   return (
     <>
@@ -59,9 +96,11 @@ const Checkout = () => {
             <div className='flex font-opensans gap-3'>
               <input
                 type='text'
+                value={discount}
+                onChange={e => setDiscount(e.target.value)}
                 className='border border-gray-300 rounded-md p-2 outline-0 text-sm flex-[3]'
               />
-              <button className='text-sm rounded-md text-white bg-[#3552DC] hover:bg-[#122DB0] transition-[background] flex-1'>Apply</button>
+              <button onClick={checkDiscount} className='text-sm rounded-md text-white bg-[#3552DC] hover:bg-[#122DB0] transition-[background] flex-1'>Apply</button>
             </div>
           </div>
           <div className='px-7 py-5 flex flex-col gap-2'>
@@ -71,7 +110,7 @@ const Checkout = () => {
             </div>
             <div className='flex items-center justify-between text-sm'>
               <p>Discount</p>
-              <p>- IDR 15K</p>
+              <p>- {discountValue === 0 ? 0 : numberFormatter(((discountValue / 100) * (cart.reduce((acc, item) => (acc + (item.product ? (item.product.price - ((item.product.discount * item.product.price) / 100)) * item.qty : parseInt(item.price) * item.qty)), 0))))}</p>
             </div>
             <div className='flex items-center justify-between text-sm'>
               <p>Shipping</p>
@@ -80,7 +119,7 @@ const Checkout = () => {
             <div className='font-bold flex items-center justify-between'>
               <p>Total</p>
               <p>
-              {numberFormatter(cart.reduce((acc, item) => (acc + (item.product ? (item.product.price - ((item.product.discount * item.product.price) / 100)) * item.qty : parseInt(item.price) * item.qty)), 0) + shipping.courierFee)}
+                {numberFormatter(cart.reduce((acc, item) => (acc + (item.product ? (item.product.price - ((item.product.discount * item.product.price) / 100)) * item.qty : parseInt(item.price) * item.qty)), 0) + shipping.courierFee - ((discountValue / 100) * (cart.reduce((acc, item) => (acc + (item.product ? (item.product.price - ((item.product.discount * item.product.price) / 100)) * item.qty : parseInt(item.price) * item.qty)), 0))))}
               </p>
             </div>
           </div>
