@@ -1,19 +1,46 @@
 import { useState, useEffect, useRef } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import Layout from './../components/admin/Layout'
 import DeleteModal from './../components/modal/DeleteModal'
 import CreateDiscountModal from './../components/modal/CreateDiscountModal'
+import { RootStore } from '../utils/Interface'
+import { IDiscountData } from '../redux/types/discountTypes'
+import { deleteDiscount, getDiscount } from '../redux/actions/discountActions'
+import Loader from '../components/general/Loader'
 
 const Discount = () => {
+  const [discounts, setDiscounts] = useState<IDiscountData[]>([])
   const [openCreateDiscountModal, setOpenCreateDiscountModal] = useState(false)
   const [openDeleteModal, setOpenDeleteModal] = useState(false)
+  const [selectedId, setSelectedId] = useState('')
+  const [selectedItem, setSelectedItem] = useState<IDiscountData>({ _id: '', code: '', value: 0 })
+  
+  const dispatch = useDispatch()
+  const { auth, alert, discount } = useSelector((state: RootStore) => state)
 
   const deleteModalRef = useRef() as React.MutableRefObject<HTMLDivElement>
   const createDiscountRef = useRef() as React.MutableRefObject<HTMLDivElement>
+
+  const handleUpdateButtonClicked = (item: IDiscountData) => {
+    setSelectedItem(item)
+    setOpenCreateDiscountModal(true)
+  }
+
+  const handleDeleteButtonClicked = (id: string) => {
+    setSelectedId(id)
+    setOpenDeleteModal(true)
+  }
+
+  const handleDeleteDiscount = async() => {
+    await dispatch(deleteDiscount(selectedId, auth.token!))
+    setOpenDeleteModal(false)
+  }
 
   useEffect(() => {
     const checkIfClickedOutside = (e: MouseEvent) => {
       if (openCreateDiscountModal && createDiscountRef.current && !createDiscountRef.current.contains(e.target as Node)) {
         setOpenCreateDiscountModal(false)
+        setSelectedItem({ _id: '', code: '', value: 0 })
       }
     }
 
@@ -32,6 +59,14 @@ const Discount = () => {
     return () => document.removeEventListener('mousedown', checkIfClickedOutside)
   }, [openDeleteModal])
 
+  useEffect(() => {
+    dispatch(getDiscount(auth.token!))
+  }, [dispatch, auth])
+
+  useEffect(() => {
+    setDiscounts(discount.data)
+  }, [discount.data])
+
   return (
     <>
       <Layout>
@@ -44,50 +79,64 @@ const Discount = () => {
             Create Discount
           </button>
         </div>
-        <div className='overflow-x-auto mt-8'>
-          <table className='w-full'>
-            <thead>
-              <tr className='text-sm bg-[#3552DC] text-white'>
-                <th className='p-3'>No</th>
-                <th>Code</th>
-                <th>Value</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className='text-sm text-center bg-gray-100'>
-                <td className='p-3'>1</td>
-                <td>Lorem Ipsum</td>
-                <td>15%</td>
-                <td>
-                  <button
-                    className='bg-yellow-500 text-white px-3 py-1 rounded-full hover:bg-yellow-600 transition-[background] mr-3'
-                  >
-                    Update
-                  </button>
-                  <button
-                    onClick={() => setOpenDeleteModal(true)}
-                    className='bg-red-500 text-white px-3 py-1 rounded-full hover:bg-red-600 transition-[background]'
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        {
+         alert.loading
+          ? <Loader size='xl' />
+          : (
+            <div className='overflow-x-auto mt-8'>
+              <table className='w-full'>
+                <thead>
+                  <tr className='text-sm bg-[#3552DC] text-white'>
+                    <th className='p-3'>No</th>
+                    <th>Code</th>
+                    <th>Value</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    discounts.map((item, idx) => (
+                      <tr key={item._id} className='text-sm text-center bg-gray-100'>
+                        <td className='p-3'>{idx + 1}</td>
+                        <td>{item.code}</td>
+                        <td>{item.value}%</td>
+                        <td>
+                          <button
+                            onClick={() => handleUpdateButtonClicked(item)}
+                            className='bg-yellow-500 text-white px-3 py-1 rounded-full hover:bg-yellow-600 transition-[background] mr-3'
+                          >
+                            Update
+                          </button>
+                          <button
+                            onClick={() => handleDeleteButtonClicked(`${item._id}`)}
+                            className='bg-red-500 text-white px-3 py-1 rounded-full hover:bg-red-600 transition-[background]'
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    ))
+                  }
+                </tbody>
+              </table>
+            </div>
+          )
+        }
       </Layout>
 
       <DeleteModal
         deleteModalRef={deleteModalRef}
         openDeleteModal={openDeleteModal}
         setOpenDeleteModal={setOpenDeleteModal}
+        success={handleDeleteDiscount}
       />
 
       <CreateDiscountModal
         createDiscountRef={createDiscountRef}
         openCreateDiscountModal={openCreateDiscountModal}
         setOpenCreateDiscountModal={setOpenCreateDiscountModal}
+        updatedItem={selectedItem}
+        setUpdatedItem={setSelectedItem}
       />
     </>
   )

@@ -12,6 +12,7 @@ import compareReducer from './compareReducer'
 import recipientReducer from './recipientReducer'
 import shippingReducer from './shippingReducer'
 import paymentMethodReducer from './paymentMethodReducer'
+import discountReducer from './discountReducer'
 
 export default combineReducers({
   alert: alertReducer,
@@ -26,5 +27,6 @@ export default combineReducers({
   compare: compareReducer,
   recipient: recipientReducer,
   shipping: shippingReducer,
-  paymentMethod: paymentMethodReducer
+  paymentMethod: paymentMethodReducer,
+  discount: discountReducer
 })
