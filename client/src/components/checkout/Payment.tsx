@@ -56,7 +56,7 @@ const Payment: React.FC<IProps> = ({ setCurrPage }) => {
         })
       }
 
-      localStorage.setItem('sneakershub_payment', JSON.stringify({ ...paymentData, paymentMethod }))
+      dispatch(setCheckoutPayment({ ...paymentData, paymentMethod }))
       setCurrPage('review')
     } else {
       return dispatch({
