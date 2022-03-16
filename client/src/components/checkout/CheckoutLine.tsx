@@ -79,7 +79,7 @@ const CheckoutLine: React.FC<IProps> = ({ setCurrPage }) => {
           onClick={() => handleChangeCurrentPage('review')}
           className='absolute top-50% -translate-y-[50%] left-[100%] w-2 h-2 rounded-full bg-[#3552DC] outline outline-[#3552DC] outline-offset-2 cursor-pointer'
         />
-        <div className={`absolute top-0 left-0 w-[${currPercentage}%] h-[2px] bg-[#3552DC]`} />
+        <div className={`absolute top-0 left-0 h-[2px] bg-[#3552DC]`} style={{ width: `${currPercentage}%` }} />
       </div>
       <div className='flex items-center justify-between mt-5 font-opensans text-sm'>
         <p className='-translate-x-7'>Account</p>
