@@ -9,6 +9,9 @@ import homeCategoryReducer from './homeCategoryReducer'
 import cartReducer from './cartReducer'
 import wishlistReducer from './wishlistReducer'
 import compareReducer from './compareReducer'
+import recipientReducer from './recipientReducer'
+import shippingReducer from './shippingReducer'
+import paymentMethodReducer from './paymentMethodReducer'
 
 export default combineReducers({
   alert: alertReducer,
@@ -20,5 +23,8 @@ export default combineReducers({
   homeCategory: homeCategoryReducer,
   cart: cartReducer,
   wishlist: wishlistReducer,
-  compare: compareReducer
+  compare: compareReducer,
+  recipient: recipientReducer,
+  shipping: shippingReducer,
+  paymentMethod: paymentMethodReducer
 })

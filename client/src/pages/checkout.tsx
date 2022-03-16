@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import Navbar from './../components/general/Navbar'
 import Account from './../components/checkout/Account'
@@ -13,28 +13,7 @@ import { numberFormatter } from '../utils/numberFormatter'
 const Checkout = () => {
   const [currPage, setCurrPage] = useState('account')
 
-  const [shippingCost, setShippingCost] = useState(0)
-
-  const { cart } = useSelector((state: RootStore) => state)
-
-  useEffect(() => {
-    const checkStorage = () => {
-      const tempShippingData = JSON.parse(localStorage.getItem('sneakershub_shipping') as string)
-      if (tempShippingData) {
-        setShippingCost(tempShippingData.courierFee)
-      }
-    }
-
-    window.addEventListener('storage', checkStorage)
-    return () => window.removeEventListener('storage', checkStorage)
-  }, [])
-
-  useEffect(() => {
-    const tempShippingData = JSON.parse(localStorage.getItem('sneakershub_shipping') as string)
-    if (tempShippingData) {
-      setShippingCost(tempShippingData.courierFee)
-    }
-  }, [])
+  const { cart, shipping } = useSelector((state: RootStore) => state)
   
   return (
     <>
@@ -96,12 +75,12 @@ const Checkout = () => {
             </div>
             <div className='flex items-center justify-between text-sm'>
               <p>Shipping</p>
-              <p>{numberFormatter(shippingCost)}</p>
+              <p>{numberFormatter(shipping.courierFee)}</p>
             </div>
             <div className='font-bold flex items-center justify-between'>
               <p>Total</p>
               <p>
-              {numberFormatter(cart.reduce((acc, item) => (acc + (item.product ? (item.product.price - ((item.product.discount * item.product.price) / 100)) * item.qty : parseInt(item.price) * item.qty)), 0) + shippingCost)}
+              {numberFormatter(cart.reduce((acc, item) => (acc + (item.product ? (item.product.price - ((item.product.discount * item.product.price) / 100)) * item.qty : parseInt(item.price) * item.qty)), 0) + shipping.courierFee)}
               </p>
             </div>
           </div>

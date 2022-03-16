@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { ALERT } from './../../redux/types/alertTypes'
+import { setCheckoutPayment } from './../../redux/actions/paymentMethodActions'
 import { FormSubmit, InputChange } from './../../utils/Interface'
 
 interface IProps {
@@ -43,7 +44,7 @@ const Payment: React.FC<IProps> = ({ setCurrPage }) => {
         })
       }
 
-      localStorage.setItem('sneakershub_payment', JSON.stringify({ ...paymentData, paymentMethod }))
+      dispatch(setCheckoutPayment({ ...paymentData, paymentMethod }))
       setCurrPage('review')
     } else if (paymentMethod === 'ovo') {
       if (!paymentData.phoneNumber) {

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { setRecipient } from '../../redux/actions/recipientActions'
 import { ALERT } from '../../redux/types/alertTypes'
 import { InputChange, FormSubmit, RootStore } from './../../utils/Interface'
 
@@ -33,7 +34,7 @@ const Account: React.FC<IProps> = ({ setCurrPage }) => {
       })
     }
 
-    localStorage.setItem('sneakershub_recipient', JSON.stringify(accountData))
+    dispatch(setRecipient(accountData))
     setCurrPage('shipping')
   }
 

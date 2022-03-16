@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
+import { setShipping } from '../../redux/actions/shippingActions'
 import { ALERT } from '../../redux/types/alertTypes'
 import { getDataAPI, postDataAPI } from '../../utils/fetchData'
 import { numberFormatter } from '../../utils/numberFormatter'
@@ -85,7 +86,7 @@ const Shipping: React.FC<IProps> = ({ setCurrPage }) => {
       })
     }
 
-    localStorage.setItem('sneakershub_shipping', JSON.stringify(shippingData))
+    dispatch(setShipping(shippingData))
     setCurrPage('payment')
   }
 
