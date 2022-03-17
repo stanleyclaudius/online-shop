@@ -11,6 +11,7 @@ import { RESET_CART } from '../../redux/types/cartTypes'
 import { RESET_RECIPIENT } from '../../redux/types/recipientTypes'
 import { RESET_SHIPPING } from '../../redux/types/shippingTypes'
 import { RESET_PAYMENT_METHOD } from '../../redux/types/paymentMethodTypes'
+import Loader from '../general/Loader'
 
 const CheckoutReview = () => {
   const [paymentMethod, setPaymentMethod] = useState('cc')
@@ -45,7 +46,7 @@ const CheckoutReview = () => {
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { auth, cart } = useSelector((state: RootStore) => state)
+  const { auth, alert, cart } = useSelector((state: RootStore) => state)
 
   const handleClickCheckout = async() => {
     const checkoutData = {
@@ -280,9 +281,10 @@ const CheckoutReview = () => {
       </div>
       <button
         onClick={handleClickCheckout}
-        className='bg-[#3552DC] hover:bg-[#122DB0] transition-[background] text-sm text-white rounded-full px-5 py-2 mt-6 float-right'
+        disabled={alert.loading ? true : false}
+        className={`${alert.loading ? 'bg-blue-300 hover:bg-blue-300' : 'bg-[#3552DC] hover:bg-[#122DB0]'} transition-[background] text-sm text-white rounded-full px-5 py-2 mt-6 float-right`}
       >
-        Checkout
+        {alert.loading ? <Loader /> : 'Checkout'}
       </button>
       <div className='clear-both' />
     </div>

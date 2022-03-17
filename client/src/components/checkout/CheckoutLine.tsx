@@ -37,7 +37,7 @@ const CheckoutLine: React.FC<IProps> = ({ setCurrPage }) => {
   }
 
   useEffect(() => {
-    if (Object.keys(recipient).length > 0) {
+    if (Object.keys(recipient).length > 0 && recipient.recipientName !== '') {
       if (currPercentage < 33) {
         setCurrPercentage(33)
       }
@@ -45,7 +45,7 @@ const CheckoutLine: React.FC<IProps> = ({ setCurrPage }) => {
   }, [currPercentage, recipient])
 
   useEffect(() => {
-    if (Object.keys(shipping).length > 0) {
+    if (Object.keys(shipping).length > 0 && shipping.postalCode !== '') {
       if (currPercentage < 66) {
         setCurrPercentage(66)
       }
@@ -53,7 +53,7 @@ const CheckoutLine: React.FC<IProps> = ({ setCurrPage }) => {
   }, [currPercentage, shipping])
 
   useEffect(() => {
-    if (Object.keys(paymentMethod).length > 0) {
+    if (Object.keys(paymentMethod).length > 0 && paymentMethod.paymentMethod !== '') {
       if (currPercentage < 99) {
         setCurrPercentage(99)
       }

@@ -110,7 +110,12 @@ const Account: React.FC<IProps> = ({ setCurrPage }) => {
             className='w-full border border-gray-300 rounded-md outline-0 p-2 text-sm mt-3'
           />
         </div>
-        <button className='bg-[#3552DC] hover:bg-[#122DB0] transition-[background] rounded-md text-sm text-white px-7 py-2'>Proceed to Shipping</button>
+        <button
+          disabled={(!accountData.recipientName || !accountData.recipientEmail || !accountData.recipientPhone) ? true : false}
+          className={`${(!accountData.recipientName || !accountData.recipientEmail || !accountData.recipientPhone) ? 'bg-blue-300' : 'bg-[#3552DC]'} ${(!accountData.recipientName || !accountData.recipientEmail || !accountData.recipientPhone) ? 'hove:bg-blue-300' : 'hover:bg-[#122DB0]'} transition-[background] rounded-md text-sm text-white px-7 py-2`}
+        >
+          Proceed to Shipping
+        </button>
       </form>
     </div>
   )

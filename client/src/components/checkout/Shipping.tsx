@@ -302,7 +302,10 @@ const Shipping: React.FC<IProps> = ({ setCurrPage }) => {
             </div>
           </div>
         }
-        <button className='mt-6 bg-[#3552DC] hover:bg-[#122DB0] transition-[background] rounded-md text-sm text-white px-7 py-2'>
+        <button
+          disabled={(!shippingData.province || !shippingData.city || !shippingData.district || !shippingData.postalCode || !shippingData.address || !shippingData.expedition || !shippingData.expeditionService) ? true : false}
+          className={`mt-6 ${(!shippingData.province || !shippingData.city || !shippingData.district || !shippingData.postalCode || !shippingData.address || !shippingData.expedition || !shippingData.expeditionService) ? 'bg-blue-300 hover:bg-blue-300' : 'bg-[#3552DC] hover:bg-[#122DB0]'} transition-[background] rounded-md text-sm text-white px-7 py-2`}
+        >
           Proceed to Payment
         </button>
       </form>
