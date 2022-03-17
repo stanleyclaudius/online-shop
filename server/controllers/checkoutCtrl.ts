@@ -1,9 +1,11 @@
-import { Request, Response } from 'express'
+import { Response } from 'express'
 import { createOvoTransaction } from './../utils/paymentHelper'
 import Checkout from './../models/Checkout'
+import Cart from './../models/Cart'
+import { IReqUser } from '../utils/Interface'
 
 const checkoutCtrl = {
-  createCheckout: async(req: Request, res: Response) => {
+  createCheckout: async(req: IReqUser, res: Response) => {
     try {
       const {
         recipientName,
@@ -87,12 +89,16 @@ const checkoutCtrl = {
       })
 
       if (paymentMethod === 'ovo') {
-        const transaction = await createOvoTransaction(totalPrice, ovoPhoneNumber, newCheckout._id)
+        const transaction = await createOvoTransaction(totalPrice, '+' + ovoPhoneNumber, newCheckout._id)
         // @ts-ignore
         newCheckout.chargeId = transaction.id
         // @ts-ignore
         newCheckout.status = transaction.status
       }
+
+      await newCheckout.save()
+
+      await Cart.deleteMany({ user: req.user!._id })
 
       return res.status(200).json({
         msg: 'Cart has been checkout successfully.',

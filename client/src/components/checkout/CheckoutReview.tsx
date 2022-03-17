@@ -1,8 +1,16 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import { GrMapLocation } from 'react-icons/gr'
 import { IoIosHome } from 'react-icons/io'
 import { MdDeliveryDining } from 'react-icons/md'
 import { getDataAPI } from '../../utils/fetchData'
+import { RootStore } from '../../utils/Interface'
+import { checkoutCart } from '../../redux/actions/checkoutActions'
+import { RESET_CART } from '../../redux/types/cartTypes'
+import { RESET_RECIPIENT } from '../../redux/types/recipientTypes'
+import { RESET_SHIPPING } from '../../redux/types/shippingTypes'
+import { RESET_PAYMENT_METHOD } from '../../redux/types/paymentMethodTypes'
 
 const CheckoutReview = () => {
   const [paymentMethod, setPaymentMethod] = useState('cc')
@@ -34,6 +42,44 @@ const CheckoutReview = () => {
   })
   const [provinceName, setProvinceName] = useState('')
   const [cityName, setCityName] = useState('')
+
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const { auth, cart } = useSelector((state: RootStore) => state)
+
+  const handleClickCheckout = async() => {
+    const checkoutData = {
+      ...accountData,
+      ...shippingData,
+      expeditionFee: shippingData.courierFee,
+      ovoPhoneNumber: paymentData.phoneNumber,
+      paymentMethod,
+      ...paymentData,
+      discount: localStorage.getItem('sneakershub_checkoutDiscount') ? JSON.parse(localStorage.getItem('sneakershub_checkoutDiscount') as string) : {},
+      items: cart.map(item => ({ ...item, discount: item.product.discount, product: item.product._id })),
+      totalPrice: 0
+    }
+
+    checkoutData.totalPrice = cart.reduce((acc, item) => (acc + (item.product ? (item.product.price - ((item.product.discount * item.product.price) / 100)) * item.qty : parseInt(item.price) * item.qty)), 0) + shippingData.courierFee - (Object.keys(checkoutData.discount).length === 0 ? 0 : ((checkoutData.discount.value / 100) * (cart.reduce((acc, item) => (acc + (item.product ? (item.product.price - ((item.product.discount * item.product.price) / 100)) * item.qty : parseInt(item.price) * item.qty)), 0))))
+
+    await dispatch(checkoutCart(checkoutData, auth.token!))
+
+    dispatch({
+      type: RESET_CART,
+      payload: []
+    })
+
+    localStorage.removeItem('sneakershub_recipient')
+    localStorage.removeItem('sneakershub_shipping')
+    localStorage.removeItem('sneakershub_checkoutDiscount')
+    localStorage.removeItem('sneakershub_payment')
+
+    dispatch({ type: RESET_RECIPIENT })
+    dispatch({ type: RESET_SHIPPING })
+    dispatch({ type: RESET_PAYMENT_METHOD })
+
+    navigate('/')
+  }
 
   useEffect(() => {
     const tempAccountData = JSON.parse(localStorage.getItem('sneakershub_recipient') as string)
@@ -71,7 +117,6 @@ const CheckoutReview = () => {
     if (shippingData.city) {
       getDataAPI(`courier/city/detail/${shippingData.city}`)
         .then(res => {
-          console.log(res.data.city)
           setCityName(res.data.city.rajaongkir.results.city_name)
         })
     }
@@ -233,7 +278,12 @@ const CheckoutReview = () => {
           )
         }
       </div>
-      <button className='bg-[#3552DC] hover:bg-[#122DB0] transition-[background] text-sm text-white rounded-full px-5 py-2 mt-6 float-right'>Checkout</button>
+      <button
+        onClick={handleClickCheckout}
+        className='bg-[#3552DC] hover:bg-[#122DB0] transition-[background] text-sm text-white rounded-full px-5 py-2 mt-6 float-right'
+      >
+        Checkout
+      </button>
       <div className='clear-both' />
     </div>
   )

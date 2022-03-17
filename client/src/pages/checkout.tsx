@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Navbar from './../components/general/Navbar'
 import Account from './../components/checkout/Account'
@@ -33,7 +33,7 @@ const Checkout = () => {
     try {
       const discountRes = await getDataAPI(`discount/${discount}`)
       setDiscountValue(discountRes.data.discount.value)
-      localStorage.setItem('sneakershub_checkoutDiscount', JSON.stringify(discountRes.data.discount.value))
+      localStorage.setItem('sneakershub_checkoutDiscount', JSON.stringify({ code: discountRes.data.discount.code, value: discountRes.data.discount.value}))
       dispatch({
         type: ALERT,
         payload: {
@@ -42,7 +42,7 @@ const Checkout = () => {
       })
     } catch (err: any) {
       setDiscountValue(0)
-      localStorage.setItem('sneakershub_checkoutDiscount', JSON.stringify(0))
+      localStorage.setItem('sneakershub_checkoutDiscount', JSON.stringify({}))
       dispatch({
         type: ALERT,
         payload: {
@@ -51,6 +51,14 @@ const Checkout = () => {
       })
     }
   }
+
+  useEffect(() => {
+    const tempCheckoutDiscount = JSON.parse(localStorage.getItem('sneakershub_checkoutDiscount') as string)
+    if (tempCheckoutDiscount) {
+      setDiscountValue(tempCheckoutDiscount.value)
+      setDiscount(tempCheckoutDiscount.code)
+    }
+  }, [])
   
   return (
     <>
