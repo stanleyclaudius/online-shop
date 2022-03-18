@@ -31,3 +31,15 @@ export const createOvoTransaction = async(amount: number, mobileNumber: string, 
     console.log(err)
   }
 }
+
+export const getChargeStatus = async(id: string) => {
+  try {
+    const resp = await wallet.getEWalletChargeStatus({
+      chargeID: id
+    })
+
+    return resp
+  } catch (err: any) {
+    console.log(err)
+  }
+}

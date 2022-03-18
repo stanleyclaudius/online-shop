@@ -1,5 +1,5 @@
-import { Response } from 'express'
-import { createOvoTransaction } from './../utils/paymentHelper'
+import { Request, Response } from 'express'
+import { createOvoTransaction, getChargeStatus } from './../utils/paymentHelper'
 import Checkout from './../models/Checkout'
 import Cart from './../models/Cart'
 import { IReqUser } from '../utils/Interface'
@@ -63,6 +63,7 @@ const checkoutCtrl = {
       }
 
       const newCheckout = new Checkout({
+        user: req.user!._id,
         recipientName,
         recipientPhone,
         recipientEmail,
@@ -104,6 +105,22 @@ const checkoutCtrl = {
         msg: 'Cart has been checkout successfully.',
         checkout: newCheckout
       })
+    } catch (err: any) {
+      return res.status(500).json({ msg: err.message })
+    }
+  },
+  getCheckoutHistory: async(req: IReqUser, res: Response) => {
+    try {
+      const checkouts = await Checkout.find({ user: req.user!._id }).sort('-createdAt').populate('items.product')
+      return res.status(200).json({ checkouts })
+    } catch (err: any) {
+      return res.status(500).json({ msg: err.message })
+    }
+  },
+  getPaymentStatus: async(req: Request, res: Response) => {
+    try {
+      const paymentStatus = await getChargeStatus(req.params.id)
+      return res.status(200).json({ status: paymentStatus })
     } catch (err: any) {
       return res.status(500).json({ msg: err.message })
     }

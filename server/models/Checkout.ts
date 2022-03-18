@@ -1,6 +1,10 @@
 import mongoose from 'mongoose'
 
 const checkoutSchema = new mongoose.Schema({
+  user: {
+    type: mongoose.Types.ObjectId,
+    ref: 'user'
+  },
   recipientName: {
     type: String,
     required: true
@@ -95,11 +99,9 @@ const checkoutSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  status: {
-    type: String,
-    default: 'HAVEN\'T PAID'
-  },
   chargeId: String
+}, {
+  timestamps: true
 })
 
 export default mongoose.model('checkout', checkoutSchema)
