@@ -1,8 +1,8 @@
 import { Dispatch } from 'redux'
 import { checkTokenExp } from '../../utils/checkTokenExp'
-import { getDataAPI, postDataAPI } from '../../utils/fetchData'
+import { getDataAPI, patchDataAPI, postDataAPI } from '../../utils/fetchData'
 import { ALERT, IAlertType } from '../types/alertTypes'
-import { CREATE_REVIEW, GET_REVIEW, ICreateReviewType, IGetReviewType, IReviewData } from './../types/reviewTypes'
+import { CREATE_REVIEW, GET_REVIEW, ICreateReviewType, IGetReviewType, ILikeReviewType, IReviewData, IUnlikeReviewType, LIKE_REVIEW, UNLIKE_REVIEW } from './../types/reviewTypes'
 
 export const getReview = (id: string) => async(dispatch: Dispatch<IGetReviewType | IAlertType>) => {
   try {
@@ -41,6 +41,54 @@ export const createReview = (reviewData: IReviewData, token: string) => async(di
         success: res.data.msg
       }
     })
+  } catch (err: any) {
+    dispatch({
+      type: ALERT,
+      payload: {
+        errors: err.response.data.msg
+      }
+    })
+  }
+}
+
+export const likeReview = (id: string, user: string, token: string) => async(dispatch: Dispatch<ILikeReviewType | IAlertType>) => {
+  const tokenExpResult = await checkTokenExp(token, dispatch)
+  const accessToken = tokenExpResult ? tokenExpResult : token
+  
+  try {
+    dispatch({
+      type: LIKE_REVIEW,
+      payload: {
+        id,
+        user
+      }
+    })
+
+    await patchDataAPI(`review/like/${id}`, {}, accessToken)
+  } catch (err: any) {
+    dispatch({
+      type: ALERT,
+      payload: {
+        errors: err.response.data.msg
+      }
+    })
+  }
+}
+
+export const unlikeReview = (id: string, user: string, token: string) => async(dispatch: Dispatch<IUnlikeReviewType | IAlertType>) => {
+  const tokenExpResult = await checkTokenExp(token, dispatch)
+  const accessToken = tokenExpResult ? tokenExpResult : token
+  
+  try {
+    dispatch({
+      type: UNLIKE_REVIEW,
+      payload: {
+        id,
+        user
+      }
+    })
+
+    await patchDataAPI(`review/unlike/${id}`, {}, accessToken)
   } catch (err: any) {
     dispatch({
       type: ALERT,

@@ -10,6 +10,9 @@ router.route('/')
 router.route('/check/:product')
   .get(isAuthenticated, reviewCtrl.checkReviewEligibility)
 
+router.route('/like/:id').patch(isAuthenticated, reviewCtrl.likeReview)
+router.route('/unlike/:id').patch(isAuthenticated, reviewCtrl.unlikeReview)
+
 router.route('/:product').get(reviewCtrl.getReview)
 
 export default router

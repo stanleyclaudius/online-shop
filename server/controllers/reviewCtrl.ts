@@ -73,6 +73,34 @@ const reviewCtrl = {
     } catch (err: any) {
       return res.status(500).json({ msg: err.message })
     }
+  },
+  likeReview: async(req: IReqUser, res: Response) => {
+    try {
+      const review = await Review.findOneAndUpdate({ _id: req.params.id }, {
+        $push: { like: req.user?._id }
+      }, { new: true })
+
+      if (!review)
+        return res.status(404).json({ msg: `Review with ID ${req.params.id} not found.` })
+
+      return res.status(200).json({ msg: 'Review liked' })
+    } catch (err: any) {
+      return res.status(500).json({ msg: err.message })
+    }
+  },
+  unlikeReview: async(req: IReqUser, res: Response) => {
+    try {
+      const review = await Review.findOneAndUpdate({ _id: req.params.id }, {
+        $pull: { like: req.user?._id }
+      }, { new: true })
+
+      if (!review)
+        return res.status(404).json({ msg: `Review with ID ${req.params.id} not found.` })
+
+      return res.status(200).json({ msg: 'Review unliked.' })
+    } catch (err: any) {
+      return res.status(500).json({ msg: err.message })
+    }
   }
 }
 

@@ -37,7 +37,8 @@ const ReviewModal: React.FC<IProps> = ({ reviewRef }) => {
       star,
       content: comment,
       createdAt: new Date().toISOString(),
-      product: review.isOpen.toString()
+      product: review.isOpen.toString(),
+      like: []
     }, auth.token!))
     setLoading(false)
     dispatch({ type: OPEN_REVIEW_MODAL, payload: false })
