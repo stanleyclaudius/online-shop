@@ -48,7 +48,7 @@ const Review: React.FC<IProps> = ({ item }) => {
     <div className='flex md:flex-row flex-col gap-8 border-b border-gray-300 py-7'>
       <div className='flex gap-5'>
         <div className='w-10 h-10 bg-gray-300 rounded-full'>
-          <img src={item.user.avatar} alt={item.user.name} />
+          <img src={item.user.avatar} alt={item.user.name} className='rounded-full' />
         </div>
         <div>
           <p className='font-bold font-opensans text-xs mb-1'>{item.user.name}</p>

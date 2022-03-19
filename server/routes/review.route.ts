@@ -13,6 +13,8 @@ router.route('/check/:product')
 router.route('/like/:id').patch(isAuthenticated, reviewCtrl.likeReview)
 router.route('/unlike/:id').patch(isAuthenticated, reviewCtrl.unlikeReview)
 
+router.route('/rating/:product').get(reviewCtrl.getproductRating)
+
 router.route('/:product').get(reviewCtrl.getReview)
 
 export default router

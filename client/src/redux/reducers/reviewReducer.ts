@@ -2,6 +2,7 @@ import { OPEN_REVIEW_MODAL, IReview, IOpenReviewModalType, CREATE_REVIEW, ICreat
 
 const initialState = {
   data: [],
+  totalPage: 0,
   isOpen: false
 }
 
@@ -20,7 +21,8 @@ const reviewReducer = (state: IReview = initialState, action: ILikeReviewType | 
     case GET_REVIEW:
       return {
         ...state,
-        data: action.payload
+        data: action.payload.reviews,
+        totalPage: action.payload.totalPage
       }
     case LIKE_REVIEW:
       return {

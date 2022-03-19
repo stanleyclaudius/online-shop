@@ -1,7 +1,15 @@
 import { Request, Response } from 'express'
 import { IReqUser } from './../utils/Interface'
+import mongoose from 'mongoose'
 import Review from './../models/Review'
 import Checkout from './../models/Checkout'
+
+const Pagination = (req: Request) => {
+  const page = Number(req.query.page) || 1
+  const limit = Number(req.query.limit) || 4
+  const skip = (page - 1) * limit
+  return {page, limit, skip}
+}
 
 const reviewCtrl = {
   createReview: async(req: IReqUser, res: Response) => {
@@ -68,8 +76,62 @@ const reviewCtrl = {
   },
   getReview: async(req: Request, res: Response) => {
     try {
-      const reviews = await Review.find({ product: req.params.product }).sort('-createdAt').populate('user', 'avatar name')
-      return res.status(200).json({ reviews })
+      const { skip, limit } = Pagination(req)
+
+      const reviews = await Review.aggregate([
+        {
+          $facet: {
+            totalData: [
+              {
+                $match: {
+                  product: new mongoose.Types.ObjectId(req.params.product)
+                }
+              },
+              {
+                $lookup: {
+                  'from': 'users',
+                  'localField': 'user',
+                  'foreignField': '_id',
+                  'as': 'user'
+                }
+              },
+              { $unwind: '$user' },
+              { $sort: { createdAt: -1 } },
+              { $skip: skip },
+              { $limit: limit }
+            ],
+            totalCount: [
+              { $match: { product: new mongoose.Types.ObjectId(req.params.product) } },
+              { $count: 'count' }
+            ]
+          }
+        },
+        {
+          $project: {
+            count: { $arrayElemAt: ['$totalCount.count', 0] },
+            totalData: 1
+          }
+        }
+      ])
+
+      const reviewsData = reviews[0].totalData
+      const totalReview = reviews[0].count
+      let totalPage = 0
+      
+      if (reviewsData.length === 0) {
+        totalPage = 0
+      } else {
+        if (totalReview % limit === 0) {
+          totalPage = totalReview / limit
+        } else {
+          totalPage = Math.floor(totalReview / limit) + 1
+        }
+      }
+
+      return res.status(200).json({
+        reviews: reviewsData,
+        totalPage
+      })
     } catch (err: any) {
       return res.status(500).json({ msg: err.message })
     }
@@ -98,6 +160,47 @@ const reviewCtrl = {
         return res.status(404).json({ msg: `Review with ID ${req.params.id} not found.` })
 
       return res.status(200).json({ msg: 'Review unliked.' })
+    } catch (err: any) {
+      return res.status(500).json({ msg: err.message })
+    }
+  },
+  getproductRating: async(req: Request, res: Response) => {
+    try {
+      const data = await Review.aggregate([
+        {
+          $facet: {
+            totalData: [
+              {
+                $match: { product: new mongoose.Types.ObjectId(req.params.product) }
+              },
+              {
+                $group: {
+                  _id: null,
+                  totalRating: { $sum: '$star' }
+                }
+              }
+            ],
+            totalCount: [
+              {
+                $match: { product: new mongoose.Types.ObjectId(req.params.product) }
+              },
+              { $count: 'count' }
+            ]
+          }
+        },
+        {
+          $project: {
+            totalData: 1,
+            count: { $arrayElemAt: ['$totalCount.count', 0] }
+          }
+        }
+      ])
+
+      const rating = data[0].totalData[0].totalRating
+      const totalRater = data[0].count
+      const calculatedRating = rating / totalRater
+
+      return res.status(200).json({ rating: calculatedRating.toFixed(1), totalRater })
     } catch (err: any) {
       return res.status(500).json({ msg: err.message })
     }

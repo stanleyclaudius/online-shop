@@ -14,6 +14,7 @@ interface IProps {
 const ReviewContainer: React.FC<IProps> = ({ id }) => {
   const [reviews, setReviews] = useState<IReviewData[]>([])
   const [eligibleStatus, setEligibleStatus] = useState(false)
+  const [currPage, setCurrPage] = useState(1)
 
   const dispatch = useDispatch()
   const { auth, review } = useSelector((state: RootStore) => state)
@@ -30,8 +31,8 @@ const ReviewContainer: React.FC<IProps> = ({ id }) => {
   }, [auth.token, id])
 
   useEffect(() => {
-    dispatch(getReview(id))
-  }, [dispatch, id])
+    dispatch(getReview(id, currPage))
+  }, [dispatch, id, currPage])
 
   useEffect(() => {
     setReviews(review.data)
@@ -51,11 +52,13 @@ const ReviewContainer: React.FC<IProps> = ({ id }) => {
             ))
           }
         </div>
-        <div className='flex items-center justify-end mt-6 gap-7 text-sm font-bold'>
-          <div>1</div>
-          <div>2</div>
-          <div>3</div>
-          <div>4</div>
+        <div className='flex items-center justify-end mt-6 gap-7 text-sm'>
+          {
+            review.totalPage > 1 &&
+            Array.from(Array(review.totalPage)).map((_, idx) => (
+              <p onClick={() => setCurrPage(idx + 1)} className={`cursor-pointer hover:font-bold ${currPage === idx + 1 ? 'font-bold' : undefined}`}>{idx + 1}</p>
+            ))
+          }
         </div>
       </div>
       <div className='flex-1'>

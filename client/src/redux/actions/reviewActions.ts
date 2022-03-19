@@ -4,12 +4,12 @@ import { getDataAPI, patchDataAPI, postDataAPI } from '../../utils/fetchData'
 import { ALERT, IAlertType } from '../types/alertTypes'
 import { CREATE_REVIEW, GET_REVIEW, ICreateReviewType, IGetReviewType, ILikeReviewType, IReviewData, IUnlikeReviewType, LIKE_REVIEW, UNLIKE_REVIEW } from './../types/reviewTypes'
 
-export const getReview = (id: string) => async(dispatch: Dispatch<IGetReviewType | IAlertType>) => {
+export const getReview = (id: string, page: number = 1) => async(dispatch: Dispatch<IGetReviewType | IAlertType>) => {
   try {
-    const res = await getDataAPI(`review/${id}`)
+    const res = await getDataAPI(`review/${id}?page=${page}`)
     dispatch({
       type: GET_REVIEW,
-      payload: res.data.reviews
+      payload: res.data
     })
   } catch (err: any) {
     dispatch({

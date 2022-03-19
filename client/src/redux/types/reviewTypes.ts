@@ -21,8 +21,14 @@ export interface ILikeUnlikeReviewData {
   user: string
 }
 
+export interface IGetReviewData {
+  reviews: IReviewData[]
+  totalPage: number
+}
+
 export interface IReview {
   data: IReviewData[]
+  totalPage: number
   isOpen: boolean | string
 }
 
@@ -38,7 +44,7 @@ export interface ICreateReviewType {
 
 export interface IGetReviewType {
   type: typeof GET_REVIEW
-  payload: IReviewData[]
+  payload: IGetReviewData
 }
 
 export interface ILikeReviewType {

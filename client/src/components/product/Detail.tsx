@@ -9,6 +9,7 @@ import { RootStore } from './../../utils/Interface'
 import { ALERT } from './../../redux/types/alertTypes'
 import { SET_COMPARE_DATA } from '../../redux/types/compareTypes'
 import { addWishlist, deleteWishlistItem } from '../../redux/actions/wishlistActions'
+import { getDataAPI } from '../../utils/fetchData'
 
 interface IProps {
   product: IProductData
@@ -20,6 +21,8 @@ const Detail: React.FC<IProps> = ({ product }) => {
   const [selectedSize, setSelectedSize] = useState(0)
   const [qty, setQty] = useState(1)
   const [isWishlisted, setIsWishlisted] = useState(false)
+  const [totalRater, setTotalRater] = useState(0)
+  const [overallRating, setOverallRating] = useState(0)
 
   const dispatch = useDispatch()
   const { auth, wishlist } = useSelector((state: RootStore) => state)
@@ -98,20 +101,32 @@ const Detail: React.FC<IProps> = ({ product }) => {
     return () => setCurrImage('')
   }, [product?.images])
 
+  useEffect(() => {
+    if (product) {
+      getDataAPI(`review/rating/${product._id}`)
+        .then(res => {
+          setTotalRater(res.data.totalRater)
+          setOverallRating(res.data.rating)
+        })
+    }
+
+    return () => {
+      setOverallRating(0)
+      setTotalRater(0)
+    }
+  }, [product])
+
   return (
     <div className='flex md:flex-row flex-col-reverse flex-col items-center md:pl-16 pl-8 py-10 md:pr-48 pr-8'>
       <div className='flex-[2] md:mt-0 mt-8'>
         <p className='tracking-widest text-blue-600 text-xs font-bold mb-2 uppercase'>{(typeof product?.category === 'string') ? product?.category : product?.category.name}</p>
         <h1 className='mb-5 font-oswald tracking-wide text-xl'>{product?.name}</h1>
         <div className='flex items-center gap-7 mb-5'>
-          <div className='flex'>
+          <div className='flex items-center gap-2'>
             <AiFillStar className='text-orange-300 text-lg' />
-            <AiFillStar className='text-orange-300 text-lg' />
-            <AiFillStar className='text-orange-300 text-lg' />
-            <AiFillStar className='text-orange-300 text-lg' />
-            <AiFillStar className='text-orange-300 text-lg' />
+            <p className='text-sm'>{overallRating}</p>
           </div>
-          <p className='text-gray-400 text-sm'>23 Reviews</p>
+          <p className='text-gray-400 text-sm'>{totalRater} {totalRater > 1 ? 'Reviews' : 'Review'}</p>
         </div>
         <div className='flex items-center gap-16'>
           <div>
