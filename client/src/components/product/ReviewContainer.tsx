@@ -1,7 +1,32 @@
+import { useState, useEffect } from 'react'
 import { AiFillStar } from 'react-icons/ai'
+import { useDispatch, useSelector } from 'react-redux'
+import { getDataAPI } from '../../utils/fetchData'
+import { RootStore } from '../../utils/Interface'
+import { OPEN_REVIEW_MODAL } from './../../redux/types/reviewTypes'
 import Review from './Review'
 
-const ReviewContainer = () => {
+interface IProps {
+  id: string
+}
+
+const ReviewContainer: React.FC<IProps> = ({ id }) => {
+  const [eligibleStatus, setEligibleStatus] = useState(false)
+
+  const dispatch = useDispatch()
+  const { auth } = useSelector((state: RootStore) => state)
+
+  useEffect(() => {
+    if (auth.token) {
+      getDataAPI(`review/${id}`, auth.token!)
+        .then(res => {
+          setEligibleStatus(res.data.status)
+        })
+    }
+
+    return () => setEligibleStatus(false)
+  }, [auth.token, id])
+
   return (
     <div className='bg-gray-100 md:px-16 px-8 md:flex-row flex-col-reverse flex flex-col py-10 gap-10'>
       <div className='flex-[3]'>
@@ -76,7 +101,15 @@ const ReviewContainer = () => {
             <p className='text-xs text-gray-400 font-bold'>0 Review</p>
           </div>
         </div>
-        <button className='bg-[#3552DC] rounded-full text-white text-sm w-full h-9 drop-shadow-xl hover:bg-[#122DB0] transition-[background]'>Add Review</button>
+        {
+          (auth.token && eligibleStatus) &&
+          <button
+            onClick={() => dispatch({ type: OPEN_REVIEW_MODAL, payload: id })}
+            className='bg-[#3552DC] rounded-full text-white text-sm w-full h-9 drop-shadow-xl hover:bg-[#122DB0] transition-[background]'
+          >
+            Add Review
+          </button>
+        }
       </div>
     </div>
   )

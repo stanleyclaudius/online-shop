@@ -8,17 +8,19 @@ import PageRender from './utils/PageRender'
 import Home from './pages/home'
 import Alert from './components/general/Alert'
 import CompareModal from './components/modal/CompareModal'
-// import ReviewModal from './components/modal/ReviewModal'
+import ReviewModal from './components/modal/ReviewModal'
+import { OPEN_REVIEW_MODAL } from './redux/types/reviewTypes'
 
 const App = () => {
   const dispatch = useDispatch()
-  const { compare } = useSelector((state: RootStore) => state)
+  const { compare, review } = useSelector((state: RootStore) => state)
 
   const compareRef = useRef() as React.MutableRefObject<HTMLDivElement>
+  const reviewRef = useRef() as React.MutableRefObject<HTMLDivElement>
 
   useEffect(() => {
     const checkIfClickedOutside = (e: MouseEvent) => {
-      if (compare && compareRef.current && !compareRef.current.contains(e.target as Node)) {
+      if (compare.isOpen && compareRef.current && !compareRef.current.contains(e.target as Node)) {
         dispatch({
           type: OPEN_COMPARE_MODAL,
           payload: false
@@ -28,7 +30,21 @@ const App = () => {
 
     document.addEventListener('mousedown', checkIfClickedOutside)
     return () => document.removeEventListener('mousedown', checkIfClickedOutside)
-  }, [compare, dispatch])
+  }, [compare.isOpen, dispatch])
+
+  useEffect(() => {
+    const checkIfClickedOutside = (e: MouseEvent) => {
+      if (review.isOpen && reviewRef.current && !reviewRef.current.contains(e.target as Node)) {
+        dispatch({
+          type: OPEN_REVIEW_MODAL,
+          payload: false
+        })
+      }
+    }
+
+    document.addEventListener('mousedown', checkIfClickedOutside)
+    return () => document.removeEventListener('mousedown', checkIfClickedOutside)
+  }, [review.isOpen, dispatch])
 
   useEffect(() => {
     dispatch(refreshToken())
@@ -39,6 +55,7 @@ const App = () => {
       <Alert />
       <Router>
         <CompareModal compareRef={compareRef} />
+        <ReviewModal reviewRef={reviewRef} />
         
         <Routes>
           <Route path='/' element={<Home />} />
@@ -46,8 +63,6 @@ const App = () => {
           <Route path='/:page/:id' element={<PageRender />} />
         </Routes>
       </Router>
-
-      {/* <ReviewModal /> */}
     </>
   )
 }

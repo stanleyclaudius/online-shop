@@ -14,6 +14,7 @@ import shippingReducer from './shippingReducer'
 import paymentMethodReducer from './paymentMethodReducer'
 import discountReducer from './discountReducer'
 import checkoutReducer from './checkoutReducer'
+import reviewReducer from './reviewReducer'
 
 export default combineReducers({
   alert: alertReducer,
@@ -30,5 +31,6 @@ export default combineReducers({
   shipping: shippingReducer,
   paymentMethod: paymentMethodReducer,
   discount: discountReducer,
-  checkout: checkoutReducer
+  checkout: checkoutReducer,
+  review: reviewReducer
 })

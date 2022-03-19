@@ -69,7 +69,7 @@ const ProductDetail = () => {
                   <div className='text-xs tracking-wider'>REVIEWS</div>
                   <div className='text-xs tracking-wider'>QnA</div>
                 </div>
-                <ReviewContainer />
+                <ReviewContainer id={`${id}`} />
                 <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-t border-l border-gray-300'>
                   <div className='border-b border-r border-gray-300 bg-[#161616] flex items-center justify-center flex-col gap-4 py-10 md:py-0'>
                     <BsLink45Deg className='text-blue-700 text-8xl' />
