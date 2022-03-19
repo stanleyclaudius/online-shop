@@ -1,4 +1,4 @@
-import { Response } from 'express'
+import { Request, Response } from 'express'
 import { IReqUser } from './../utils/Interface'
 import Review from './../models/Review'
 import Checkout from './../models/Checkout'
@@ -62,6 +62,14 @@ const reviewCtrl = {
         eligibleStatus = false
 
       return res.status(200).json({ status: eligibleStatus })
+    } catch (err: any) {
+      return res.status(500).json({ msg: err.message })
+    }
+  },
+  getReview: async(req: Request, res: Response) => {
+    try {
+      const reviews = await Review.find({ product: req.params.product }).sort('-createdAt').populate('user', 'avatar name')
+      return res.status(200).json({ reviews })
     } catch (err: any) {
       return res.status(500).json({ msg: err.message })
     }

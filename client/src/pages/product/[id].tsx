@@ -66,8 +66,12 @@ const ProductDetail = () => {
               <div className='m-auto bg-white w-10/12 drop-shadow-2xl -translate-y-10 font-opensans'>
                 <Detail product={product!} />
                 <div className='flex gap-6 border-t border-gray-300 px-16 py-5'>
-                  <div className='text-xs tracking-wider'>REVIEWS</div>
-                  <div className='text-xs tracking-wider'>QnA</div>
+                  <div className='text-xs tracking-wider font-bold cursor-pointer text-[#3552DC]'>
+                    REVIEWS
+                  </div>
+                  <div className='text-xs tracking-wider cursor-pointer'>
+                    QnA
+                  </div>
                 </div>
                 <ReviewContainer id={`${id}`} />
                 <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-t border-l border-gray-300'>

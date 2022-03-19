@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
 import { AiFillStar } from 'react-icons/ai'
 import { useDispatch, useSelector } from 'react-redux'
+import { getReview } from '../../redux/actions/reviewActions'
 import { getDataAPI } from '../../utils/fetchData'
 import { RootStore } from '../../utils/Interface'
-import { OPEN_REVIEW_MODAL } from './../../redux/types/reviewTypes'
+import { IReviewData, OPEN_REVIEW_MODAL } from './../../redux/types/reviewTypes'
 import Review from './Review'
 
 interface IProps {
@@ -11,14 +12,15 @@ interface IProps {
 }
 
 const ReviewContainer: React.FC<IProps> = ({ id }) => {
+  const [reviews, setReviews] = useState<IReviewData[]>([])
   const [eligibleStatus, setEligibleStatus] = useState(false)
 
   const dispatch = useDispatch()
-  const { auth } = useSelector((state: RootStore) => state)
+  const { auth, review } = useSelector((state: RootStore) => state)
 
   useEffect(() => {
     if (auth.token) {
-      getDataAPI(`review/${id}`, auth.token!)
+      getDataAPI(`review/check/${id}`, auth.token!)
         .then(res => {
           setEligibleStatus(res.data.status)
         })
@@ -27,16 +29,27 @@ const ReviewContainer: React.FC<IProps> = ({ id }) => {
     return () => setEligibleStatus(false)
   }, [auth.token, id])
 
+  useEffect(() => {
+    dispatch(getReview(id))
+  }, [dispatch, id])
+
+  useEffect(() => {
+    setReviews(review.data)
+  }, [review])
+
   return (
     <div className='bg-gray-100 md:px-16 px-8 md:flex-row flex-col-reverse flex flex-col py-10 gap-10'>
       <div className='flex-[3]'>
         <div className='flex gap-5 font-oswald border-b border-gray-300 pb-5'>
           <p className='tracking-wide'>All Reviews</p>
-          <p className='text-blue-600'>23</p>
+          <p className='text-blue-600'>{reviews.length}</p>
         </div>
         <div>
-          <Review />
-          <Review />
+          {
+            reviews.map(item => (
+              <Review key={item._id} item={item} />
+            ))
+          }
         </div>
         <div className='flex items-center justify-end mt-6 gap-7 text-sm font-bold'>
           <div>1</div>
@@ -58,7 +71,7 @@ const ReviewContainer: React.FC<IProps> = ({ id }) => {
               <AiFillStar className='text-orange-400' />
               <AiFillStar className='text-orange-400' />
             </div>
-            <p className='text-xs text-gray-400 font-bold'>10 Reviews</p>
+            <p className='text-xs text-gray-400 font-bold'>{reviews.filter(item => item.star === 5).length} {reviews.filter(item => item.star === 5).length > 1 ? 'Reviews' : 'Review'}</p>
           </div>
           <div className='flex items-center justify-between mb-3'>
             <div className='flex gap-1'>
@@ -68,7 +81,7 @@ const ReviewContainer: React.FC<IProps> = ({ id }) => {
               <AiFillStar className='text-orange-400' />
               <AiFillStar className='text-gray-300' />
             </div>
-            <p className='text-xs text-gray-400 font-bold'>5 Reviews</p>
+            <p className='text-xs text-gray-400 font-bold'>{reviews.filter(item => item.star === 4).length} {reviews.filter(item => item.star === 4).length > 1 ? 'Reviews' : 'Review'}</p>
           </div>
           <div className='flex items-center justify-between mb-3'>
             <div className='flex gap-1'>
@@ -78,7 +91,7 @@ const ReviewContainer: React.FC<IProps> = ({ id }) => {
               <AiFillStar className='text-gray-300' />
               <AiFillStar className='text-gray-300' />
             </div>
-            <p className='text-xs text-gray-400 font-bold'>7 Reviews</p>
+            <p className='text-xs text-gray-400 font-bold'>{reviews.filter(item => item.star === 3).length} {reviews.filter(item => item.star === 3).length > 1 ? 'Reviews' : 'Review'}</p>
           </div>
           <div className='flex items-center justify-between mb-3'>
             <div className='flex gap-1'>
@@ -88,7 +101,7 @@ const ReviewContainer: React.FC<IProps> = ({ id }) => {
               <AiFillStar className='text-gray-300' />
               <AiFillStar className='text-gray-300' />
             </div>
-            <p className='text-xs text-gray-400 font-bold'>0 Review</p>
+            <p className='text-xs text-gray-400 font-bold'>{reviews.filter(item => item.star === 2).length} {reviews.filter(item => item.star === 2).length > 1 ? 'Reviews' : 'Review'}</p>
           </div>
           <div className='flex items-center justify-between'>
             <div className='flex gap-1'>
@@ -98,7 +111,7 @@ const ReviewContainer: React.FC<IProps> = ({ id }) => {
               <AiFillStar className='text-gray-300' />
               <AiFillStar className='text-gray-300' />
             </div>
-            <p className='text-xs text-gray-400 font-bold'>0 Review</p>
+            <p className='text-xs text-gray-400 font-bold'>{reviews.filter(item => item.star === 1).length} {reviews.filter(item => item.star === 1).length > 1 ? 'Reviews' : 'Review'}</p>
           </div>
         </div>
         {

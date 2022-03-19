@@ -7,7 +7,9 @@ const router = express.Router()
 router.route('/')
   .post(isAuthenticated, reviewCtrl.createReview)
 
-router.route('/:product')
+router.route('/check/:product')
   .get(isAuthenticated, reviewCtrl.checkReviewEligibility)
+
+router.route('/:product').get(reviewCtrl.getReview)
 
 export default router
