@@ -29,6 +29,32 @@ const qnaCtrl = {
     } catch (err: any) {
       return res.status(500).json({ msg: err.message })
     }
+  },
+  likeQna: async(req: IReqUser, res: Response) => {
+    try {
+      const qna = await Qna.findOneAndUpdate({ _id: req.params.id }, {
+        $push: { likes: req.user?._id }
+      }, { new: true })
+      if (!qna)
+        return res.status(404).json({ msg: `Qna with ID ${req.params.id} not found.` })
+
+      return res.status(200).json({ msg: 'Qna liked.' })
+    } catch (err: any) {
+      return res.status(500).json({ msg: err.message })
+    }
+  },
+  unlikeQna: async(req: IReqUser, res: Response) => {
+    try {
+      const qna = await Qna.findOneAndUpdate({ _id: req.params.id }, {
+        $pull: { likes: req.user?._id }
+      }, { new: true })
+      if (!qna)
+        return res.status(404).json({ msg: `Qna with ID ${req.params.id} not found.` })
+
+      return res.status(200).json({ msg: 'Qna unliked.' })
+    } catch (err: any) {
+      return res.status(500).json({ msg: err.message })
+    }
   }
 }
 

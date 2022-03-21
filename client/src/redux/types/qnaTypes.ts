@@ -2,6 +2,13 @@ import { IUser } from './../../utils/Interface'
 
 export const CREATE_QNA = 'CREATE_QNA'
 export const GET_QNA = 'GET_QNA'
+export const LIKE_QNA = 'LIKE_QNA'
+export const UNLIKE_QNA = 'UNLIKE_QNA'
+
+export interface ILikeUnlikeQnaData {
+  id: string
+  user: string
+}
 
 export interface IQnaData {
   _id?: string
@@ -25,4 +32,14 @@ export interface ICreateQnaType {
 export interface IGetQnaType {
   type: typeof GET_QNA
   payload: IQnaData[]
+}
+
+export interface ILikeQnaType {
+  type: typeof LIKE_QNA
+  payload: ILikeUnlikeQnaData
+}
+
+export interface IUnlikeQnaType {
+  type: typeof UNLIKE_QNA
+  payload: ILikeUnlikeQnaData
 }
