@@ -1,8 +1,8 @@
 import { Dispatch } from 'redux'
 import { checkTokenExp } from './../../utils/checkTokenExp'
-import { postDataAPI } from './../../utils/fetchData'
+import { getDataAPI, postDataAPI } from './../../utils/fetchData'
 import { ALERT, IAlertType } from './../types/alertTypes'
-import { CREATE_QNA, ICreateQnaType, IQnaData } from './../types/qnaTypes'
+import { CREATE_QNA, GET_QNA, ICreateQnaType, IGetQnaType, IQnaData } from './../types/qnaTypes'
 
 export const createQna = (qnaData: IQnaData, token: string) => async(dispatch: Dispatch<ICreateQnaType | IAlertType>) => {
   const tokenExpResult = await checkTokenExp(token, dispatch)
@@ -16,6 +16,23 @@ export const createQna = (qnaData: IQnaData, token: string) => async(dispatch: D
         ...res.data.qna,
         user: qnaData.user
       }
+    })
+  } catch (err: any) {
+    dispatch({
+      type: ALERT,
+      payload: {
+        errors: err.response.data.msg
+      }
+    })
+  }
+}
+
+export const getQna = (id: string) => async(dispatch: Dispatch<IGetQnaType | IAlertType>) => {
+  try {
+    const res = await getDataAPI(`qna/${id}`)
+    dispatch({
+      type: GET_QNA,
+      payload: res.data.qnas
     })
   } catch (err: any) {
     dispatch({

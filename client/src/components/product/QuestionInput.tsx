@@ -7,9 +7,10 @@ import { ALERT } from './../../redux/types/alertTypes'
 
 interface IProps {
   id: string
+  reply?: string
 }
 
-const QuestionInput: React.FC<IProps> = ({ id }) => {
+const QuestionInput: React.FC<IProps> = ({ id, reply }) => {
   const [question, setQuestion] = useState('')
   const [loading, setLoading] = useState(false)
 
@@ -37,7 +38,11 @@ const QuestionInput: React.FC<IProps> = ({ id }) => {
     }
 
     setLoading(true)
-    await dispatch(createQna(qnaData, auth.token!))
+    if (reply) {
+      await dispatch(createQna({ ...qnaData, reply }, auth.token!))
+    } else {
+      await dispatch(createQna(qnaData, auth.token!))
+    }
     setLoading(false)
     setQuestion('')
   }
@@ -45,10 +50,10 @@ const QuestionInput: React.FC<IProps> = ({ id }) => {
   return (
     <div className='flex gap-6 items-start flex-col md:flex-row'>
       <div className='flex gap-4'>
-        <div className='w-12 h-12 bg-gray-300 rounded-full'>
-          
+        <div className='w-10 h-10 bg-gray-300 rounded-full'>
+          <img src={auth.user?.avatar} alt={auth.user?.name} className='rounded-full' />
         </div>
-        <p className='font-oswald tracking-wide'>Lorem Ipsum</p>
+        <p className='font-oswald tracking-wide'>{auth.user?.name}</p>
       </div>
       <div className='flex-1'>
         <form onSubmit={handleSubmit}>

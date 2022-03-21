@@ -1,4 +1,4 @@
-import { Response } from 'express'
+import { Request, Response } from 'express'
 import { IReqUser } from './../utils/Interface'
 import Qna from './../models/Qna'
 
@@ -18,6 +18,14 @@ const qnaCtrl = {
       await newQna.save()
 
       return res.status(200).json({ qna: newQna })
+    } catch (err: any) {
+      return res.status(500).json({ msg: err.message })
+    }
+  },
+  getQna: async(req: Request, res: Response) => {
+    try {
+      const qnas = await Qna.find({ product: req.params.product }).sort('-createdAt').populate('user')
+      return res.status(200).json({ qnas })
     } catch (err: any) {
       return res.status(500).json({ msg: err.message })
     }

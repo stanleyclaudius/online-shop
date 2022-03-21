@@ -1,11 +1,12 @@
 import { IUser } from './../../utils/Interface'
 
 export const CREATE_QNA = 'CREATE_QNA'
+export const GET_QNA = 'GET_QNA'
 
 export interface IQnaData {
   _id?: string
   content: string
-  reply?: IQnaData
+  reply?: string
   user: IUser
   product: string
   likes: string[]
@@ -19,4 +20,9 @@ export interface IQna {
 export interface ICreateQnaType {
   type: typeof CREATE_QNA
   payload: IQnaData
+}
+
+export interface IGetQnaType {
+  type: typeof GET_QNA
+  payload: IQnaData[]
 }
