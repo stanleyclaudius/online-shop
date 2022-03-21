@@ -11,8 +11,10 @@ import ProductCard from './../../components/general/ProductCard'
 import Subscribe from './../../components/general/Subscribe'
 import Footer from './../../components/general/Footer'
 import Loader from './../../components/general/Loader'
+import QnaContainer from '../../components/product/QnaContainer'
 
 const ProductDetail = () => {
+  const [currentOption, setCurrentOption] = useState('review')
   const [product, setProduct] = useState<IProductData>()
   const [similarProducts, setSimilarProducts] = useState<IProductData[]>([])
   const [loading, setLoading] = useState(false)
@@ -66,14 +68,18 @@ const ProductDetail = () => {
               <div className='m-auto bg-white w-10/12 drop-shadow-2xl -translate-y-10 font-opensans'>
                 <Detail product={product!} />
                 <div className='flex gap-6 border-t border-gray-300 px-16 py-5'>
-                  <div className='text-xs tracking-wider font-bold cursor-pointer text-[#3552DC]'>
+                  <div onClick={() => setCurrentOption('review')} className={`text-xs tracking-wider hover:font-bold hover:text-[#3552DC] cursor-pointer ${currentOption === 'review' ? 'text-[#3552DC] font-bold' : undefined}`}>
                     REVIEWS
                   </div>
-                  <div className='text-xs tracking-wider cursor-pointer'>
+                  <div onClick={() => setCurrentOption('qna')} className={`text-xs tracking-wider cursor-pointer hover:font-bold hover:text-[#3552DC] ${currentOption === 'qna' ? 'text-[#3552DC] font-bold' : undefined}`}>
                     QnA
                   </div>
                 </div>
-                <ReviewContainer id={`${id}`} />
+                {
+                  currentOption === 'review'
+                  ? <ReviewContainer id={`${id}`} />
+                  : <QnaContainer />
+                }
                 <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-t border-l border-gray-300'>
                   <div className='border-b border-r border-gray-300 bg-[#161616] flex items-center justify-center flex-col gap-4 py-10 md:py-0'>
                     <BsLink45Deg className='text-blue-700 text-8xl' />
