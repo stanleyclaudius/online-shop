@@ -12,6 +12,8 @@ interface IProps {
 
 const QnaContainer: React.FC<IProps> = ({ id }) => {
   const [qnas, setQnas] = useState<IQnaData[]>([])
+  const [filteredQna, setFilteredQna] = useState<IQnaData[]>([])
+  const [next, setNext] = useState(2)
 
   const dispatch = useDispatch()
   const { auth, qna } = useSelector((state: RootStore) => state)
@@ -22,8 +24,9 @@ const QnaContainer: React.FC<IProps> = ({ id }) => {
 
   useEffect(() => {
     const commentWithoutReply = qna.data.filter(item => !item.reply)
-    setQnas(commentWithoutReply)
-  }, [qna])
+    setFilteredQna(commentWithoutReply)
+    setQnas(commentWithoutReply.slice(commentWithoutReply.length - next))
+  }, [qna, next])
 
   return (
     <div className='bg-gray-100 md:px-16 px-8 py-10'>
@@ -44,6 +47,16 @@ const QnaContainer: React.FC<IProps> = ({ id }) => {
             qnas.map(item => (
               <QnaDisplay key={item._id} item={item} />
             ))
+          }
+
+          {
+            filteredQna.length - next > 0
+            ? (
+              <div onClick={() => setNext(filteredQna.length)} className='cursor-pointer text-blue-600 underline text-sm w-fit'>See more</div>
+            )
+            : filteredQna.length > 2 && (
+              <div onClick={() => setNext(2)} className='cursor-pointer text-sm text-blue-600 underline w-fit'>Hide</div>
+            )
           }
         </div>
       </div>

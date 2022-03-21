@@ -24,7 +24,7 @@ const qnaCtrl = {
   },
   getQna: async(req: Request, res: Response) => {
     try {
-      const qnas = await Qna.find({ product: req.params.product }).sort('-createdAt').populate('user')
+      const qnas = await Qna.find({ product: req.params.product }).populate('user')
       return res.status(200).json({ qnas })
     } catch (err: any) {
       return res.status(500).json({ msg: err.message })

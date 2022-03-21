@@ -9,7 +9,7 @@ const qnaReducer = (state: IQna = initialState, action:IGetQnaType | ICreateQnaT
     case CREATE_QNA:
       return {
         ...state,
-        data: [action.payload, ...state.data]
+        data: [...state.data, action.payload]
       }
     case GET_QNA:
       return {
