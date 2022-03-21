@@ -1,11 +1,45 @@
 import { useState } from 'react'
-import { FormSubmit } from '../../utils/Interface'
+import { useDispatch, useSelector } from 'react-redux'
+import { createQna } from '../../redux/actions/qnaActions'
+import { FormSubmit, RootStore } from '../../utils/Interface'
+import Loader from '../general/Loader'
+import { ALERT } from './../../redux/types/alertTypes'
 
-const QuestionInput = () => {
+interface IProps {
+  id: string
+}
+
+const QuestionInput: React.FC<IProps> = ({ id }) => {
   const [question, setQuestion] = useState('')
+  const [loading, setLoading] = useState(false)
 
-  const handleSubmit = (e: FormSubmit) => {
+  const dispatch = useDispatch()
+  const { auth } = useSelector((state: RootStore) => state)
+
+  const handleSubmit = async(e: FormSubmit) => {
     e.preventDefault()
+
+    if (!question) {
+      return dispatch({
+        type: ALERT,
+        payload: {
+          errors: 'Please provide qna content.'
+        }
+      })
+    }
+
+    const qnaData = {
+      content: question,
+      user: auth.user!,
+      product: id,
+      likes: [],
+      createdAt: new Date().toISOString()
+    }
+
+    setLoading(true)
+    await dispatch(createQna(qnaData, auth.token!))
+    setLoading(false)
+    setQuestion('')
   }
 
   return (
@@ -19,7 +53,16 @@ const QuestionInput = () => {
       <div className='flex-1'>
         <form onSubmit={handleSubmit}>
           <textarea className='rounded-md p-3 text-sm w-full border border-gray-300 rounded-full resize-none h-24 outline-0' placeholder='Post your question here ...' value={question} onChange={e => setQuestion(e.target.value)} />
-          <button className='float-right bg-blue-500 hover:bg-blue-600 text-sm text-white transition-[background] px-3 py-2 rounded-md mt-3 transition-[background]'>Post Question</button>
+          <button
+            disabled={loading ? true : false}
+            className={`float-right ${loading ? 'bg-blue-300 hover:bg-blue-300 cursor-auto' : 'bg-blue-500 hover:bg-blue-600 cursor-pointer'} text-sm text-white transition-[background] px-3 py-2 rounded-md mt-3 transition-[background]`}
+          >
+            {
+              loading
+              ? <Loader />
+              : 'Post'
+            }
+          </button>
           <div className='clear-both' />
         </form>
       </div>

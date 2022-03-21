@@ -15,6 +15,7 @@ import paymentMethodReducer from './paymentMethodReducer'
 import discountReducer from './discountReducer'
 import checkoutReducer from './checkoutReducer'
 import reviewReducer from './reviewReducer'
+import qnaReducer from './qnaReducer'
 
 export default combineReducers({
   alert: alertReducer,
@@ -32,5 +33,6 @@ export default combineReducers({
   paymentMethod: paymentMethodReducer,
   discount: discountReducer,
   checkout: checkoutReducer,
-  review: reviewReducer
+  review: reviewReducer,
+  qna: qnaReducer
 })

@@ -41,12 +41,12 @@ const Qna = () => {
             </div>
           </div>
         </div>
-        {
+        {/* {
           onReply &&
           <div ref={replyRef} className='mt-5'>
             <QuestionInput />
           </div>
-        }
+        } */}
       </div>
     </div>
   )
