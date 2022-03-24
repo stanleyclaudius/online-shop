@@ -56,6 +56,8 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: ''
   }
+}, {
+  timestamps: true
 })
 
 export default mongoose.model('user', userSchema)
