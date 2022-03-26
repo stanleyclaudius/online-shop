@@ -14,6 +14,7 @@ export interface IHomeCategoryData extends ICategoryData {
 }
 
 export interface ICategory {
+  totalPage: number
   data: ICategoryData[]
 }
 
@@ -28,7 +29,7 @@ export interface ICreateCategoryType {
 
 export interface IGetCategoryType {
   type: typeof GET_CATEGORY
-  payload: ICategoryData[]
+  payload: ICategory
 }
 
 export interface IGetHomeCategoryType {

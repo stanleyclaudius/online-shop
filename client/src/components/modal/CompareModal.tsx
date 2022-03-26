@@ -7,6 +7,7 @@ import { InputChange, RootStore } from '../../utils/Interface'
 import { numberFormatter } from '../../utils/numberFormatter'
 import { getDataAPI } from '../../utils/fetchData'
 import { IProductData } from '../../redux/types/productTypes'
+import { getProduct } from '../../redux/actions/productActions'
 
 interface IProps {
   compareRef: React.MutableRefObject<HTMLDivElement>
@@ -36,6 +37,10 @@ const CompareModal: React.FC<IProps> = ({ compareRef }) => {
     navigate(`/product/${id}`)
     dispatch({ type: OPEN_COMPARE_MODAL, payload: false })
   }
+
+  // useEffect(() => {
+  //   dispatch(getProduct(1, product.totalPage * 8))
+  // }, [dispatch, product.totalPage])
 
   useEffect(() => {
     if (compare.isOpen && Object.keys(compare.data).length > 0) {

@@ -1,6 +1,13 @@
 import { Request, Response } from 'express'
 import Discount from './../models/Discount'
 
+const Pagination = (req: Request) => {
+  const page = Number(req.query.page) || 1
+  const limit = Number(req.query.limit) || 8
+  const skip = (page - 1) * limit
+  return { page, limit, skip }
+}
+
 const discountCtrl = {
   createDiscount: async(req: Request, res: Response) => {
     try {
@@ -31,8 +38,44 @@ const discountCtrl = {
   },
   getDiscount: async(req: Request, res: Response) => {
     try {
-      const discounts = await Discount.find().sort('-createdAt')
-      return res.status(200).json({ discounts })
+      const { limit, skip } = Pagination(req)
+      // const discounts = await Discount.find().sort('-createdAt')
+      const data = await Discount.aggregate([
+        {
+          $facet: {
+            totalData: [
+              { $sort: { createdAt: -1 } },
+              { $skip: skip },
+              { $limit: limit }
+            ],
+            totalCount: [
+              { $count: 'count' }
+            ]
+          }
+        },
+        {
+          $project: {
+            count: { $arrayElemAt: ['$totalCount.count', 0] },
+            totalData: 1
+          }
+        }
+      ])
+
+      const discounts = data[0].totalData
+      const discountCount = data[0].count
+      let totalPage = 0
+
+      if (discounts.length === 0) {
+        totalPage = 0
+      } else {
+        if (discountCount % limit === 0) {
+          totalPage = discountCount / limit
+        } else {
+          totalPage = Math.floor(discountCount / limit) + 1
+        }
+      }
+
+      return res.status(200).json({ discounts, totalPage })
     } catch (err: any) {
       return res.status(500).json({ msg: err.message })
     }

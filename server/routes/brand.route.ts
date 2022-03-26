@@ -8,6 +8,8 @@ router.route('/')
   .get(brandCtrl.getBrand)
   .post(isAuthenticated, authorizeRoles('admin'), brandCtrl.createBrand)
 
+router.route('/admin').get(isAuthenticated, authorizeRoles('admin'), brandCtrl.getBrandAdmin)
+
 router.route('/:id')
   .patch(isAuthenticated, authorizeRoles('admin'), brandCtrl.updateBrand)
   .delete(isAuthenticated, authorizeRoles('admin'), brandCtrl.deleteBrand)

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootStore } from './../utils/Interface'
-import { deleteBrand, getBrand } from '../redux/actions/brandActions'
+import { deleteBrand, getAdminBrand } from '../redux/actions/brandActions'
 import { IBrandData } from '../redux/types/brandTypes'
 import Layout from './../components/admin/Layout'
 import DeleteModal from './../components/modal/DeleteModal'
@@ -14,6 +14,7 @@ const Brand = () => {
   const [openDeleteModal, setOpenDeleteModal] = useState(false)
   const [selectedId, setSelectedId] = useState('')
   const [updatedItem, setUpdatedItem] = useState<IBrandData>({ _id: '', name: '' })
+  const [currPage, setCurrPage] = useState(1)
 
   const deleteModalRef = useRef() as React.MutableRefObject<HTMLDivElement>
   const createBrandRef = useRef() as React.MutableRefObject<HTMLDivElement>
@@ -48,6 +49,24 @@ const Brand = () => {
     return () => document.removeEventListener('mousedown', checkIfClickedOutside)
   }, [openCreateBrandModal])
 
+  const handlePaginationArrow = (type: string) => {
+    let newPage = 0
+
+    if (type === 'prev') {
+      newPage = currPage - 1
+      if (newPage < 1) {
+        newPage = 1
+      }
+    } else if (type === 'next') {
+      newPage = currPage + 1
+      if (newPage > brand.totalPage) {
+        newPage = brand.totalPage
+      }
+    }
+
+    setCurrPage(newPage)
+  }
+
   useEffect(() => {
     const checkIfClickedOutside = (e: MouseEvent) => {
       if (openDeleteModal && deleteModalRef.current && !deleteModalRef.current.contains(e.target as Node)) {
@@ -60,8 +79,8 @@ const Brand = () => {
   }, [openDeleteModal])
 
   useEffect(() => {
-    dispatch(getBrand())
-  }, [dispatch])
+    dispatch(getAdminBrand(auth.token!, currPage))
+  }, [dispatch, auth.token, currPage])
 
   useEffect(() => {
     setBrands(brand.data)
@@ -119,6 +138,30 @@ const Brand = () => {
                   }
                 </tbody>
               </table>
+
+              {
+                brand.totalPage > 1 &&
+                <>
+                  <div className='flex mt-6 border border-gray-300 rounded-md w-fit float-right'>
+                    {
+                      currPage > 1 &&
+                      <div onClick={() => handlePaginationArrow('prev')} className='cursor-pointer py-2 px-4 border-r border-gray-300'>&lt;</div>
+                    }
+
+                    {
+                      Array.from(Array(brand.totalPage).keys()).map((_, idx) => (
+                        <div onClick={() => setCurrPage(idx + 1 )} className={`cursor-pointer py-2 px-4 border-r border-gray-300 ${currPage === idx + 1 ? 'bg-[#3552DC] text-white' : undefined}`}>{idx + 1}</div>
+                      ))
+                    }
+
+                    {
+                      currPage < brand.totalPage &&
+                      <div onClick={() => handlePaginationArrow('next')} className='cursor-pointer py-2 px-4'>&gt;</div>
+                    }
+                  </div>
+                  <div className='clear-both' />
+                </>
+              }
             </div>
           )
         }

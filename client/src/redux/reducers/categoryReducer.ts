@@ -11,6 +11,7 @@ import {
 } from './../types/categoryTypes'
 
 const initialState = {
+  totalPage: 0,
   data: []
 }
 
@@ -24,7 +25,7 @@ const categoryReducer = (state: ICategory = initialState, action: IUpdateCategor
     case GET_CATEGORY:
       return {
         ...state,
-        data: action.payload
+        ...action.payload
       }
     case DELETE_CATEGORY:
       return {

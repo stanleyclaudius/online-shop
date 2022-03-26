@@ -2,6 +2,13 @@ import { Request, Response } from 'express'
 import Product from './../models/Product'
 import Category from './../models/Category'
 
+const Pagination = (req: Request) => {
+  const page = Number(req.query.page) || 1
+  const limit = Number(req.query.limit) || 8
+  const skip = (page - 1) * limit
+  return { page, limit, skip }
+}
+
 const categoryCtrl = {
   createCategory: async(req: Request, res: Response) => {
     try {
@@ -26,8 +33,44 @@ const categoryCtrl = {
   },
   getCategory: async(req: Request, res: Response) => {
     try {
-      const categories = await Category.find().sort('-createdAt')
-      return res.status(200).json({ categories })
+      const { skip, limit } = Pagination(req)
+
+      const data = await Category.aggregate([
+        {
+          $facet: {
+            totalData: [
+              { $sort: { createdAt: -1 } },
+              { $skip: skip },
+              { $limit: limit }
+            ],
+            totalCount: [
+              { $count: 'count' }
+            ]
+          }
+        },
+        {
+          $project: {
+            count: { $arrayElemAt: ['$totalCount.count', 0] },
+            totalData: 1
+          }
+        }
+      ])
+
+      const categories = data[0].totalData
+      const categoryCount = data[0].count
+      let totalPage = 0
+
+      if (categories.length === 0) {
+        totalPage = 0
+      } else {
+        if (categoryCount % limit === 0) {
+          totalPage = categoryCount / limit
+        } else {
+          totalPage = Math.floor(categoryCount / limit) + 1
+        }
+      }
+
+      return res.status(200).json({ categories, totalPage })
     } catch (err: any) {
       return res.status(500).json({ msg: err.message })
     }

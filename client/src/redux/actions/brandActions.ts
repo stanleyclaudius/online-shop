@@ -11,7 +11,7 @@ import {
   IGetBrandType,
   ICreateBrandType,
   IUpdateBrandType,
-  IDeleteBrandType
+  IDeleteBrandType,
 } from './../types/brandTypes'
 
 export const createBrand = (brandData: IBrandData, token: string) => async(dispatch: Dispatch<ICreateBrandType | IAlertType>) => {
@@ -53,7 +53,45 @@ export const getBrand = () => async(dispatch: Dispatch<IGetBrandType | IAlertTyp
     const res = await getDataAPI('brand')
     dispatch({
       type: GET_BRAND,
-      payload: res.data.brands
+      payload: {
+        data: res.data.brands,
+        totalPage: 0
+      }
+    })
+
+    dispatch({
+      type: ALERT,
+      payload: {}
+    })
+  } catch (err: any) {
+    dispatch({
+      type: ALERT,
+      payload: {
+        errors: err.response.data.msg
+      }
+    })
+  }
+}
+
+export const getAdminBrand = (token: string, page: number) => async(dispatch: Dispatch<IGetBrandType | IAlertType>) => {
+  const tokenExpResult = await checkTokenExp(token, dispatch)
+  const accessToken = tokenExpResult ? tokenExpResult : token
+
+  try {
+    dispatch({
+      type: ALERT,
+      payload: {
+        loading: true
+      }
+    })
+
+    const res = await getDataAPI(`brand/admin?page=${page}`, accessToken)
+    dispatch({
+      type: GET_BRAND,
+      payload: {
+        totalPage: res.data.totalPage,
+        data: res.data.brands
+      }
     })
 
     dispatch({

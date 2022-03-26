@@ -9,6 +9,7 @@ export interface IBrandData {
 }
 
 export interface IBrand {
+  totalPage: number
   data: IBrandData[]
 }
 
@@ -18,8 +19,8 @@ export interface ICreateBrandType {
 }
 
 export interface IGetBrandType {
-  type: typeof GET_BRAND,
-  payload: IBrandData[]
+  type: typeof GET_BRAND
+  payload: IBrand
 }
 
 export interface IDeleteBrandType {

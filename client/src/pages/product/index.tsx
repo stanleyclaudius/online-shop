@@ -9,6 +9,7 @@ import CreateProductModal from './../../components/modal/CreateProductModal'
 import Loader from './../../components/general/Loader'
 
 const Product = () => {
+  const [currPage, setCurrPage] = useState(1)
   const [products, setProducts] = useState<IProductData[]>([])
   const [openCreateProductModal, setOpenCreateProductModal] = useState(false)
   const [openDeleteModal, setOpenDeleteModal] = useState(false)
@@ -33,6 +34,24 @@ const Product = () => {
 
   const dispatch = useDispatch()
   const { auth, product, alert } = useSelector((state: RootStore) => state)
+
+  const handlePaginationArrow = (type: string) => {
+    let newPage = 0
+
+    if (type === 'prev') {
+      newPage = currPage - 1
+      if (newPage < 1) {
+        newPage = 1
+      }
+    } else if (type === 'next') {
+      newPage = currPage + 1
+      if (newPage > product.totalPage) {
+        newPage = product.totalPage
+      }
+    }
+
+    setCurrPage(newPage)
+  }
 
   const handleDeleteButtonClicked = (id: string) => {
     setOpenDeleteModal(true)
@@ -86,12 +105,12 @@ const Product = () => {
   }, [openDeleteModal])
 
   useEffect(() => {
-    dispatch(getProduct())
-  }, [dispatch])
+    dispatch(getProduct(currPage))
+  }, [dispatch, currPage])
 
   useEffect(() => {
     setProducts(product.data)
-  }, [product])
+  }, [product.data])
 
   return (
     <>
@@ -151,6 +170,30 @@ const Product = () => {
                   }
                 </tbody>
               </table>
+
+              {
+                product.totalPage > 1 &&
+                <>
+                  <div className='flex mt-6 border border-gray-300 rounded-md w-fit float-right'>
+                    {
+                      currPage > 1 &&
+                      <div onClick={() => handlePaginationArrow('prev')} className='cursor-pointer py-2 px-4 border-r border-gray-300'>&lt;</div>
+                    }
+
+                    {
+                      Array.from(Array(product.totalPage).keys()).map((_, idx) => (
+                        <div onClick={() => setCurrPage(idx + 1 )} className={`cursor-pointer py-2 px-4 border-r border-gray-300 ${currPage === idx + 1 ? 'bg-[#3552DC] text-white' : undefined}`}>{idx + 1}</div>
+                      ))
+                    }
+
+                    {
+                      currPage < product.totalPage &&
+                      <div onClick={() => handlePaginationArrow('next')} className='cursor-pointer py-2 px-4'>&gt;</div>
+                    }
+                  </div>
+                  <div className='clear-both' />
+                </>
+              }
             </div>
           )
         }

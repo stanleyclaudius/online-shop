@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootStore } from './../../utils/Interface'
-import { getHomeProduct, getProduct } from './../../redux/actions/productActions'
+import { getHomeProduct } from './../../redux/actions/productActions'
 import { getBrand } from './../../redux/actions/brandActions'
 import { getHomeCategory } from './../../redux/actions/categoryActions'
 import { IProductData } from './../../redux/types/productTypes'
@@ -44,7 +44,6 @@ const ProductList = () => {
   }, [dispatch, selectedCategory, selectedBrand, selectedSize, selectedColor, selectedPrice, selectedPage, sortBy, sortType])
 
   useEffect(() => {
-    dispatch(getProduct())
     dispatch(getHomeCategory())
     dispatch(getBrand())
   }, [dispatch])

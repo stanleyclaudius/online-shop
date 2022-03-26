@@ -1,6 +1,7 @@
 import { ITransaction, IGetAllTransactionsType, GET_ALL_TRANSACTIONS } from './../types/transactionTypes'
 
 const initialState = {
+  totalPage: 0,
   data: []
 }
 
@@ -9,7 +10,7 @@ const transactionReducer = (state: ITransaction = initialState, action: IGetAllT
     case GET_ALL_TRANSACTIONS:
       return {
         ...state,
-        data: action.payload
+        ...action.payload
       }
     default:
       return state

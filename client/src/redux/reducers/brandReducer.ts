@@ -11,6 +11,7 @@ import {
 } from './../types/brandTypes'
 
 const initialState = {
+  totalPage: 0,
   data: []
 }
 
@@ -24,7 +25,7 @@ const brandReducer = (state: IBrand = initialState, action: IUpdateBrandType | I
     case GET_BRAND:
       return {
         ...state,
-        data: action.payload
+        ...action.payload
       }
     case DELETE_BRAND:
       return {

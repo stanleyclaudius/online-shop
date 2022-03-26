@@ -30,6 +30,7 @@ export interface IProductData {
 }
 
 export interface IProduct {
+  totalPage: number
   data: IProductData[]
 }
 
@@ -52,7 +53,7 @@ export interface IGetHomeProductType {
 
 export interface IGetProductType {
   type: typeof GET_PRODUCT
-  payload: IProductData[]
+  payload: IProduct
 }
 
 export interface IDeleteProductType {

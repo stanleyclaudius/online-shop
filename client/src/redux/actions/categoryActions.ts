@@ -43,7 +43,7 @@ export const createCategory = (categoryData: ICategoryData, token: string) => as
   }
 }
 
-export const getCategory = () => async(dispatch: Dispatch<IGetCategoryType | IAlertType>) => {
+export const getCategory = (page: number, limit: number = 8) => async(dispatch: Dispatch<IGetCategoryType | IAlertType>) => {
   try {
     dispatch({
       type: ALERT,
@@ -52,10 +52,13 @@ export const getCategory = () => async(dispatch: Dispatch<IGetCategoryType | IAl
       }
     })
 
-    const res = await getDataAPI('category')
+    const res = await getDataAPI(`category?page=${page}&limit=${limit}`)
     dispatch({
       type: GET_CATEGORY,
-      payload: res.data.categories
+      payload: {
+        data: res.data.categories,
+        totalPage: res.data.totalPage
+      }
     })
 
     dispatch({

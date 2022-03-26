@@ -263,8 +263,8 @@ const CreateProductModal: React.FC<IProps> = ({
 
   useEffect(() => {
     dispatch(getBrand())
-    dispatch(getCategory())
-  }, [dispatch])
+    dispatch(getCategory(1, category.totalPage * 8))
+  }, [dispatch, category.totalPage])
 
   useEffect(() => {
     if (updatedItem._id) {

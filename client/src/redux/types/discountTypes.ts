@@ -10,7 +10,8 @@ export interface IDiscountData {
 }
 
 export interface IDiscount {
-  data: IDiscountData[]
+  data: IDiscountData[],
+  totalPage: number
 }
 
 export interface ICreateDiscountType {
@@ -20,7 +21,7 @@ export interface ICreateDiscountType {
 
 export interface IGetDiscountsType {
   type: typeof GET_DISCOUNTS
-  payload: IDiscountData[]
+  payload: IDiscount
 }
 
 export interface IUpdateDiscountType {

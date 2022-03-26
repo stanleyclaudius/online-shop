@@ -41,7 +41,7 @@ export const createDiscount = (discountData: IDiscountData, token: string) => as
   }
 }
 
-export const getDiscount = (token: string) => async(dispatch: Dispatch<IGetDiscountsType | IAlertType>) => {
+export const getDiscount = (token: string, page: number) => async(dispatch: Dispatch<IGetDiscountsType | IAlertType>) => {
   const tokenExpResult = await checkTokenExp(token, dispatch)
   const accessToken = tokenExpResult ? tokenExpResult : token
 
@@ -53,10 +53,13 @@ export const getDiscount = (token: string) => async(dispatch: Dispatch<IGetDisco
       }
     })
 
-    const res = await getDataAPI('discount', accessToken)
+    const res = await getDataAPI(`discount?page=${page}`, accessToken)
     dispatch({
       type: GET_DISCOUNTS,
-      payload: res.data.discounts
+      payload: {
+        data: res.data.discounts,
+        totalPage: res.data.totalPage
+      }
     })
 
     dispatch({

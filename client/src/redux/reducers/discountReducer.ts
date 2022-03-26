@@ -11,6 +11,7 @@ import {
 } from './../types/discountTypes'
 
 const initialState = {
+  totalPage: 0,
   data: []
 }
 
@@ -24,7 +25,8 @@ const discountReducer = (state: IDiscount = initialState, action: IGetDiscountsT
     case GET_DISCOUNTS:
       return {
         ...state,
-        data: action.payload
+        data: action.payload.data,
+        totalPage: action.payload.totalPage
       }
     case UPDATE_DISCOUNT:
       return {

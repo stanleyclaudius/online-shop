@@ -4,6 +4,13 @@ import Checkout from './../models/Checkout'
 import Cart from './../models/Cart'
 import { IReqUser } from '../utils/Interface'
 
+const Pagination = (req: Request) => {
+  const page = Number(req.query.page) || 1
+  const limit = Number(req.query.limit) || 8
+  const skip = (page - 1) * limit
+  return { page, skip, limit }
+}
+
 const checkoutCtrl = {
   createCheckout: async(req: IReqUser, res: Response) => {
     try {
@@ -127,8 +134,23 @@ const checkoutCtrl = {
   },
   getAllTransactions: async(req: Request, res: Response) => {
     try {
-      const transactions = await Checkout.find().sort('-createdAt').populate('items.product')
-      return res.status(200).json({ transactions })
+      const { skip, limit } = Pagination(req)
+
+      const transactions = await Checkout.find().sort('-createdAt').skip(skip).limit(limit).populate('items.product')
+      const transactionCount = await Checkout.find().countDocuments()
+      let totalPage = 0
+
+      if (transactions.length === 0) {
+        totalPage = 0
+      } else {
+        if (transactionCount % limit === 0) {
+          totalPage = transactionCount / limit
+        } else {
+          totalPage = Math.floor(transactionCount / limit) + 1
+        }
+      }
+
+      return res.status(200).json({ transactions, totalPage })
     } catch (err: any) {
       return res.status(500).json({ msg: err.message })
     }

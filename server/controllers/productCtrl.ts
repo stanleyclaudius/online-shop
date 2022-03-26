@@ -4,9 +4,9 @@ import Brand from './../models/Brand'
 import Category from './../models/Category'
 import Product from './../models/Product'
 
-const Pagination = (req: Request) => {
+const Pagination = (req: Request, defaultLimit: number) => {
   const page = Number(req.query.page) || 1
-  const limit = Number(req.query.limit) || 9
+  const limit = Number(req.query.limit) || defaultLimit
   const skip = (page - 1) * limit
   return { page, limit, skip }
 }
@@ -62,8 +62,61 @@ const productCtrl = {
   },
   getProduct: async(req: Request, res: Response) => {
     try {
-      const products = await Product.find().sort('-createdAt').populate('brand category')
-      return res.status(200).json({ products })
+      const { skip, limit } = Pagination(req, 8)
+      const data = await Product.aggregate([
+        {
+          $facet: {
+            totalData: [
+              {
+                $lookup: {
+                  from: 'brands',
+                  localField: 'brand',
+                  foreignField: '_id',
+                  as: 'brand'
+                }
+              },
+              { $unwind: '$brand' },
+              {
+                $lookup: {
+                  from: 'categories',
+                  localField: 'category',
+                  foreignField: '_id',
+                  as: 'category'
+                }
+              },
+              { $unwind: '$category' },
+              { $sort: { createdAt: -1} },
+              { $skip: skip },
+              { $limit: limit }
+            ],
+            totalCount: [
+              { $count: 'count' }
+            ]
+          }
+        },
+        {
+          $project: {
+            count: { $arrayElemAt: ['$totalCount.count', 0] },
+            totalData: 1
+          }
+        }
+      ])
+
+      const products = data[0].totalData
+      const productCount = data[0].count
+      let totalPage = 0
+
+      if (products.length === 0) {
+        totalPage = 0
+      } else {
+        if (productCount % limit === 0) {
+          totalPage = productCount / limit
+        } else {
+          totalPage = Math.floor(productCount / limit) + 1
+        }
+      }
+
+      return res.status(200).json({ products, totalPage })
     } catch (err: any) {
       return res.status(500).json({ msg: err.message })
     }
@@ -81,7 +134,7 @@ const productCtrl = {
     }
   },
   getHomeProduct: async(req: Request, res: Response) => {
-    const { skip, limit } = Pagination(req)
+    const { skip, limit } = Pagination(req, 9)
 
     const brandQuery = []
     if (req.query.brand) {

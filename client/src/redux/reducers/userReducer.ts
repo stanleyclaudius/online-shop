@@ -1,6 +1,7 @@
 import { IUserReducer, GET_ALL_USER, IGetAllUserType } from './../types/userTypes'
 
 const initialState = {
+  totalPage: 0,
   data: []
 }
 
@@ -9,7 +10,7 @@ const userReducer = (state: IUserReducer = initialState, action: IGetAllUserType
     case GET_ALL_USER:
       return {
         ...state,
-        data: action.payload
+        ...action.payload
       }
     default:
       return state

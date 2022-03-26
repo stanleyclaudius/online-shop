@@ -4,7 +4,7 @@ import { getDataAPI } from './../../utils/fetchData'
 import { ALERT, IAlertType } from '../types/alertTypes'
 import { checkTokenExp } from '../../utils/checkTokenExp'
 
-export const getAllUser = (token: string) => async(dispatch: Dispatch<IGetAllUserType | IAlertType>) => {
+export const getAllUser = (token: string, page: number) => async(dispatch: Dispatch<IGetAllUserType | IAlertType>) => {
   const tokenExpResult = await checkTokenExp(token, dispatch)
   const accessToken = tokenExpResult ? tokenExpResult : token
 
@@ -16,10 +16,13 @@ export const getAllUser = (token: string) => async(dispatch: Dispatch<IGetAllUse
       }
     })
 
-    const res = await getDataAPI('user', accessToken)
+    const res = await getDataAPI(`user?page=${page}`, accessToken)
     dispatch({
       type: GET_ALL_USER,
-      payload: res.data.users
+      payload: {
+        data: res.data.users,
+        totalPage: res.data.totalPage
+      }
     })
 
     dispatch({

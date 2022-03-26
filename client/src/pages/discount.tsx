@@ -9,6 +9,7 @@ import { deleteDiscount, getDiscount } from '../redux/actions/discountActions'
 import Loader from '../components/general/Loader'
 
 const Discount = () => {
+  const [currPage, setCurrPage] = useState(1)
   const [discounts, setDiscounts] = useState<IDiscountData[]>([])
   const [openCreateDiscountModal, setOpenCreateDiscountModal] = useState(false)
   const [openDeleteModal, setOpenDeleteModal] = useState(false)
@@ -36,6 +37,24 @@ const Discount = () => {
     setOpenDeleteModal(false)
   }
 
+  const handlePaginationArrow = (type: string) => {
+    let newPage = 0
+
+    if (type === 'prev') {
+      newPage = currPage - 1
+      if (newPage < 1) {
+        newPage = 1
+      }
+    } else if (type === 'next') {
+      newPage = currPage + 1
+      if (newPage > discount.totalPage) {
+        newPage = discount.totalPage
+      }
+    }
+
+    setCurrPage(newPage)
+  }
+
   useEffect(() => {
     const checkIfClickedOutside = (e: MouseEvent) => {
       if (openCreateDiscountModal && createDiscountRef.current && !createDiscountRef.current.contains(e.target as Node)) {
@@ -60,8 +79,8 @@ const Discount = () => {
   }, [openDeleteModal])
 
   useEffect(() => {
-    dispatch(getDiscount(auth.token!))
-  }, [dispatch, auth])
+    dispatch(getDiscount(auth.token!, currPage))
+  }, [dispatch, auth, currPage])
 
   useEffect(() => {
     setDiscounts(discount.data)
@@ -119,6 +138,30 @@ const Discount = () => {
                   }
                 </tbody>
               </table>
+
+              {
+                discount.totalPage > 1 &&
+                <>
+                  <div className='flex mt-6 border border-gray-300 rounded-md w-fit float-right'>
+                    {
+                      currPage > 1 &&
+                      <div onClick={() => handlePaginationArrow('prev')} className='cursor-pointer py-2 px-4 border-r border-gray-300'>&lt;</div>
+                    }
+
+                    {
+                      Array.from(Array(discount.totalPage).keys()).map((_, idx) => (
+                        <div onClick={() => setCurrPage(idx + 1 )} className={`cursor-pointer py-2 px-4 border-r border-gray-300 ${currPage === idx + 1 ? 'bg-[#3552DC] text-white' : undefined}`}>{idx + 1}</div>
+                      ))
+                    }
+
+                    {
+                      currPage < discount.totalPage &&
+                      <div onClick={() => handlePaginationArrow('next')} className='cursor-pointer py-2 px-4'>&gt;</div>
+                    }
+                  </div>
+                  <div className='clear-both' />
+                </>
+              }
             </div>
           )
         }

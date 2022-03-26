@@ -1,6 +1,13 @@
 import { Request, Response } from 'express'
 import Brand from './../models/Brand'
 
+const Pagination = (req: Request) => {
+  const page = Number(req.query.page) || 1
+  const limit = Number(req.query.limit) || 8
+  const skip = (page - 1) * limit
+  return { page, limit, skip }
+}
+
 const brandCtrl = {
   createBrand: async(req: Request, res: Response) => {
     try {
@@ -65,6 +72,49 @@ const brandCtrl = {
         msg: `Brand has been updated successfully.`,
         brand
       })
+    } catch (err: any) {
+      return res.status(500).json({ msg: err.message })
+    }
+  },
+  getBrandAdmin: async(req: Request, res: Response) => {
+    try {
+      const { skip, limit } = Pagination(req)
+      const data = await Brand.aggregate([
+        {
+          $facet: {
+            totalData: [
+              { $sort: { createdAt: -1 } },
+              { $skip: skip },
+              { $limit: limit }
+            ],
+            totalCount: [
+              { $count: 'count' }
+            ]
+          }
+        },
+        {
+          $project: {
+            count: { $arrayElemAt: ['$totalCount.count', 0] },
+            totalData: 1
+          }
+        }
+      ])
+
+      const brands = data[0].totalData
+      const brandCount = data[0].count
+      let totalPage = 0
+
+      if (brands.length === 0) {
+        totalPage = 0
+      } else {
+        if (brandCount % limit === 0) {
+          totalPage = brandCount / limit
+        } else {
+          totalPage = Math.floor(brandCount / limit) + 1
+        }
+      }
+
+      return res.status(200).json({ brands, totalPage })
     } catch (err: any) {
       return res.status(500).json({ msg: err.message })
     }

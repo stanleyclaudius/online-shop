@@ -11,6 +11,7 @@ import {
 } from './../types/productTypes'
 
 const initialState = {
+  totalPage: 0,
   data: []
 }
 
@@ -24,7 +25,7 @@ const productReducer = (state: IProduct = initialState, action: IGetProductType 
     case GET_PRODUCT:
       return {
         ...state,
-        data: action.payload
+        ...action.payload
       }
     case DELETE_PRODUCT:
       return {

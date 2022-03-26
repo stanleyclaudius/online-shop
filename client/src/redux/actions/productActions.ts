@@ -46,12 +46,15 @@ export const createProduct = (productData: IProductData, token: string) => async
   }
 }
 
-export const getProduct = () => async(dispatch: Dispatch<IGetProductType | IAlertType>) => {
+export const getProduct = (page: number, limit: number = 8) => async(dispatch: Dispatch<IGetProductType | IAlertType>) => {
   try {
-    const res = await getDataAPI('product')
+    const res = await getDataAPI(`product?page=${page}&limit=${limit}`)
     dispatch({
       type: GET_PRODUCT,
-      payload: res.data.products
+      payload: {
+        data: res.data.products,
+        totalPage: res.data.totalPage
+      }
     })
   } catch (err: any) {
     dispatch({
