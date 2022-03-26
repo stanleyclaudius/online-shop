@@ -17,6 +17,7 @@ import checkoutReducer from './checkoutReducer'
 import reviewReducer from './reviewReducer'
 import qnaReducer from './qnaReducer'
 import dashboardReducer from './dashboardReducer'
+import userReducer from './userReducer'
 
 export default combineReducers({
   alert: alertReducer,
@@ -36,5 +37,6 @@ export default combineReducers({
   checkout: checkoutReducer,
   review: reviewReducer,
   qna: qnaReducer,
-  dashboard: dashboardReducer
+  dashboard: dashboardReducer,
+  user: userReducer
 })

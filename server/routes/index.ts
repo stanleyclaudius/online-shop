@@ -10,6 +10,7 @@ import checkoutRouter from './checkout.route'
 import reviewRouter from './review.route'
 import qnaRouter from './qna.route'
 import dashboardRouter from './dashboard.route'
+import userRouter from './user.route'
 
 const routes = {
   authRouter,
@@ -23,7 +24,8 @@ const routes = {
   checkoutRouter,
   reviewRouter,
   qnaRouter,
-  dashboardRouter
+  dashboardRouter,
+  userRouter
 }
 
 export default routes

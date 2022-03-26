@@ -68,7 +68,7 @@ const Filter: React.FC<IProps> = ({
     setSortType('desc')
   }
 
-  const getSizeAndBrand = useCallback(() => {
+  const getSizeAndColor = useCallback(() => {
     const sizesTemp: number[] = []
     const colorsTemp: string[] = []
 
@@ -132,8 +132,8 @@ const Filter: React.FC<IProps> = ({
   }, [homeProduct.maxPrice, homeProduct.minPrice])
 
   useEffect(() => {
-    getSizeAndBrand()
-  }, [getSizeAndBrand])
+    getSizeAndColor()
+  }, [getSizeAndColor])
 
   return (
     <div
