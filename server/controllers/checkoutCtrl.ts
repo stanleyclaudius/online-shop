@@ -124,6 +124,14 @@ const checkoutCtrl = {
     } catch (err: any) {
       return res.status(500).json({ msg: err.message })
     }
+  },
+  getAllTransactions: async(req: Request, res: Response) => {
+    try {
+      const transactions = await Checkout.find().sort('-createdAt').populate('items.product')
+      return res.status(200).json({ transactions })
+    } catch (err: any) {
+      return res.status(500).json({ msg: err.message })
+    }
   }
 }
 

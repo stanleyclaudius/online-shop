@@ -24,10 +24,12 @@ const HistoryModal: React.FC<IProps> = ({ modalRef, openHistoryModal, setOpenHis
   const { auth } = useSelector((state: RootStore) => state)
 
   useEffect(() => {
-    getDataAPI(`checkout/status/${selectedItem?.chargeId}`, auth.token!)
-      .then(res => {
-        setPaymentStatus(res.data.status.status)
-      })
+    if (selectedItem?.chargeId) {
+      getDataAPI(`checkout/status/${selectedItem?.chargeId}`, auth.token!)
+        .then(res => {
+          setPaymentStatus(res.data.status.status)
+        })
+    }
   }, [selectedItem?.chargeId, auth.token])
 
   useEffect(() => {
