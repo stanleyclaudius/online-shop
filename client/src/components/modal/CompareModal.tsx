@@ -38,9 +38,9 @@ const CompareModal: React.FC<IProps> = ({ compareRef }) => {
     dispatch({ type: OPEN_COMPARE_MODAL, payload: false })
   }
 
-  // useEffect(() => {
-  //   dispatch(getProduct(1, product.totalPage * 8))
-  // }, [dispatch, product.totalPage])
+  useEffect(() => {
+    dispatch(getProduct(1, 100))
+  }, [dispatch])
 
   useEffect(() => {
     if (compare.isOpen && Object.keys(compare.data).length > 0) {
