@@ -1,20 +1,26 @@
 import { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../components/general/Loader'
+import UserDetailModal from '../components/modal/UserDetailModal'
 import { getAllUser } from '../redux/actions/userActions'
 import { IUser, RootStore } from '../utils/Interface'
 import Layout from './../components/admin/Layout'
-import DeleteModal from './../components/modal/DeleteModal'
 
 const User = () => {
   const [currPage, setCurrPage] = useState(1)
   const [users, setUsers] = useState<IUser[]>([])
-  const [openDeleteModal, setOpenDeleteModal] = useState(false)
+  const [openUserDetailModal, setOpenUserDetailModal] = useState(false)
+  const [selectedItem, setSelectedItem] = useState<IUser>()
 
-  const deleteModalRef = useRef() as React.MutableRefObject<HTMLDivElement>
+  const userDetailModalRef = useRef() as React.MutableRefObject<HTMLDivElement>
 
   const dispatch = useDispatch()
   const { auth, alert, user } = useSelector((state: RootStore) => state)
+
+  const handleClickDetail = (item: IUser)  => {
+    setSelectedItem(item)
+    setOpenUserDetailModal(true)
+  }
 
   const handlePaginationArrow = (type: string) => {
     let newPage = 0
@@ -36,14 +42,14 @@ const User = () => {
 
   useEffect(() => {
     const checkIfClickedOutside = (e: MouseEvent) => {
-      if (openDeleteModal && deleteModalRef.current && !deleteModalRef.current.contains(e.target as Node)) {
-        setOpenDeleteModal(false)
+      if (openUserDetailModal && userDetailModalRef.current && !userDetailModalRef.current.contains(e.target as Node)) {
+        setOpenUserDetailModal(false)
       }
     }
 
     document.addEventListener('mousedown', checkIfClickedOutside)
     return () => document.removeEventListener('mousedown', checkIfClickedOutside)
-  }, [openDeleteModal])
+  }, [openUserDetailModal])
 
   useEffect(() => {
     dispatch(getAllUser(auth.token!, currPage))
@@ -84,10 +90,10 @@ const User = () => {
                         <td>{item.address ? item.address : 'Not Set'}</td>
                         <td>
                           <button
-                            onClick={() => setOpenDeleteModal(true)}
-                            className='bg-red-500 text-white px-3 py-1 rounded-full hover:bg-red-600 transition-[background]'
+                            onClick={() => handleClickDetail(item)}
+                            className='bg-blue-500 text-white px-3 py-1 rounded-full hover:bg-blue-600 transition-[background]'
                           >
-                            Delete
+                            Detail
                           </button>
                         </td>
                       </tr>
@@ -124,11 +130,15 @@ const User = () => {
         }
       </Layout>
 
-      <DeleteModal
-        deleteModalRef={deleteModalRef}
-        openDeleteModal={openDeleteModal}
-        setOpenDeleteModal={setOpenDeleteModal}
-      />
+      {
+        selectedItem &&
+        <UserDetailModal
+          openUserDetailModal={openUserDetailModal}
+          setOpenUserDetailModal={setOpenUserDetailModal}
+          userDetailModalRef={userDetailModalRef}
+          selectedItem={selectedItem}
+        />
+      }
     </>
   )
 }
