@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { getCart } from './../redux/actions/cartActions'
 import Navbar from './../components/general/Navbar'
 import Account from './../components/checkout/Account'
 import Shipping from './../components/checkout/Shipping'
@@ -60,8 +61,14 @@ const Checkout = () => {
       setDiscount(tempCheckoutDiscount.code)
     }
   }, [])
+
+  useEffect(() => {
+    if (auth.token) {
+      dispatch(getCart(auth.token))
+    }
+  }, [dispatch, auth.token])
   
-  if (auth.user?.role !== 'user') {
+  if ((auth.user?.role !== 'user') || (cart.length === 0)) {
     return <NotFound />
   }
 
