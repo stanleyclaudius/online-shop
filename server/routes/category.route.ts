@@ -8,8 +8,9 @@ router.route('/')
   .get(categoryCtrl.getCategory)
   .post(isAuthenticated, authorizeRoles('admin'), categoryCtrl.createCategory)
 
-router.route('/home')
-  .get(categoryCtrl.getHomeCategory)
+router.route('/home').get(categoryCtrl.getHomeCategory)
+
+router.route('/admin').get(isAuthenticated, authorizeRoles('admin'), categoryCtrl.getAdminCategory)
 
 router.route('/:id')
   .patch(isAuthenticated, authorizeRoles('admin'), categoryCtrl.updateCategory)

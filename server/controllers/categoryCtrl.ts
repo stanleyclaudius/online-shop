@@ -33,6 +33,15 @@ const categoryCtrl = {
   },
   getCategory: async(req: Request, res: Response) => {
     try {
+      const categories = await Category.find().sort('-createdAt')
+      return res.status(200).json({ categories })
+    } catch (err: any) {
+      return res.status(500).json({ msg: err.message })
+    }
+  },
+  getAdminCategory: async(req: Request, res: Response) => {
+    try {
+      console.log('trigger')
       const { skip, limit } = Pagination(req)
 
       const data = await Category.aggregate([

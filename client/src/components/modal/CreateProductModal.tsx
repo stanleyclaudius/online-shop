@@ -263,7 +263,7 @@ const CreateProductModal: React.FC<IProps> = ({
 
   useEffect(() => {
     dispatch(getBrand())
-    dispatch(getCategory(1, category.totalPage * 8))
+    dispatch(getCategory())
   }, [dispatch, category.totalPage])
 
   useEffect(() => {

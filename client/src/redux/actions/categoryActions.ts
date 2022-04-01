@@ -43,7 +43,30 @@ export const createCategory = (categoryData: ICategoryData, token: string) => as
   }
 }
 
-export const getCategory = (page: number, limit: number = 8) => async(dispatch: Dispatch<IGetCategoryType | IAlertType>) => {
+export const getCategory = () => async(dispatch: Dispatch<IGetCategoryType | IAlertType>) => {
+  try {
+    const res = await getDataAPI('category')
+    dispatch({
+      type: GET_CATEGORY,
+      payload: {
+        data: res.data.categories,
+        totalPage: 0
+      }
+    })
+  } catch (err: any) {
+    dispatch({
+      type: ALERT,
+      payload: {
+        errors: err.response.data.msg
+      }
+    })
+  }
+}
+
+export const getAdminCategory = (token: string, page: number, limit: number = 8) => async(dispatch: Dispatch<IGetCategoryType | IAlertType>) => {
+  const tokenExpResult = await checkTokenExp(token, dispatch)
+  const accessToken = tokenExpResult ? tokenExpResult : token
+
   try {
     dispatch({
       type: ALERT,
@@ -52,7 +75,7 @@ export const getCategory = (page: number, limit: number = 8) => async(dispatch: 
       }
     })
 
-    const res = await getDataAPI(`category?page=${page}&limit=${limit}`)
+    const res = await getDataAPI(`category/admin?page=${page}&limit=${limit}`, accessToken)
     dispatch({
       type: GET_CATEGORY,
       payload: {

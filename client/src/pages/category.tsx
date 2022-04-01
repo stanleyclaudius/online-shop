@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootStore } from './../utils/Interface'
-import { getCategory, deleteCategory } from './../redux/actions/categoryActions'
+import { deleteCategory, getAdminCategory } from './../redux/actions/categoryActions'
 import { ICategoryData } from './../redux/types/categoryTypes'
 import Layout from './../components/admin/Layout'
 import DeleteModal from './../components/modal/DeleteModal'
@@ -80,8 +80,8 @@ const Category = () => {
   }, [openDeleteModal])
 
   useEffect(() => {
-    dispatch(getCategory(currPage))
-  }, [dispatch, currPage])
+    dispatch(getAdminCategory(auth.token!, currPage))
+  }, [dispatch, currPage, auth.token])
 
   useEffect(() => {
     setCategories(category.data)
