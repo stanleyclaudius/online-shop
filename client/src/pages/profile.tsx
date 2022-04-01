@@ -24,6 +24,7 @@ interface IDistrictData extends IProvinceData {
 
 const Profile = () => {
   const [profileData, setProfileData] = useState({
+    avatar: '',
     name: '',
     phoneNumber: '',
     province: '',
@@ -35,6 +36,7 @@ const Profile = () => {
     newPassword: '',
     newPasswordConfirmation: ''
   })
+  const [tempAvatar, setTempAvatar] = useState<File[]>([])
   const [provinceData, setProvinceData] = useState<IProvinceData[]>([])
   const [cityData, setCityData] = useState<ICityData[]>([])
   const [districtData, setDistrictData] = useState<IDistrictData[]>([])
@@ -46,6 +48,12 @@ const Profile = () => {
   const handleChange = (e: InputChange) => {
     const { name, value } = e.target
     setProfileData({ ...profileData, [name]: value })
+  }
+
+  const handleChangeImage = (e: InputChange) => {
+    const target = e.target as HTMLInputElement
+    const files = [...Object.values(target.files!)]
+    setTempAvatar([...files])
   }
 
   const handleSubmit = async(e: FormSubmit, type: string) => {
@@ -69,8 +77,9 @@ const Profile = () => {
             city: auth.user?.city,
             district: auth.user?.district,
             postalCode: auth.user?.postalCode,
-            address: auth.user?.address
-          }, auth.token!)
+            address: auth.user?.address,
+            tempAvatar
+          }, auth)
         )
         setLoading('')
         break
@@ -80,8 +89,9 @@ const Profile = () => {
           editProfile({
             ...profileData,
             name: auth.user?.name,
-            phoneNumber: auth.user?.phone
-          }, auth.token!)
+            phoneNumber: auth.user?.phone,
+            avatar: auth.user?.avatar
+          }, auth)
         )
         setLoading('')
         break
@@ -162,6 +172,7 @@ const Profile = () => {
   useEffect(() => {
     if (auth.user) {
       setProfileData({
+        avatar: auth.user.avatar,
         name: auth.user.name,
         phoneNumber: auth.user.phone,
         province: auth.user.province,
@@ -184,6 +195,12 @@ const Profile = () => {
         <div className='mb-8'>
           <h1 className='text-xl'>Edit Profile</h1>
           <form onSubmit={e => handleSubmit(e, 'profile')}>
+            <div className='flex gap-5 mt-4'>
+              <div className='w-32 h-32 rounded-full outline outline-2 outline-gray-300 outline-offset-2 shrink-0'>
+                <img src={tempAvatar.length > 0 ? URL.createObjectURL(tempAvatar[0]) : profileData.avatar} alt={profileData.name} className='w-full h-full rounded-full' />
+              </div>
+              <input type='file' accept='image/*' onChange={handleChangeImage} className='w-full rounded-md border border-gray-300 p-2 text-sm outline-0 self-start' />
+            </div>
             <div className='mt-4'>
               <label
                 htmlFor='name'

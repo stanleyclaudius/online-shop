@@ -196,13 +196,13 @@ const authCtrl = {
   },
   editProfile: async(req: IReqUser, res: Response) => {
     try {
-      const { name, phoneNumber, province, city, district, postalCode, address } = req.body
+      const { name, phoneNumber, province, city, district, postalCode, avatar, address } = req.body
       
       if (!name)
         return res.status(400).json({ msg: 'Please provide your name.' })
 
       const updatedUser = await User.findOneAndUpdate({ _id: req.user?._id }, {
-        name, phone: phoneNumber, province, city, district, postalCode, address
+        name, avatar, phone: phoneNumber, province, city, district, postalCode, address
       }, { new: true })
 
       if (!updatedUser)
