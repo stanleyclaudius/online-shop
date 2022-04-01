@@ -134,6 +134,11 @@ const categoryCtrl = {
   deleteCategory: async(req: Request, res: Response) => {
     try {
       const { id } = req.params
+
+      const totalProduct = await Product.find({ category: id }).countDocuments()
+      if (totalProduct > 0)
+        return res.status(400).json({ msg: 'Failed to delete category, because products with this category still existed.' })
+
       const category = await Category.findByIdAndDelete(id)
       if (!category)
         return res.status(404).json({ msg: 'Category not found.' })

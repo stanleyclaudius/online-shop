@@ -75,6 +75,7 @@ const Transaction = () => {
                   <tr className='text-sm bg-[#3552DC] text-white'>
                     <th className='p-3'>No</th>
                     <th>Transaction ID</th>
+                    <th>Order By</th>
                     <th>Date</th>
                     <th>Total Discount</th>
                     <th>Net Price</th>
@@ -89,6 +90,7 @@ const Transaction = () => {
                       <tr className='text-sm text-center bg-gray-100'>
                         <td className='p-3'>{idx + 1}</td>
                         <td>{item._id}</td>
+                        <td>{item.user?.name}</td>
                         <td>{new Date(`${item.createdAt}`).toLocaleDateString()}</td>
                         <td>{item.discount ? `${item.discount}%` : '-'}</td>
                         <td>{numberFormatter(item.totalPrice)},00</td>

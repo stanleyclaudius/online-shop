@@ -4,6 +4,7 @@ import { AiOutlineClose } from 'react-icons/ai'
 import { FaPercentage } from 'react-icons/fa'
 import { MdLocationOn } from 'react-icons/md'
 import { RiSecurePaymentLine } from 'react-icons/ri'
+import { GoPackage } from 'react-icons/go'
 import { ICheckoutData } from '../../redux/types/checkoutTypes'
 import { getDataAPI } from '../../utils/fetchData'
 import { numberFormatter } from '../../utils/numberFormatter'
@@ -72,6 +73,16 @@ const HistoryModal: React.FC<IProps> = ({ modalRef, openHistoryModal, setOpenHis
               <h1 className='font-oswald text-lg'>{province}, {city}, {selectedItem?.district}, {selectedItem?.postalCode}</h1>
               <p className='text-sm my-1'>{selectedItem?.address}</p>
               <p className='text-sm'>{selectedItem?.expedition} - {selectedItem?.expeditionService}: {numberFormatter(selectedItem?.expeditionFee!)}</p>
+            </div>
+          </div>
+          <div className='flex items-center gap-7 py-5 border-b border-gray-300'>
+            <div className='w-20 h-20 border border-gray-300 rounded-md flex items-center justify-center p-2'>
+              <GoPackage className='text-5xl' />
+            </div>
+            <div>
+              <h1 className='font-oswald text-lg'>{selectedItem?.recipientName}</h1>
+              <p className='text-sm my-1'>{selectedItem?.recipientEmail}</p>
+              <p className='text-sm'>{selectedItem?.recipientPhone}</p>
             </div>
           </div>
           <div className='flex items-center gap-7 py-5 border-b border-gray-300'>

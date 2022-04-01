@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
 import Brand from './../models/Brand'
+import Product from './../models/Product'
 
 const Pagination = (req: Request) => {
   const page = Number(req.query.page) || 1
@@ -41,6 +42,11 @@ const brandCtrl = {
   deleteBrand: async(req: Request, res: Response) => {
     try {
       const { id } = req.params
+      
+      const totalProduct = await Product.find({ brand: id }).countDocuments()
+      if (totalProduct > 0)
+        return res.status(400).json({ msg: 'Failed to delete brand, because products with this brand still existed.' })
+
       const brand = await Brand.findByIdAndDelete(id)
       if (!brand)
         return res.status(404).json({ msg: 'Brand not found.' })

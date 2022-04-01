@@ -136,7 +136,7 @@ const checkoutCtrl = {
     try {
       const { skip, limit } = Pagination(req)
 
-      const transactions = await Checkout.find().sort('-createdAt').skip(skip).limit(limit).populate('items.product')
+      const transactions = await Checkout.find().sort('-createdAt').skip(skip).limit(limit).populate('items.product user')
       const transactionCount = await Checkout.find().countDocuments()
       let totalPage = 0
 

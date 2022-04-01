@@ -1,3 +1,4 @@
+import { IUser } from "../../utils/Interface"
 import { IProductData } from "./productTypes"
 
 export const CREATE_CHECKOUT = 'CREATE_CHECKOUT'
@@ -18,6 +19,7 @@ export interface itemsObj {
 
 export interface ICheckoutData {
   _id?: string
+  user?: IUser
   recipientName: string
   recipientPhone: string
   recipientEmail: string
