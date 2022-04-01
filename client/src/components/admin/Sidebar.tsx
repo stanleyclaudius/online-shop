@@ -4,6 +4,7 @@ import { FaBoxes, FaPercentage, FaUser } from 'react-icons/fa'
 import { MdOutlineAccountTree } from 'react-icons/md'
 import { RiSecurePaymentFill } from 'react-icons/ri'
 import { SiNike } from 'react-icons/si'
+import { AiFillHome } from 'react-icons/ai'
 
 const Sidebar = () => {
   const { page } = useParams()
@@ -53,6 +54,12 @@ const Sidebar = () => {
           className={`cursor-pointer p-3 hover:bg-[#F0D9F5] rounded-md ${page === 'brand' ? 'bg-[#F0D9F5]' : undefined}`}
         >
           <SiNike className={`${page === 'brand' ? 'text-[#B246D5]' : undefined}`} />
+        </Link>
+        <Link
+          to='/display'
+          className={`cursor-pointer p-3 hover:bg-[#F0D9F5] rounded-md ${page === 'display' ? 'bg-[#F0D9F5]' : undefined}`}
+        >
+          <AiFillHome className={`${page === 'display' ? 'text-[#B246D5]' : undefined}`} />
         </Link>
       </div>
     </div>

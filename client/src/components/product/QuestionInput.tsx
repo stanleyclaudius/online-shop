@@ -55,7 +55,7 @@ const QuestionInput: React.FC<IProps> = ({ id, reply }) => {
         </div>
         <p className='font-oswald tracking-wide'>{auth.user?.name}</p>
       </div>
-      <div className='flex-1'>
+      <div className='flex-1 w-full'>
         <form onSubmit={handleSubmit}>
           <textarea className='rounded-md p-3 text-sm w-full border border-gray-300 rounded-full resize-none h-24 outline-0' placeholder='Post your question here ...' value={question} onChange={e => setQuestion(e.target.value)} />
           <button

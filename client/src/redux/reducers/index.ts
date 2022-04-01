@@ -19,6 +19,7 @@ import qnaReducer from './qnaReducer'
 import dashboardReducer from './dashboardReducer'
 import userReducer from './userReducer'
 import transactionReducer from './transactionReducer'
+import bannerReducer from './bannerReducer'
 
 export default combineReducers({
   alert: alertReducer,
@@ -40,5 +41,6 @@ export default combineReducers({
   qna: qnaReducer,
   dashboard: dashboardReducer,
   user: userReducer,
-  transaction: transactionReducer
+  transaction: transactionReducer,
+  banner: bannerReducer
 })

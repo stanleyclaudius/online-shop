@@ -411,6 +411,14 @@ const productCtrl = {
     } catch (err: any) {
       return res.status(500).json({ msg: err.message })
     }
+  },
+  getAllProducts: async(req: Request, res: Response) => {
+    try {
+      const products = await Product.find().sort('-createdAt')
+      return res.status(200).json({ products })
+    } catch (err: any) {
+      return res.status(500).json({ msg: err.message })
+    }
   }
 }
 

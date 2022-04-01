@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
-import { BiDetail } from 'react-icons/bi'
 import { IoCopyOutline } from 'react-icons/io5'
 import { numberFormatter } from './../../utils/numberFormatter'
 import { IProductData } from './../../redux/types/productTypes'
 import { addWishlist, deleteWishlistItem } from './../../redux/actions/wishlistActions'
 import { RootStore } from './../../utils/Interface'
 import { SET_COMPARE_DATA } from '../../redux/types/compareTypes'
+import { GoLinkExternal } from 'react-icons/go'
 
 interface IProps {
   product: IProductData
@@ -69,7 +69,7 @@ const ProductCard: React.FC<IProps> = ({ view, product }) => {
                 onClick={() => navigate(`/product/${product._id}`)}
                 className='flex items-center gap-2 bg-white rounded-full px-7 font-medium py-3 text-[#415FFA] text-sm'
               >
-                <BiDetail />
+                <GoLinkExternal />
                 Detail
               </button>
               <div className='flex items-center gap-3'>

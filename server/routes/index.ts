@@ -11,6 +11,7 @@ import reviewRouter from './review.route'
 import qnaRouter from './qna.route'
 import dashboardRouter from './dashboard.route'
 import userRouter from './user.route'
+import bannerRouter from './banner.route'
 
 const routes = {
   authRouter,
@@ -25,7 +26,8 @@ const routes = {
   reviewRouter,
   qnaRouter,
   dashboardRouter,
-  userRouter
+  userRouter,
+  bannerRouter
 }
 
 export default routes
