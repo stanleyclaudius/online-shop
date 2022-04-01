@@ -10,6 +10,7 @@ import { RootStore } from '../utils/Interface'
 import { getCheckoutHistory } from '../redux/actions/checkoutActions'
 import { numberFormatter } from '../utils/numberFormatter'
 import Loader from '../components/general/Loader'
+import NotFound from './../components/general/NotFound'
 
 const History = () => {
   const [checkoutHistory, setCheckoutHistory] = useState<ICheckoutData[]>([])
@@ -44,6 +45,10 @@ const History = () => {
   useEffect(() => {
     setCheckoutHistory(checkout.data)
   }, [checkout.data])
+
+  if (auth.user?.role !== 'user') {
+    return <NotFound />
+  }
 
   return (
     <>

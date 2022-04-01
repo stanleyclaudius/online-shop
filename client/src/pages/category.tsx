@@ -7,6 +7,7 @@ import Layout from './../components/admin/Layout'
 import DeleteModal from './../components/modal/DeleteModal'
 import CreateCategoryModal from './../components/modal/CreateCategoryModal'
 import Loader from './../components/general/Loader'
+import NotFound from './../components/general/NotFound'
 
 const Category = () => {
   const [currPage, setCurrPage] = useState(1)
@@ -85,6 +86,10 @@ const Category = () => {
   useEffect(() => {
     setCategories(category.data)
   }, [category.data])
+
+  if (auth.user?.role !== 'admin') {
+    return <NotFound />
+  }
 
   return (
     <>

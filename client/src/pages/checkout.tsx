@@ -11,6 +11,7 @@ import { RootStore } from '../utils/Interface'
 import { numberFormatter } from '../utils/numberFormatter'
 import { ALERT } from '../redux/types/alertTypes'
 import { getDataAPI } from '../utils/fetchData'
+import NotFound from './../components/general/NotFound'
 
 const Checkout = () => {
   const [discount, setDiscount] = useState('')
@@ -18,7 +19,7 @@ const Checkout = () => {
   const [currPage, setCurrPage] = useState('account')
 
   const dispatch = useDispatch()
-  const { cart, shipping } = useSelector((state: RootStore) => state)
+  const { auth, cart, shipping } = useSelector((state: RootStore) => state)
 
   const checkDiscount = async() => {
     if (!discount) {
@@ -60,6 +61,10 @@ const Checkout = () => {
     }
   }, [])
   
+  if (auth.user?.role !== 'user') {
+    return <NotFound />
+  }
+
   return (
     <>
       <Navbar />

@@ -8,6 +8,7 @@ import Header from './../components/home/Header'
 import Subscribe from './../components/general/Subscribe'
 import Footer from './../components/general/Footer'
 import Loader from '../components/general/Loader'
+import NotFound from './../components/general/NotFound'
 
 interface IProvinceData {
   id: number
@@ -186,6 +187,10 @@ const Profile = () => {
       })
     }
   }, [auth.user])
+
+  if (auth.user?.role !== 'user') {
+    return <NotFound />
+  }
 
   return (
     <>

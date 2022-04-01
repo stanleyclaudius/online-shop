@@ -7,6 +7,7 @@ import Layout from './../components/admin/Layout'
 import DeleteModal from './../components/modal/DeleteModal'
 import CreateBrandModal from './../components/modal/CreateBrandModal'
 import Loader from './../components/general/Loader'
+import NotFound from './../components/general/NotFound'
 
 const Brand = () => {
   const [brands, setBrands] = useState<IBrandData[]>([])
@@ -85,6 +86,10 @@ const Brand = () => {
   useEffect(() => {
     setBrands(brand.data)
   }, [brand.data])
+
+  if (auth.user?.role !== 'admin') {
+    return <NotFound />
+  }
 
   return (
     <>

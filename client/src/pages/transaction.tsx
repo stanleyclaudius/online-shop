@@ -7,6 +7,7 @@ import { RootStore } from '../utils/Interface'
 import { numberFormatter } from '../utils/numberFormatter'
 import Layout from './../components/admin/Layout'
 import HistoryModal from './../components/modal/HistoryModal'
+import NotFound from './../components/general/NotFound'
 
 const Transaction = () => {
   const [currPage, setCurrPage] = useState(1)
@@ -60,6 +61,10 @@ const Transaction = () => {
   useEffect(() => {
     setTransactions(transaction.data)
   }, [transaction.data])
+  
+  if (auth.user?.role !== 'admin') {
+    return <NotFound />
+  }
 
   return (
     <>

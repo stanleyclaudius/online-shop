@@ -7,6 +7,7 @@ import { RootStore } from '../utils/Interface'
 import { IDiscountData } from '../redux/types/discountTypes'
 import { deleteDiscount, getDiscount } from '../redux/actions/discountActions'
 import Loader from '../components/general/Loader'
+import NotFound from './../components/general/NotFound'
 
 const Discount = () => {
   const [currPage, setCurrPage] = useState(1)
@@ -85,6 +86,10 @@ const Discount = () => {
   useEffect(() => {
     setDiscounts(discount.data)
   }, [discount.data])
+
+  if (auth.user?.role !== 'admin') {
+    return <NotFound />
+  }
 
   return (
     <>

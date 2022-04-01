@@ -5,6 +5,7 @@ import UserDetailModal from '../components/modal/UserDetailModal'
 import { getAllUser } from '../redux/actions/userActions'
 import { IUser, RootStore } from '../utils/Interface'
 import Layout from './../components/admin/Layout'
+import NotFound from './../components/general/NotFound'
 
 const User = () => {
   const [currPage, setCurrPage] = useState(1)
@@ -58,6 +59,10 @@ const User = () => {
   useEffect(() => {
     setUsers(user.data)
   }, [user.data])
+
+  if (auth.user?.role !== 'admin') {
+    return <NotFound />
+  }
 
   return (
     <>

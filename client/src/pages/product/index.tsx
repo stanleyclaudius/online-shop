@@ -7,6 +7,7 @@ import Layout from './../../components/admin/Layout'
 import DeleteModal from './../../components/modal/DeleteModal'
 import CreateProductModal from './../../components/modal/CreateProductModal'
 import Loader from './../../components/general/Loader'
+import NotFound from './../../components/general/NotFound'
 
 const Product = () => {
   const [currPage, setCurrPage] = useState(1)
@@ -111,6 +112,10 @@ const Product = () => {
   useEffect(() => {
     setProducts(product.data)
   }, [product.data])
+
+  if (auth.user?.role !== 'admin') {
+    return <NotFound />
+  }
 
   return (
     <>

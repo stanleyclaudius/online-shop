@@ -10,6 +10,7 @@ import { Bar, Line, Chart } from 'react-chartjs-2'
 import { Chart as ChartJS, registerables } from 'chart.js'
 import { getDashboardData } from './../redux/actions/dashboardActions'
 import { RootStore } from '../utils/Interface'
+import NotFound from './../components/general/NotFound'
 
 ChartJS.register(...registerables)
 
@@ -20,6 +21,10 @@ const Dashboard = () => {
   useEffect(() => {
     dispatch(getDashboardData(auth.token!))
   }, [dispatch, auth.token])
+
+  if (auth.user?.role !== 'admin') {
+    return <NotFound />
+  }
 
   return (
     <Layout>
