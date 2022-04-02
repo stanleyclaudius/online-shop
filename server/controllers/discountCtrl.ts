@@ -39,7 +39,6 @@ const discountCtrl = {
   getDiscount: async(req: Request, res: Response) => {
     try {
       const { limit, skip } = Pagination(req)
-      // const discounts = await Discount.find().sort('-createdAt')
       const data = await Discount.aggregate([
         {
           $facet: {

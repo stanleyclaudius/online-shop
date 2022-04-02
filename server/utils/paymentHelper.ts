@@ -1,8 +1,21 @@
 import Xendit from 'xendit-node'
+import dotenv from 'dotenv'
+
+dotenv.config({
+  path: './server/config/.env'
+})
 
 const xenditObj = new Xendit({
-  secretKey: 'xnd_development_XBeVaoP4xPnnwsps6VqCaHjQiLniCQxI8CQUTrhGkjvhqoRXGHJe8pfHto57zdd'
+  secretKey: `${process.env.XENDIT_SECRET_KEY}`
 })
+
+enum Currency {
+  IDR = 'IDR'
+}
+
+enum ChannelCode {
+  ID_OVO = 'ID_OVO'
+}
 
 const { EWallet } = xenditObj
 const eWalletSpecificOptions = {}
@@ -12,12 +25,10 @@ export const createOvoTransaction = async(amount: number, mobileNumber: string, 
   try {
     const resp = await wallet.createEWalletCharge({
       referenceID: refId,
-      // @ts-ignore
-      currency: 'IDR',
+      currency: Currency.IDR,
       amount: Math.trunc(amount),
       checkoutMethod: 'ONE_TIME_PAYMENT',
-      // @ts-ignore
-      channelCode: 'ID_OVO',
+      channelCode: ChannelCode.ID_OVO,
       channelProperties: {
         mobileNumber
       },

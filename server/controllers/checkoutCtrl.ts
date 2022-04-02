@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import { createOvoTransaction, getChargeStatus } from './../utils/paymentHelper'
 import Checkout from './../models/Checkout'
 import Cart from './../models/Cart'
-import { IReqUser } from '../utils/Interface'
+import { IReqUser, IXenditTransaction } from './../utils/Interface'
 
 const Pagination = (req: Request) => {
   const page = Number(req.query.page) || 1
@@ -97,10 +97,8 @@ const checkoutCtrl = {
       })
 
       if (paymentMethod === 'ovo') {
-        const transaction = await createOvoTransaction(totalPrice, '+' + ovoPhoneNumber, newCheckout._id)
-        // @ts-ignore
+        const transaction = <IXenditTransaction>await createOvoTransaction(totalPrice, '+' + ovoPhoneNumber, newCheckout._id)
         newCheckout.chargeId = transaction.id
-        // @ts-ignore
         newCheckout.status = transaction.status
       }
 

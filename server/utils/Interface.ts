@@ -49,3 +49,8 @@ export interface IUserSocialRegister {
   type: string
   avatar: string
 }
+
+export interface IXenditTransaction {
+  id: string
+  status: string
+}
