@@ -2,7 +2,7 @@ import { Dispatch } from 'redux'
 import { checkTokenExp } from '../../utils/checkTokenExp'
 import { getDataAPI, patchDataAPI, postDataAPI } from '../../utils/fetchData'
 import { ALERT, IAlertType } from '../types/alertTypes'
-import { CREATE_REVIEW, GET_REVIEW, ICreateReviewType, IGetReviewType, ILikeReviewType, IReviewData, IUnlikeReviewType, LIKE_REVIEW, UNLIKE_REVIEW } from './../types/reviewTypes'
+import { GET_REVIEW, ICreateReviewType, IGetReviewType, ILikeReviewType, IReviewData, IUnlikeReviewType } from './../types/reviewTypes'
 
 export const getReview = (id: string, page: number = 1) => async(dispatch: Dispatch<IGetReviewType | IAlertType>) => {
   try {
@@ -27,13 +27,6 @@ export const createReview = (reviewData: IReviewData, token: string) => async(di
 
   try {
     const res = await postDataAPI('review', reviewData, accessToken)
-    dispatch({
-      type: CREATE_REVIEW,
-      payload: {
-        ...res.data.review,
-        user: reviewData.user
-      }
-    })
 
     dispatch({
       type: ALERT,
@@ -51,20 +44,12 @@ export const createReview = (reviewData: IReviewData, token: string) => async(di
   }
 }
 
-export const likeReview = (id: string, user: string, token: string) => async(dispatch: Dispatch<ILikeReviewType | IAlertType>) => {
+export const likeReview = (id: string, product: string, token: string) => async(dispatch: Dispatch<ILikeReviewType | IAlertType>) => {
   const tokenExpResult = await checkTokenExp(token, dispatch)
   const accessToken = tokenExpResult ? tokenExpResult : token
   
   try {
-    dispatch({
-      type: LIKE_REVIEW,
-      payload: {
-        id,
-        user
-      }
-    })
-
-    await patchDataAPI(`review/like/${id}`, {}, accessToken)
+    await patchDataAPI(`review/like/${id}`, { product }, accessToken)
   } catch (err: any) {
     dispatch({
       type: ALERT,
@@ -75,20 +60,12 @@ export const likeReview = (id: string, user: string, token: string) => async(dis
   }
 }
 
-export const unlikeReview = (id: string, user: string, token: string) => async(dispatch: Dispatch<IUnlikeReviewType | IAlertType>) => {
+export const unlikeReview = (id: string, product: string, token: string) => async(dispatch: Dispatch<IUnlikeReviewType | IAlertType>) => {
   const tokenExpResult = await checkTokenExp(token, dispatch)
   const accessToken = tokenExpResult ? tokenExpResult : token
   
   try {
-    dispatch({
-      type: UNLIKE_REVIEW,
-      payload: {
-        id,
-        user
-      }
-    })
-
-    await patchDataAPI(`review/unlike/${id}`, {}, accessToken)
+    await patchDataAPI(`review/unlike/${id}`, { product }, accessToken)
   } catch (err: any) {
     dispatch({
       type: ALERT,

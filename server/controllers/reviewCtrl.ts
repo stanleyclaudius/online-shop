@@ -3,6 +3,7 @@ import { IReqUser } from './../utils/Interface'
 import mongoose from 'mongoose'
 import Review from './../models/Review'
 import Checkout from './../models/Checkout'
+import { io } from './../index'
 
 const Pagination = (req: Request) => {
   const page = Number(req.query.page) || 1
@@ -42,6 +43,14 @@ const reviewCtrl = {
         star,
         content
       })
+
+      const reviewData = {
+        ...newReview._doc,
+        user: req.user
+      }
+
+      io.to(product).emit('createReviewToClient', reviewData)
+
       await newReview.save()
 
       return res.status(200).json({
@@ -145,6 +154,11 @@ const reviewCtrl = {
       if (!review)
         return res.status(404).json({ msg: `Review with ID ${req.params.id} not found.` })
 
+      io.to(req.body.product).emit('likeReviewToClient', {
+        id: req.params.id,
+        user: req.user?._id
+      })
+
       return res.status(200).json({ msg: 'Review liked' })
     } catch (err: any) {
       return res.status(500).json({ msg: err.message })
@@ -158,6 +172,11 @@ const reviewCtrl = {
 
       if (!review)
         return res.status(404).json({ msg: `Review with ID ${req.params.id} not found.` })
+
+      io.to(req.body.product).emit('unlikeReviewToClient', {
+        id: req.params.id,
+        user: req.user?._id
+      })
 
       return res.status(200).json({ msg: 'Review unliked.' })
     } catch (err: any) {

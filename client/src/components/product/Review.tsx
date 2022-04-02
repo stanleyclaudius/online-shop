@@ -28,10 +28,10 @@ const Review: React.FC<IProps> = ({ item }) => {
 
     if (isLike) {
       setIsLike(false)
-      dispatch(unlikeReview(item._id!, auth.user?._id!, auth.token!))
+      dispatch(unlikeReview(item._id!, item.product, auth.token!))
     } else {
       setIsLike(true)
-      dispatch(likeReview(item._id!, auth.user?._id!, auth.token!))
+      dispatch(likeReview(item._id!, item.product, auth.token!))
     }
   }
 
