@@ -34,10 +34,10 @@ const Qna: React.FC<IProps> = ({ children, item }) => {
     
     if (isLike) {
       setIsLike(false)
-      dispatch(unlikeQna(item._id!, auth.user?._id!, auth.token!))
+      dispatch(unlikeQna(item._id!, item.product, auth.token!))
     } else {
       setIsLike(true)
-      dispatch(likeQna(item._id!, auth.user?._id!, auth.token!))
+      dispatch(likeQna(item._id!, item.product, auth.token!))
     }
   }
   

@@ -10,6 +10,9 @@ import Alert from './components/general/Alert'
 import CompareModal from './components/modal/CompareModal'
 import ReviewModal from './components/modal/ReviewModal'
 import { OPEN_REVIEW_MODAL } from './redux/types/reviewTypes'
+import io from 'socket.io-client'
+import { SOCKET } from './redux/types/socketTypes'
+import SocketClient from './SocketClient'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -47,11 +50,21 @@ const App = () => {
   }, [review.isOpen, dispatch])
 
   useEffect(() => {
+    const socket = io()
+    dispatch({ type: SOCKET, payload: socket })
+    
+    return () => {
+      socket.close()
+    }
+  }, [dispatch])
+
+  useEffect(() => {
     dispatch(refreshToken())
   }, [dispatch])
 
   return (
     <>
+      <SocketClient />
       <Alert />
       <Router>
         <CompareModal compareRef={compareRef} />

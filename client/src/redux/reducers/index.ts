@@ -20,6 +20,7 @@ import dashboardReducer from './dashboardReducer'
 import userReducer from './userReducer'
 import transactionReducer from './transactionReducer'
 import bannerReducer from './bannerReducer'
+import socketReducer from './socketReducer'
 
 export default combineReducers({
   alert: alertReducer,
@@ -42,5 +43,6 @@ export default combineReducers({
   dashboard: dashboardReducer,
   user: userReducer,
   transaction: transactionReducer,
-  banner: bannerReducer
+  banner: bannerReducer,
+  socket: socketReducer
 })

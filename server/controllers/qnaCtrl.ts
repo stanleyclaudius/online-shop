@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import { IReqUser } from './../utils/Interface'
 import Qna from './../models/Qna'
+import { io } from './../index'
 
 const qnaCtrl = {
   createQna: async(req: IReqUser, res: Response) => {
@@ -15,6 +16,15 @@ const qnaCtrl = {
         user: req.user?._id,
         product
       })
+
+      const qnaData = {
+        ...newQna._doc,
+        user: req.user,
+        likes: []
+      }
+
+      io.to(product).emit('createQnaToClient', qnaData)
+
       await newQna.save()
 
       return res.status(200).json({ qna: newQna })
@@ -38,6 +48,11 @@ const qnaCtrl = {
       if (!qna)
         return res.status(404).json({ msg: `Qna with ID ${req.params.id} not found.` })
 
+      io.to(req.body.product).emit('likeQnaToClient', {
+        id: req.params.id,
+        user: req.user?._id
+      })
+
       return res.status(200).json({ msg: 'Qna liked.' })
     } catch (err: any) {
       return res.status(500).json({ msg: err.message })
@@ -50,6 +65,11 @@ const qnaCtrl = {
       }, { new: true })
       if (!qna)
         return res.status(404).json({ msg: `Qna with ID ${req.params.id} not found.` })
+
+      io.to(req.body.product).emit('unlikeQnaToClient', {
+        id: req.params.id,
+        user: req.user?._id
+      })
 
       return res.status(200).json({ msg: 'Qna unliked.' })
     } catch (err: any) {

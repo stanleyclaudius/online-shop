@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { BsLink45Deg } from 'react-icons/bs'
 import { getDataAPI } from './../../utils/fetchData'
@@ -12,6 +13,7 @@ import Subscribe from './../../components/general/Subscribe'
 import Footer from './../../components/general/Footer'
 import Loader from './../../components/general/Loader'
 import QnaContainer from '../../components/product/QnaContainer'
+import { RootStore } from '../../utils/Interface'
 
 const ProductDetail = () => {
   const [currentOption, setCurrentOption] = useState('review')
@@ -19,7 +21,10 @@ const ProductDetail = () => {
   const [similarProducts, setSimilarProducts] = useState<IProductData[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+
   const { id } = useParams()
+
+  const { socket } = useSelector((state: RootStore) => state)
 
   useEffect(() => {
     if (!id) return
@@ -48,6 +53,12 @@ const ProductDetail = () => {
 
     return () => setSimilarProducts([])
   }, [product])
+
+  useEffect(() => {
+    if (!product?._id || !socket) return
+    socket.emit('joinRoom', product?._id)
+    return () => socket.emit('leaveRoom', product?._id)
+  }, [product?._id, socket])
 
   return (
     <>

@@ -5,12 +5,22 @@ import cookieParser from 'cookie-parser'
 import morgan from 'morgan'
 import connectDB from './config/db'
 import routes from './routes'
+import { createServer } from 'http'
+import { Server, Socket } from 'socket.io'
+import { socketServer } from './config/socketServer'
 
 dotenv.config({
   path: './server/config/.env'
 })
 
 const app = express()
+
+const http = createServer(app)
+export const io = new Server(http)
+
+io.on('connection', (socket: Socket) => {
+  socketServer(socket)
+})
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -34,4 +44,4 @@ app.use('/api/v1/user', routes.userRouter)
 app.use('/api/v1/banner', routes.bannerRouter)
 
 connectDB()
-app.listen(process.env.PORT, () => console.log(`Server is running on port ${process.env.PORT}.`))
+http.listen(process.env.PORT, () => console.log(`Server is running on port ${process.env.PORT}.`))

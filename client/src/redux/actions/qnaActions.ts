@@ -2,21 +2,14 @@ import { Dispatch } from 'redux'
 import { checkTokenExp } from './../../utils/checkTokenExp'
 import { getDataAPI, patchDataAPI, postDataAPI } from './../../utils/fetchData'
 import { ALERT, IAlertType } from './../types/alertTypes'
-import { CREATE_QNA, GET_QNA, ICreateQnaType, IGetQnaType, ILikeQnaType, IQnaData, IUnlikeQnaType, LIKE_QNA, UNLIKE_QNA } from './../types/qnaTypes'
+import { GET_QNA, ICreateQnaType, IGetQnaType, ILikeQnaType, IQnaData, IUnlikeQnaType } from './../types/qnaTypes'
 
 export const createQna = (qnaData: IQnaData, token: string) => async(dispatch: Dispatch<ICreateQnaType | IAlertType>) => {
   const tokenExpResult = await checkTokenExp(token, dispatch)
   const accessToken = tokenExpResult ? tokenExpResult : token
   
   try {
-    const res = await postDataAPI('qna', qnaData, accessToken)
-    dispatch({
-      type: CREATE_QNA,
-      payload: {
-        ...res.data.qna,
-        user: qnaData.user
-      }
-    })
+    await postDataAPI('qna', qnaData, accessToken)
   } catch (err: any) {
     dispatch({
       type: ALERT,
@@ -44,16 +37,12 @@ export const getQna = (id: string) => async(dispatch: Dispatch<IGetQnaType | IAl
   }
 }
 
-export const likeQna = (id: string, user: string, token: string) => async(dispatch: Dispatch<ILikeQnaType | IAlertType>) => {
+export const likeQna = (id: string, product: string, token: string) => async(dispatch: Dispatch<ILikeQnaType | IAlertType>) => {
   const tokenExpResult = await checkTokenExp(token, dispatch)
   const accessToken = tokenExpResult ? tokenExpResult : token
   
   try {
-    await patchDataAPI(`qna/like/${id}`, {}, accessToken)
-    dispatch({
-      type: LIKE_QNA,
-      payload: { id, user }
-    })
+    await patchDataAPI(`qna/like/${id}`, { product }, accessToken)
   } catch (err: any) {
     dispatch({
       type: ALERT,
@@ -64,16 +53,12 @@ export const likeQna = (id: string, user: string, token: string) => async(dispat
   }
 }
 
-export const unlikeQna = (id: string, user: string, token: string) => async(dispatch: Dispatch<IUnlikeQnaType | IAlertType>) => {
+export const unlikeQna = (id: string, product: string, token: string) => async(dispatch: Dispatch<IUnlikeQnaType | IAlertType>) => {
   const tokenExpResult = await checkTokenExp(token, dispatch)
   const accessToken = tokenExpResult ? tokenExpResult : token
   
   try {
-    await patchDataAPI(`qna/unlike/${id}`, {}, accessToken)
-    dispatch({
-      type: UNLIKE_QNA,
-      payload: { id, user }
-    })
+    await patchDataAPI(`qna/unlike/${id}`, { product }, accessToken)
   } catch (err: any) {
     dispatch({
       type: ALERT,
