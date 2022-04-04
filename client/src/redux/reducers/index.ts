@@ -21,6 +21,7 @@ import userReducer from './userReducer'
 import transactionReducer from './transactionReducer'
 import bannerReducer from './bannerReducer'
 import socketReducer from './socketReducer'
+import notificationReducer from './notificationReducer'
 
 export default combineReducers({
   alert: alertReducer,
@@ -44,5 +45,6 @@ export default combineReducers({
   user: userReducer,
   transaction: transactionReducer,
   banner: bannerReducer,
-  socket: socketReducer
+  socket: socketReducer,
+  notification: notificationReducer
 })

@@ -3,6 +3,8 @@ import { CREATE_CHECKOUT, GET_CHECKOUT_HISTORY, ICheckoutData, ICreateCheckoutTy
 import { getDataAPI, postDataAPI } from './../../utils/fetchData'
 import { ALERT, IAlertType } from './../types/alertTypes'
 import { checkTokenExp } from './../../utils/checkTokenExp'
+import { createNotification } from './notificationActions'
+import { numberFormatter } from '../../utils/numberFormatter'
 
 export const checkoutCart = (checkoutData: ICheckoutData, token: string) => async(dispatch: Dispatch<ICreateCheckoutType | IAlertType>) => {
   const tokenExpResult = await checkTokenExp(token, dispatch)
@@ -21,6 +23,12 @@ export const checkoutCart = (checkoutData: ICheckoutData, token: string) => asyn
       type: CREATE_CHECKOUT,
       payload: res.data.checkout
     })
+
+    // @ts-ignore
+    await dispatch(createNotification({
+      transaction: res.data.checkout._id,
+      message: `${res.data.user} just create a transaction with total ${res.data.checkout.items.length} ${res.data.checkout.items.length > 1 ? 'Items' : 'Item'}, and price ${numberFormatter(res.data.checkout.totalPrice)}`
+    }, accessToken))
 
     dispatch({
       type: ALERT,

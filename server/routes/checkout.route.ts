@@ -12,5 +12,6 @@ router.route('/transaction').get(isAuthenticated, authorizeRoles('admin'), check
 
 router.route('/status/:id').get(isAuthenticated, checkoutCtrl.getPaymentStatus)
 
+router.route('/:id').get(isAuthenticated, checkoutCtrl.getTransactionById)
 
 export default router

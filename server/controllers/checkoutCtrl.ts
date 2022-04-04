@@ -108,7 +108,8 @@ const checkoutCtrl = {
 
       return res.status(200).json({
         msg: 'Cart has been checkout successfully.',
-        checkout: newCheckout
+        checkout: newCheckout,
+        user: req.user?.name
       })
     } catch (err: any) {
       return res.status(500).json({ msg: err.message })
@@ -149,6 +150,17 @@ const checkoutCtrl = {
       }
 
       return res.status(200).json({ transactions, totalPage })
+    } catch (err: any) {
+      return res.status(500).json({ msg: err.message })
+    }
+  },
+  getTransactionById: async(req: Request, res: Response) => {
+    try {
+      const transaction = await Checkout.findById(req.params.id).populate('items.product user')
+      if (!transaction)
+        return res.status(404).json({ msg: 'Transaction not found.' })
+
+      return res.status(200).json({ transaction })
     } catch (err: any) {
       return res.status(500).json({ msg: err.message })
     }

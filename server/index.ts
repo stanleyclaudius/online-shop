@@ -42,6 +42,7 @@ app.use('/api/v1/qna', routes.qnaRouter)
 app.use('/api/v1/dashboard', routes.dashboardRouter)
 app.use('/api/v1/user', routes.userRouter)
 app.use('/api/v1/banner', routes.bannerRouter)
+app.use('/api/v1/notification', routes.notificationRouter)
 
 connectDB()
 http.listen(process.env.PORT, () => console.log(`Server is running on port ${process.env.PORT}.`))

@@ -12,6 +12,7 @@ import qnaRouter from './qna.route'
 import dashboardRouter from './dashboard.route'
 import userRouter from './user.route'
 import bannerRouter from './banner.route'
+import notificationRouter from './notification.route'
 
 const routes = {
   authRouter,
@@ -27,7 +28,8 @@ const routes = {
   qnaRouter,
   dashboardRouter,
   userRouter,
-  bannerRouter
+  bannerRouter,
+  notificationRouter
 }
 
 export default routes
