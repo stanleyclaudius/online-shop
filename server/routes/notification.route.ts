@@ -8,4 +8,6 @@ router.route('/')
   .post(isAuthenticated, notificationCtrl.createNotification)
   .get(isAuthenticated, notificationCtrl.getNotification)
 
+router.route('/:id').patch(isAuthenticated, notificationCtrl.readNotification)
+
 export default router

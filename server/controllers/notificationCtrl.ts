@@ -23,6 +23,17 @@ const notificationCtrl = {
     } catch (err: any) {
       return res.status(200).json({ msg: err.message })
     }
+  },
+  readNotification: async(req: Request, res: Response) => {
+    try {
+      const notification = await Notification.findOneAndUpdate({ _id: req.params.id }, {
+        isRead: true
+      }, { new: true })
+      
+      return res.status(200).json({ notification })
+    } catch (err: any) {
+      return res.status(200).json({ msg: err.message })
+    }
   }
 }
 
