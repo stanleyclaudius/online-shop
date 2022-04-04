@@ -46,7 +46,7 @@ const CheckoutReview = () => {
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { auth, alert, cart } = useSelector((state: RootStore) => state)
+  const { auth, alert, cart, socket } = useSelector((state: RootStore) => state)
 
   const handleClickCheckout = async() => {
     const checkoutData = {
@@ -63,7 +63,7 @@ const CheckoutReview = () => {
 
     checkoutData.totalPrice = cart.reduce((acc, item) => (acc + (item.product ? (item.product.price - ((item.product.discount * item.product.price) / 100)) * item.qty : parseInt(item.price) * item.qty)), 0) + shippingData.courierFee - (Object.keys(checkoutData.discount).length === 0 ? 0 : ((checkoutData.discount.value / 100) * (cart.reduce((acc, item) => (acc + (item.product ? (item.product.price - ((item.product.discount * item.product.price) / 100)) * item.qty : parseInt(item.price) * item.qty)), 0))))
 
-    await dispatch(checkoutCart(checkoutData, auth.token!))
+    await dispatch(checkoutCart(checkoutData, auth.token!, socket))
 
     dispatch({
       type: RESET_CART,

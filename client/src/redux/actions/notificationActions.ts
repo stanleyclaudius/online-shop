@@ -3,13 +3,15 @@ import { CREATE_NOTIFICATION, GET_NOTIFICATION, ICreateNotificationType, IGetNot
 import { ALERT, IAlertType } from './../types/alertTypes'
 import { getDataAPI, patchDataAPI, postDataAPI } from './../../utils/fetchData'
 import { checkTokenExp } from '../../utils/checkTokenExp'
+import { Socket } from 'socket.io-client'
 
-export const createNotification = (data: INotificationData, token: string) => async(dispatch: Dispatch<ICreateNotificationType | IAlertType>) => {
+export const createNotification = (data: INotificationData, token: string, socket: Socket) => async(dispatch: Dispatch<ICreateNotificationType | IAlertType>) => {
   const tokenExpResult = await checkTokenExp(token, dispatch)
   const accessToken = tokenExpResult ? tokenExpResult : token
 
   try {
     const res = await postDataAPI('notification', data, accessToken)
+    socket.emit('createNotification', res.data.notification)
     dispatch({
       type: CREATE_NOTIFICATION,
       payload: res.data.notification

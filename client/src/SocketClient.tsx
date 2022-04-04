@@ -1,12 +1,19 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { CREATE_NOTIFICATION, INotificationData } from './redux/types/notificationTypes'
 import { CREATE_QNA, ILikeUnlikeQnaData, IQnaData, LIKE_QNA, UNLIKE_QNA } from './redux/types/qnaTypes'
 import { CREATE_REVIEW, ILikeUnlikeReviewData, IReviewData, LIKE_REVIEW, UNLIKE_REVIEW } from './redux/types/reviewTypes'
 import { RootStore } from './utils/Interface'
 
 const SocketClient = () => {
   const dispatch = useDispatch()
-  const { socket } = useSelector((state: RootStore) => state)
+  const { auth, socket } = useSelector((state: RootStore) => state)
+
+  useEffect(() => {
+    if (auth.token) {
+      socket.emit('joinUser', auth.user)
+    }
+  }, [socket, auth])
 
   useEffect(() => {
     if (!socket) return
@@ -84,6 +91,19 @@ const SocketClient = () => {
     })
 
     return () => socket.off('unlikeReviewToClient')
+  }, [socket, dispatch])
+
+  useEffect(() => {
+    if (!socket) return
+
+    socket.on('createNotificationToClient', (data: INotificationData) => {
+      dispatch({
+        type: CREATE_NOTIFICATION,
+        payload: data
+      })
+    })
+
+    return () => socket.off('createNotificationToClient')
   }, [socket, dispatch])
 
   return (

@@ -5,8 +5,9 @@ import { ALERT, IAlertType } from './../types/alertTypes'
 import { checkTokenExp } from './../../utils/checkTokenExp'
 import { createNotification } from './notificationActions'
 import { numberFormatter } from '../../utils/numberFormatter'
+import { Socket } from 'socket.io-client'
 
-export const checkoutCart = (checkoutData: ICheckoutData, token: string) => async(dispatch: Dispatch<ICreateCheckoutType | IAlertType>) => {
+export const checkoutCart = (checkoutData: ICheckoutData, token: string, socket: Socket) => async(dispatch: Dispatch<ICreateCheckoutType | IAlertType>) => {
   const tokenExpResult = await checkTokenExp(token, dispatch)
   const accessToken = tokenExpResult ? tokenExpResult : token
 
@@ -28,7 +29,7 @@ export const checkoutCart = (checkoutData: ICheckoutData, token: string) => asyn
     await dispatch(createNotification({
       transaction: res.data.checkout._id,
       message: `${res.data.user} just create a transaction with total ${res.data.checkout.items.length} ${res.data.checkout.items.length > 1 ? 'Items' : 'Item'}, and price ${numberFormatter(res.data.checkout.totalPrice)}`
-    }, accessToken))
+    }, accessToken, socket))
 
     dispatch({
       type: ALERT,

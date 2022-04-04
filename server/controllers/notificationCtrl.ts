@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
 import Notification from './../models/Notification'
+import { io } from './../index'
 
 const notificationCtrl = {
   createNotification: async(req: Request, res: Response) => {
