@@ -13,6 +13,7 @@ import dashboardRouter from './dashboard.route'
 import userRouter from './user.route'
 import bannerRouter from './banner.route'
 import notificationRouter from './notification.route'
+import subscriberRouter from './subscriber.route'
 
 const routes = {
   authRouter,
@@ -29,7 +30,8 @@ const routes = {
   dashboardRouter,
   userRouter,
   bannerRouter,
-  notificationRouter
+  notificationRouter,
+  subscriberRouter
 }
 
 export default routes
