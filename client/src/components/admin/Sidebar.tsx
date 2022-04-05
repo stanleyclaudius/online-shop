@@ -1,17 +1,18 @@
 import { Link, useParams } from 'react-router-dom'
-import { BsFillGrid1X2Fill, BsFilter } from 'react-icons/bs'
+import { BsFillGrid1X2Fill } from 'react-icons/bs'
 import { FaBoxes, FaPercentage, FaUser } from 'react-icons/fa'
 import { MdOutlineAccountTree, MdUnsubscribe } from 'react-icons/md'
 import { RiSecurePaymentFill } from 'react-icons/ri'
 import { SiNike } from 'react-icons/si'
 import { AiFillHome } from 'react-icons/ai'
+import { BiNews } from 'react-icons/bi'
 
 const Sidebar = () => {
   const { page } = useParams()
 
   return (
     <div className='border-r border-gray-300 px-7 py-5 flex items-center flex-col'>
-      <BsFilter className='text-2xl mb-10' />
+      {/* <BsFilter className='text-2xl mb-10' /> */}
       <div className='flex flex-col gap-5 text-xl text-gray-400 items-center'>
         <Link
           to='/dashboard'
@@ -66,6 +67,12 @@ const Sidebar = () => {
           className={`cursor-pointer p-3 hover:bg-[#F0D9F5] rounded-md ${page === 'subscriber' ? 'bg-[#F0D9F5]' : undefined}`}
         >
           <MdUnsubscribe className={`${page === 'subscriber' ? 'text-[#B246D5]' : undefined}`} />
+        </Link>
+        <Link
+          to='/newsletter'
+          className={`cursor-pointer p-3 hover:bg-[#F0D9F5] rounded-md ${page === 'newsletter' ? 'bg-[#F0D9F5]' : undefined}`}
+        >
+          <BiNews className={`${page === 'newsletter' ? 'text-[#B246D5]' : undefined}`} />
         </Link>
       </div>
     </div>

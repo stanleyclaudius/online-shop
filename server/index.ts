@@ -44,6 +44,7 @@ app.use('/api/v1/user', routes.userRouter)
 app.use('/api/v1/banner', routes.bannerRouter)
 app.use('/api/v1/notification', routes.notificationRouter)
 app.use('/api/v1/subscriber', routes.subscriberRouter)
+app.use('/api/v1/newsletter', routes.newsletterRouter)
 
 connectDB()
 http.listen(process.env.PORT, () => console.log(`Server is running on port ${process.env.PORT}.`))

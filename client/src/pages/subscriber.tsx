@@ -6,6 +6,7 @@ import Loader from './../components/general/Loader'
 import { ISubscriberData } from '../redux/types/subscriberTypes'
 import { RootStore } from '../utils/Interface'
 import DeleteModal from '../components/modal/DeleteModal'
+import NotFound from '../components/general/NotFound'
 
 const Subscriber = () => {
   const [currPage, setCurrPage] = useState(1)
@@ -54,10 +55,14 @@ const Subscriber = () => {
     setSubscribers(subscriber.data)
   }, [subscriber])
 
+  if (auth.user?.role !== 'admin') {
+    return <NotFound />
+  }
+
   return (
     <>
       <Layout>
-        <h1 className='text-2xl tracking-wide font-oswald'>Subscriber</h1>
+        <h1 className='text-2xl tracking-wide font-oswald'>Subscriber Management</h1>
         {
           alert.loading
           ? <Loader size='xl' />

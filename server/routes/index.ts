@@ -14,6 +14,7 @@ import userRouter from './user.route'
 import bannerRouter from './banner.route'
 import notificationRouter from './notification.route'
 import subscriberRouter from './subscriber.route'
+import newsletterRouter from './newsletter.route'
 
 const routes = {
   authRouter,
@@ -31,7 +32,8 @@ const routes = {
   userRouter,
   bannerRouter,
   notificationRouter,
-  subscriberRouter
+  subscriberRouter,
+  newsletterRouter
 }
 
 export default routes
