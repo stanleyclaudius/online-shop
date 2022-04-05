@@ -4,7 +4,7 @@ import { ALERT, IAlertType } from './../types/alertTypes'
 import { getDataAPI, postDataAPI } from './../../utils/fetchData'
 import { checkTokenExp } from './../../utils/checkTokenExp'
 
-export const getNewsletters = (token: string) => async(dispatch: Dispatch<IGetNewslettersType | IAlertType>) => {
+export const getNewsletters = (token: string, page: number) => async(dispatch: Dispatch<IGetNewslettersType | IAlertType>) => {
   const tokenExpResult = await checkTokenExp(token, dispatch)
   const accessToken = tokenExpResult ? tokenExpResult : token
 
@@ -16,7 +16,7 @@ export const getNewsletters = (token: string) => async(dispatch: Dispatch<IGetNe
       }
     })
 
-    const res = await getDataAPI('newsletter', accessToken)
+    const res = await getDataAPI(`newsletter?page=${page}`, accessToken)
     dispatch({
       type: GET_NEWSLETTERS,
       payload: {

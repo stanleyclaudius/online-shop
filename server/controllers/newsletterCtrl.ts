@@ -47,7 +47,9 @@ const newsletterCtrl = {
             totalCount: [
               { $count: 'count' }
             ]
-          },
+          }
+        },
+        {
           $project: {
             totalData: 1,
             count: { $arrayElemAt: ['$totalCount.count', 0] }
