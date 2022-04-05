@@ -8,6 +8,7 @@ import sendEmail from './../utils/sendMail'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import fetch from 'cross-fetch'
+import { authEmailFormat } from '../utils/authEmailFormat'
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID)
 
@@ -34,7 +35,8 @@ const authCtrl = {
       const token = generateActivationToken({ newUser })
       const url = `${process.env.CLIENT_URL}/activate/${token}`
 
-      sendEmail(email, url, 'Account Activation')
+      const emailFormat = authEmailFormat('Account Activation', url)
+      sendEmail(email, 'Account Activation', emailFormat)
       return res.status(200).json({ msg: `Account activation email has been sent to ${email}.` })
     } catch (err: any) {
       return res.status(500).json({ msg: err.message })

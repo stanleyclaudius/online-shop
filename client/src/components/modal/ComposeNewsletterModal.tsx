@@ -1,6 +1,11 @@
 import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { AiOutlineClose } from 'react-icons/ai'
+import { FormSubmit, RootStore } from '../../utils/Interface'
 import Editor from '../general/Editor'
+import { createNewsletter } from '../../redux/actions/newsletterActions'
+import { ALERT } from '../../redux/types/alertTypes'
+import Loader from '../general/Loader'
 
 interface IProps {
   openModal: boolean
@@ -9,8 +14,30 @@ interface IProps {
 }
 
 const ComposeNewsletterModal: React.FC<IProps> = ({ openModal, setOpenModal, modalRef }) => {
+  const [loading, setLoading] = useState(false)
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
+
+  const dispatch = useDispatch()
+  const { auth } = useSelector((state: RootStore) => state)
+
+  const handleSubmit = async(e: FormSubmit) => {
+    e.preventDefault()
+
+    if (!title || !content) {
+      return dispatch({
+        type: ALERT,
+        payload: {
+          errors: 'Please provide title and content for newsletter.'
+        }
+      })
+    }
+
+    setLoading(true)
+    await dispatch(createNewsletter({ title, content }, auth.token!))
+    setLoading(false)
+    setOpenModal(false)
+  }
 
   return (
     <div className={`${openModal ? 'opacity-100' : 'opacity-0'} ${openModal ? 'pointer-events-auto' : 'pointer-events-none'} transition-opacity fixed top-0 left-0 bottom-0 right-0 bg-[rgba(0,0,0,.7)] z-[9999] flex justify-center items-center px-5 font-opensans`}>
@@ -26,7 +53,7 @@ const ComposeNewsletterModal: React.FC<IProps> = ({ openModal, setOpenModal, mod
           />
         </div>
         <div className='p-5 max-h-[500px] overflow-auto hide-scrollbar'>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div>
               <label htmlFor='title' className='text-sm'>Title</label>
               <input type='text' name='title' id='title' autoComplete='off' value={title} onChange={e => setTitle(e.target.value)} className='border mt-3 border-gray-300 rounded-md p-2 outline-0 w-full text-sm' />
@@ -38,7 +65,17 @@ const ComposeNewsletterModal: React.FC<IProps> = ({ openModal, setOpenModal, mod
                 setContent={setContent}
               />
             </div>
-            <button type='submit' className='bg-blue-500 hover:bg-blue-600 transition-[background] px-4 py-2 rounded-md text-white text-sm mt-7'>Compose</button>
+            <button
+              type='submit'
+              disabled={loading ? true : false}
+              className={`${loading ? 'bg-blue-200 hover:bg-blue-200 cursor-auto' : 'bg-blue-500 hover:bg-blue-600 cursor-pointer'} transition-[background] px-4 py-2 rounded-md text-white text-sm mt-7`}
+            >
+              {
+                loading
+                ? <Loader />
+                : 'Compose'
+              }
+            </button>
           </form>
         </div>
       </div>

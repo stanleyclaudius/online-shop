@@ -1,5 +1,7 @@
 import { Request, Response } from 'express'
+import Subscriber from './../models/Subscriber'
 import Newsletter from './../models/Newsletter'
+import sendEmail from './../utils/sendMail'
 
 const Pagination = (req: Request) => {
   const page = Number(req.query.page) || 1
@@ -17,6 +19,11 @@ const newsletterCtrl = {
 
       const newNewsletter = new Newsletter({ title, content })
       await newNewsletter.save()
+
+      const subscribers = await Subscriber.find()
+      subscribers.forEach(item => {
+        sendEmail(item.email, 'Newsletter', content)
+      })
 
       return res.status(200).json({
         msg: 'Newsletter has been created and sent to subscriber.',
