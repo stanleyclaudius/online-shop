@@ -1,7 +1,7 @@
 import { Link, useParams } from 'react-router-dom'
 import { BsFillGrid1X2Fill, BsFilter } from 'react-icons/bs'
 import { FaBoxes, FaPercentage, FaUser } from 'react-icons/fa'
-import { MdOutlineAccountTree } from 'react-icons/md'
+import { MdOutlineAccountTree, MdUnsubscribe } from 'react-icons/md'
 import { RiSecurePaymentFill } from 'react-icons/ri'
 import { SiNike } from 'react-icons/si'
 import { AiFillHome } from 'react-icons/ai'
@@ -60,6 +60,12 @@ const Sidebar = () => {
           className={`cursor-pointer p-3 hover:bg-[#F0D9F5] rounded-md ${page === 'display' ? 'bg-[#F0D9F5]' : undefined}`}
         >
           <AiFillHome className={`${page === 'display' ? 'text-[#B246D5]' : undefined}`} />
+        </Link>
+        <Link
+          to='/subscriber'
+          className={`cursor-pointer p-3 hover:bg-[#F0D9F5] rounded-md ${page === 'subscriber' ? 'bg-[#F0D9F5]' : undefined}`}
+        >
+          <MdUnsubscribe className={`${page === 'subscriber' ? 'text-[#B246D5]' : undefined}`} />
         </Link>
       </div>
     </div>

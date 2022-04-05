@@ -4,7 +4,7 @@ import { ALERT, IAlertType } from './../types/alertTypes'
 import { deleteDataAPI, getDataAPI, postDataAPI } from './../../utils/fetchData'
 import { checkTokenExp } from '../../utils/checkTokenExp'
 
-export const getSubscriber = (token: string) => async(dispatch: Dispatch<IGetSubscriberType | IAlertType>) => {
+export const getSubscriber = (token: string, page: number) => async(dispatch: Dispatch<IGetSubscriberType | IAlertType>) => {
   const tokenExpResult = await checkTokenExp(token, dispatch)
   const accessToken = tokenExpResult ? tokenExpResult : token
 
@@ -16,7 +16,7 @@ export const getSubscriber = (token: string) => async(dispatch: Dispatch<IGetSub
       }
     })
 
-    const res = await getDataAPI('subscriber', accessToken)
+    const res = await getDataAPI(`subscriber?page=${page}`, accessToken)
     dispatch({
       type: GET_SUBSCRIBER,
       payload: {
