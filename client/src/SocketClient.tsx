@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { CREATE_NOTIFICATION, INotificationData } from './redux/types/notificationTypes'
 import { CREATE_QNA, ILikeUnlikeQnaData, IQnaData, LIKE_QNA, UNLIKE_QNA } from './redux/types/qnaTypes'
@@ -8,6 +8,8 @@ import { RootStore } from './utils/Interface'
 const SocketClient = () => {
   const dispatch = useDispatch()
   const { auth, socket } = useSelector((state: RootStore) => state)
+
+  const audioRef = useRef() as React.RefObject<HTMLAudioElement>
 
   useEffect(() => {
     if (auth.token) {
@@ -101,13 +103,18 @@ const SocketClient = () => {
         type: CREATE_NOTIFICATION,
         payload: data
       })
+      audioRef.current?.play()
     })
 
     return () => socket.off('createNotificationToClient')
   }, [socket, dispatch])
 
   return (
-    <div></div>
+    <div>
+      <audio controls ref={audioRef} style={{ display: 'none' }}>
+        <source src={`${process.env.PUBLIC_URL}/audio/notification.mp3`} type='audio/mp3' />
+      </audio>
+    </div>
   )
 }
 

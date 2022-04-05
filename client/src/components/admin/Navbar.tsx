@@ -9,7 +9,7 @@ import { getNotification, readNotification } from './../../redux/actions/notific
 import HistoryModal from '../modal/HistoryModal'
 import { ICheckoutData } from '../../redux/types/checkoutTypes'
 import { ALERT } from '../../redux/types/alertTypes'
-import { getDataAPI, patchDataAPI } from '../../utils/fetchData'
+import { getDataAPI } from '../../utils/fetchData'
 
 const Navbar = () => {
   const [selectedItem, setSelectedItem] = useState<ICheckoutData>()

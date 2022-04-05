@@ -169,7 +169,7 @@ const Navbar = () => {
               <div className='relative'>
                 <div
                   onClick={() => setOpenProfileDropdown(!openProfileDropdown)}
-                  className='w-6 h-6 rounded-full bg-gray-100 cursor-pointer'
+                  className='w-6 h-6 rounded-full bg-gray-100 cursor-pointer outline outline-2 outline-offset-2 outline-gray-200'
                 >
                   <img src={auth.user?.avatar} alt={auth.user?.name} className='w-full h-full object-cover rounded-full' />
                 </div>

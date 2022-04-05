@@ -56,7 +56,7 @@ const Payment: React.FC<IProps> = ({ setCurrPage }) => {
         })
       }
 
-      dispatch(setCheckoutPayment({ ...paymentData, paymentMethod }))
+      dispatch(setCheckoutPayment({ ...paymentData, phoneNumber: '62' + paymentData.phoneNumber, paymentMethod }))
       setCurrPage('review')
     } else {
       return dispatch({
@@ -189,15 +189,20 @@ const Payment: React.FC<IProps> = ({ setCurrPage }) => {
               >
                 OVO Phone Number
               </label>
-              <input
-                type='number'
-                autoComplete='off'
-                id='phoneNumber'
-                name='phoneNumber'
-                value={paymentData.phoneNumber}
-                onChange={handleChange}
-                className='w-full border border-gray-300 rounded-md outline-0 p-2 text-sm mt-3'
-              />
+              <div className='flex gap-2 mt-3'>
+                <p className='border border-gray-300 py-2 px-3 rounded-md'>
+                  +62
+                </p>
+                <input
+                  type='number'
+                  autoComplete='off'
+                  id='phoneNumber'
+                  name='phoneNumber'
+                  value={paymentData.phoneNumber}
+                  onChange={handleChange}
+                  className='w-full border border-gray-300 rounded-md outline-0 p-2 text-sm'
+                />
+              </div>
             </div>
           )
         }
