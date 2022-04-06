@@ -27,12 +27,6 @@ const checkoutCtrl = {
         expeditionService,
         expeditionFee,
         estimatedDay,
-        paymentMethod,
-        nameOnCard,
-        cardNumber,
-        expireMonth,
-        expireYear,
-        cvv,
         ovoPhoneNumber,
         discount,
         items,
@@ -51,22 +45,9 @@ const checkoutCtrl = {
         !expedition ||
         !expeditionService ||
         !expeditionFee ||
-        !estimatedDay ||
-        !paymentMethod
+        !estimatedDay
       ) {
         return res.status(400).json({ msg: 'Please fill every information on the checkout page.' })
-      }
-
-      if (paymentMethod === 'cc') {
-        if (!nameOnCard || !cardNumber || !expireMonth || !expireYear || !cvv) {
-          return res.status(400).json({ msg: 'Please provide credit card information to support the payment process.' })
-        }
-      } else if (paymentMethod === 'ovo') {
-        if (!ovoPhoneNumber) {
-          return res.status(400).json({ msg: 'Please provide OVO phone numebr to support the payment process.' })
-        }
-      } else {
-        return res.status(400).json({ msg: `${paymentMethod} payment method not supported.` })
       }
 
       const newCheckout = new Checkout({
@@ -83,24 +64,16 @@ const checkoutCtrl = {
         expeditionService,
         expeditionFee,
         estimatedDay,
-        paymentMethod,
-        nameOnCard: paymentMethod === 'cc' ? nameOnCard : '',
-        cardNumber: paymentMethod === 'cc' ? cardNumber : '',
-        expireMonth: paymentMethod === 'cc' ? expireMonth : '',
-        expireYear: paymentMethod === 'cc' ? expireYear : '',
-        cvv: paymentMethod === 'cc' ? cvv : '',
-        ovoPhoneNumber: paymentMethod === 'ovo' ? ovoPhoneNumber : '',
+        ovoPhoneNumber: ovoPhoneNumber,
         discount,
         items,
         totalPrice,
         chargeId: ''
       })
 
-      if (paymentMethod === 'ovo') {
-        const transaction = <IXenditTransaction>await createOvoTransaction(totalPrice, '+' + ovoPhoneNumber, newCheckout._id)
-        newCheckout.chargeId = transaction.id
-        newCheckout.status = transaction.status
-      }
+      const transaction = <IXenditTransaction>await createOvoTransaction(totalPrice, '+' + ovoPhoneNumber, newCheckout._id)
+      newCheckout.chargeId = transaction.id
+      newCheckout.status = transaction.status
 
       await newCheckout.save()
 

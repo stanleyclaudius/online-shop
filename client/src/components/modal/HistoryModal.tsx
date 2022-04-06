@@ -94,8 +94,7 @@ const HistoryModal: React.FC<IProps> = ({ modalRef, openHistoryModal, setOpenHis
                 <h1 className='font-oswald text-lg'>Payment Method</h1>
                 <p className={`text-xs font-medium text-white ${paymentStatus === 'SUCCEEDED' ? 'bg-green-500' : 'bg-orange-500'} rounded-md p-1`}>{paymentStatus}</p>
               </div>
-              <p className='text-sm my-1'>{selectedItem?.paymentMethod === 'ovo' ? 'OVO' : 'Credit Card'}: {selectedItem?.paymentMethod === 'ovo' ? '+' + selectedItem?.ovoPhoneNumber : selectedItem?.cardNumber}</p>
-              {selectedItem?.paymentMethod === 'cc' && <p className='text-sm'>John Doe</p>}
+              <p className='text-sm my-1'>OVO: +{selectedItem?.ovoPhoneNumber}</p>
             </div>
           </div>
           {

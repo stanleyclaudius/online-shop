@@ -100,7 +100,7 @@ const Transaction = () => {
                         <td>{item.discount ? `${item.discount}%` : '-'}</td>
                         <td>{numberFormatter(item.totalPrice)},00</td>
                         <td>{item.items.length}</td>
-                        <td>{item.paymentMethod === 'cc' ? 'Credit Card' : item.paymentMethod === 'ovo' ? 'OVO' : 'Not Found'}</td>
+                        <td>OVO</td>
                         <td>
                           <button
                             onClick={() => handleClickDetail(item)}

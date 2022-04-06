@@ -53,25 +53,6 @@ const checkoutSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  paymentMethod: {
-    type: String,
-    required: true
-  },
-  nameOnCard: {
-    type: String
-  },
-  cardNumber: {
-    type: String
-  },
-  expireMonth: {
-    type: String
-  },
-  expireYear: {
-    type: String
-  },
-  cvv: {
-    type: Number
-  },
   ovoPhoneNumber: {
     type: String
   },

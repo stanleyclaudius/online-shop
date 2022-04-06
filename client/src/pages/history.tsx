@@ -83,7 +83,7 @@ const History = () => {
                         <td className='p-3'>{idx + 1}</td>
                         <td>{new Date(item.createdAt!).toLocaleDateString}</td>
                         <td>{item._id!}</td>
-                        <td>{item.paymentMethod === 'ovo' ? 'OVO' : 'Credit Card'}</td>
+                        <td>OVO</td>
                         <td>{numberFormatter(item.totalPrice)}</td>
                         <td>{!item.discount ? 0 : numberFormatter((item.discount.value * item.totalPrice) / 100)}</td>
                         <td>{item.items.length}</td>

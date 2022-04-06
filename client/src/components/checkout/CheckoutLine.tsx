@@ -53,7 +53,7 @@ const CheckoutLine: React.FC<IProps> = ({ setCurrPage }) => {
   }, [currPercentage, shipping])
 
   useEffect(() => {
-    if (Object.keys(paymentMethod).length > 0 && paymentMethod.paymentMethod !== '') {
+    if (Object.keys(paymentMethod).length > 0 && paymentMethod.phoneNumber !== '') {
       if (currPercentage < 99) {
         setCurrPercentage(99)
       }

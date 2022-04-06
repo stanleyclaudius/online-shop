@@ -32,12 +32,6 @@ export interface ICheckoutData {
   expeditionService: string
   expeditionFee: number
   estimatedDay: string
-  paymentMethod: string
-  nameOnCard: string
-  cardNumber: string
-  expireMonth: string
-  expireYear: string
-  cvv: string
   ovoPhoneNumber: string
   discount: discountObj
   items: itemsObj[]

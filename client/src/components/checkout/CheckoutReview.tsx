@@ -14,15 +14,7 @@ import { RESET_PAYMENT_METHOD } from '../../redux/types/paymentMethodTypes'
 import Loader from '../general/Loader'
 
 const CheckoutReview = () => {
-  const [paymentMethod, setPaymentMethod] = useState('cc')
-  const [paymentData, setPaymentData] = useState({
-    nameOnCard: '',
-    cardNumber: '',
-    expireMonth: '',
-    expireYear: '',
-    cvv: '',
-    phoneNumber: ''
-  })
+  const [phoneNumber, setPhoneNumber] = useState('')
 
   const [accountData, setAccountData] = useState({
     recipientName: '',
@@ -53,9 +45,7 @@ const CheckoutReview = () => {
       ...accountData,
       ...shippingData,
       expeditionFee: shippingData.courierFee,
-      ovoPhoneNumber: paymentData.phoneNumber,
-      paymentMethod,
-      ...paymentData,
+      ovoPhoneNumber: phoneNumber,
       discount: localStorage.getItem('sneakershub_checkoutDiscount') ? JSON.parse(localStorage.getItem('sneakershub_checkoutDiscount') as string) : {},
       items: cart.map(item => ({ ...item, discount: item.product.discount, product: item.product._id })),
       totalPrice: 0
@@ -89,15 +79,7 @@ const CheckoutReview = () => {
 
   useEffect(() => {
     const tempPaymentData = JSON.parse(localStorage.getItem('sneakershub_payment') as string)
-    setPaymentMethod(tempPaymentData.paymentMethod)
-    setPaymentData({
-      nameOnCard: tempPaymentData.nameOnCard,
-      cardNumber: tempPaymentData.cardNumber,
-      expireMonth: tempPaymentData.expireMonth,
-      expireYear: tempPaymentData.expireYear,
-      cvv: tempPaymentData.cvv,
-      phoneNumber: tempPaymentData.phoneNumber
-    })
+    setPhoneNumber(tempPaymentData.phoneNumber)
   }, [])
 
   useEffect(() => {
@@ -193,91 +175,21 @@ const CheckoutReview = () => {
       <div className='mt-8'>
         <p className='mb-3 text-gray-500 font-bold'>Payment Detail</p>
         <div className='border border-gray-300 w-fit p-2 rounded-md mb-4'>
-          <img src={paymentMethod === 'cc' ? `${process.env.PUBLIC_URL}/images/cc.png` : `${process.env.PUBLIC_URL}/images/ovo.png`} alt='Sneakershub Payment' width={60} />
+          <img src={`${process.env.PUBLIC_URL}/images/ovo.png`} alt='Sneakershub Payment' width={60} />
         </div>
-        {
-          paymentMethod === 'cc'
-          ? (
-            <>
-              <div className='flex items-center justify-between gap-4'>
-                <div className='flex-1'>
-                  <label
-                    htmlFor='nameOnCard'
-                    className='text-sm'
-                  >
-                    Name on Card
-                  </label>
-                  <input
-                    type='text'
-                    disabled
-                    value={paymentData.nameOnCard}
-                    className='w-full border border-gray-300 bg-gray-100 rounded-md p-2 text-sm mt-2'
-                  />
-                </div>
-                <div className='flex-1'>
-                  <label
-                    htmlFor='cardNumber'
-                    className='text-sm'
-                  >
-                    Card Number
-                  </label>
-                  <input
-                    type='text'
-                    disabled 
-                    value={paymentData.cardNumber}
-                    className='w-full border border-gray-300 bg-gray-100 rounded-md p-2 text-sm mt-2'
-                  />
-                </div>
-              </div>
-              <div className='flex items-center justify-between gap-4 mt-5'>
-                <div className='flex-1'>
-                  <label
-                    htmlFor='expirationDate'
-                    className='text-sm'
-                  >
-                    Expiration Date
-                  </label>
-                  <input
-                    type='text'
-                    disabled 
-                    value={`${paymentData.expireMonth}/${paymentData.expireYear}`}
-                    className='w-full border border-gray-300 bg-gray-100 rounded-md p-2 text-sm mt-2'
-                  />
-                </div>
-                <div className='flex-1'>
-                  <label
-                    htmlFor='cvv'
-                    className='text-sm'
-                  >
-                    CVV
-                  </label>
-                  <input
-                    type='text'
-                    disabled
-                    value={paymentData.cvv}
-                    className='w-full border border-gray-300 bg-gray-100 rounded-md p-2 text-sm mt-2'
-                  />
-                </div>
-              </div>
-            </>
-          )
-          : (
-            <div className='flex-1'>
-              <label
-                htmlFor='nameOnCard'
-                className='text-sm'
-              >
-                Phone Number
-              </label>
-              <input
-                type='text'
-                disabled
-                value={paymentData.phoneNumber}
-                className='w-full border border-gray-300 bg-gray-100 rounded-md p-2 text-sm mt-2'
-              />
-            </div>
-          )
-        }
+        <div className='flex-1'>
+          <label
+            className='text-sm'
+          >
+            Phone Number
+          </label>
+          <input
+            type='text'
+            disabled
+            value={phoneNumber}
+            className='w-full border border-gray-300 bg-gray-100 rounded-md p-2 text-sm mt-2'
+          />
+        </div>
       </div>
       <button
         onClick={handleClickCheckout}
