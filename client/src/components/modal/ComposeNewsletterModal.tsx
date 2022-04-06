@@ -33,6 +33,24 @@ const ComposeNewsletterModal: React.FC<IProps> = ({ openModal, setOpenModal, mod
       })
     }
 
+    if (title.length < 20) {
+      return dispatch({
+        type: ALERT,
+        payload: {
+          errors: 'Newsletter title should be at least 20 characters.'
+        }
+      })
+    }
+
+    if (content.length < 200) {
+      return dispatch({
+        type: ALERT,
+        payload: {
+          errors: 'Newsletter content should be at least 200 characters.'
+        }
+      })
+    }
+
     setLoading(true)
     await dispatch(createNewsletter({ title, content }, auth.token!))
     setLoading(false)

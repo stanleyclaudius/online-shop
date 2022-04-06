@@ -1,7 +1,12 @@
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { AiOutlineClose } from 'react-icons/ai'
 import { FaRegUser } from 'react-icons/fa'
 import { FormSubmit } from './../../utils/Interface'
+import { postDataAPI } from './../../utils/fetchData'
+import { ALERT } from '../../redux/types/alertTypes'
+import { validateEmail } from '../../utils/validateEmail'
+import Loader from '../general/Loader'
 
 interface IProps {
   setCurrentPage: React.Dispatch<React.SetStateAction<string>>
@@ -9,10 +14,53 @@ interface IProps {
 }
 
 const ForgotPassword: React.FC<IProps> = ({ setCurrentPage, setOpenAuthenticationModal }) => {
+  const [loading, setLoading] = useState(false)
   const [email, setEmail] = useState('')
 
-  const handleSubmit = (e: FormSubmit) => {
+  const dispatch = useDispatch()
+
+  const handleSubmit = async(e: FormSubmit) => {
     e.preventDefault()
+    if (!email) {
+      return dispatch({
+        type: ALERT,
+        payload: {
+          errors: 'Please provide email address to reset password.'
+        }
+      })
+    }
+
+    if (!validateEmail(email)) {
+      return dispatch({
+        type: ALERT,
+        payload: {
+          errors: 'Please provide valid email address.'
+        }
+      })
+    }
+
+    setLoading(true)
+    
+    try {
+      const res = await postDataAPI('auth/forget', { email })
+      dispatch({
+        type: ALERT,
+        payload: {
+          success: res.data.msg
+        }
+      })
+    } catch (err: any) {
+      dispatch({
+        type: ALERT,
+        payload: {
+          errors: err.response.data.msg
+        }
+      })
+    }
+
+    setLoading(false)
+    setOpenAuthenticationModal(false)
+    setEmail('')
   }
 
   return (
@@ -45,9 +93,14 @@ const ForgotPassword: React.FC<IProps> = ({ setCurrentPage, setOpenAuthenticatio
             <div className='flex items-center justify-between'>
               <button
                 type='submit'
-                className='bg-[#3552DC] text-white rounded-full px-5 py-2 text-sm hover:bg-[#122DB0] transition-[background]'
+                disabled={loading ? true : false}
+                className={`${loading ? 'bg-blue-200 hover:bg-blue-200 cursor-auto' : 'bg-[#3552DC] hover:bg-[#122DB0] cursor-pointer'} text-white rounded-full px-5 py-2 text-sm transition-[background]`}
               >
-                Send
+                {
+                  loading
+                  ? <Loader />
+                  : 'Send'
+                }
               </button>
               <button
                 onClick={() => setCurrentPage('login')}

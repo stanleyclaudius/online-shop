@@ -245,6 +245,51 @@ const authCtrl = {
     } catch (err: any) {
       return res.status(500).json({ msg: err.message })
     }
+  },
+  forgetPassword: async(req: Request, res: Response) => {
+    try {
+      const findUser = await User.findOne({ email: req.body.email })
+      if (!findUser)
+        return res.status(404).json({ msg: `User with ${req.body.email} not found.` })
+
+      const token = generateAccessToken({ id: findUser._id })
+      const url = `${process.env.CLIENT_URL}/reset/${token}`
+
+      const emailContent = authEmailFormat('Reset Password', url)
+      sendEmail(req.body.email, 'Reset Password', emailContent)
+
+      return res.status(200).json({ msg: `Reset password link has been sent to ${req.body.email}` })
+    } catch (err: any) {
+      return res.status(500).json({ msg: err.message })
+    }
+  },
+  resetPassword: async(req: Request, res: Response) => {
+    try {
+      const { password } = req.body
+      if (!password)
+        return res.status(400).json({ msg: 'Please provide new password.' })
+
+      if (password.length < 8)
+        return res.status(400).json({ msg: 'Password should be at least 8 characters.' })
+      
+      const decoded = <IDecodedToken>jwt.verify(req.params.token, `${process.env.ACCESS_TOKEN_SECRET}`)
+      if (!decoded.id)
+        return res.status(400).json({ msg: 'Invalid reset password token.' })
+
+      const user = await User.findById(decoded.id)
+      if (!user)
+        return res.status(400).json({ msg: 'Invalid reset password token.' })
+
+      const passwordHash = await bcrypt.hash(password, 12)
+
+      await User.findOneAndUpdate({ _id: decoded.id }, {
+        password: passwordHash
+      })
+
+      return res.status(200).json({ msg: 'Password has been reset successfully.' })
+    } catch (err: any) {
+      return res.status(500).json({ msg: err.message })
+    }
   }
 }
 

@@ -6,6 +6,7 @@ import ComposeNewsletterModal from './../components/modal/ComposeNewsletterModal
 import Loader from './../components/general/Loader'
 import { INewsletterData } from '../redux/types/newsletterTypes'
 import { getNewsletters } from '../redux/actions/newsletterActions'
+import NotFound from '../components/general/NotFound'
 
 const Newsletter = () => {
   const [currPage, setCurrPage] = useState(1)
@@ -54,11 +55,15 @@ const Newsletter = () => {
     setNewsletters(newsletter.data)
   }, [newsletter])
 
+  if (auth.user?.role !== 'admin') {
+    return <NotFound />
+  }
+
   return (
     <>
       <Layout>
         <div className='flex items-center justify-between gap-10'>
-          <h1 className='text-2xl tracking-wide font-oswald'>Newsletter Management</h1>
+          <h1 className='text-2xl tracking-wide font-oswald'>Sent Newsletter</h1>
           <button
             onClick={() => setOpenComposeModal(true)}
             className='bg-blue-500 rounded-full px-5 py-2 hover:bg-blue-600 transition-[background] text-sm text-white'
