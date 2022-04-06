@@ -1,15 +1,9 @@
 import { Request, Response } from 'express'
 import mongoose from 'mongoose'
+import { pagination } from '../utils/pagination'
 import Brand from './../models/Brand'
 import Category from './../models/Category'
 import Product from './../models/Product'
-
-const Pagination = (req: Request, defaultLimit: number) => {
-  const page = Number(req.query.page) || 1
-  const limit = Number(req.query.limit) || defaultLimit
-  const skip = (page - 1) * limit
-  return { page, limit, skip }
-}
 
 const productCtrl = {
   createProduct: async(req: Request, res: Response) => {
@@ -62,7 +56,7 @@ const productCtrl = {
   },
   getProduct: async(req: Request, res: Response) => {
     try {
-      const { skip, limit } = Pagination(req, 8)
+      const { skip, limit } = pagination(req, 8)
       const data = await Product.aggregate([
         {
           $facet: {
@@ -134,7 +128,7 @@ const productCtrl = {
     }
   },
   getHomeProduct: async(req: Request, res: Response) => {
-    const { skip, limit } = Pagination(req, 9)
+    const { skip, limit } = pagination(req, 9)
 
     const brandQuery = []
     if (req.query.brand) {

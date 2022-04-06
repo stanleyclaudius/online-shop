@@ -4,13 +4,7 @@ import mongoose from 'mongoose'
 import Review from './../models/Review'
 import Checkout from './../models/Checkout'
 import { io } from './../index'
-
-const Pagination = (req: Request) => {
-  const page = Number(req.query.page) || 1
-  const limit = Number(req.query.limit) || 4
-  const skip = (page - 1) * limit
-  return {page, limit, skip}
-}
+import { pagination } from '../utils/pagination'
 
 const reviewCtrl = {
   createReview: async(req: IReqUser, res: Response) => {
@@ -85,7 +79,7 @@ const reviewCtrl = {
   },
   getReview: async(req: Request, res: Response) => {
     try {
-      const { skip, limit } = Pagination(req)
+      const { skip, limit } = pagination(req, 4)
 
       const reviews = await Review.aggregate([
         {

@@ -1,17 +1,11 @@
 import { Request, Response } from 'express'
+import { pagination } from '../utils/pagination'
 import { validateEmail } from '../utils/validator'
 import Subscriber from './../models/Subscriber'
 
-const Pagination = (req: Request) => {
-  const page = Number(req.query.page) || 1
-  const limit = Number(req.query.limit) || 8
-  const skip = (page - 1) * limit
-  return { page, limit, skip }
-}
-
 const subscriberCtrl = {
   getSubscriber: async(req: Request, res: Response) => {
-    const { skip, limit } = Pagination(req)
+    const { skip, limit } = pagination(req)
 
     try {
       const data = await Subscriber.aggregate([

@@ -1,13 +1,7 @@
 import { Request, Response } from 'express'
 import Product from './../models/Product'
 import Category from './../models/Category'
-
-const Pagination = (req: Request) => {
-  const page = Number(req.query.page) || 1
-  const limit = Number(req.query.limit) || 8
-  const skip = (page - 1) * limit
-  return { page, limit, skip }
-}
+import { pagination } from '../utils/pagination'
 
 const categoryCtrl = {
   createCategory: async(req: Request, res: Response) => {
@@ -42,7 +36,7 @@ const categoryCtrl = {
   getAdminCategory: async(req: Request, res: Response) => {
     try {
       console.log('trigger')
-      const { skip, limit } = Pagination(req)
+      const { skip, limit } = pagination(req)
 
       const data = await Category.aggregate([
         {

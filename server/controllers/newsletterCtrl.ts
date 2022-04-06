@@ -2,13 +2,7 @@ import { Request, Response } from 'express'
 import Subscriber from './../models/Subscriber'
 import Newsletter from './../models/Newsletter'
 import sendEmail from './../utils/sendMail'
-
-const Pagination = (req: Request) => {
-  const page = Number(req.query.page) || 1
-  const limit = Number(req.query.limit) || 8
-  const skip = (page - 1) * limit
-  return { page, skip, limit }
-}
+import { pagination } from '../utils/pagination'
 
 const newsletterCtrl = {
   composeNewsletter: async(req: Request, res: Response) => {
@@ -34,7 +28,7 @@ const newsletterCtrl = {
     }
   },
   getNewsletters: async(req: Request, res: Response) => {
-    const { skip, limit } = Pagination(req)
+    const { skip, limit } = pagination(req)
     try {
       const data = await Newsletter.aggregate([
         {

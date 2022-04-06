@@ -1,12 +1,6 @@
 import { Request, Response } from 'express'
+import { pagination } from '../utils/pagination'
 import Discount from './../models/Discount'
-
-const Pagination = (req: Request) => {
-  const page = Number(req.query.page) || 1
-  const limit = Number(req.query.limit) || 8
-  const skip = (page - 1) * limit
-  return { page, limit, skip }
-}
 
 const discountCtrl = {
   createDiscount: async(req: Request, res: Response) => {
@@ -38,7 +32,7 @@ const discountCtrl = {
   },
   getDiscount: async(req: Request, res: Response) => {
     try {
-      const { limit, skip } = Pagination(req)
+      const { limit, skip } = pagination(req)
       const data = await Discount.aggregate([
         {
           $facet: {

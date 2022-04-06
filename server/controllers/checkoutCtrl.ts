@@ -3,13 +3,7 @@ import { createOvoTransaction, getChargeStatus } from './../utils/paymentHelper'
 import Checkout from './../models/Checkout'
 import Cart from './../models/Cart'
 import { IReqUser, IXenditTransaction } from './../utils/Interface'
-
-const Pagination = (req: Request) => {
-  const page = Number(req.query.page) || 1
-  const limit = Number(req.query.limit) || 8
-  const skip = (page - 1) * limit
-  return { page, skip, limit }
-}
+import { pagination } from '../utils/pagination'
 
 const checkoutCtrl = {
   createCheckout: async(req: IReqUser, res: Response) => {
@@ -106,7 +100,7 @@ const checkoutCtrl = {
   },
   getAllTransactions: async(req: Request, res: Response) => {
     try {
-      const { skip, limit } = Pagination(req)
+      const { skip, limit } = pagination(req)
 
       const transactions = await Checkout.find().sort('-createdAt').skip(skip).limit(limit).populate('items.product user')
       const transactionCount = await Checkout.find().countDocuments()
