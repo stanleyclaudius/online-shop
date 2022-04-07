@@ -74,11 +74,11 @@ const Profile = () => {
         await dispatch(
           editProfile({
             ...profileData,
-            province: auth.user?.province,
-            city: auth.user?.city,
-            district: auth.user?.district,
-            postalCode: auth.user?.postalCode,
-            address: auth.user?.address,
+            province: `${auth.user?.province}`,
+            city: `${auth.user?.city}`,
+            district: `${auth.user?.district}`,
+            postalCode: `${auth.user?.postalCode}`,
+            address: `${auth.user?.address}`,
             tempAvatar
           }, auth)
         )
@@ -89,9 +89,9 @@ const Profile = () => {
         await dispatch(
           editProfile({
             ...profileData,
-            name: auth.user?.name,
-            phoneNumber: auth.user?.phone,
-            avatar: auth.user?.avatar
+            name: `${auth.user?.name}`,
+            phoneNumber: `${auth.user?.phone}`,
+            avatar: `${auth.user?.avatar}`
           }, auth)
         )
         setLoading('')

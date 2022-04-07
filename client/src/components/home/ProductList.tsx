@@ -101,11 +101,13 @@ const ProductList = () => {
           </div>
           {
             homeProduct.totalPage > 1 &&
-            <Pagination
-              selectedPage={selectedPage}
-              setSelectedPage={setSelectedPage}
-              totalPage={homeProduct.totalPage}
-            />
+            <div className={`${products.length !== 9 ? 'border-t border-gray-300' : undefined}`}>
+              <Pagination
+                selectedPage={selectedPage}
+                setSelectedPage={setSelectedPage}
+                totalPage={homeProduct.totalPage}
+              />
+            </div>
           }
         </div>
       </div>

@@ -1,9 +1,9 @@
 import { Request, Response } from 'express'
 import User from './../models/User'
 import Checkout from './../models/Checkout'
-import Product from '../models/Product'
-import Brand from '../models/Brand'
-import Category from '../models/Category'
+import Product from './../models/Product'
+import Brand from './../models/Brand'
+import Category from './../models/Category'
 
 type monthlyData = {
   month: string

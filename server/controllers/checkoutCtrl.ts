@@ -1,9 +1,9 @@
 import { Request, Response } from 'express'
 import { createOvoTransaction, getChargeStatus } from './../utils/paymentHelper'
+import { IReqUser, IXenditTransaction } from './../utils/Interface'
+import { pagination } from './../utils/pagination'
 import Checkout from './../models/Checkout'
 import Cart from './../models/Cart'
-import { IReqUser, IXenditTransaction } from './../utils/Interface'
-import { pagination } from '../utils/pagination'
 
 const checkoutCtrl = {
   createCheckout: async(req: IReqUser, res: Response) => {

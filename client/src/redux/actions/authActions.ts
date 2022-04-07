@@ -1,5 +1,5 @@
 import { Dispatch } from 'redux'
-import { IUserLogin, IUserRegister } from './../../utils/Interface'
+import { IEditProfile, IUserLogin, IUserRegister } from './../../utils/Interface'
 import { getDataAPI, patchDataAPI, postDataAPI } from './../../utils/fetchData'
 import { uploadImages } from './../../utils/imageHelper'
 import { AUTH, IAuth, IAuthType } from './../types/authTypes'
@@ -297,16 +297,14 @@ export const facebookLogin = (accessToken: string, userID: string) => async(disp
   }
 }
 
-export const editProfile = (data: object, auth: IAuth) => async(dispatch: Dispatch<IAuthType | IAlertType>) => {
+export const editProfile = (data: IEditProfile, auth: IAuth) => async(dispatch: Dispatch<IAuthType | IAlertType>) => {
   const tokenExpResult = await checkTokenExp(`${auth.token}`, dispatch)
   const accessToken = tokenExpResult ? tokenExpResult : auth.token
 
   try {
     let avatarRes = []
-    // @ts-ignore
     if (data.tempAvatar && data.tempAvatar.length > 0) {
-      // @ts-ignore
-      avatarRes = await uploadImages(data.tempAvatar)
+      avatarRes = await uploadImages(data.tempAvatar, 'avatar')
     }
 
     const res = await patchDataAPI('auth/profile', { ...data, avatar: avatarRes.length > 0 ? avatarRes[0] : auth.user?.avatar }, accessToken)

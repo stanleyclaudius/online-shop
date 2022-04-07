@@ -33,3 +33,18 @@ export interface IUser extends IUserLogin {
   postalCode: string
   address: string
 }
+
+export interface IEditProfile {
+  avatar: string
+  name: string
+  phoneNumber: string
+  province: string
+  city: string
+  district: string 
+  postalCode: string
+  address: string
+  currentPassword: string
+  newPassword: string
+  newPasswordConfirmation: string
+  tempAvatar?: File[]
+}

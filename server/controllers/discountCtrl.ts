@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { pagination } from '../utils/pagination'
+import { pagination } from './../utils/pagination'
 import Discount from './../models/Discount'
 
 const discountCtrl = {

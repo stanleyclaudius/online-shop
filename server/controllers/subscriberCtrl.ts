@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
-import { pagination } from '../utils/pagination'
-import { validateEmail } from '../utils/validator'
+import { pagination } from './../utils/pagination'
+import { validateEmail } from './../utils/validator'
 import Subscriber from './../models/Subscriber'
 
 const subscriberCtrl = {

@@ -60,11 +60,47 @@ const CreateProductModal: React.FC<IProps> = ({
 
     switch (type) {
       case 'color':
+        if (!colorInput) {
+          return dispatch({
+            type: ALERT,
+            payload: {
+              errors: 'Please provide product color.'
+            }
+          })
+        }
+
+        if (colors.includes(colorInput)) {
+          return dispatch({
+            type: ALERT,
+            payload: {
+              errors: `${colorInput} color has been added before.`
+            }
+          })
+        }
+
         setColors([...colors, colorInput])
         setColorInput('')
         setOpenColorInput(false)
         break
       case 'size':
+        if (!sizeInput) {
+          return dispatch({
+            type: ALERT,
+            payload: {
+              errors: 'Please provide product size.'
+            }
+          })
+        }
+
+        if (sizes.includes(sizeInput)) {
+          return dispatch({
+            type: ALERT,
+            payload: {
+              errors: `Size ${sizeInput} has been added before.`
+            }
+          })
+        }
+
         setSizes([...sizes, sizeInput])
         setSizeInput(0)
         setOpenSizeInput(false)
@@ -383,7 +419,7 @@ const CreateProductModal: React.FC<IProps> = ({
                 htmlFor='color'
                 className='text-sm'
               >
-                Color
+                Color <span className='text-xs text-gray-500 ml-2'>(Hexadecimal Format (Start with #))</span>
               </label>
               {
                 colors.length > 0 &&
@@ -515,6 +551,7 @@ const CreateProductModal: React.FC<IProps> = ({
                 autoComplete='off'
                 id='price'
                 name='price'
+                min={0}
                 value={productData.price}
                 onChange={handleGeneralChange}
                 className='w-full rounded-md border border-gray-300 outline-0 p-2 text-sm mt-2'
@@ -533,6 +570,8 @@ const CreateProductModal: React.FC<IProps> = ({
                 id='discount'
                 name='discount'
                 value={productData.discount}
+                min={0}
+                max={100}
                 onChange={handleGeneralChange}
                 className='w-full rounded-md border border-gray-300 outline-0 p-2 text-sm mt-2'
               />
@@ -583,6 +622,7 @@ const CreateProductModal: React.FC<IProps> = ({
                 autoComplete='off'
                 id='weight'
                 name='weight'
+                min={0}
                 value={productData.weight}
                 onChange={handleGeneralChange}
                 className='w-full rounded-md border border-gray-300 outline-0 p-2 text-sm mt-2'

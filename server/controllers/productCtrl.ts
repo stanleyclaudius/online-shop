@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
+import { pagination } from './../utils/pagination'
 import mongoose from 'mongoose'
-import { pagination } from '../utils/pagination'
 import Brand from './../models/Brand'
 import Category from './../models/Category'
 import Product from './../models/Product'

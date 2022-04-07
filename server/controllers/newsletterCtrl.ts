@@ -1,8 +1,8 @@
 import { Request, Response } from 'express'
+import { pagination } from './../utils/pagination'
 import Subscriber from './../models/Subscriber'
 import Newsletter from './../models/Newsletter'
 import sendEmail from './../utils/sendMail'
-import { pagination } from '../utils/pagination'
 
 const newsletterCtrl = {
   composeNewsletter: async(req: Request, res: Response) => {

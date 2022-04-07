@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
+import { pagination } from './../utils/pagination'
 import Product from './../models/Product'
 import Category from './../models/Category'
-import { pagination } from '../utils/pagination'
 
 const categoryCtrl = {
   createCategory: async(req: Request, res: Response) => {

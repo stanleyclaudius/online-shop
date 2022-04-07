@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
+import { io } from './../index'
 import { IReqUser } from './../utils/Interface'
 import Qna from './../models/Qna'
-import { io } from './../index'
 
 const qnaCtrl = {
   createQna: async(req: IReqUser, res: Response) => {

@@ -1,10 +1,10 @@
 import { Request, Response } from 'express'
+import { io } from './../index'
 import { IReqUser } from './../utils/Interface'
+import { pagination } from './../utils/pagination'
 import mongoose from 'mongoose'
 import Review from './../models/Review'
 import Checkout from './../models/Checkout'
-import { io } from './../index'
-import { pagination } from '../utils/pagination'
 
 const reviewCtrl = {
   createReview: async(req: IReqUser, res: Response) => {
