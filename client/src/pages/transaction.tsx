@@ -8,6 +8,7 @@ import { numberFormatter } from '../utils/numberFormatter'
 import Layout from './../components/admin/Layout'
 import HistoryModal from './../components/modal/HistoryModal'
 import NotFound from './../components/general/NotFound'
+import HeadInfo from '../utils/HeadInfo'
 
 const Transaction = () => {
   const [currPage, setCurrPage] = useState(1)
@@ -68,6 +69,7 @@ const Transaction = () => {
 
   return (
     <>
+      <HeadInfo title='Transaction Management' />
       <Layout>
         <h1 className='text-2xl tracking-wide font-oswald'>Transaction Management</h1>
         {

@@ -44,9 +44,21 @@ const QnaContainer: React.FC<IProps> = ({ id }) => {
         }
         <div className='mt-5'>
           {
-            qnas.map(item => (
-              <QnaDisplay key={item._id} item={item} />
-            ))
+            qnas.length === 0
+            ? (
+              <div className='bg-red-500 text-sm text-white p-3 text-center rounded-md mt-5'>
+                This product has no QnA yet.
+              </div>
+            )
+            : (
+              <>
+                {
+                  qnas.map(item => (
+                    <QnaDisplay key={item._id} item={item} />
+                  ))
+                }
+              </>
+            )
           }
 
           {

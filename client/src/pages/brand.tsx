@@ -8,6 +8,7 @@ import DeleteModal from './../components/modal/DeleteModal'
 import CreateBrandModal from './../components/modal/CreateBrandModal'
 import Loader from './../components/general/Loader'
 import NotFound from './../components/general/NotFound'
+import HeadInfo from '../utils/HeadInfo'
 
 const Brand = () => {
   const [brands, setBrands] = useState<IBrandData[]>([])
@@ -93,6 +94,7 @@ const Brand = () => {
 
   return (
     <>
+      <HeadInfo title='Brand Management' />
       <Layout>
         <div className='flex items-center justify-between gap-10'>
           <h1 className='text-2xl tracking-wide font-oswald'>Brand Management</h1>

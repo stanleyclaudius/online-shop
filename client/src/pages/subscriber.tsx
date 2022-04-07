@@ -7,6 +7,7 @@ import { ISubscriberData } from '../redux/types/subscriberTypes'
 import { RootStore } from '../utils/Interface'
 import DeleteModal from '../components/modal/DeleteModal'
 import NotFound from '../components/general/NotFound'
+import HeadInfo from '../utils/HeadInfo'
 
 const Subscriber = () => {
   const [currPage, setCurrPage] = useState(1)
@@ -61,6 +62,7 @@ const Subscriber = () => {
 
   return (
     <>
+      <HeadInfo title='Subscriber Management' />
       <Layout>
         <h1 className='text-2xl tracking-wide font-oswald'>Subscriber Management</h1>
         {

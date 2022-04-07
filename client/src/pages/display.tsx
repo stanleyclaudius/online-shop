@@ -3,6 +3,7 @@ import Layout from '../components/admin/Layout'
 import NotFound from './../components/general/NotFound'
 import HighlightedItem from '../components/home/HighlightedItem'
 import { RootStore } from '../utils/Interface'
+import HeadInfo from '../utils/HeadInfo'
 
 const Display = () => {
   const { auth } = useSelector((state: RootStore) => state)
@@ -12,14 +13,17 @@ const Display = () => {
   }
 
   return (
-    <Layout>
-      <div className='flex items-center justify-between gap-10'>
-        <h1 className='text-2xl tracking-wide font-oswald'>Home Banner Display</h1>
-      </div>
-      <div className="mt-7">
-        <HighlightedItem admin={true} />
-      </div>
-    </Layout>
+    <>
+      <HeadInfo title='Banner Management' />
+      <Layout>
+        <div className='flex items-center justify-between gap-10'>
+          <h1 className='text-2xl tracking-wide font-oswald'>Home Banner Display</h1>
+        </div>
+        <div className="mt-7">
+          <HighlightedItem admin={true} />
+        </div>
+      </Layout>
+    </>
   )
 }
 

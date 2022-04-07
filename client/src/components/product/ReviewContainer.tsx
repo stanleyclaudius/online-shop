@@ -47,9 +47,21 @@ const ReviewContainer: React.FC<IProps> = ({ id }) => {
         </div>
         <div>
           {
-            reviews.map(item => (
-              <Review key={item._id} item={item} />
-            ))
+            reviews.length === 0
+            ? (
+              <div className='bg-red-500 text-sm text-white p-3 text-center rounded-md mt-5'>
+                This product has no review yet.
+              </div>
+            )
+            : (
+              <>
+                {
+                  reviews.map(item => (
+                    <Review key={item._id} item={item} />
+                  ))
+                }
+              </>
+            )
           }
         </div>
         <div className='flex items-center justify-end mt-6 gap-7 text-sm'>

@@ -8,6 +8,7 @@ import DeleteModal from './../../components/modal/DeleteModal'
 import CreateProductModal from './../../components/modal/CreateProductModal'
 import Loader from './../../components/general/Loader'
 import NotFound from './../../components/general/NotFound'
+import HeadInfo from '../../utils/HeadInfo'
 
 const Product = () => {
   const [currPage, setCurrPage] = useState(1)
@@ -119,6 +120,7 @@ const Product = () => {
 
   return (
     <>
+      <HeadInfo title='Product Management' />
       <Layout>
         <div className='flex items-center justify-between gap-10'>
           <h1 className='text-2xl tracking-wide font-oswald'>Product Management</h1>

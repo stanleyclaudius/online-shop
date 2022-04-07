@@ -9,6 +9,7 @@ import Subscribe from './../components/general/Subscribe'
 import Footer from './../components/general/Footer'
 import Loader from '../components/general/Loader'
 import NotFound from './../components/general/NotFound'
+import HeadInfo from '../utils/HeadInfo'
 
 interface IProvinceData {
   id: number
@@ -194,6 +195,7 @@ const Profile = () => {
 
   return (
     <>
+      <HeadInfo title='Profile' />
       <Navbar />
       <Header />
       <div className='m-auto bg-white md:w-8/12 w-10/12 drop-shadow-2xl -translate-y-10 p-5 font-opensans'>

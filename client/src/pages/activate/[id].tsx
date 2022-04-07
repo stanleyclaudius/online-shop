@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { ALERT } from './../../redux/types/alertTypes'
 import { postDataAPI } from './../../utils/fetchData'
+import HeadInfo from '../../utils/HeadInfo'
 
 const Activate = () => {
   const { id } = useParams()
@@ -36,7 +37,10 @@ const Activate = () => {
   }, [activateAccount])
 
   return (
-    <div></div>
+    <>
+      <HeadInfo title='Account Activation' />
+      <div></div>
+    </>
   )
 }
 

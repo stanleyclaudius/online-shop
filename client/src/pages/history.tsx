@@ -11,6 +11,7 @@ import { getCheckoutHistory } from '../redux/actions/checkoutActions'
 import { numberFormatter } from '../utils/numberFormatter'
 import Loader from '../components/general/Loader'
 import NotFound from './../components/general/NotFound'
+import HeadInfo from '../utils/HeadInfo'
 
 const History = () => {
   const [checkoutHistory, setCheckoutHistory] = useState<ICheckoutData[]>([])
@@ -52,6 +53,7 @@ const History = () => {
 
   return (
     <>
+      <HeadInfo title='Transaction History' />
       <Navbar />
       <Header />
       <div className='m-auto bg-white w-10/12 drop-shadow-2xl -translate-y-10 font-opensans p-7'>

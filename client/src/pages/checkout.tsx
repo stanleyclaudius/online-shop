@@ -13,6 +13,7 @@ import { numberFormatter } from '../utils/numberFormatter'
 import { ALERT } from '../redux/types/alertTypes'
 import { getDataAPI } from '../utils/fetchData'
 import NotFound from './../components/general/NotFound'
+import HeadInfo from '../utils/HeadInfo'
 
 const Checkout = () => {
   const [discount, setDiscount] = useState('')
@@ -74,6 +75,7 @@ const Checkout = () => {
 
   return (
     <>
+      <HeadInfo title='Checkout' />
       <Navbar />
       <div className='flex flex-col md:flex-row flex-col-reverse'>
         <div className='flex-[2] lg:mx-40 lg:my-12 md:mx-12 md:my-12 m-12'>

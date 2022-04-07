@@ -55,11 +55,13 @@ export const login = (userData: IUserLogin) => async (dispatch: Dispatch<IGetWis
     localStorage.setItem('sneakershub_firstLogin', 'true')
 
     const cartData = JSON.parse(localStorage.getItem('sneakershub_cartItems') as string)
-    if (cartData!.length > 0) {
-      cartData!.forEach(async(item: ICartData) => {
-        await postDataAPI('cart', { product: item._id, color: item.color, size: item.size, qty: item.qty }, res.data.accessToken)
-      })
-      localStorage.setItem('sneakershub_cartItems', JSON.stringify([]))
+    if (cartData) {
+      if (cartData.length > 0) {
+        cartData!.forEach(async(item: ICartData) => {
+          await postDataAPI('cart', { product: item._id, color: item.color, size: item.size, qty: item.qty }, res.data.accessToken)
+        })
+        localStorage.setItem('sneakershub_cartItems', JSON.stringify([]))
+      }
     }
 
     const cartRes = await getDataAPI('cart', res.data.accessToken)
@@ -69,11 +71,13 @@ export const login = (userData: IUserLogin) => async (dispatch: Dispatch<IGetWis
     })
 
     const wishlistData = JSON.parse(localStorage.getItem('sneakershub_wishlist') as string)
-    if (wishlistData!.length > 0) {
-      wishlistData.forEach(async(item: IWishlistData) => {
-        await postDataAPI('wishlist', { product: item.product }, res.data.accessToken)
-      })
-      localStorage.setItem('sneakershub_wishlist', JSON.stringify([]))
+    if (wishlistData) {
+      if (wishlistData.length > 0) {
+        wishlistData.forEach(async(item: IWishlistData) => {
+          await postDataAPI('wishlist', { product: item.product }, res.data.accessToken)
+        })
+        localStorage.setItem('sneakershub_wishlist', JSON.stringify([]))
+      }
     }
 
     const wishlistRes = await getDataAPI('wishlist', res.data.accessToken)
@@ -191,11 +195,13 @@ export const googleLogin = (token: string) => async (dispatch: Dispatch<IGetWish
     localStorage.setItem('sneakershub_firstLogin', 'true')
 
     const cartData = JSON.parse(localStorage.getItem('sneakershub_cartItems') as string)
-    if (cartData!.length > 0) {
-      cartData!.forEach(async(item: ICartData) => {
-        await postDataAPI('cart', { product: item._id, color: item.color, size: item.size, qty: item.qty }, res.data.accessToken)
-      })
-      localStorage.setItem('sneakershub_cartItems', JSON.stringify([]))
+    if (cartData) {
+      if (cartData.length > 0) {
+        cartData!.forEach(async(item: ICartData) => {
+          await postDataAPI('cart', { product: item._id, color: item.color, size: item.size, qty: item.qty }, res.data.accessToken)
+        })
+        localStorage.setItem('sneakershub_cartItems', JSON.stringify([]))
+      }
     }
 
     const cartRes = await getDataAPI('cart', res.data.accessToken)
@@ -205,11 +211,13 @@ export const googleLogin = (token: string) => async (dispatch: Dispatch<IGetWish
     })
 
     const wishlistData = JSON.parse(localStorage.getItem('sneakershub_wishlist') as string)
-    if (wishlistData!.length > 0) {
-      wishlistData.forEach(async(item: IWishlistData) => {
-        await postDataAPI('wishlist', { product: item.product }, res.data.accessToken)
-      })
-      localStorage.setItem('sneakershub_wishlist', JSON.stringify([]))
+    if (wishlistData) {
+      if (wishlistData.length > 0) {
+        wishlistData.forEach(async(item: IWishlistData) => {
+          await postDataAPI('wishlist', { product: item.product }, res.data.accessToken)
+        })
+        localStorage.setItem('sneakershub_wishlist', JSON.stringify([]))
+      }
     }
 
     const wishlistRes = await getDataAPI('wishlist', res.data.accessToken)
@@ -254,11 +262,13 @@ export const facebookLogin = (accessToken: string, userID: string) => async(disp
     localStorage.setItem('sneakershub_firstLogin', 'true')
 
     const cartData = JSON.parse(localStorage.getItem('sneakershub_cartItems') as string)
-    if (cartData!.length > 0) {
-      cartData!.forEach(async(item: ICartData) => {
-        await postDataAPI('cart', { product: item._id, color: item.color, size: item.size, qty: item.qty }, res.data.accessToken)
-      })
-      localStorage.setItem('sneakershub_cartItems', JSON.stringify([]))
+    if (cartData) {
+      if (cartData.length > 0) {
+        cartData!.forEach(async(item: ICartData) => {
+          await postDataAPI('cart', { product: item._id, color: item.color, size: item.size, qty: item.qty }, res.data.accessToken)
+        })
+        localStorage.setItem('sneakershub_cartItems', JSON.stringify([]))
+      }
     }
 
     const cartRes = await getDataAPI('cart', res.data.accessToken)
@@ -268,11 +278,13 @@ export const facebookLogin = (accessToken: string, userID: string) => async(disp
     })
 
     const wishlistData = JSON.parse(localStorage.getItem('sneakershub_wishlist') as string)
-    if (wishlistData!.length > 0) {
-      wishlistData.forEach(async(item: IWishlistData) => {
-        await postDataAPI('wishlist', { product: item.product }, res.data.accessToken)
-      })
-      localStorage.setItem('sneakershub_wishlist', JSON.stringify([]))
+    if (wishlistData) {
+      if (wishlistData.length > 0) {
+        wishlistData.forEach(async(item: IWishlistData) => {
+          await postDataAPI('wishlist', { product: item.product }, res.data.accessToken)
+        })
+        localStorage.setItem('sneakershub_wishlist', JSON.stringify([]))
+      }
     }
 
     const wishlistRes = await getDataAPI('wishlist', res.data.accessToken)

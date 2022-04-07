@@ -3,10 +3,12 @@ import Header from './../components/home/Header'
 import ProductList from './../components/home/ProductList'
 import Subscribe from './../components/general/Subscribe'
 import Footer from './../components/general/Footer'
+import HeadInfo from '../utils/HeadInfo'
 
 const Home = () => {
   return (
     <>
+      <HeadInfo title='Home' />
       <Navbar />
       <Header />
       <ProductList />

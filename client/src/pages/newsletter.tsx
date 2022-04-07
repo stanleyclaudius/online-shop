@@ -7,6 +7,7 @@ import Loader from './../components/general/Loader'
 import { INewsletterData } from '../redux/types/newsletterTypes'
 import { getNewsletters } from '../redux/actions/newsletterActions'
 import NotFound from '../components/general/NotFound'
+import HeadInfo from '../utils/HeadInfo'
 
 const Newsletter = () => {
   const [currPage, setCurrPage] = useState(1)
@@ -61,6 +62,7 @@ const Newsletter = () => {
 
   return (
     <>
+      <HeadInfo title='Newsletter' />
       <Layout>
         <div className='flex items-center justify-between gap-10'>
           <h1 className='text-2xl tracking-wide font-oswald'>Sent Newsletter</h1>

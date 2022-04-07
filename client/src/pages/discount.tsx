@@ -8,6 +8,7 @@ import { IDiscountData } from '../redux/types/discountTypes'
 import { deleteDiscount, getDiscount } from '../redux/actions/discountActions'
 import Loader from '../components/general/Loader'
 import NotFound from './../components/general/NotFound'
+import HeadInfo from '../utils/HeadInfo'
 
 const Discount = () => {
   const [currPage, setCurrPage] = useState(1)
@@ -93,6 +94,7 @@ const Discount = () => {
 
   return (
     <>
+      <HeadInfo title='Discount Management' />
       <Layout>
         <div className='flex items-center justify-between gap-10'>
           <h1 className='text-2xl tracking-wide font-oswald'>Discount Management</h1>

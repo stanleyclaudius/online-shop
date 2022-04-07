@@ -6,6 +6,7 @@ import { ALERT } from '../../redux/types/alertTypes'
 import { patchDataAPI } from '../../utils/fetchData'
 import { FormSubmit, InputChange } from '../../utils/Interface'
 import Footer from './../../components/general/Footer'
+import HeadInfo from '../../utils/HeadInfo'
 
 const ResetPassword = () => {
   const [loading, setLoading] = useState(false)
@@ -76,6 +77,7 @@ const ResetPassword = () => {
 
   return (
     <>
+      <HeadInfo title='Reset Password' />
       <div className='bg-[#3853D8] text-white px-7 py-4 drop-shadow-xl sticky top-0 z-[999]'>
         <h1 className='font-opensans font-bold text-center'>SNEAKERSHUB | Reset Password</h1>
       </div>

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../components/general/Loader'
 import UserDetailModal from '../components/modal/UserDetailModal'
 import { getAllUser } from '../redux/actions/userActions'
+import HeadInfo from '../utils/HeadInfo'
 import { IUser, RootStore } from '../utils/Interface'
 import Layout from './../components/admin/Layout'
 import NotFound from './../components/general/NotFound'
@@ -66,6 +67,7 @@ const User = () => {
 
   return (
     <>
+      <HeadInfo title='User Management' />
       <Layout>
         <h1 className='text-2xl tracking-wide font-oswald'>User Management</h1>
         {

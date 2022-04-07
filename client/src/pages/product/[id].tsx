@@ -14,6 +14,7 @@ import Footer from './../../components/general/Footer'
 import Loader from './../../components/general/Loader'
 import QnaContainer from '../../components/product/QnaContainer'
 import { RootStore } from '../../utils/Interface'
+import HeadInfo from '../../utils/HeadInfo'
 
 const ProductDetail = () => {
   const [currentOption, setCurrentOption] = useState('review')
@@ -62,6 +63,7 @@ const ProductDetail = () => {
 
   return (
     <>
+      <HeadInfo title={`${product?.name}`} />
       <Navbar />
       <Header />
       {
