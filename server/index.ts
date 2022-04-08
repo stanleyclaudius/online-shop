@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser'
 import morgan from 'morgan'
 import connectDB from './config/db'
 import routes from './routes'
+import path from 'path'
 import { createServer } from 'http'
 import { Server, Socket } from 'socket.io'
 import { socketServer } from './config/socketServer'
@@ -45,6 +46,13 @@ app.use('/api/v1/banner', routes.bannerRouter)
 app.use('/api/v1/notification', routes.notificationRouter)
 app.use('/api/v1/subscriber', routes.subscriberRouter)
 app.use('/api/v1/newsletter', routes.newsletterRouter)
+
+if(process.env.NODE_ENV === 'PRODUCTION'){
+  app.use(express.static('client/build'))
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client', 'build', 'index.html'))
+  })
+}
 
 connectDB()
 http.listen(process.env.PORT, () => console.log(`Server is running on port ${process.env.PORT}.`))
