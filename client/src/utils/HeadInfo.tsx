@@ -7,7 +7,7 @@ interface IProps {
 const HeadInfo: React.FC<IProps> = ({ title }) => {
   return (
     <Helmet>
-      <title>Sneakershub - {title}</title>
+      <title>SneakersKu - {title}</title>
     </Helmet>
   )
 }

@@ -99,7 +99,7 @@ const Transaction = () => {
                         <td>{item._id}</td>
                         <td>{item.user?.name}</td>
                         <td>{new Date(`${item.createdAt}`).toLocaleDateString()}</td>
-                        <td>{item.discount ? `${item.discount}%` : '-'}</td>
+                        <td>{item.discount ? `${item.discount.value}%` : '-'}</td>
                         <td>{numberFormatter(item.totalPrice)},00</td>
                         <td>{item.items.length}</td>
                         <td>OVO</td>
