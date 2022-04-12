@@ -387,7 +387,7 @@ const CreateProductModal: React.FC<IProps> = ({
                 <option value=''>- Select Brand -</option>
                 {
                   brand.data.map(item => (
-                    <option value={item._id}>{item.name}</option>
+                    <option key={item._id} value={item._id}>{item.name}</option>
                   ))
                 }
               </select>
@@ -409,7 +409,7 @@ const CreateProductModal: React.FC<IProps> = ({
                 <option value=''>- Select Category -</option>
                 {
                   category.data.map(item => (
-                    <option value={item._id}>{item.name}</option>
+                    <option key={item._id} value={item._id}>{item.name}</option>
                   ))
                 }
               </select>

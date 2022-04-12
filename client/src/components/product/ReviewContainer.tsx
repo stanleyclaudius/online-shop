@@ -68,7 +68,7 @@ const ReviewContainer: React.FC<IProps> = ({ id }) => {
           {
             review.totalPage > 1 &&
             Array.from(Array(review.totalPage)).map((_, idx) => (
-              <p onClick={() => setCurrPage(idx + 1)} className={`cursor-pointer hover:font-bold ${currPage === idx + 1 ? 'font-bold' : undefined}`}>{idx + 1}</p>
+              <p key={idx} onClick={() => setCurrPage(idx + 1)} className={`cursor-pointer hover:font-bold ${currPage === idx + 1 ? 'font-bold' : undefined}`}>{idx + 1}</p>
             ))
           }
         </div>

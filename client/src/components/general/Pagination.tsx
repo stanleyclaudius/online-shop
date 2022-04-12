@@ -40,6 +40,7 @@ const Pagination: React.FC<IProps> = ({ selectedPage, setSelectedPage, totalPage
         {
           Array.from(Array(totalPage).keys()).map((_, idx) => (
             <div
+              key={idx}
               onClick={() => handleClickPage(idx + 1)}
               className={`py-3 px-5 cursor-pointer hover:bg-[#3552DC] hover:text-white ${selectedPage === idx + 1 ? 'bg-[#3552DC] text-white' : undefined}`}
             >

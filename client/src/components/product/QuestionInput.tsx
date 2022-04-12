@@ -8,9 +8,10 @@ import { ALERT } from './../../redux/types/alertTypes'
 interface IProps {
   id: string
   reply?: string
+  setOnReply?: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const QuestionInput: React.FC<IProps> = ({ id, reply }) => {
+const QuestionInput: React.FC<IProps> = ({ id, reply, setOnReply }) => {
   const [question, setQuestion] = useState('')
   const [loading, setLoading] = useState(false)
 
@@ -40,6 +41,7 @@ const QuestionInput: React.FC<IProps> = ({ id, reply }) => {
     setLoading(true)
     if (reply) {
       await dispatch(createQna({ ...qnaData, reply }, auth.token!))
+      if (setOnReply) setOnReply(false)
     } else {
       await dispatch(createQna(qnaData, auth.token!))
     }

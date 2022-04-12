@@ -57,12 +57,12 @@ const ReviewModal: React.FC<IProps> = ({ reviewRef }) => {
             <div className='flex items-center mt-2 gap-2'>
               {
                 Array.from(Array(star).keys()).map((_, idx) => (
-                  <AiFillStar className='text-2xl text-orange-400' onMouseOver={() => setStar(idx + 1)}  />
+                  <AiFillStar key={idx} className='text-2xl text-orange-400' onMouseOver={() => setStar(idx + 1)}  />
                 ))
               }
               {
                 Array.from(Array(5 - star).keys()).map((_, idx) => (
-                  <AiFillStar className='text-2xl text-gray-300' onMouseOver={() => setStar(idx + star + 1)} />
+                  <AiFillStar key={idx} className='text-2xl text-gray-300' onMouseOver={() => setStar(idx + star + 1)} />
                 ))
               }
             </div>

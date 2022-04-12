@@ -196,6 +196,7 @@ const Detail: React.FC<IProps> = ({ product }) => {
           {
             product?.images.map((item, idx) => (
               <div
+                key={idx}
                 onClick={() => setCurrImage(item)}
                 className='border border-gray-300 border-2 w-12 h-9 rounded-md p-1 cursor-pointer'
               >

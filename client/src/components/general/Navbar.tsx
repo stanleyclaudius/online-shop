@@ -244,8 +244,8 @@ const Navbar = () => {
                 className={`${openLike ? 'scale-y-1' : 'scale-y-0'} transition-[transform] origin-top absolute w-[300px] bg-white right-0 translate-y-3 rounded-md shadow-xl max-h-[350px] overflow-auto hide-scrollbar`}
               >
                 {
-                  wishlist.map(item => (
-                    <div className='font-opensans text-black flex items-center p-3'>
+                  wishlist.map((item, idx) => (
+                    <div key={idx} className='font-opensans text-black flex items-center p-3'>
                       <div className='w-20 h-20 bg-gray-300 flex items-center justify-center p-2'>
                         <img src={item.product.images[0]} alt={item.product.name} />
                       </div>

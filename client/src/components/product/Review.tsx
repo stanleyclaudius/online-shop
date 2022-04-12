@@ -55,13 +55,13 @@ const Review: React.FC<IProps> = ({ item }) => {
           <div className='flex items-center'>
             {
               Array.from(Array(item.star).keys()).map((_, idx) => (
-                <AiFillStar className='text-sm text-orange-400' />
+                <AiFillStar key={idx} className='text-sm text-orange-400' />
               ))
             }
 
             {
               Array.from(Array(5 - item.star).keys()).map((_, idx) => (
-                <AiFillStar className='text-sm text-gray-300' />
+                <AiFillStar key={idx} className='text-sm text-gray-300' />
               ))
             }
           </div>

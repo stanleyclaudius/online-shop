@@ -89,7 +89,7 @@ const User = () => {
                 <tbody>
                   {
                     users.map((item, idx) => (
-                      <tr className='text-sm text-center bg-gray-100'>
+                      <tr key={item._id} className='text-sm text-center bg-gray-100'>
                         <td className='p-3'>{idx + 1}</td>
                         <td>{item.name}</td>
                         <td>{item.email}</td>
@@ -120,7 +120,7 @@ const User = () => {
 
                     {
                       Array.from(Array(user.totalPage).keys()).map((_, idx) => (
-                        <div onClick={() => setCurrPage(idx + 1 )} className={`cursor-pointer py-2 px-4 border-r border-gray-300 ${currPage === idx + 1 ? 'bg-[#3552DC] text-white' : undefined}`}>{idx + 1}</div>
+                        <div key={idx} onClick={() => setCurrPage(idx + 1 )} className={`cursor-pointer py-2 px-4 border-r border-gray-300 ${currPage === idx + 1 ? 'bg-[#3552DC] text-white' : undefined}`}>{idx + 1}</div>
                       ))
                     }
 

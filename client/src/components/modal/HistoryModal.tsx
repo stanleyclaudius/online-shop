@@ -98,8 +98,8 @@ const HistoryModal: React.FC<IProps> = ({ modalRef, openHistoryModal, setOpenHis
             </div>
           </div>
           {
-            selectedItem?.items.map(item => (
-              <div className='flex items-center gap-7 py-5 border-b border-gray-300'>
+            selectedItem?.items.map((item, idx) => (
+              <div key={idx} className='flex items-center gap-7 py-5 border-b border-gray-300'>
                 <div className='w-20 h-20 border border-gray-300 rounded-md flex items-center justify-center p-2'>
                   <img src={typeof item.product === 'string' ? item.product : item.product.images[0]} alt={typeof item.product === 'string' ? item.product : item.product.name} />
                 </div>

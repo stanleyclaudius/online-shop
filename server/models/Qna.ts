@@ -7,7 +7,7 @@ const qnaSchema = new mongoose.Schema({
   },
   reply: {
     type: mongoose.Types.ObjectId,
-    ref: 'comment'
+    ref: 'qna'
   },
   user: {
     type: mongoose.Types.ObjectId,

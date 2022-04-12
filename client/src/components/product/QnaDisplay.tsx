@@ -32,7 +32,7 @@ const QnaDisplay: React.FC<IProps> = ({ item }) => {
       <div className='ml-[50px]'>
         {
           replyFromComment.map(itemReply => (
-            <QnaDisplay item={itemReply} />
+            <QnaDisplay key={item._id} item={itemReply} />
           ))
         }
 

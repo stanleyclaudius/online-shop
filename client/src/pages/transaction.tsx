@@ -94,7 +94,7 @@ const Transaction = () => {
                 <tbody>
                   {
                     transactions.map((item, idx) => (
-                      <tr className='text-sm text-center bg-gray-100'>
+                      <tr key={item._id} className='text-sm text-center bg-gray-100'>
                         <td className='p-3'>{idx + 1}</td>
                         <td>{item._id}</td>
                         <td>{item.user?.name}</td>
@@ -128,7 +128,7 @@ const Transaction = () => {
 
                     {
                       Array.from(Array(transaction.totalPage).keys()).map((_, idx) => (
-                        <div onClick={() => setCurrPage(idx + 1 )} className={`cursor-pointer py-2 px-4 border-r border-gray-300 ${currPage === idx + 1 ? 'bg-[#3552DC] text-white' : undefined}`}>{idx + 1}</div>
+                        <div key={idx} onClick={() => setCurrPage(idx + 1 )} className={`cursor-pointer py-2 px-4 border-r border-gray-300 ${currPage === idx + 1 ? 'bg-[#3552DC] text-white' : undefined}`}>{idx + 1}</div>
                       ))
                     }
 

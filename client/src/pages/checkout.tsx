@@ -96,8 +96,8 @@ const Checkout = () => {
           <h1 className='text-xl p-7'>Order Summary</h1>
           <div className='border-b border-gray-300 px-7 max-h-[240px] overflow-auto hide-scrollbar'>
             {
-              cart.map(item => (
-                <div className='font-opensans text-black flex items-center mb-6'>
+              cart.map((item, idx) => (
+                <div key={idx} className='font-opensans text-black flex items-center mb-6'>
                   <div className='w-20 h-20 border border-gray-300 rounded-md flex items-center justify-center p-2'>
                     <img src={item.product.images[0]} alt={item.product.name} />
                   </div>

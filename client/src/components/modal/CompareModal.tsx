@@ -182,7 +182,7 @@ const CompareModal: React.FC<IProps> = ({ compareRef }) => {
               <option value=''>- Select Product -</option>
               {
                 product.data.map(item => (
-                  <option value={item._id}>{item.name}</option>
+                  <option key={item._id} value={item._id}>{item.name}</option>
                 ))
               }
             </select>

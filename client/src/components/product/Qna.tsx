@@ -92,7 +92,7 @@ const Qna: React.FC<IProps> = ({ children, item }) => {
           {
             (onReply && auth.token) &&
             <div ref={replyRef} className='mt-5'>
-              <QuestionInput id={item.product} reply={item._id} />
+              <QuestionInput id={item.product} reply={item._id} setOnReply={setOnReply} />
             </div>
           }
         </div>

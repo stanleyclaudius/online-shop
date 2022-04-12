@@ -81,7 +81,7 @@ const History = () => {
                 <tbody>
                   {
                     checkoutHistory.map((item, idx) => (
-                      <tr className='text-sm text-center bg-gray-100'>
+                      <tr key={item._id} className='text-sm text-center bg-gray-100'>
                         <td className='p-3'>{idx + 1}</td>
                         <td>{new Date(item.createdAt!).toLocaleDateString}</td>
                         <td>{item._id!}</td>

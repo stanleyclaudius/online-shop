@@ -153,7 +153,7 @@ const Filter: React.FC<IProps> = ({
         </div>
         {
           categories.map(item => (
-            <CategoryTag handleClickCategory={handleClickCategory} item={item} />
+            <CategoryTag key={item.name} handleClickCategory={handleClickCategory} item={item} />
           ))
         }
       </div>
@@ -219,7 +219,7 @@ const Filter: React.FC<IProps> = ({
         <div className='grid grid-cols-7 pl-11 pr-3 gap-4 mt-2 mb-4'>
           {
             colors.map(item => (
-              <ColorTag handleClickColor={handleClickColor} item={item} />
+              <ColorTag key={item} handleClickColor={handleClickColor} item={item} />
             ))
           }
         </div>
@@ -232,7 +232,7 @@ const Filter: React.FC<IProps> = ({
         <div className='grid grid-cols-5 pl-11 pr-3 mt-2 mb-4'>
           {
             sizes.sort().map(item => (
-              <SizeTag handleClickSize={handleClickSize} item={item} />
+              <SizeTag key={item} handleClickSize={handleClickSize} item={item} />
             ))
           }
         </div>

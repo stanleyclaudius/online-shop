@@ -95,7 +95,7 @@ const ProductList = () => {
           <div className={`grid grid-cols-1 ${view === 'grid' ? 'md:grid-cols-2 lg:grid-cols-3' : undefined}`}>
             {
               products.map(item => (
-                <ProductCard view={view} product={item} />
+                <ProductCard key={item._id} view={view} product={item} />
               ))
             }
           </div>
