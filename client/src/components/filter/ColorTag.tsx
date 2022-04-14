@@ -1,18 +1,27 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AiOutlineClose } from 'react-icons/ai'
 
 interface IProps {
   handleClickColor: (item: string) => void
   item: string
+  selectedColor: string[]
 }
 
-const ColorTag: React.FC<IProps> = ({ handleClickColor, item }) => {
+const ColorTag: React.FC<IProps> = ({ handleClickColor, item, selectedColor }) => {
   const [isActive, setIsActive] = useState(false)
 
   const handleClick = () => {
     handleClickColor(item)
     setIsActive(!isActive)
   }
+
+  useEffect(() => {
+    if (!selectedColor.includes(item.substring(1))) {
+      setIsActive(false)
+    }
+    
+    return () => setIsActive(true)
+  }, [selectedColor])
 
   return (
     <div

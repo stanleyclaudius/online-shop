@@ -72,6 +72,7 @@ const ProductList = () => {
           openFilter={openFilter}
           categories={category.data}
           brands={brand.data}
+          selectedCategory={selectedCategory}
           setSelectedCategory={setSelectedCategory}
           selectedBrand={selectedBrand}
           setSelectedBrand={setSelectedBrand}
@@ -92,13 +93,24 @@ const ProductList = () => {
             setSortType={setSortType}
             setView={setView}
           />
-          <div className={`grid grid-cols-1 ${view === 'grid' ? 'md:grid-cols-2 lg:grid-cols-3' : undefined}`}>
-            {
-              products.map(item => (
-                <ProductCard key={item._id} view={view} product={item} />
-              ))
-            }
-          </div>
+          {
+            products.length === 0
+            ? (
+              <div className='p-4'>
+                <p className='bg-red-500 rounded-md py-3 text-white text-center'>No product found</p>
+              </div>
+            )
+            : (
+              <div className={`grid grid-cols-1 ${view === 'grid' ? 'md:grid-cols-2 lg:grid-cols-3' : undefined}`}>
+                {
+                  products.map(item => (
+                    <ProductCard key={item._id} view={view} product={item} />
+                  ))
+                }
+              </div>
+            )
+          }
+
           {
             homeProduct.totalPage > 1 &&
             <div className={`${products.length !== 9 ? 'border-t border-gray-300' : undefined}`}>

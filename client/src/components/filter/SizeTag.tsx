@@ -1,17 +1,26 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 interface IProps {
   handleClickSize: (item: number) => void
   item: number
+  selectedSize: number[]
 }
 
-const SizeTag: React.FC<IProps> = ({ handleClickSize, item }) => {
+const SizeTag: React.FC<IProps> = ({ handleClickSize, item, selectedSize }) => {
   const [isActive, setIsActive] = useState(false)
 
   const handleClick = () => {
     handleClickSize(item)
     setIsActive(!isActive)
   }
+
+  useEffect(() => {
+    if (!selectedSize.includes(item)) {
+      setIsActive(false)
+    }
+
+    return () => setIsActive(true)
+  }, [selectedSize])
 
   return (
     <div

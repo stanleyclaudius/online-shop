@@ -17,6 +17,7 @@ interface IProps {
   openFilter: boolean
   categories: IHomeCategoryData[]
   brands: IBrandData[]
+  selectedCategory: string
   setSelectedCategory: React.Dispatch<React.SetStateAction<string>>
   selectedBrand: string[]
   setSelectedBrand: React.Dispatch<React.SetStateAction<string[]>>
@@ -38,6 +39,7 @@ const Filter: React.FC<IProps> = ({
   openFilter,
   brands,
   categories,
+  selectedCategory,
   setSelectedCategory,
   selectedBrand,
   setSelectedBrand,
@@ -90,10 +92,12 @@ const Filter: React.FC<IProps> = ({
   }, [product.data])
 
   const handleClickCategory = (id: string) => {
+    setSelectedPage(1)
     setSelectedCategory(id)
   }
 
   const handleChangeBrand = (e: InputChange) => {
+    setSelectedPage(1)
     let selectedBrandCopy = [...selectedBrand]
     if (!selectedBrandCopy.includes(e.target.value)) {
       selectedBrandCopy.push(e.target.value)
@@ -104,6 +108,7 @@ const Filter: React.FC<IProps> = ({
   }
 
   const handleClickSize = (item: number) => {
+    setSelectedPage(1)
     let selectedSizeCopy = [...selectedSize]
     if (!selectedSizeCopy.includes(item)) {
       selectedSizeCopy.push(item)
@@ -114,6 +119,7 @@ const Filter: React.FC<IProps> = ({
   }
 
   const handleClickColor = (item: string) => {
+    setSelectedPage(1)
     let selectedColorCopy = [...selectedColor]
     if (!selectedColorCopy.includes(item.substring(1, item.length))) {
       selectedColorCopy.push(item.substring(1, item.length))
@@ -124,6 +130,7 @@ const Filter: React.FC<IProps> = ({
   }
 
   const handleSetPrice = () => {
+    setSelectedPage(1)
     setSelectedPrice(price)
   }
 
@@ -142,7 +149,7 @@ const Filter: React.FC<IProps> = ({
     >
       <div className='flex items-center justify-between border-b border-gray-300'>
         <p className='font-bold border-r border-gray-300 flex-1 px-4 py-3 text-sm'>Filter</p>
-        <div className='py-2 px-3' onClick={handleResetFilter}>
+        <div className='py-2 px-3 cursor-pointer' onClick={handleResetFilter}>
           <HiOutlineRefresh className='text-xl cursor-pointer text-blue-600' />
         </div>
       </div>
@@ -153,7 +160,7 @@ const Filter: React.FC<IProps> = ({
         </div>
         {
           categories.map(item => (
-            <CategoryTag key={item.name} handleClickCategory={handleClickCategory} item={item} />
+            <CategoryTag key={item.name} handleClickCategory={handleClickCategory} item={item} selectedCategory={selectedCategory} />
           ))
         }
       </div>
@@ -206,7 +213,7 @@ const Filter: React.FC<IProps> = ({
           brands.map(item => (
             <div key={item._id} className='flex items-center justify-between pl-11 pr-3 my-2'>
               <label htmlFor={item.name}>{item.name}</label>
-              <input type='checkbox' value={item._id} id={item.name} onChange={handleChangeBrand} />
+              <input type='checkbox' checked={selectedBrand.includes(item._id!) ? true : false} value={item._id} id={item.name} onChange={handleChangeBrand} />
             </div>
           ))
         }
@@ -219,7 +226,7 @@ const Filter: React.FC<IProps> = ({
         <div className='grid grid-cols-7 pl-11 pr-3 gap-4 mt-2 mb-4'>
           {
             colors.map(item => (
-              <ColorTag key={item} handleClickColor={handleClickColor} item={item} />
+              <ColorTag key={item} handleClickColor={handleClickColor} item={item} selectedColor={selectedColor} />
             ))
           }
         </div>
@@ -232,7 +239,7 @@ const Filter: React.FC<IProps> = ({
         <div className='grid grid-cols-5 pl-11 pr-3 mt-2 mb-4'>
           {
             sizes.sort().map(item => (
-              <SizeTag key={item} handleClickSize={handleClickSize} item={item} />
+              <SizeTag key={item} handleClickSize={handleClickSize} item={item} selectedSize={selectedSize} />
             ))
           }
         </div>
