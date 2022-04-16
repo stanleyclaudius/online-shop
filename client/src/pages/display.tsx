@@ -16,12 +16,14 @@ const Display = () => {
     <>
       <HeadInfo title='Banner Management' />
       <Layout>
-        <div className='flex items-center justify-between gap-10'>
-          <h1 className='text-2xl tracking-wide font-oswald'>Home Banner Display</h1>
-        </div>
-        <div className="mt-7">
-          <HighlightedItem admin={true} />
-        </div>
+        <>
+          <div className='flex items-center justify-between gap-10'>
+            <h1 className='text-2xl tracking-wide font-oswald'>Home Banner Display</h1>
+          </div>
+          <div className="mt-7">
+            <HighlightedItem admin={true} />
+          </div>
+        </>
       </Layout>
     </>
   )

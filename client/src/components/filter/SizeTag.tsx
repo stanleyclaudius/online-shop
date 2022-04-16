@@ -20,7 +20,7 @@ const SizeTag: React.FC<IProps> = ({ handleClickSize, item, selectedSize }) => {
     }
 
     return () => setIsActive(true)
-  }, [selectedSize])
+  }, [selectedSize, item])
 
   return (
     <div

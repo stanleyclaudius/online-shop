@@ -21,7 +21,7 @@ const ColorTag: React.FC<IProps> = ({ handleClickColor, item, selectedColor }) =
     }
     
     return () => setIsActive(true)
-  }, [selectedColor])
+  }, [selectedColor, item])
 
   return (
     <div

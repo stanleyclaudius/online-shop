@@ -2,7 +2,7 @@ import Sidebar from './../../components/admin/Sidebar'
 import Navbar from './../../components/admin/Navbar'
 
 interface IProps {
-  children: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>
+  children: React.ReactElement
 }
 
 const Layout: React.FC<IProps> = ({ children }) => {
