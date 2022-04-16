@@ -10,6 +10,7 @@ import { likeQna, unlikeQna } from '../../redux/actions/qnaActions'
 import { ALERT } from '../../redux/types/alertTypes'
 
 interface IProps {
+  children: React.ReactElement
   item: IQnaData
 }
 
