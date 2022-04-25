@@ -128,7 +128,7 @@ Rename constant.example.ts file at ```client/src/utils``` directory become ```co
     | :---: | :---: | :---: |
     | GOOGLE_CLIENT_ID | Your google client ID | 3392348929324-tarur228dxxx |
     | FACEBOOK_APP_ID | Your facebook app ID | 18239943847394 |
-10. Lastly, run bellow command at your terminal to spin off the application
+10. Lastly, run below command at your terminal to spin off the application
     ```
     npm run dev && cd client && npm start
     ```
