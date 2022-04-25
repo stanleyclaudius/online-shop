@@ -20,7 +20,7 @@
     <a href="https://github.com/stanleyclaudius/online-shop.git"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://web-fintrack.herokuapp.com">View Demo</a>
+    <a href="https://sneakershub.herokuapp.com">View Demo</a>
     ·
     <a href="https://github.com/stanleyclaudius/online-shop/issues">Report Bug</a>
     ·
@@ -129,9 +129,9 @@ Rename constant.example.ts file at ```client/src/utils``` directory become ```co
     | GOOGLE_CLIENT_ID | Your google client ID | 3392348929324-tarur228dxxx |
     | FACEBOOK_APP_ID | Your facebook app ID | 18239943847394 |
 10. Lastly, run bellow command at your terminal to spin off the application
-```
-npm run dev && cd client && npm start
-```
+    ```
+    npm run dev && cd client && npm start
+    ```
 
 <p align="right"><a href="#top">back to top</a></p>
 
