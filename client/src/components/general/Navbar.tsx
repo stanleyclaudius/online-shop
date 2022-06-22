@@ -160,7 +160,7 @@ const Navbar = () => {
           to='/'
           className='font-bold font-opensans tracking-widest md:translate-x-16'
         >
-          SNEAKERSKU
+          SNEAKERSHUB
         </Link>
         <div className='flex items-center gap-3 md:gap-6'>
           {

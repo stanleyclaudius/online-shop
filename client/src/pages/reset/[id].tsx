@@ -79,7 +79,7 @@ const ResetPassword = () => {
     <>
       <HeadInfo title='Reset Password' />
       <div className='bg-[#3853D8] text-white px-7 py-4 drop-shadow-xl sticky top-0 z-[999]'>
-        <h1 className='font-opensans font-bold text-center'>SNEAKERSKU | Reset Password</h1>
+        <h1 className='font-opensans font-bold text-center'>SNEAKERSHUB | Reset Password</h1>
       </div>
       <div className='font-opensans my-20 w-full max-w-[500px] m-auto'>
         <h1 className='text-center font-medium mb-8 text-xl'>Reset Password</h1>

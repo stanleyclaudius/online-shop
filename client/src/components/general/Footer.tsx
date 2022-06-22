@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <div className='flex md:flex-row flex-col gap-10 px-5 justify-evenly bg-gray-800 text-white py-8'>
       <div>
-        <h1 className='font-opensans font-bold tracking-widest mb-2 text-xl'>SNEAKERSKU</h1>
+        <h1 className='font-opensans font-bold tracking-widest mb-2 text-xl'>SNEAKERSHUB</h1>
         <p className='text-gray-200'>Find your choiced shoes to be your everyday lifestyle</p>
         <div className='my-5 flex items-center gap-5 text-gray-200 text-sm'>
           <p className='cursor-pointer hover:underline'>Guides</p>
@@ -27,7 +27,7 @@ const Footer = () => {
         </div>
         <div className='flex items-center gap-3'>
           <HiMail />
-          <p>sneakersku@example.com</p>
+          <p>sneakershub@example.com</p>
         </div>
       </div>
       <div>
